@@ -40,8 +40,8 @@ const constantRoutes = [
       {
         path: 'dashboard',
         component: 'views/dashboard/index',
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: 'Home',
+        meta: { title: 'Home', icon: 'people', affix: true }
       }
     ]
   },

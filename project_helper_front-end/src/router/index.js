@@ -14,10 +14,13 @@ import nestedRouter from './modules/nested'
 import teach_projectsRouter from './modules/teachers/projects'
 import teach_gradeRouter from './modules/teachers/grades'
 import teach_presentationRouter from './modules/teachers/presentation'
-import stude_projectRouter from './modules/students/projects'
-import stude_gradeRouter from './modules/students/grades'
-import stude_presentationRouter from './modules/students/presentation'
-
+// import stude_projectRouter from './modules/students/projects'
+// import stude_gradeRouter from './modules/students/grades'
+// import stude_presentationRouter from './modules/students/presentation'
+import stude_overviewRouter from './modules/students/overview'
+import stude_groupRouter from './modules/students/group'
+import stude_announcementRouter from './modules/students/announcement'
+import stude_personalRouter from './modules/students/personal'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -85,8 +88,8 @@ export const constantRoutes = [
       {
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
-        name: 'Dashboard',
-        meta: { title: 'Dashboard', icon: 'dashboard', affix: true }
+        name: 'Home',
+        meta: { title: 'Home', icon: 'people', affix: true }
       }
     ]
   },
@@ -199,10 +202,13 @@ export const asyncRoutes = [
   teach_gradeRouter,
   teach_projectsRouter,
   teach_presentationRouter,
-  stude_gradeRouter,
-  stude_projectRouter,
-  stude_presentationRouter,
-
+  stude_overviewRouter,
+  stude_announcementRouter,
+  // stude_gradeRouter,
+  // stude_projectRouter,
+  // stude_presentationRouter,
+  stude_groupRouter,
+  stude_personalRouter,
 
   {
     path: '/example',
