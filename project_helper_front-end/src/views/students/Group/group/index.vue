@@ -3,13 +3,13 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div id="border3_1">
-          <div class="search-Box">
+          <div class="search-Box" style="padding-top: 50px;padding-left: 40px;">
+            <svg-icon icon-class="search" style="margin-right: 10px;margin-top: 10px;" />
             <el-input
               v-model="search"
               placeholder="请输入关键字"
-              suffix-icon="search"
               class="search2"
-              style="width: 30%;margin-top: 50px;margin-left: 40px;"
+              style="width: 30%;"
             />
           </div>
           <el-table

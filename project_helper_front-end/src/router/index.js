@@ -19,11 +19,11 @@ import teach_emailRouter from './modules/teachers/email'
 import teach_submissionRouter from './modules/teachers/submission'
 import teach_authorityRouter from './modules/teachers/authority'
 import teach_groupRouter from './modules/teachers/groups'
-import teach_overviewRouter from './modules/teachers/overview'
+// import teach_overviewRouter from './modules/teachers/overview'
 // import stude_projectRouter from './modules/students/projects'
 // import stude_gradeRouter from './modules/students/grades'
 // import stude_presentationRouter from './modules/students/presentation'
-import stude_overviewRouter from './modules/students/overview'
+import overviewRouter from './modules/overview'
 import stude_groupRouter from './modules/students/group'
 import announcementRouter from './modules/announcement'
 import stude_personalRouter from './modules/students/personal'
@@ -206,10 +206,10 @@ export const asyncRoutes = [
   chartsRouter,
   nestedRouter,
   tableRouter,
-  teach_overviewRouter,
+  // teach_overviewRouter,
   teach_createProjectRouter,
   teach_authorityRouter,
-  stude_overviewRouter,
+  overviewRouter,
   announcementRouter,
   teach_groupRouter,
   teach_gradeRouter,
