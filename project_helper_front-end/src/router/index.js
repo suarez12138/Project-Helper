@@ -11,16 +11,23 @@ import componentsRouter from './modules/components'
 import chartsRouter from './modules/charts'
 import tableRouter from './modules/table'
 import nestedRouter from './modules/nested'
-import teach_projectsRouter from './modules/teachers/projects'
+// import teach_projectsRouter from './modules/teachers/projects'
 import teach_gradeRouter from './modules/teachers/grades'
 import teach_presentationRouter from './modules/teachers/presentation'
+import teach_createProjectRouter from './modules/teachers/createProject'
+import teach_emailRouter from './modules/teachers/email'
+import teach_submissionRouter from './modules/teachers/submission'
+import teach_authorityRouter from './modules/teachers/authority'
+import teach_groupRouter from './modules/teachers/groups'
+import teach_overviewRouter from './modules/teachers/overview'
 // import stude_projectRouter from './modules/students/projects'
 // import stude_gradeRouter from './modules/students/grades'
 // import stude_presentationRouter from './modules/students/presentation'
 import stude_overviewRouter from './modules/students/overview'
 import stude_groupRouter from './modules/students/group'
-import stude_announcementRouter from './modules/students/announcement'
+import announcementRouter from './modules/announcement'
 import stude_personalRouter from './modules/students/personal'
+import stude_profileRouter from './modules/students/profile'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -89,10 +96,10 @@ export const constantRoutes = [
         path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Home',
-        meta: { title: 'Home', icon: 'people', affix: true }
+        meta: { title: 'Home', icon: 'international', affix: true }
       }
     ]
-  },
+  }
   // {
   //   path: '/documentation',
   //   component: Layout,
@@ -118,20 +125,20 @@ export const constantRoutes = [
   //     }
   //   ]
   // },
-  {
-    path: '/profile',
-    component: Layout,
-    redirect: '/profile/index',
-    hidden: true,
-    children: [
-      {
-        path: 'index',
-        component: () => import('@/views/profile/index'),
-        name: 'Profile',
-        meta: { title: 'Profile', icon: 'user', noCache: true }
-      }
-    ]
-  }
+  // {
+  //   path: '/profile',
+  //   component: Layout,
+  //   redirect: '/profile/index',
+  //   hidden: true,
+  //   children: [
+  //     {
+  //       path: 'index',
+  //       component: () => import('@/views/profile/index'),
+  //       name: 'Profile',
+  //       meta: { title: 'Profile', icon: 'user', noCache: true }
+  //     }
+  //   ]
+  // }
 ]
 
 /**
@@ -199,16 +206,23 @@ export const asyncRoutes = [
   chartsRouter,
   nestedRouter,
   tableRouter,
-  teach_gradeRouter,
-  teach_projectsRouter,
-  teach_presentationRouter,
+  teach_overviewRouter,
+  teach_createProjectRouter,
+  teach_authorityRouter,
   stude_overviewRouter,
-  stude_announcementRouter,
+  announcementRouter,
+  teach_groupRouter,
+  teach_gradeRouter,
+  // teach_projectsRouter,
+  teach_presentationRouter,
+  teach_submissionRouter,
+  teach_emailRouter,
   // stude_gradeRouter,
   // stude_projectRouter,
   // stude_presentationRouter,
   stude_groupRouter,
   stude_personalRouter,
+  stude_profileRouter,
 
   {
     path: '/example',

@@ -8,9 +8,9 @@ const overviewRouter = {
   children: [
     {
       path: 'overview',
-      component: () => import('@/views/students/Overview/overview/index'), // Parent router-view
+      component: () => import('@/views/teachers/Overview/overview/index'), // Parent router-view
       name: 'overview',
-      meta: { title: 'Overview', icon: 'eye-open', roles: ['student'] }
+      meta: { title: 'Overview', icon: 'eye-open', roles: ['teacher'] }
     }
   ]
 }

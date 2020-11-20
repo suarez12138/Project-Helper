@@ -1,8 +1,9 @@
 <template>
-  <div class="components-container">
+  <div v-if="checkPermission(['student'])" class="components-container">
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
-        <div id="border1">
+        <div class="border1">
+          <div class="title">Projects</div>
           <a href="/#/overview/overview">
             <div class="projectmenu">
               <div class="projectname">course: OOAD</div>
@@ -16,8 +17,8 @@
         </div>
       </template>
       <template slot="paneR">
-        <div id="border2">
-          <div class="projectname">Announcements</div>
+        <div class="border2">
+          <div class="title">Announcements</div>
           <!--eslint-disable-next-line-->
           <div v-for="site in announcements" class="announcetitle">
             Title: {{ site.name }} <br> Project: {{ site.project }}
@@ -46,7 +47,34 @@
             <!--            </el-table>-->
           </div>
         </div>
-        <div id="border3">
+        <div class="border3">
+          <el-calendar v-model="value" class="calen" />
+        </div>
+      </template>
+    </split-pane>
+  </div>
+  <div v-else-if="checkPermission(['teacher'])" class="components-container">
+    <split-pane split="vertical" @resize="resize">
+      <template slot="paneL">
+        <div class="border1">
+          <div class="title">Projects</div>
+          <a href="/#/overview/overview">
+            <div class="projectmenu">
+              <div class="projectname">course: OOAD</div>
+              <br>
+              <div class="projectname">project: Project Helper</div>
+            </div>
+          </a>
+          <div class="projectmenu" />
+          <div class="projectmenu" />
+          <div class="projectmenu" />
+        </div>
+      </template>
+      <template slot="paneR">
+        <div class="border2">
+          <div class="center">Create a new group</div>
+        </div>
+        <div class="border3">
           <el-calendar v-model="value" class="calen" />
         </div>
       </template>
@@ -56,10 +84,13 @@
 
 <script>
 import splitPane from 'vue-splitpane'
+import permission from '@/directive/permission/index.js' // 权限判断指令
+import checkPermission from '@/utils/permission' // 权限判断函数
 
 export default {
   name: 'SplitpaneDemo',
   components: { splitPane },
+  directives: { permission },
   data() {
     return {
       announcements: [
@@ -71,6 +102,7 @@ export default {
     }
   },
   methods: {
+    checkPermission,
     resize() {
       console.log('resize')
     }
@@ -106,27 +138,27 @@ export default {
   height: 100%;
 }
 
-#border1, #border2, #border3 {
+.border1, .border2, .border3 {
   width: 100%;
   border-radius: 50px;
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
 }
 
-#border1 {
+.border1 {
   height: 100%;
   box-shadow: 0 0 40px #151516;
   background: linear-gradient(to bottom, #203025 0%, #151516 100%)
 }
 
-#border2 {
+.border2 {
   height: 49%;
   box-shadow: 0 0 40px #c52d47;
   background: linear-gradient(215deg, #c52d47 0%, #a5325c 30%, #8b366d 100%);
   margin-bottom: 20px;
 }
 
-#border3 {
+.border3 {
   height: 49%;
   box-shadow: 0 0 40px #1623A6;
   background: linear-gradient(225deg, #1623A6 0%, #3343D4 29%, #175EAC 73%, #176682 100%);
@@ -138,6 +170,23 @@ export default {
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 15px;
+}
+
+.border1:hover, .border2:hover, .border3:hover  {
+  transform: translate(-2px, -8px);
+  transition: all 0.3s ease-in-out;
+}
+
+.border1:hover {
+  box-shadow: 12px 20px 20px #151516;
+}
+
+.border2:hover {
+  box-shadow: 12px 20px 20px #c52d47;
+}
+
+.border3:hover {
+  box-shadow: 12px 20px 20px #1623A6;
 }
 
 /*.projectmenu ::after {*/
@@ -160,6 +209,13 @@ export default {
   border: #ffffff;
   transform: translate(-2px, -8px);
   transition: 0.2s ease-in-out;
+}
+.center{
+  color: #ffffff;
+  font-size: 55px;
+  transition: 0.2s ease-in-out;
+  text-align: center;
+  padding-top: 182px;
 }
 
 div {
@@ -217,13 +273,19 @@ div {
   margin-bottom: 0;
 }
 
-.announcetitle {
+.announcetitle, .title {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  margin-top: 30px;
+  padding-top: 30px;
 }
+
+.title {
+  font-size: 40px;
+  color: #ffffff;
+}
+
 /*.hasTagsView .app-main[data-v-078753dd]{*/
 /*  background-color: #000000;*/
 /*  color: #000000;*/
