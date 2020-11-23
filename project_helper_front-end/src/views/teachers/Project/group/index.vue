@@ -296,7 +296,7 @@ export default {
 #border3_1 {
   height: 100%;
   width: 60%;
-  border: 2px solid #2CAD6F;
+  border: 2px solid #1890ff;
   margin-left: 300px;
 }
 
@@ -304,17 +304,17 @@ export default {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 10px 10px 20px #2CAD6F;
+  box-shadow: 10px 10px 20px #1890ff;
 }
 
 #border3_1:hover, #border3_2:hover {
-  box-shadow:20px 20px 20px #2CAD6F;
+  box-shadow:20px 20px 20px #1890ff;
   transform: translate(-5px,-5px);
   transition: 0.3s ease-in-out;
 }
 
 .title {
-  color: #000000;
+  color: #1890ff;
   font-size: 30px;
   transition: 0.2s ease-in-out;
   text-align: center;

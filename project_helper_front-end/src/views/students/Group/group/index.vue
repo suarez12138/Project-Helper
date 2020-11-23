@@ -13,8 +13,8 @@
             />
           </div>
           <el-table
-            v-loading="listLoading"
             ref="filterTable"
+            v-loading="listLoading"
             :data="tableData3"
             style="width: 100%"
             highlight-current-row
@@ -35,8 +35,8 @@
                   <!--                  <div id="border3_3">-->
                   <div class="title">Selected Group</div>
                   <el-table
-                    v-loading="listLoading"
                     ref="filterTable"
+                    v-loading="listLoading"
                     class="juzhong"
                     :data="tableData2"
                     style="width: 100%"
@@ -141,8 +141,8 @@
           <!--            </el-button>-->
           <!--          </el-popover>-->
           <el-table
-            v-loading="listLoading"
             ref="filterTable"
+            v-loading="listLoading"
             class="juzhong"
             :data="tableData2"
             style="width: 100%"
@@ -251,7 +251,7 @@ import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
 import { fetchGroupsList } from '@/api/group'
 import { fetchMyGroup } from '@/api/group'
-
+import { fetchList } from '@/api/article'
 
 export default {
   name: 'DndListDemo',
@@ -292,9 +292,9 @@ export default {
       //   pre_time: '周四下午',
       //   status: '未完成组队'
       // }
-      null
+        null
       ],
-      tableData2: 
+      tableData2:
       null,
       // [
       //   {
@@ -333,30 +333,30 @@ export default {
     }
   },
   created() {
-    console.log("aaaaaaaaaaaaaaaaaaaaaa")
+    console.log('aaaaaaaaaaaaaaaaaaaaaa')
     this.getAllGroups()
     this.getMyGroup()
   },
   methods: {
-    getAllGroups(){
-        this.listLoading = true
-        fetchGroupsList().then(response => {
-          this.tableData33 = response.data.items
-          this.listLoading = false
+    getAllGroups() {
+      this.listLoading = true
+      fetchGroupsList().then(response => {
+        this.tableData33 = response.data.items
+        this.listLoading = false
       })
     },
-    getMyGroup(){//应该传一些学号什么的回去
-        this.listLoading = true
-        fetchMyGroup().then(response => {
-          this.tableData2 = response.data.items
-          this.listLoading = false
+    getMyGroup() { // 应该传一些学号什么的回去
+      this.listLoading = true
+      fetchMyGroup().then(response => {
+        this.tableData2 = response.data.items
+        this.listLoading = false
       })
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
       this.show_tooltip = false
     },
-    returnrow(row){
+    returnrow(row) {
       console.log(row)
     },
     toggleTooltip: function() {
@@ -379,12 +379,6 @@ export default {
     open() {
       this.$alert('此组已完成组队，尝试加入其他组吧！', '组队失败', {
         confirmButtonText: '确定'
-        // callback: action => {
-        //   this.$message({
-        //     type: 'info',
-        //     message: `action: ${action}`
-        //   });
-        // }
       })
     },
     quit() {
@@ -448,28 +442,55 @@ export default {
 
 .el-popover {
   border-radius: 20px;
-  box-shadow: 0 0 40px #CCCCCC;
+  box-shadow: 0 0 40px #1890ff;
 }
 
 #border3_2 {
   height: 100%;
+  margin-left: 15px;
 }
 
 #border3_1 {
   height: 100%;
+  overflow-y: auto;
+  margin-right: 15px;
 }
 
 #border3_1, #border3_2 {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 40px #CCCCCC;
+  box-shadow: 0 0 40px #1890ff;
+  border: 2px solid #1890ff;
 }
 
 #border3_1:hover, #border3_2:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
-  box-shadow: 12px 20px 20px #CCCCCC;
+  box-shadow: 12px 20px 20px #1890ff;
+}
+
+#border3_1::-webkit-scrollbar{/*滚动条整体*/
+  width:10px;
+}
+#border3_1::-webkit-scrollbar-track{/*滚动条轨道*/
+  /*background:#999;*/
+  background:#ffffff;
+  border-radius:20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+
+}
+#border3_1::-webkit-scrollbar-thumb{/*滚动条里面的滑块*/
+  background:#1890ff;
+  border-radius:10px;
+}
+/*#border3_1::-webkit-scrollbar-thumb:hover{!*滚动条鼠标事件，鼠标放上去出现的事件*!*/
+/*  background:#ffffff;*/
+/*}*/
+
+#border3_1::-webkit-scrollbar-corner{/*滚动条边角*/
+  background:#1890ff;
 }
 
 .title {

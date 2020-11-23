@@ -69,38 +69,70 @@ export default {
         name: '',
         population: [2, 4],
         time: [],
-        grouping: false
+        grouping: true
       },
       options: [{
         value: 1,
-        label: '第一周'
+        label: 'Week 1'
       }, {
         value: 2,
-        label: '第二周'
+        label: 'Week 2'
+      }, {
+        value: 3,
+        label: 'Week 3'
+      }, {
+        value: 4,
+        label: 'Week 4'
+      }, {
+        value: 5,
+        label: 'Week 5'
+      }, {
+        value: 6,
+        label: 'Week 6'
+      }, {
+        value: 7,
+        label: 'Week 7'
+      }, {
+        value: 8,
+        label: 'Week 8'
+      }, {
+        value: 9,
+        label: 'Week 9'
+      }, {
+        value: 10,
+        label: 'Week 10'
+      }, {
+        value: 11,
+        label: 'Week 11'
+      }, {
+        value: 12,
+        label: 'Week 12'
+      }, {
+        value: 13,
+        label: 'Week 13'
+      }, {
+        value: 14,
+        label: 'Week 14'
+      }, {
+        value: 15,
+        label: 'Week 15'
+      }, {
+        value: 16,
+        label: 'Week 16'
+      }, {
+        value: 17,
+        label: 'Week 17'
       }],
       rules: {
-        // name: [
-        //   {required: true, message: '请输入活动名称', trigger: 'blur'},
-        //   {min: 3, max: 5, message: '长度在 3 到 5 个字符', trigger: 'blur'}
-        // ],
-        // region: [
-        //   {required: true, message: '请选择活动区域', trigger: 'change'}
-        // ],
-        // date1: [
-        //   {type: 'date', required: true, message: '请选择日期', trigger: 'change'}
-        // ],
-        // date2: [
-        //   {type: 'date', required: true, message: '请选择时间', trigger: 'change'}
-        // ],
-        // type: [
-        //   {type: 'array', required: true, message: '请至少选择一个活动性质', trigger: 'change'}
-        // ],
-        // resource: [
-        //   {required: true, message: '请选择活动资源', trigger: 'change'}
-        // ],
-        // desc: [
-        //   {required: true, message: '请填写活动形式', trigger: 'blur'}
-        // ]
+        course: [
+          { required: true, message: '请输入课程名称', trigger: 'blur' }
+        ],
+        name: [
+          { required: true, message: '请输入项目名称', trigger: 'blur' }
+        ],
+        time: [
+          { required: true, message: '请选择可答辩时间', trigger: 'blur' }
+        ]
       }
     }
   },

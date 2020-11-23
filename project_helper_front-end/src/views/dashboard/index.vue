@@ -20,8 +20,10 @@
         <div class="border2">
           <div class="title">Announcements</div>
           <!--eslint-disable-next-line-->
-          <div v-for="site in announcements" class="announcetitle">
-            Title: {{ site.name }} <br> Project: {{ site.project }}
+          <div v-for="annoucement in announcements" class="announcetitle">
+            <a href="/#/announcement/announcement">
+              Title: {{ annoucement.name }} <br> Project: {{ annoucement.project }}
+            </a>
           </div>
           <div>
             <!--            <el-table-->
@@ -116,28 +118,6 @@ export default {
 .components-container {
   position: relative;
   height: 100vh;
-}
-
-.left-container {
-  background-color: #F38181;
-  height: 100%;
-}
-
-.right-container {
-  background-color: #FCE38A;
-  height: 200px;
-}
-
-.top-container {
-  background-color: #FCE38A;
-  width: 100%;
-  height: 100%;
-}
-
-.bottom-container {
-  width: 100%;
-  background-color: #95E1D3;
-  height: 100%;
 }
 
 .border1, .border2, .border3 {
