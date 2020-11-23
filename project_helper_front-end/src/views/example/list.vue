@@ -85,7 +85,8 @@ export default {
     }
   },
   created() {
-    this.getList()
+    // console.log("aaaaaaaaaaaaaaaaaaaaaa");
+    this.getList();
   },
   methods: {
     getList() {

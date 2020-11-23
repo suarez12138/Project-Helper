@@ -13,6 +13,7 @@
             />
           </div>
           <el-table
+            v-loading="listLoading"
             ref="filterTable"
             :data="tableData3"
             style="width: 100%"
@@ -30,10 +31,11 @@
               width="100"
             >
               <template slot-scope="scope">
-                <el-popover trigger="hover" placement="right" class="pout">
+                <el-popover trigger="click" placement="right" class="pout">
                   <!--                  <div id="border3_3">-->
                   <div class="title">Selected Group</div>
                   <el-table
+                    v-loading="listLoading"
                     ref="filterTable"
                     class="juzhong"
                     :data="tableData2"
@@ -66,7 +68,7 @@
                   <!--                  <p>张三 SPRINGBOOT</p>-->
                   <!--                  <p>李四 VUE</p>-->
                   <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium">{{ scope.row.name }}</el-tag>
+                    <el-tag size="medium" @click="returnrow(this.row)">{{ scope.row.name }}</el-tag>
                   </div>
                 </el-popover>
               </template>
@@ -139,6 +141,7 @@
           <!--            </el-button>-->
           <!--          </el-popover>-->
           <el-table
+            v-loading="listLoading"
             ref="filterTable"
             class="juzhong"
             :data="tableData2"
@@ -246,7 +249,9 @@
 <script>
 import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
-import { fetchList } from '@/api/article'
+import { fetchGroupsList } from '@/api/group'
+import { fetchMyGroup } from '@/api/group'
+
 
 export default {
   name: 'DndListDemo',
@@ -267,42 +272,50 @@ export default {
       list1: [],
       list2: [],
       textarea: '',
-      tableData33: [{
-        name: '组1',
-        pre_time: '周五上午',
-        information: '不搞基',
-        status: '完成组队'
-      }, {
-        name: '组13',
-        pre_time: '周四下午',
-        information: '不划水',
-        status: '未完成组队'
-      }, {
-        name: '组32',
-        pre_time: '周五上午',
-        status: '完成组队'
-      }, {
-        name: '组3',
-        pre_time: '周四下午',
-        status: '未完成组队'
-      }],
-      tableData2: [{
-        name: '张小虎',
-        gender: '男',
-        skill: 'SPRING BOOT'
-      }, {
-        name: '王小虎',
-        gender: '女',
-        skill: 'VUE'
-      }, {
-        name: '王小虎'
-      }, {
-        name: '王小虎'
-      }],
+      tableData33: [
+      //   {
+      //   name: '组1',
+      //   pre_time: '周五上午',
+      //   information: '不搞基',
+      //   status: '完成组队'
+      // }, {
+      //   name: '组13',
+      //   pre_time: '周四下午',
+      //   information: '不划水',
+      //   status: '未完成组队'
+      // }, {
+      //   name: '组32',
+      //   pre_time: '周五上午',
+      //   status: '完成组队'
+      // }, {
+      //   name: '组3',
+      //   pre_time: '周四下午',
+      //   status: '未完成组队'
+      // }
+      null
+      ],
+      tableData2: 
+      null,
+      // [
+      //   {
+      //   name: '张小虎',
+      //   gender: '男',
+      //   skill: 'SPRING BOOT'
+      // }, {
+      //   name: '王小虎',
+      //   gender: '女',
+      //   skill: 'VUE'
+      // }, {
+      //   name: '王小虎'
+      // }, {
+      //   name: '王小虎'
+      // }
+      // ],
       ruleForm: {
         population: '',
         information: ''
       },
+      listLoading: true,
       search: ''
     }
   },
@@ -320,12 +333,31 @@ export default {
     }
   },
   created() {
-    this.getData()
+    console.log("aaaaaaaaaaaaaaaaaaaaaa")
+    this.getAllGroups()
+    this.getMyGroup()
   },
   methods: {
+    getAllGroups(){
+        this.listLoading = true
+        fetchGroupsList().then(response => {
+          this.tableData33 = response.data.items
+          this.listLoading = false
+      })
+    },
+    getMyGroup(){//应该传一些学号什么的回去
+        this.listLoading = true
+        fetchMyGroup().then(response => {
+          this.tableData2 = response.data.items
+          this.listLoading = false
+      })
+    },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
       this.show_tooltip = false
+    },
+    returnrow(row){
+      console.log(row)
     },
     toggleTooltip: function() {
       this.show_tooltip = !this.show_tooltip
@@ -333,7 +365,7 @@ export default {
     getData() {
       this.listLoading = true
       fetchList().then(response => {
-        this.list1 = response.data.items.splice(0, 5)
+        this.list1 = response.data.items
         this.list2 = response.data.items
       })
     },
