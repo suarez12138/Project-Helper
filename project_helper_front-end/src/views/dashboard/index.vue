@@ -71,9 +71,11 @@
         </div>
       </template>
       <template slot="paneR">
-        <div class="border2">
-          <div class="center">Create a new group</div>
-        </div>
+        <a href="/#/createProject/createProject">
+          <div class="border2">
+            <div class="center">Create a new group</div>
+          </div>
+        </a>
         <div class="border3">
           <el-calendar v-model="value" class="calen" />
         </div>
@@ -148,7 +150,7 @@ export default {
 .border1 {
   height: 100%;
   box-shadow: 0 0 40px #151516;
-  background: linear-gradient(to bottom, #203025 0%, #151516 100%)
+  background: linear-gradient(to bottom, #203025 0%, #151516 100%);
 }
 
 .border2 {
@@ -172,7 +174,7 @@ export default {
   padding-top: 15px;
 }
 
-.border1:hover, .border2:hover, .border3:hover  {
+.border1:hover, .border2:hover, .border3:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
 }
@@ -210,7 +212,8 @@ export default {
   transform: translate(-2px, -8px);
   transition: 0.2s ease-in-out;
 }
-.center{
+
+.center {
   color: #ffffff;
   font-size: 55px;
   transition: 0.2s ease-in-out;

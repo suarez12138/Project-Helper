@@ -17,8 +17,9 @@
       </div>
     </el-dialog>
     <div>
-      <div class="search-Box">
-        <el-input v-model="search" placeholder="请输入关键字" icon="search" class="search" />
+      <div class="search-Box" style=" margin-right: 100px;">
+        <el-input v-model="search" placeholder="请输入关键字" class="search" />
+        <svg-icon icon-class="search" style="float: right;margin-right: 10px;margin-top: 10px;" />
       </div>
       <el-table
         ref="filterTable"
@@ -220,7 +221,6 @@ export default {
 <style>
 .search {
   float: right;
-  margin-right: 100px;
   width: 20%;
 }
 
@@ -228,7 +228,7 @@ export default {
   border-radius: 30px;
 }
 
-.el-tag, .el-button, .el-dialog, .el-input__inner,.el-select-dropdown {
+.el-tag, .el-button, .el-dialog, .el-input__inner, .el-select-dropdown {
   border-radius: 20px;
 }
 </style>
