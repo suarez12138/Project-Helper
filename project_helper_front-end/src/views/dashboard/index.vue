@@ -260,13 +260,18 @@ div {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
-  text-align: center;
-  padding-top: 30px;
+}
+.announcetitle{
+  text-align: left;
+  margin-left: 200px;
+  padding-top: 10px;
 }
 
 .title {
+  padding-top: 30px;
   font-size: 40px;
   color: #ffffff;
+  text-align: center;
 }
 
 /*.hasTagsView .app-main[data-v-078753dd]{*/

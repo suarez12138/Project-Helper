@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <div id="border3_1">
+    <div id="t_border3_1">
       <div class="create_title">Create A New Project</div>
 
       <el-form ref="ruleForm" :model="ruleForm" :rules="rules" label-width="100px" class="demo-ruleForm">
@@ -170,21 +170,18 @@ export default {
   box-shadow: 0 0 40px #CCCCCC;
 }
 
-#border3_1 {
+#t_border3_1 {
   height: 100%;
   width: 60%;
   border: 2px solid #1890ff;
   margin-left: 300px;
-}
-
-#border3_1 {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
   box-shadow: 10px 10px 20px #1890ff;
 }
 
-#border3_1:hover {
+#t_border3_1:hover {
   box-shadow: 20px 20px 20px #1890ff;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;
@@ -200,14 +197,4 @@ export default {
 
 }
 
-.flo {
-  position: relative;
-  float: left;
-}
-
-.juzhong {
-  margin-left: 100px;
-  margin-right: 100px;
-  width: 75% !important;
-}
 </style>

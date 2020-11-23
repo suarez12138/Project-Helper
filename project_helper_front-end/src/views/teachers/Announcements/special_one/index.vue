@@ -1,18 +1,9 @@
 <template>
-  <div v-if="checkPermission(['student'])" class="frame">
+  <div class="frame">
     <div class="an_title">{{ an.name }}</div>
     <div class="by_time">{{ an.by }}</div>
     <div class="by_time">{{ an.time }}</div>
     <div class="content">{{ an.message }}</div>
-  </div>
-  <div v-else-if="checkPermission(['teacher'])">
-    <div />
-    <div class="frame">
-      <div class="an_title">{{ an.name }}</div>
-      <div class="by_time">{{ an.by }}</div>
-      <div class="by_time">{{ an.time }}</div>
-      <div class="content">{{ an.message }}</div>
-    </div>
   </div>
 </template>
 
@@ -65,8 +56,8 @@ export default {
   border-radius: 10px;
 }
 
-.content::-webkit-scrollbar-thumb:hover{/*滚动条鼠标事件，鼠标放上去出现的事件*/
-  background:#8b366d;
+.content::-webkit-scrollbar-thumb:hover { /*滚动条鼠标事件，鼠标放上去出现的事件*/
+  background: #8b366d;
 }
 
 .content::-webkit-scrollbar-corner { /*滚动条边角*/

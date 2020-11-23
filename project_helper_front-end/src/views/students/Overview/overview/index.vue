@@ -6,8 +6,8 @@
           <div class="title1">Announcements</div>
           <!--          <ol class="title">-->
           <!--eslint-disable-next-line-->
-          <div v-for="site in sites" class="announcetitle">
-            Title: {{ site.name }} <br>
+          <div v-for="an in announcements" class="announcetitle">
+            Title: {{ an.name }} <br>
           </div>
           <!--          </ol>-->
         </div>
@@ -39,7 +39,7 @@
             <div class="juzhong2">Create New Project</div>
           </div>
         </a>
-        <a href="/#/announcement/announcement">
+        <a href="/#/announcements/announcements">
           <div id="t_border2_2">
             <div class="juzhong2">Announcements</div>
           </div>
@@ -94,7 +94,7 @@ export default {
   data() {
     return {
       dialogTableVisible: false,
-      sites: [
+      announcements: [
         { name: 'check your progress', project: 'project3' },
         { name: 'tips', project: 'project4' },
         { name: 'announce DDL', project: 'project1' }
@@ -125,7 +125,6 @@ export default {
   height: 100%;
   box-shadow: 0 0 40px #257983;
   background: linear-gradient(to right top, #604C7C 0%, #257983 50%, #20825A 100%);
-
 }
 
 #border2_2 {
@@ -165,8 +164,9 @@ export default {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
-  text-align: center;
+  text-align: left;
   margin-top: 30px;
+  margin-left: 200px;
 }
 
 #border2_1, #border2_2, #border2_3, #border2_4 {
@@ -205,7 +205,7 @@ export default {
 #t_border2_1, #t_border2_2, #t_border2_3, #t_border2_4, #t_border2_5, #t_border2_6, #t_border2_7, #t_border2_8 {
   height: 23%;
   margin-bottom: 20px;
-  width: 100%;
+  width: 96%;
   border-radius: 80px;
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
@@ -214,7 +214,6 @@ export default {
 #t_border2_1 {
   box-shadow: 0 0 40px #257983;
   background: linear-gradient(to right top, #604C7C 0%, #257983 50%, #20825A 100%);
-
 }
 
 #t_border2_3 {
@@ -235,21 +234,25 @@ export default {
 #t_border2_5 {
   box-shadow: 0 0 40px #1623A6;
   background: linear-gradient(225deg, #1623A6 0%, #3343D4 29%, #175EAC 73%, #176682 100%);
+  margin-left: 30px;
 }
 
 #t_border2_6 {
   box-shadow: 0 0 40px #151516;
   background: linear-gradient(to bottom, #203025 0%, #151516 100%);
+  margin-left: 30px;
 }
 
 #t_border2_7 {
   box-shadow: 0 0 40px #c52d47;
   background: linear-gradient(215deg, #c52d47 0%, #a5325c 30%, #8b366d 100%);
+  margin-left: 30px;
 }
 
 #t_border2_8 {
   box-shadow: 0 0 40px #3B4980;
   background: linear-gradient(to right top, #194189 0%, #3B4980 25%, #8738A7 100%);
+  margin-left: 30px;
 }
 
 .juzhong2{

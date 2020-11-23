@@ -3,7 +3,8 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div id="border3_1">
-          <div class="search-Box" style="padding-top: 50px;padding-left: 40px;">
+          <div class="title">Grouping Information</div>
+          <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
             <svg-icon icon-class="search" style="margin-right: 10px;margin-top: 10px;" />
             <el-input
               v-model="search"
@@ -68,7 +69,7 @@
                   <!--                  <p>张三 SPRINGBOOT</p>-->
                   <!--                  <p>李四 VUE</p>-->
                   <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium" @click="returnrow(this.row)">{{ scope.row.name }}</el-tag>
+                    <el-tag size="medium" @click="returnrow()">{{ scope.row.name }}</el-tag>
                   </div>
                 </el-popover>
               </template>
@@ -441,8 +442,10 @@ export default {
 }
 
 .el-popover {
+  border: 1px dashed #1890ff;
   border-radius: 20px;
-  box-shadow: 0 0 40px #1890ff;
+  box-shadow: 0 0 10px #1890ff;
+  padding-bottom: 50px;
 }
 
 #border3_2 {
@@ -494,7 +497,7 @@ export default {
 }
 
 .title {
-  color: #000000;
+  color: #1890ff;
   font-size: 30px;
   transition: 0.2s ease-in-out;
   text-align: center;

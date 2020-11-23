@@ -5,13 +5,6 @@ import Layout from '@/layout'
 const personalRouter = {
   path: '/personal',
   component: Layout,
-  // redirect: '/students/Overview/overview',
-  // name: 'personal',
-  // meta: {
-  //   title: 'Personal',
-  //   icon: 'user',
-  //   roles: ['student']
-  // },
   children: [
     {
       path: 'personal',

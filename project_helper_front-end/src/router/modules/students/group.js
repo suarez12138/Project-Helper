@@ -5,13 +5,6 @@ import Layout from '@/layout'
 const groupRouter = {
   path: '/studentGroup',
   component: Layout,
-  // redirect: '/students/Overview/overview',
-  // name: 'studentGroup',
-  // meta: {
-  //   title: 'Group',
-  //   icon: 'peoples',
-  //   roles: ['student']
-  // },
   children: [
     {
       path: 'studentGroup',

@@ -1,9 +1,9 @@
 <template>
   <div class="components-container">
-    <div id="border3_1">
+    <div id="t_border3_1">
       <div class="title">Group Information</div>
-      <div class="search-Box" style="margin-top: 50px;margin-left: 40px;">
-        <svg-icon icon-class="search" />
+      <div class="search-Box" style="margin-top: 20px;margin-left: 40px;">
+        <svg-icon color="#1890ff" icon-class="search" />
         <el-input
           v-model="search"
           placeholder="请输入关键字"
@@ -217,12 +217,6 @@ export default {
     open() {
       this.$alert('此组已完成组队，尝试加入其他组吧！', '组队失败', {
         confirmButtonText: '确定'
-        // callback: action => {
-        //   this.$message({
-        //     type: 'info',
-        //     message: `action: ${action}`
-        //   });
-        // }
       })
     },
     quit() {
@@ -285,29 +279,29 @@ export default {
 }
 
 .el-popover {
+  border: 1px dashed #1890ff;
   border-radius: 20px;
-  box-shadow: 0 0 40px #CCCCCC;
+  box-shadow: 0 0 10px #1890ff;
+  padding-bottom: 50px;
 }
 
-#border3_2 {
-  height: 100%;
-}
-
-#border3_1 {
+#t_border3_1 {
   height: 100%;
   width: 60%;
   border: 2px solid #1890ff;
   margin-left: 300px;
+  padding-left: 100px;
+  padding-right: 100px;
 }
 
-#border3_1, #border3_2 {
+#t_border3_1 {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
   box-shadow: 10px 10px 20px #1890ff;
 }
 
-#border3_1:hover, #border3_2:hover {
+#t_border3_1:hover{
   box-shadow:20px 20px 20px #1890ff;
   transform: translate(-5px,-5px);
   transition: 0.3s ease-in-out;
