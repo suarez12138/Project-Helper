@@ -10,20 +10,26 @@ const gradesRouter = {
   meta: {
     title: 'Grades',
     icon: 'form',
-    roles: ['teacher'] 
+    roles: ['teacher']
   },
   children: [
     {
-      path: 'datas',
-      component: () => import('@/views/teachers/Grades/Datas/index'), // Parent router-view
+      path: 'data',
+      component: () => import('@/views/teachers/Grades/Data/index'), // Parent router-view
       name: 'Data',
-      meta: { title: 'Data'}
+      meta: { title: 'Data' }
     },
     {
-      path: 'greading',
-      component: () => import('@/views/teachers/Grades/Grading/index'),
-      name: 'Greading',
-      meta: { title: 'Greading' }
+      path: 'grading',
+      component: () => import('@/views/teachers/Grades/Online Grading/index'),
+      name: 'Grading',
+      meta: { title: 'Online Grading' }
+    },
+    {
+      path: 'upload',
+      component: () => import('@/views/teachers/Grades/Upload/index'),
+      name: 'upload',
+      meta: { title: 'Upload' }
     }
   ]
 }

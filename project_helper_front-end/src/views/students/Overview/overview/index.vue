@@ -66,7 +66,7 @@
             <div class="juzhong2">Submission information</div>
           </div>
         </a>
-        <a href="/#/grades/datas">
+        <a href="/#/grades/grading">
           <div id="t_border2_7">
             <div class="juzhong2">Grades</div>
           </div>
