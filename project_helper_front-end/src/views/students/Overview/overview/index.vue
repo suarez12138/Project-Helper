@@ -61,9 +61,9 @@
             <div class="juzhong2">Grouping</div>
           </div>
         </a>
-        <a href="/#/submission/submission">
+        <a href="/#/teacher_presentation/presentation">
           <div id="t_border2_6">
-            <div class="juzhong2">Submission information</div>
+            <div class="juzhong2">Presentation</div>
           </div>
         </a>
         <a href="/#/grades/grading">

@@ -1,6 +1,10 @@
 <template>
   <div style="padding:30px;">
-    <div>
+    <div class="search-Box" style=" margin-right: 30px;">
+      <svg-icon icon-class="search" style="float: left;margin-right: 10px;margin-top: 10px; color: #1890ff;" />
+      <el-input v-model="search" placeholder="请输入关键字" class="search" />
+    </div>
+    <div style="float: right;">
       <el-button
         :loading="downloadLoading"
         style="margin:0 0 20px 20px;"
@@ -10,11 +14,12 @@
       >
         Export Excel
       </el-button>
+      <el-button type="primary">上传<i class="el-icon-upload el-icon--right" /></el-button>
     </div>
     <el-table
       v-loading="listLoading"
       width="650"
-      :data="scorelist"
+      :data="scorelist2"
       element-loading-text="Loading..."
       border
       fit
@@ -64,7 +69,21 @@ export default {
         { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99' },
         { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
         { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
-      ]
+      ],
+      search: ''
+    }
+  },
+  computed: {
+    scorelist2: function() {
+      var search = this.search
+      if (search) {
+        return this.scorelist.filter(function(dataNews) {
+          return Object.keys(dataNews).some(function(key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.scorelist
     }
   },
   created() {
@@ -117,6 +136,11 @@ export default {
 
 .el-input__inner {
   padding-left: 50px;
+}
+
+.search {
+  float: left;
+  width: 30%;
 }
 
 </style>
