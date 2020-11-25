@@ -253,6 +253,7 @@ import splitPane from 'vue-splitpane'
 import { fetchGroupsList } from '@/api/group'
 import { fetchMyGroup } from '@/api/group'
 import { fetchList } from '@/api/article'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DndListDemo',
@@ -334,7 +335,6 @@ export default {
     }
   },
   created() {
-    console.log('aaaaaaaaaaaaaaaaaaaaaa')
     this.getAllGroups()
     this.getMyGroup()
   },
@@ -348,7 +348,9 @@ export default {
     },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
-      fetchMyGroup().then(response => {
+      console.log(getToken());
+      console.log("aaaaaaaaaaaaaa");
+      fetchMyGroup(getToken()).then(response => {
         this.tableData2 = response.data.items
         this.listLoading = false
       })

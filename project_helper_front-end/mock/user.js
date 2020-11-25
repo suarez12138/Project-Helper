@@ -11,6 +11,9 @@ const tokens = {
   },
   student: {
     token: 'student-token'
+  },
+  11813009:{
+    token: '11813009'
   }
 }
 
@@ -38,12 +41,18 @@ const users = {
     introduction: 'I am a student',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Super student'
+  },
+  '11813009':{
+    roles: ['student'],
+    introduction: 'I am a super student',
+    avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+    name: 'Longcan Chen'
   }
 
 }
 
 module.exports = [
-  // user login
+  // // user login
   {
     url: '/vue-element-admin/user/login',
     type: 'post',
