@@ -7,7 +7,9 @@
           <!--          <ol class="title">-->
           <!--eslint-disable-next-line-->
           <div v-for="an in announcements" class="announcetitle">
-            Title: {{ an.name }} <br>
+            <a href="/#/announcement/announcement">
+              Title: {{ an.name }} <br> By:{{ an.by }}<br>{{ an.time }}
+            </a>
           </div>
           <!--          </ol>-->
         </div>
@@ -95,9 +97,14 @@ export default {
     return {
       dialogTableVisible: false,
       announcements: [
-        { name: 'check your progress', project: 'project3' },
-        { name: 'tips', project: 'project4' },
-        { name: 'announce DDL', project: 'project1' }
+        { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
+        { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
       ]
     }
   },
@@ -125,6 +132,23 @@ export default {
   height: 100%;
   box-shadow: 0 0 40px #257983;
   background: linear-gradient(to right top, #604C7C 0%, #257983 50%, #20825A 100%);
+  overflow-y: auto;
+}
+
+#border2_1::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+#border2_1::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+#border2_1::-webkit-scrollbar-thumb {
+  background: #257983;
+  border-radius: 10px;
 }
 
 #border2_2 {
@@ -255,7 +279,7 @@ export default {
   margin-left: 30px;
 }
 
-.juzhong2{
+.juzhong2 {
   color: #cccccc;
   font-size: 50px;
   transition: 0.2s ease-in-out;
@@ -269,7 +293,7 @@ export default {
 
 }
 
-#t_border2_1:hover, #t_border2_2:hover, #t_border2_3:hover, #t_border2_4:hover , #t_border2_5:hover , #t_border2_6:hover , #t_border2_7:hover , #t_border2_8:hover {
+#t_border2_1:hover, #t_border2_2:hover, #t_border2_3:hover, #t_border2_4:hover, #t_border2_5:hover, #t_border2_6:hover, #t_border2_7:hover, #t_border2_8:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
 }
