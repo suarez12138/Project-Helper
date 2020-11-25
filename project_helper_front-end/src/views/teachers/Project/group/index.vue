@@ -114,8 +114,6 @@
 </template>
 
 <script>
-// import splitPane from 'vue-splitpane'
-// import DndList from '@/components/DndList'
 import { fetchList } from '@/api/article'
 
 export default {
@@ -124,15 +122,6 @@ export default {
   data() {
     return {
       show_tooltip: false,
-      text_content: 'My Group',
-      fileList: [{
-        name: 'food.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-      }, {
-        name: 'food2.jpeg',
-        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
-      }],
-      dialogVisible: false,
       value2: true,
       list1: [],
       list2: [],
@@ -214,18 +203,6 @@ export default {
       this.currentRow = val
       console.log(this.currentRow)
     },
-    open() {
-      this.$alert('此组已完成组队，尝试加入其他组吧！', '组队失败', {
-        confirmButtonText: '确定'
-      })
-    },
-    quit() {
-    },
-    handleClick(row) {
-      if (row.status === '完成组队') {
-        this.open()
-      }
-    },
     handleChange(value) {
       console.log(value)
     },
@@ -241,28 +218,6 @@ export default {
     filterHandler(value, row, column) {
       const property = column['property']
       return row[property] === value
-    },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
-    handleRemove(file, fileList) {
-      console.log(file, fileList)
-    },
-    handlePreview(file) {
-      console.log(file)
-    },
-    handleExceed(files, fileList) {
-      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
-    },
-    beforeRemove(file, fileList) {
-      return this.$confirm(`确定移除 ${file.name}？`)
     }
   }
 }
@@ -290,8 +245,8 @@ export default {
   width: 60%;
   border: 2px solid #1890ff;
   margin-left: 300px;
-  padding-left: 100px;
-  padding-right: 100px;
+  padding-left: 80px;
+  padding-right: 80px;
 }
 
 #t_border3_1 {
@@ -313,12 +268,6 @@ export default {
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
-
-}
-
-.flo {
-  position: relative;
-  float: left;
 }
 
 .juzhong {

@@ -4,25 +4,26 @@
       <template slot="paneL">
         <div class="border1">
           <div class="title">Projects</div>
-          <a href="/#/overview/overview">
+
+          <!--eslint-disable-next-line-->
+          <a v-for="project in projects" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">course: OOAD</div>
+              <div class="projectname">{{ project.course }}</div>
               <br>
-              <div class="projectname">project: Project Helper</div>
+              <div class="projectname">{{ project.p_name }}</div>
             </div>
           </a>
-          <div class="projectmenu" />
-          <div class="projectmenu" />
-          <div class="projectmenu" />
+
         </div>
       </template>
       <template slot="paneR">
         <div class="border2">
           <div class="title">Announcements</div>
           <!--eslint-disable-next-line-->
-          <div v-for="annoucement in announcements" class="announcetitle">
+          <div v-for="announcement in announcements" class="announcetitle">
             <a href="/#/announcement/announcement">
-              Title: {{ annoucement.name }} <br> Project: {{ annoucement.project }}
+              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{ announcement.by }}<br>{{ announcement.time }}
+
             </a>
           </div>
           <div>
@@ -60,16 +61,14 @@
       <template slot="paneL">
         <div class="border1">
           <div class="title">Projects</div>
-          <a href="/#/overview/overview">
+          <!--eslint-disable-next-line-->
+          <a v-for="project in projects" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">course: OOAD</div>
+              <div class="projectname">{{ project.course }}</div>
               <br>
-              <div class="projectname">project: Project Helper</div>
+              <div class="projectname">{{ project.p_name }}</div>
             </div>
           </a>
-          <div class="projectmenu" />
-          <div class="projectmenu" />
-          <div class="projectmenu" />
         </div>
       </template>
       <template slot="paneR">
@@ -97,10 +96,26 @@ export default {
   directives: { permission },
   data() {
     return {
+      projects: [
+        { course: 'OOAD', p_name: 'Project Helper' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'IMP' }
+      ],
       announcements: [
-        { name: 'check your progress', project: 'project3' },
-        { name: 'tips', project: 'project4' },
-        { name: 'announce DDL', project: 'project1' }
+        { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
+        { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
       ],
       value: new Date()
     }
@@ -125,6 +140,7 @@ export default {
   border-radius: 50px;
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
+  overflow-y: auto;
 }
 
 .border1 {
@@ -244,7 +260,6 @@ div {
 }
 
 .projectmenu {
-  /*border: 2px solid #2CAD6F;*/
   background-color: #203025;
   margin: 10%;
   height: 20%;
@@ -256,12 +271,35 @@ div {
   margin-bottom: 0;
 }
 
+.border1::-webkit-scrollbar ,.border2::-webkit-scrollbar{ /*滚动条整体*/
+  width: 10px;
+}
+
+.border1::-webkit-scrollbar-track ,.border2::-webkit-scrollbar-track{  /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+.border1::-webkit-scrollbar-thumb{
+  background: #151516;
+
+}
+.border2::-webkit-scrollbar-thumb{
+  background: #c52d47;
+}
+
+.border1::-webkit-scrollbar-thumb ,.border2::-webkit-scrollbar-thumb{ /*滚动条里面的滑块*/
+  border-radius: 10px;
+}
+
 .announcetitle, .title {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
 }
-.announcetitle{
+
+.announcetitle {
   text-align: left;
   margin-left: 200px;
   padding-top: 10px;

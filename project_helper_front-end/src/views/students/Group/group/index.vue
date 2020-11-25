@@ -118,10 +118,10 @@
       <template slot="paneR">
         <div id="border3_2">
           <div @click="hideTooltip">
-            <div v-if="show_tooltip" class=" title" @click.stop>
+            <div v-if="show_tooltip" class=" title_3" @click.stop>
               <el-input v-model="text_content" class="juzhong" type="text" />
             </div>
-            <div class="title" @click.stop="toggleTooltip">{{ text_content }}</div>
+            <div class="title_3" @click.stop="toggleTooltip">{{ text_content }}</div>
           </div>
           <!--          <div class="title">My Group</div>-->
           <!--          <el-popover-->
@@ -498,7 +498,7 @@ export default {
   background:#1890ff;
 }
 
-.title {
+.title_3 {
   color: #1890ff;
   font-size: 30px;
   transition: 0.2s ease-in-out;

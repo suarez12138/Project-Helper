@@ -82,3 +82,11 @@
 .el-range-separator {
   box-sizing: content-box;
 }
+
+.el-card, .el-input__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+  border-radius: 30px;
+}
+
+//.el-scrollbar__view > .el-menu {
+//  background-color: #880cd4!important;
+//}
