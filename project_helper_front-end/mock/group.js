@@ -1,5 +1,6 @@
 const Mock = require('mockjs')
 
+<<<<<<< Updated upstream
 const MyGroup = {
   '11812917': [{
     
@@ -48,6 +49,11 @@ const MyGroup = {
     gender: 'Boy',
     name: 'Yueqian Hu'
   }]
+=======
+const GroupList = []
+const MyGroup = []
+const count = 20
+>>>>>>> Stashed changes
 
 }
 const count = 100
@@ -71,10 +77,11 @@ for (let i = 0; i < count; i++) {
     // pageviews: '@integer(300, 5000)',
     // image_uri,
     // platforms: ['a-platform']
-    
-    name: '@increment',
-    pre_time: '@first',
+
+    name: '@first',
+    pre_time: '@increment',
     information: +Mock.Random.date('T'),
+<<<<<<< Updated upstream
     status: '完成组队'
   }))
 }
@@ -102,6 +109,35 @@ for (let i = 0; i < count; i++) {
 //       skill: +Mock.Random.date('T')
 //   }))
 // }
+=======
+    status: '未完成组队'
+  }))
+}
+for (let i = 0; i < 4; i++) {
+MyGroup.push(Mock.mock({  //tableData33
+    // id: '@increment',
+    // timestamp: +Mock.Random.date('T'),
+    // author: '@first',
+    // reviewer: '@first',
+    // title: '@title(5, 10)',
+    // content_short: 'mock data',
+    // content: baseContent,
+    // forecast: '@float(0, 100, 2, 2)',
+    // importance: '@integer(1, 3)',
+    // 'type|1': ['CN', 'US', 'JP', 'EU'],
+    // 'status|1': ['published', 'draft'],
+    // display_time: '@datetime',
+    // comment_disabled: true,
+    // pageviews: '@integer(300, 5000)',
+    // image_uri,
+    // platforms: ['a-platform']
+
+      name: '@first',
+      gender: '@increment',
+      skill: +Mock.Random.date('T')
+  }))
+}
+>>>>>>> Stashed changes
 
 module.exports = [
   {
