@@ -3,7 +3,7 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div id="border3_1">
-          <div class="title">Grouping Information</div>
+          <div class="title_3">Grouping Information</div>
           <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
             <svg-icon icon-class="search" style="margin-right: 10px;margin-top: 10px;" />
             <el-input
@@ -84,8 +84,8 @@
               prop="information"
               label="小组信息"
               sortable
-              width="250"
             />
+            <!--              width="250"-->
             <el-table-column
               prop="status"
               label="状态"
@@ -254,7 +254,6 @@ import { fetchGroupsList } from '@/api/group'
 import { fetchMyGroup } from '@/api/group'
 import { fetchList } from '@/api/article'
 import { getToken } from '@/utils/auth'
-
 export default {
   name: 'DndListDemo',
   components: { splitPane },
@@ -275,29 +274,29 @@ export default {
       list2: [],
       textarea: '',
       tableData33: [
-      //   {
-      //   name: '组1',
-      //   pre_time: '周五上午',
-      //   information: '不搞基',
-      //   status: '完成组队'
-      // }, {
-      //   name: '组13',
-      //   pre_time: '周四下午',
-      //   information: '不划水',
-      //   status: '未完成组队'
-      // }, {
-      //   name: '组32',
-      //   pre_time: '周五上午',
-      //   status: '完成组队'
-      // }, {
-      //   name: '组3',
-      //   pre_time: '周四下午',
-      //   status: '未完成组队'
-      // }
+        //   {
+        //   name: '组1',
+        //   pre_time: '周五上午',
+        //   information: '不搞基',
+        //   status: '完成组队'
+        // }, {
+        //   name: '组13',
+        //   pre_time: '周四下午',
+        //   information: '不划水',
+        //   status: '未完成组队'
+        // }, {
+        //   name: '组32',
+        //   pre_time: '周五上午',
+        //   status: '完成组队'
+        // }, {
+        //   name: '组3',
+        //   pre_time: '周四下午',
+        //   status: '未完成组队'
+        // }
         null
       ],
       tableData2:
-      null,
+        null,
       // [
       //   {
       //   name: '张小虎',
@@ -348,8 +347,8 @@ export default {
     },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
-      console.log(getToken());
-      console.log("aaaaaaaaaaaaaa");
+      console.log(getToken())
+      console.log('aaaaaaaaaaaaaa')
       fetchMyGroup(getToken()).then(response => {
         this.tableData2 = response.data.items
         this.listLoading = false
@@ -438,29 +437,24 @@ export default {
   position: relative;
   height: 100vh;
 }
-
 .el-tag, .el-button, .el-input__inner, .el-textarea__inner {
   border-radius: 20px !important;
 }
-
 .el-popover {
   border: 1px dashed #1890ff;
   border-radius: 20px;
   box-shadow: 0 0 10px #1890ff;
   padding-bottom: 50px;
 }
-
 #border3_2 {
   height: 100%;
   margin-left: 15px;
 }
-
 #border3_1 {
   height: 100%;
   overflow-y: auto;
   margin-right: 15px;
 }
-
 #border3_1, #border3_2 {
   border-radius: 50px;
   transform: translate(0, 0);
@@ -468,13 +462,11 @@ export default {
   box-shadow: 0 0 40px #1890ff;
   border: 2px solid #1890ff;
 }
-
 #border3_1:hover, #border3_2:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
   box-shadow: 12px 20px 20px #1890ff;
 }
-
 #border3_1::-webkit-scrollbar{/*滚动条整体*/
   width:10px;
 }
@@ -484,7 +476,6 @@ export default {
   border-radius:20px;
   margin-top: 40px;
   margin-bottom: 40px;
-
 }
 #border3_1::-webkit-scrollbar-thumb{/*滚动条里面的滑块*/
   background:#1890ff;
@@ -493,11 +484,9 @@ export default {
 /*#border3_1::-webkit-scrollbar-thumb:hover{!*滚动条鼠标事件，鼠标放上去出现的事件*!*/
 /*  background:#ffffff;*/
 /*}*/
-
 #border3_1::-webkit-scrollbar-corner{/*滚动条边角*/
   background:#1890ff;
 }
-
 .title_3 {
   color: #1890ff;
   font-size: 30px;
@@ -508,16 +497,13 @@ export default {
   /*margin-left: 300px;*/
   /*position: relative;*/
 }
-
 /*.el-input__inner{*/
 /*  transition: 0.2s ease-in-out;*/
 /*}*/
-
 .flo {
   position: relative;
   float: left;
 }
-
 .juzhong {
   margin-left: 100px;
   margin-right: 100px;
