@@ -99,8 +99,8 @@ export default {
       projects: [
         { course: 'OOAD', p_name: 'Project Helper' },
         { course: 'AI', p_name: 'Reversi' },
-        { course: 'Computer Network', p_name: 'RDT' },
-        { course: 'AI', p_name: 'IMP' },
+        { course: 'AI', p_name: 'Reversi' },
+        { course: 'AI', p_name: 'Reversi' },
         { course: 'AI', p_name: 'Reversi' },
         { course: 'AI', p_name: 'Reversi' },
         { course: 'AI', p_name: 'Reversi' },

@@ -3,7 +3,7 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div id="border3_1">
-          <div class="title_3">Grouping Information</div>
+          <div class="title">Grouping Information</div>
           <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
             <svg-icon icon-class="search" style="margin-right: 10px;margin-top: 10px;" />
             <el-input
@@ -84,8 +84,8 @@
               prop="information"
               label="小组信息"
               sortable
+              width="250"
             />
-            <!--              width="250"-->
             <el-table-column
               prop="status"
               label="状态"
@@ -348,8 +348,8 @@ export default {
     },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
-      console.log(getToken())
-      console.log('aaaaaaaaaaaaaa')
+      console.log(getToken());
+      console.log("aaaaaaaaaaaaaa");
       fetchMyGroup(getToken()).then(response => {
         this.tableData2 = response.data.items
         this.listLoading = false
