@@ -19,17 +19,17 @@
         >
           Export Excel
         </el-button>
-        <el-checkbox-group
-          v-model="checkedgroups"
-          style="float: right;margin-right: 50px;"
-          :min="0"
-          :max="1"
-        >
-          <el-checkbox-button v-for="group in groups" :key="group" :label="group" @change="changeView()">{{
-            group
-          }}
-          </el-checkbox-button>
-        </el-checkbox-group>
+        <!--        <el-checkbox-group-->
+        <!--          v-model="checkedgroups"-->
+        <!--          style="float: right;margin-right: 50px;"-->
+        <!--          :min="0"-->
+        <!--          :max="1"-->
+        <!--        >-->
+        <!--          <el-checkbox-button v-for="group in groups" :key="group" :label="group" @change="changeView()">{{-->
+        <!--              group-->
+        <!--            }}-->
+        <!--          </el-checkbox-button>-->
+        <!--        </el-checkbox-group>-->
       </div>
 
       <el-table
@@ -102,13 +102,29 @@
           label="小组信息"
           sortable
         />
+
         <el-table-column
           prop="population"
           label="小组人数"
           sortable
           width="110"
         />
-
+        <el-table-column
+          prop="valid"
+          label="是否有效"
+          :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
+          :filter-method="filtervalid"
+          sortable
+          width="130"
+        >
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.valid === '否' ? 'primary' : 'success'"
+              disable-transitions
+            >{{ scope.row.valid }}
+            </el-tag>
+          </template>
+        </el-table-column>
         <el-table-column
           prop="status"
           label="状态"
@@ -155,7 +171,7 @@ export default {
       downloadLoading: false,
       show_tooltip: false,
       value2: true,
-      lowerbound: 4,
+      lowerBound: 4,
       list1: [],
       list2: [],
       textarea: '',
@@ -164,12 +180,14 @@ export default {
         pre_time: '周五上午',
         information: '不搞基',
         population: 4,
+        valid: '是',
         status: '完成组队'
       }, {
         name: '组13',
         pre_time: '周四下午',
         information: '不划水',
         population: 3,
+        valid: '否',
         status: '未完成组队'
       }, {
         name: '组32',
@@ -179,6 +197,7 @@ export default {
         name: '组3',
         pre_time: '周四下午',
         population: 3,
+        valid: '否',
         status: '未完成组队'
       }],
       tableData2: [{
@@ -293,7 +312,10 @@ export default {
       return row.skill
     },
     filterstatus(value, row) {
-      return row.tag === value
+      return row.status === value
+    },
+    filtervalid(value, row) {
+      return row.valid === value
     },
     resize() {
       console.log('resize')
@@ -327,9 +349,9 @@ export default {
 
 #t_border3_1 {
   height: 100%;
-  width: 60%;
+  width: 80%;
   border: 2px solid $primary;
-  margin-left: 300px;
+  margin-left: 150px;
   padding-left: 20px;
   padding-right: 20px;
 }

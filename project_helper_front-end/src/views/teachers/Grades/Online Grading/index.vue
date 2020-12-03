@@ -60,14 +60,14 @@
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+// import { fetchList } from '@/api/article'
 
 export default {
   data() {
     return {
       tableHeader: [],
       downloadLoading: false,
-      listLoading: true,
+      listLoading: false,
       scorelist: [
         { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99' },
         { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
@@ -89,17 +89,17 @@ export default {
       return this.scorelist
     }
   },
-  created() {
-    this.fetchData()
-  },
+  // created() {
+  //   this.fetchData()
+  // },
   methods: {
-    fetchData() {
-      this.listLoading = true
-      fetchList().then(response => {
-        this.list = response.data.items
-        this.listLoading = false
-      })
-    },
+    // fetchData() {
+    //   this.listLoading = true
+    //   fetchList().then(response => {
+    //     this.list = response.data.items
+    //     this.listLoading = false
+    //   })
+    // },
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {

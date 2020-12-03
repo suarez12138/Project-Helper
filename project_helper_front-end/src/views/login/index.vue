@@ -75,11 +75,11 @@
 
 <script>
 import { validUsername } from '@/utils/validate'
-import SocialSign from './components/SocialSignin'
+// import SocialSign from './components/SocialSignin'
 
 export default {
   name: 'Login',
-  components: { SocialSign },
+  // components: { SocialSign },
   data() {
     const validateUsername = (rule, value, callback) => {
       if (!validUsername(value)) {
@@ -222,7 +222,8 @@ $cursor: #fff;
     width: 85%;
 
     input {
-      background: transparent;
+      background: transparent!important;
+      transition: background 5000s ease-out 0.5s;
       border: 0px;
       -webkit-appearance: none;
       border-radius: 0px;
@@ -232,7 +233,7 @@ $cursor: #fff;
       caret-color: $cursor;
 
       &:-webkit-autofill {
-        box-shadow: 0 0 0px 1000px $bg inset !important;
+        //box-shadow: 0 0 0px 1000px $bg inset !important;
         -webkit-text-fill-color: $cursor !important;
       }
     }
