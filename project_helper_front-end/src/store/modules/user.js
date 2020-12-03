@@ -34,15 +34,20 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        const { data } = response
-        // console.log("aaaaaaaaaaaaaaaaaaa2")
-        // console.log(response.data)
+
+
+        // for mock 
         // commit('SET_TOKEN', response.data.stu_id)
         // setToken(response.data.stu_id)
+
+
+
+        // for Database
         commit('SET_TOKEN', response.stu_id)
         setToken(response.stu_id)
-        // console.log("aaaaaaaaaaaaaaaaaaa")
-        console.log(response.stu_id)
+
+        // console.log(response.stu_id)
+
         resolve()
       }).catch(error => {
         console.log("login error miaomiaomaio")
@@ -54,7 +59,9 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
+      console.log("1")
       console.log(state.token)
+      console.log("2")
       getInfo(state.token).then(response => {
         const { token } = response
 

@@ -317,7 +317,7 @@ export default {
         population: '',
         information: ''
       },
-      listLoading: true,
+      listLoading: false,
       search: ''
     }
   },

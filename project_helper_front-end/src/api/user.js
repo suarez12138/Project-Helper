@@ -20,6 +20,6 @@ export function logout(token) {
   return request({
     url: '/vue-element-admin/user/logout',
     method: 'post',
-    params:{ token }
+    params: { token }
   })
 }

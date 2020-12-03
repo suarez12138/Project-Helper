@@ -1,16 +1,16 @@
 
 const tokens = {
   admin: {
-    stu_id: 'admin-token'
+    stu_id: 'admin'
   },
   editor: {
-    stu_id: 'editor-token'
+    stu_id: 'editor'
   },
   teacher: {
-    stu_id: 'teacher-token'
+    stu_id: 'teacher'
   },
   student: {
-    stu_id: 'student-token'
+    stu_id: 'student'
   },
   11813009:{
     stu_id: '11813009'
@@ -18,25 +18,25 @@ const tokens = {
 }
 
 const users = {
-  'admin-token': {
+  'admin': {
     roles: ['admin'],
     introduction: 'I am a super administrator',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Super Admin'
   },
-  'editor-token': {
+  'editor': {
     roles: ['editor'],
     introduction: 'I am an editor',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Editor'
   },
-  'teacher-token': {
+  'teacher': {
     roles: ['teacher'],
     introduction: 'I am a teacher',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Normal Teacher'
   },
-  'student-token': {
+  'student': {
     roles: ['student'],
     introduction: 'I am a student',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
@@ -44,7 +44,7 @@ const users = {
   },
   '11813009':{
     roles: ['student'],
-    introduction: 'I am a ssuper student',
+    introduction: 'I am a ssuper studen     t',
     avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Longcan Chen'
   }
@@ -81,28 +81,37 @@ module.exports = [
   //   type: 'get',
   //   response: config => {
   //     const { token } = config.query
-  //     const info = users[token]
+  //     const token2 = users[token]
 
   //     // mock error
-  //     if (!info) {
+  //     if (!token2) {
+      
   //       return {
-  //         code: 50008,
+  //         code: 20000,
+  //         token: {
+  //           roles: ['student'],
+  //           introduction: 'I am a ssuper studen     t',
+  //           avatar: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
+  //           name: 'Longcan Chen'
+  //         },
   //         message: 'Login failed, unable to get user details.'
   //       }
   //     }
 
   //     return {
   //       code: 20000,
-  //       data: info
+  //       data: token2
   //     }
   //   }
   // },
 
   // user logout
   {
-    url: '/vue-element-admin/user/logout',
+    url: '/vue-element-admin/user/logout\.*',
     type: 'post',
-    response: _ => {
+    response: config => {
+      const { token } = config.query
+      console.log('aaaaaa')
       return {
         code: 20000,
         data: 'success'

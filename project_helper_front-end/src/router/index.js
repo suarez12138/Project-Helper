@@ -125,7 +125,7 @@ export const constantRoutes = [
   //       meta: { title: 'Guide', icon: 'guide', noCache: true }
   //     }
   //   ]
-  // },
+  // }
   // {
   //   path: '/profile',
   //   component: Layout,

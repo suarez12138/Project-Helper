@@ -3,7 +3,7 @@ import request from '@/utils/request'
 
 export function fetchGroupsList() {
   return request({
-    url: '/vue-element-admin/group/group_list',
+    url: '/vue-element-admin/student/group/group_list',
     method: 'get'
   })
 }
@@ -11,8 +11,16 @@ export function fetchGroupsList() {
 
 export function fetchMyGroup(token) {
   return request({
-    url: '/vue-element-admin/group/my_group',
+    url: '/vue-element-admin/student/group/my_group',
     method: 'get',
     params: {token}
   })
 }
+
+
+
+
+
+
+
+
