@@ -34,15 +34,18 @@ const actions = {
     const { username, password } = userInfo
     return new Promise((resolve, reject) => {
       login({ username: username.trim(), password: password }).then(response => {
-        // const { data } = response
+        const { data } = response
         // console.log("aaaaaaaaaaaaaaaaaaa2")
-        // console.log(response)
+        // console.log(response.data)
+        // commit('SET_TOKEN', response.data.stu_id)
+        // setToken(response.data.stu_id)
         commit('SET_TOKEN', response.stu_id)
         setToken(response.stu_id)
         // console.log("aaaaaaaaaaaaaaaaaaa")
-        // console.log(response.stu_id)
+        console.log(response.stu_id)
         resolve()
       }).catch(error => {
+        console.log("login error miaomiaomaio")
         reject(error)
       })
     })
@@ -51,6 +54,7 @@ const actions = {
   // get user info
   getInfo({ commit, state }) {
     return new Promise((resolve, reject) => {
+      console.log(state.token)
       getInfo(state.token).then(response => {
         const { token } = response
 
@@ -61,6 +65,18 @@ const actions = {
         const { roles, name } = token
         console.log(token)
 
+
+        // const { data } = response
+
+        // if (!data) {
+        //   reject('Verification failed, please Login again.')
+        // }
+
+        // const { roles, name } = data
+        // console.log(data)
+
+
+
         // roles must be a non-empty array
         if (!roles || roles.length <= 0) {
           reject('getInfo: roles must be a non-null array!')
@@ -68,12 +84,14 @@ const actions = {
 
         commit('SET_ROLES', roles)
         commit('SET_NAME', name)
-        commit('SET_AVATAR', 'http://img2.100bt.com/upload/ttq/20121029/1351501394920.gif')
+        commit('SET_AVATAR', 'https://media3.giphy.com/media/eMPnaFtFbJ2z3LFP2E/200w.webp?cid=ecf05e473c3fb638025e7a9c360f35ba4d76316860d25de4&rid=200w.webp')
         commit('SET_INTRODUCTION', 'hello')
         
         console.log("miaomiaomaio")
-        resolve(token)
+        // resolve(token)
+        resolve(data)
       }).catch(error => {
+        console.log("errormiaomiaomaio")
         reject(error)
       })
     })
