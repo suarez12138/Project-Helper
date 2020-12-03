@@ -64,6 +64,8 @@ const actions = {
 
         const { roles, name } = token
         console.log(token)
+        console.log(roles)
+        console.log(name)
 
 
         // const { data } = response
@@ -88,8 +90,8 @@ const actions = {
         commit('SET_INTRODUCTION', 'hello')
         
         console.log("miaomiaomaio")
-        // resolve(token)
-        resolve(data)
+        resolve(token)
+        // resolve(data)
       }).catch(error => {
         console.log("errormiaomiaomaio")
         reject(error)
