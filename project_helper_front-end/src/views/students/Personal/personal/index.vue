@@ -10,6 +10,10 @@
       <svg-icon icon-class="edit" />
       修改我的信息
     </el-button>
+    <div class="search-Box" style=" margin-right: 30px; width: 30%; float: right">
+      <el-input v-model="search" placeholder="请输入关键字" class="search" />
+      <svg-icon icon-class="search" class="search_icon4" />
+    </div>
 
     <el-dialog title="关于此project" :visible.sync="dialogFormVisible1" width="500px" append-to-body>
       <el-form :model="form">
@@ -26,20 +30,17 @@
       </div>
     </el-dialog>
     <div>
-      <div class="search-Box" style=" margin-right: 30px;">
-        <el-input v-model="search" placeholder="请输入关键字" class="search" />
-        <svg-icon icon-class="search" style="float: right;margin-right: 10px;margin-top: 10px; color: #1890ff;" />
-      </div>
+
       <el-table
         ref="filterTable"
         :data="tableData2"
         style="width: 100%"
         @selection-change="handleSelectionChange"
       >
-        <el-table-column
-          type="index"
-          :index="index"
-        />
+        <!--        <el-table-column-->
+        <!--          type="index"-->
+        <!--          :index="index"-->
+        <!--        />-->
         <el-table-column
           prop="select"
           type="selection"
@@ -58,6 +59,11 @@
           width="100"
           :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
           :filter-method="filterHandler"
+        />
+        <el-table-column
+          prop="lab"
+          label="Lab"
+          sortable
         />
         <el-table-column
           prop="skill"
@@ -134,21 +140,27 @@ export default {
         information: ''
       },
       tableData22: [{
+        select: false,
         name: '张小虎',
         gender: '男',
+        lab: 2,
         skill: 'SPRING BOOT',
         hope: '不搞基',
         status: '已组队'
       }, {
+        select: false,
         name: '王小虎',
         gender: '女',
+        lab: 3,
         skill: 'VUE',
         hope: '不划水',
         status: '未组队'
       }, {
+        select: true,
         name: '王小虎',
         status: '已组队'
       }, {
+        select: false,
         name: '王小虎',
         status: '未组队'
       }],
@@ -172,6 +184,7 @@ export default {
           })
         })
       }
+      console.log(this.tableData22)
       return this.tableData22
     }
   },
@@ -215,6 +228,13 @@ export default {
       this.dialogFormVisible = true
     },
     handleSelectionChange(val) {
+      // for (var i = 0; i < this.tableData22.length; i++) {
+      //   // console.log(this.tableData22)
+      //   this.tableData22[i].select = false
+      // }
+      // for (var i = 0; i < val.length; i++) {
+      //   val[i].select = true
+      // }
       this.multipleSelection = val
       console.log(this.multipleSelection)
     },
@@ -224,10 +244,12 @@ export default {
   }
 }
 </script>
-<style>
+<style lang="scss">
+@import "~@/styles/variables.scss";
+
 .search {
   float: right;
-  width: 30%;
+  width: 80% !important;
 }
 
 .search > .el-input__inner {
@@ -251,41 +273,47 @@ export default {
 }
 
 .border_p::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: #1890ff;
+  background: $primary;
   border-radius: 10px;
 }
 
 .border_p::-webkit-scrollbar-corner { /*滚动条边角*/
-  background: #1890ff;
+  background: $primary;
 }
 
 .border_p {
   height: 900px;
   width: 60%;
-  border: 2px solid #1890ff;
+  border: 2px solid $primary;
   margin-left: 300px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 10px 10px 20px #1890ff;
+  box-shadow: 10px 10px 20px $primary;
   margin-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
 }
 
 .border_p:hover {
-  box-shadow: 20px 20px 20px #1890ff;
+  box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;
 }
 
 .personal_title {
-  color: #1890ff;
+  color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
   padding-bottom: 40px;
+}
 
+.search_icon4 {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $primary;
 }
 </style>

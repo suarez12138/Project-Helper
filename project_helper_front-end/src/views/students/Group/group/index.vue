@@ -5,7 +5,7 @@
         <div id="border3_1">
           <div class="title_3">Grouping Information</div>
           <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
-            <svg-icon icon-class="search" style="margin-right: 10px;margin-top: 10px;" />
+            <svg-icon icon-class="search" class="search_icon5" />
             <el-input
               v-model="search"
               placeholder="请输入关键字"
@@ -254,6 +254,7 @@ import { fetchGroupsList } from '@/api/group'
 import { fetchMyGroup } from '@/api/group'
 import { fetchList } from '@/api/article'
 import { getToken } from '@/utils/auth'
+
 export default {
   name: 'DndListDemo',
   components: { splitPane },
@@ -432,63 +433,76 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~@/styles/variables.scss";
+
 .components-container {
   position: relative;
   height: 100vh;
 }
+
 .el-tag, .el-button, .el-input__inner, .el-textarea__inner {
   border-radius: 20px !important;
 }
+
 .el-popover {
-  border: 1px dashed #1890ff;
+  border: 1px dashed $primary;
   border-radius: 20px;
-  box-shadow: 0 0 10px #1890ff;
+  box-shadow: 0 0 10px $primary;
   padding-bottom: 50px;
 }
+
 #border3_2 {
   height: 100%;
   margin-left: 15px;
 }
+
 #border3_1 {
   height: 100%;
   overflow-y: auto;
   margin-right: 15px;
 }
+
 #border3_1, #border3_2 {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 0 0 40px #1890ff;
-  border: 2px solid #1890ff;
+  box-shadow: 0 0 40px $primary;
+  border: 2px solid $primary;
 }
+
 #border3_1:hover, #border3_2:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
-  box-shadow: 12px 20px 20px #1890ff;
+  box-shadow: 12px 20px 20px $primary;
 }
-#border3_1::-webkit-scrollbar{/*滚动条整体*/
-  width:10px;
+
+#border3_1::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
 }
-#border3_1::-webkit-scrollbar-track{/*滚动条轨道*/
+
+#border3_1::-webkit-scrollbar-track { /*滚动条轨道*/
   /*background:#999;*/
-  background:#ffffff;
-  border-radius:20px;
+  background: #ffffff;
+  border-radius: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-#border3_1::-webkit-scrollbar-thumb{/*滚动条里面的滑块*/
-  background:#1890ff;
-  border-radius:10px;
+
+#border3_1::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
 }
+
 /*#border3_1::-webkit-scrollbar-thumb:hover{!*滚动条鼠标事件，鼠标放上去出现的事件*!*/
 /*  background:#ffffff;*/
 /*}*/
-#border3_1::-webkit-scrollbar-corner{/*滚动条边角*/
-  background:#1890ff;
+#border3_1::-webkit-scrollbar-corner { /*滚动条边角*/
+  background: $primary;
 }
+
 .title_3 {
-  color: #1890ff;
+  color: $primary;
   font-size: 30px;
   transition: 0.2s ease-in-out;
   text-align: center;
@@ -497,6 +511,7 @@ export default {
   /*margin-left: 300px;*/
   /*position: relative;*/
 }
+
 /*.el-input__inner{*/
 /*  transition: 0.2s ease-in-out;*/
 /*}*/
@@ -504,9 +519,17 @@ export default {
   position: relative;
   float: left;
 }
+
 .juzhong {
   margin-left: 100px;
   margin-right: 100px;
   width: 75% !important;
+}
+
+.search_icon5 {
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $primary;
+
 }
 </style>

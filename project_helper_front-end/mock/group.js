@@ -2,11 +2,11 @@ const Mock = require('mockjs')
 
 const MyGroup = {
   '11812917': [{
-    
+
     skill: 'I am a super student',
     gender: 'https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif',
     name: 'Longcan Chen'
-    
+
   }],
   'editor-token': {
     skill: 'I am a super student',
@@ -50,7 +50,7 @@ const MyGroup = {
   }]
 
 }
-const count = 100
+const count = 20
 
 const GroupList = []
 for (let i = 0; i < count; i++) {
@@ -71,11 +71,11 @@ for (let i = 0; i < count; i++) {
     // pageviews: '@integer(300, 5000)',
     // image_uri,
     // platforms: ['a-platform']
-    
-    name: '@increment',
-    pre_time: '@first',
+
+    name: '@first',
+    pre_time: '@increment',
     information: +Mock.Random.date('T'),
-    status: '完成组队'
+    status: '未完成组队'
   }))
 }
 // for (let i = 0; i < 4; i++) {
@@ -96,7 +96,7 @@ for (let i = 0; i < count; i++) {
 //     // pageviews: '@integer(300, 5000)',
 //     // image_uri,
 //     // platforms: ['a-platform']
-    
+
 //       name: '@increment',
 //       gender: '@first',
 //       skill: +Mock.Random.date('T')

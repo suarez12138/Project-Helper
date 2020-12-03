@@ -3,8 +3,8 @@
     <div id="t_border_online">
       <div class="create_title">Online Grading</div>
       <div class="search-Box" style=" margin-right: 30px;">
-        <svg-icon icon-class="search" style="float: left;margin-right: 10px;margin-top: 10px; color: #1890ff;" />
-        <el-input v-model="search" placeholder="请输入关键字" class="search" />
+        <svg-icon icon-class="search" class="search_icon3" />
+        <el-input v-model="search" placeholder="请输入关键字" class="search3" />
       </div>
       <div style="float: right;">
         <el-button
@@ -16,7 +16,7 @@
         >
           Export Excel
         </el-button>
-        <el-button type="primary">上传<i class="el-icon-upload el-icon--right" /></el-button>
+        <el-button type="primary">更新<i class="el-icon-upload el-icon--right" /></el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -132,7 +132,9 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~@/styles/variables.scss";
+
 .components-container {
   position: relative;
   height: 100vh;
@@ -142,11 +144,11 @@ export default {
   border-radius: 30px;
 }
 
-.el-input__inner {
-  padding-left: 50px;
-}
+//.el-input__inner {
+//  padding-left: 30px;
+//}
 
-.search {
+.search3 {
   float: left;
   width: 30%;
 }
@@ -154,23 +156,23 @@ export default {
 #t_border_online {
   height: 100%;
   width: 60%;
-  border: 2px solid #1890ff;
+  border: 2px solid $primary;
   margin-left: 300px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
-  box-shadow: 10px 10px 20px #1890ff;
+  box-shadow: 10px 10px 20px $primary;
   padding: 20px 85px 85px 85px;
 }
 
 #t_border_online:hover {
-  box-shadow: 20px 20px 20px #1890ff;
+  box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;
 }
 
 .create_title {
-  color: #1890ff;
+  color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
@@ -179,4 +181,10 @@ export default {
 
 }
 
+.search_icon3 {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $primary;
+}
 </style>

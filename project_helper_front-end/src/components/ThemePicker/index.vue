@@ -36,6 +36,51 @@ export default {
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
       console.log(themeCluster, originalCluster)
+      console.log(themeCluster[0])
+
+      var tmp = parseInt(themeCluster[0], 16)
+      // if(tmp>4473924){
+      //   tmp-=4473924
+      // }else
+      var minus = true
+      for (var i = 0; i < 6; i++) {
+        if (themeCluster[0][i] === '0') {
+          minus = false
+          break
+        }
+      }
+      if (minus) {
+        if (tmp > 1118481) {
+          tmp -= 1118481
+        }
+      }
+      var outcome = tmp.toString(16)
+      while (outcome.length < 6) {
+        outcome = '0' + outcome
+      }
+
+      var add = true
+      for (var j = 0; j < 6; j++) {
+        if (themeCluster[0][j] === 'f') {
+          add = false
+          break
+        }
+      }
+      if (add) {
+        if (tmp < 14540253) {
+          tmp += 1118481
+        }
+      }
+      var hover = tmp.toString(16)
+
+      console.log(outcome)
+      document.getElementsByTagName('body')[0].style.setProperty('--testColor', '#' + themeCluster[0])
+      document.getElementsByTagName('body')[0].style.setProperty('--sidebar', '#' + outcome)
+      document.getElementsByTagName('body')[0].style.setProperty('--subMenuBg', '#' + outcome)
+      document.getElementsByTagName('body')[0].style.setProperty('--menuHover', '#' + hover)
+      document.getElementsByTagName('body')[0].style.setProperty('--subMenuHover', '#' + hover)
+      // console.log(document.styleSheets)
+      // return
 
       const $message = this.$message({
         message: '  Compiling the theme',
@@ -59,7 +104,6 @@ export default {
           styleTag.innerText = newStyle
         }
       }
-
       if (!this.chalk) {
         const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
         await this.getCSSString(url, 'chalk')
