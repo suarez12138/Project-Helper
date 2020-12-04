@@ -4,6 +4,7 @@ import com.evan.wj.dao.UserDAO;
 import com.evan.wj.pojo.User;
 import com.evan.wj.result.Result;
 import com.evan.wj.result.Result2;
+import com.evan.wj.result.Result3;
 import com.evan.wj.result.Token;
 import com.evan.wj.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,7 +34,7 @@ public class LoginController {
 //        System.out.print(user);
 //        System.out.print(requestUser.getPassword());
         if (null == user) {
-//            System.out.print("miao");
+            System.out.print("miao");
             return new Result(400, username);
         } else {
 //            System.out.print("miaoaaaaaaaaaaaa");
@@ -52,7 +53,7 @@ public class LoginController {
 //    }
     @ResponseBody
     public Result2 getInfo(@RequestParam("token") String token) {
-        System.out.print("miaoaaaaaaaaaaaa\n");
+//        System.out.print("miaoaaaaaaaaaaaa\n");
 
         List<String> roles = userDAO.login_test2(token);
         List<Token> miao = userDAO.login_test1(token);
@@ -69,6 +70,15 @@ public class LoginController {
         return new Result2(20000, miao.get(0));
     }
 
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/user/logout")
+    @ResponseBody
+    public Result3 logout(@RequestParam("token") String token) {
+//        System.out.print("miyyyyyyyyaaaa\n");
+
+        return new Result3(20000);
+    }
 
 
 }
