@@ -44,4 +44,5 @@ public class AllGroup {
     public void setStatus(String status) {
         this.status = status;
     }
+
 }
