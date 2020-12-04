@@ -21,7 +21,7 @@ public class GroupController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/group_list")
     @ResponseBody
-    public AllGroupResult getAllGroup(@RequestParam("group_id") String group_id){
+    public AllGroupResult getAllGroup(@RequestParam("group_id") int group_id){
         AllGroupResult allGroupResult = new AllGroupResult(20000, groupDAO.getAllGroup(group_id));
         return allGroupResult;
     }

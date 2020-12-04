@@ -11,7 +11,7 @@ import java.util.List;
 public interface GroupDAO extends JpaRepository<User,Integer> {
 
     @Query("select new com.evan.wj.bean.AllGroup(g.id, g.group_name, g.pre_time, g.group_status) from Gro g where g.group_status <> 'Graded' and g.project =?1")
-    List<AllGroup> getAllGroup(String group_id);
+    List<AllGroup> getAllGroup(int group_id);
 
 }
 
