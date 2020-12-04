@@ -57,14 +57,14 @@ export default {
 }
 
 .content::-webkit-scrollbar-track { /*滚动条轨道*/
-  /*background:#999;*/
-  background: #c52d47;
+  background:#999;
+  /*background: #c52d47;*/
   border-radius: 20px;
 
 }
 
 .content::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: #999;
+  background: #c52d47;
   border-radius: 10px;
 }
 

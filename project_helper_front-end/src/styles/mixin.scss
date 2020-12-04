@@ -64,3 +64,7 @@
     border-bottom: $transparent-border-style;
   }
 }
+
+.el-card,.el-tag, .el-input__inner, .el-button,.el-select-dropdown,.el-select-dropdown__list,.el-select-dropdown__item.hover  {
+  border-radius: 30px;
+}

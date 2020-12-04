@@ -35,12 +35,21 @@
         </el-form-item>
 
         <el-form-item label="有效答辩周" prop="time">
-          <el-cascader
-            v-model="create_ruleForm.time"
-            :options="options"
-            :props="props"
-            clearable
-          />
+          <el-select v-model="create_ruleForm.time" multiple placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+
+          <!--          <el-cascader-->
+          <!--            v-model="create_ruleForm.time"-->
+          <!--            :options="options"-->
+          <!--            :props="props"-->
+          <!--            clearable-->
+          <!--          />-->
         </el-form-item>
 
         <el-form-item label="跨班组队" prop="across_lab" required>
@@ -194,6 +203,9 @@ export default {
       }, {
         value: 17,
         label: 'Week 17'
+      }, {
+        value: 18,
+        label: 'Week 18'
       }]
     }
   },

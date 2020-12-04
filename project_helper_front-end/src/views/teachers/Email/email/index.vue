@@ -4,20 +4,53 @@
       <div class="createPost-main-container">
         <el-row>
           <el-col :span="24">
-            <el-form-item style="margin-bottom: 40px;" prop="title">
-              <MDinput v-model="postForm.title" :maxlength="100" name="name" required>
+            <el-form-item style="margin-bottom: 40px;" prop="title" label="Title :">
+              <el-input v-model="postForm.title" :maxlength="100" placeholder="Please input title" style="width: 50%" name="name" required>
                 Title
-              </MDinput>
+              </el-input>
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Recipient:">
-          <el-input v-model="postForm.content_short" :rows="1" type="textarea" class="article-textarea" autosize />
-          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>
+        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Send to:">
+          <el-select v-model="postForm.content_short" multiple placeholder="Tag choices" style="float:left; width: 20%;">
+            <el-option
+              v-for="item in options2"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <div style="float: left;margin-left: 20px;margin-right: 20px;"> or</div>
+          <el-input
+            v-model="postForm.content_short"
+            :rows="1"
+            type="textarea"
+            class="article-textarea"
+            placeholder="Please input Email address"
+            autosize
+            style="float: left;width: 40%;border-radius: 20px;"
+          />
+          <!--          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
         </el-form-item>
         <el-form-item prop="content" style="margin-bottom: 30px;">
           <Tinymce ref="editor" v-model="postForm.content" :height="400" />
         </el-form-item>
+      </div>
+      <div class="transmit_upload">
+        <el-upload
+          class="upload-demo"
+          action="https://jsonplaceholder.typicode.com/posts/"
+          :on-preview="handlePreview"
+          :on-remove="handleRemove"
+          :before-remove="beforeRemove"
+          multiple
+          :limit="5"
+          :on-exceed="handleExceed"
+          :file-list="fileList"
+        >
+          <el-button size="small" plain type="primary">添加附件</el-button>
+          <!--                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
+        </el-upload>
       </div>
       <div style="float: right;margin-right: 100px;margin-bottom: 100px;">
         <el-button v-loading="loading" style="margin-left: 10px;" plain type="success" @click="submitForm">
@@ -31,7 +64,7 @@
 <script>
 import Tinymce from '@/components/Tinymce'
 // import Upload from '@/components/Upload/SingleImage3'
-import MDinput from '@/components/MDinput'
+// import MDinput from '@/components/MDinput'
 // import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
@@ -55,7 +88,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce, MDinput },
+  components: { Tinymce },
   props: {
     isEdit: {
       type: Boolean,
@@ -99,7 +132,50 @@ export default {
         content: [{ validator: validateRequire }],
         source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
       },
-      tempRoute: {}
+      tempRoute: {},
+      fileList: [{
+        name: 'food.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+      }, {
+        name: 'food2.jpeg',
+        url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+      }],
+      options2: [
+        {
+          value: '全体学生',
+          label: '全体学生'
+        }, {
+          value: 'lab1',
+          label: 'Lab 1'
+        }, {
+          value: 'lab2',
+          label: 'Lab 2'
+        }, {
+          value: 'lab3',
+          label: 'Lab 3'
+        }, {
+          value: 'lab4',
+          label: 'Lab 4'
+        }, {
+          value: '已完成组队小组',
+          label: '已完成组队小组'
+        }, {
+          value: '未完成组队小组',
+          label: '未完成组队小组'
+        }, {
+          value: '无效小组',
+          label: '无效小组'
+        }, {
+          value: '有效小组',
+          label: '有效小组'
+        }, {
+          value: '未组队个人',
+          label: '未组队个人'
+        }, {
+          value: '已组队个人',
+          label: '已组队个人'
+        }
+      ]
     }
   },
   computed: {
@@ -197,6 +273,18 @@ export default {
         if (!response.data.items) return
         this.userListOptions = response.data.items.map(v => v.name)
       })
+    },
+    handleRemove(file, fileList) {
+      console.log(file, fileList)
+    },
+    handlePreview(file) {
+      console.log(file)
+    },
+    handleExceed(files, fileList) {
+      this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`)
+    },
+    beforeRemove(file, fileList) {
+      return this.$confirm(`确定移除 ${file.name}？`)
     }
   }
 }
@@ -233,10 +321,18 @@ export default {
 .article-textarea ::v-deep {
   textarea {
     padding-right: 40px;
-    resize: none;
-    border: none;
-    border-radius: 0px;
-    border-bottom: 1px solid #bfcbd9;
+    border-radius: 20px;
+    //width: 60%;
+    //float: left;
+    //resize: none;
+    //border: none;
+    //border-radius: 0px;
+    //border-bottom: 1px solid #bfcbd9;
   }
+}
+
+.transmit_upload {
+  float: left;
+  margin-left: 100px;
 }
 </style>
