@@ -14,7 +14,7 @@ public class Gro {
     int project;
     String group_name;
     String group_status;
-    Timestamp pre_time;
+    String pre_time;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class Gro {
         this.group_status = group_status;
     }
 
-    public Timestamp getPre_time() {
+    public String getPre_time() {
         return pre_time;
     }
 
-    public void setPre_time(Timestamp pre_time) {
+    public void setPre_time(String pre_time) {
         this.pre_time = pre_time;
     }
 }
