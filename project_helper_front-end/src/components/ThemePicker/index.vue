@@ -1,7 +1,7 @@
 <template>
   <el-color-picker
     v-model="theme"
-    :predefine="['#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d', ]"
+    :predefine="['#2E1341','#409EFF', '#1890ff', '#304156','#212121','#11a983', '#13c2c2', '#6959CD', '#f5222d', ]"
     class="theme-picker"
     popper-class="theme-picker-dropdown"
   />
@@ -10,7 +10,6 @@
 <script>
 const version = require('element-ui/package.json').version // element-ui version from node_modules
 const ORIGINAL_THEME = '#409EFF' // default color
-
 export default {
   data() {
     return {
@@ -20,13 +19,23 @@ export default {
   },
   computed: {
     defaultTheme() {
-      return this.$store.state.settings.theme
+        // if(localStorage.getItem("saved_theme") != ""){
+        //   return localStorage.getItem("saved_theme")
+        // }
+        // else{
+          return this.$store.state.settings.theme
+        // }
+      // }
     }
   },
   watch: {
     defaultTheme: {
       handler: function(val, oldVal) {
         this.theme = val
+        // window.localStorage.setItem("saved_theme", val)
+        // var str = localStorage.getItem("saved_theme")
+        // alert(str.substring(3,(str.length-3)))
+        // alert(str.length)
       },
       immediate: true
     },

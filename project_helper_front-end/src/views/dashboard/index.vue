@@ -6,11 +6,11 @@
           <div class="title">Projects</div>
 
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" href="/#/overview/overview">
+          <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
             <div class="projectmenu">
               <div class="projectname">{{ project.course }}</div>
               <br>
-              <div class="projectname">{{ project.p_name }}</div>
+              <div class="projectname">{{ project.project_name }}</div>
             </div>
           </a>
 
@@ -66,7 +66,7 @@
             <div class="projectmenu">
               <div class="projectname">{{ project.course }}</div>
               <br>
-              <div class="projectname">{{ project.p_name }}</div>
+              <div class="projectname">{{ project.project_name }}</div>
             </div>
           </a>
         </div>
@@ -89,41 +89,71 @@
 import splitPane from 'vue-splitpane'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
+import {fetchMyProjectList} from '@/api/student/dashboard'
+import {fetchMyAnnouncementList} from '@/api/student/dashboard'
+import { getToken } from '@/utils/auth'
 
+const STORAGE_KEY = "current_project"
 export default {
   name: 'SplitpaneDemo',
   components: { splitPane },
   directives: { permission },
   data() {
     return {
-      projects: [
-        { course: 'OOAD', p_name: 'Project Helper' },
-        { course: 'AI', p_name: 'Reversi' },
-        { course: 'AI', p_name: 'Reversi' },
-        { course: 'Computer Network', p_name: 'RDT' },
-        { course: 'AI', p_name: 'IMP' },
-        { course: 'AI', p_name: 'Reversi' },
-        { course: 'AI', p_name: 'Reversi' },
-        { course: 'AI', p_name: 'Reversi' },
-        { course: 'AI', p_name: 'IMP' }
-      ],
-      announcements: [
-        { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
-        { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
-      ],
+      projects: 
+      null
+      // [
+      //   { course: 'OOAD', p_name: 'Project Helper' },
+      //   { course: 'AI', p_name: 'Reversi' },
+      //   { course: 'AI', p_name: 'Reversi' },
+      //   { course: 'Computer Network', p_name: 'RDT' },
+      //   { course: 'AI', p_name: 'IMP' },
+      //   { course: 'AI', p_name: 'Reversi' },
+      //   { course: 'AI', p_name: 'Reversi' },
+      //   { course: 'AI', p_name: 'Reversi' },
+      //   { course: 'AI', p_name: 'IMP' }
+      // ]
+      ,
+      announcements: 
+      null
+      // [
+      //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
+      //   { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
+      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
+      // ]
+      ,
       value: new Date()
     }
+  },
+  created() {
+    this.getMyProjects()
+    this.getMyAnnouncement()
   },
   methods: {
     checkPermission,
     resize() {
       console.log('resize')
+    },
+    getMyProjects(){
+      fetchMyProjectList(getToken()).then(response => {
+        this.projects = response.data
+      })
+
+    },
+    getMyAnnouncement(){
+      fetchMyAnnouncementList(getToken()).then(response => {
+        this.announcements = response.data.items
+      })
+
+    },
+    miao(name){
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(name))
+      // alert(localStorage.getItem("current_project"))
     }
   }
 }
