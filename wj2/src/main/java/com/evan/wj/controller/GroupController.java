@@ -28,8 +28,6 @@ public class GroupController {
         return allGroupResult;
     }
 
-
-
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/my_group")
     @ResponseBody
@@ -40,7 +38,6 @@ public class GroupController {
 //        MyGroup a = new MyGroup(1,"wky1","boy");
 //        a.addtags("前端");
 //        myGroups.add(a);
-
 
         // GetGroID {id }
         List<MyGroup_getGroId> gro_id_list = groupDAO.getAMyGroup_getGroID(token, project_id);
@@ -65,9 +62,8 @@ public class GroupController {
             }
         }
 
-
-
         MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups);
         return myGroupResult;
+
     }
 }
