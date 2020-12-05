@@ -1,12 +1,13 @@
 <template>
   <div class="components-container">
     <div id="t_border_online">
-      <div class="create_title">Online Grading</div>
+      <div class="create_title">Project Online Grading</div>
       <div class="search-Box" style=" margin-right: 30px;">
         <svg-icon icon-class="search" class="search_icon3" />
         <el-input v-model="search" placeholder="请输入关键字" class="search3" />
       </div>
       <div style="float: right;">
+        <BookTypeOption v-model="bookType" />
         <el-button
           :loading="downloadLoading"
           style="margin:0 0 20px 20px;"
@@ -14,9 +15,9 @@
           icon="el-icon-document"
           @click="handleDownload"
         >
-          Export Excel
+          Export
         </el-button>
-        <el-button type="primary">更新<i class="el-icon-upload el-icon--right" /></el-button>
+        <el-button plain type="primary">上传成绩<i class="el-icon-upload el-icon--right" /></el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -27,31 +28,38 @@
         fit
         highlight-current-row
       >
-        <el-table-column align="center" label="Index" width="90">
+        <el-table-column align="center" label="Index" width="80">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column align="center" label="SID">
+        <el-table-column align="center" prop="id" sortable label="SID" width="100">
           <template slot-scope="scope">
             {{ scope.row.id }}
           </template>
         </el-table-column>
-        <el-table-column label="Name" align="center">
+        <el-table-column label="Name" prop="name" sortable align="center" width="120">
           <template slot-scope="scope">
             {{ scope.row.name }}
           </template>
         </el-table-column>
-        <el-table-column label="Group Name" width="150" align="center">
+        <el-table-column label="Group Name" prop="groupName" sortable width="150" align="center">
           <template slot-scope="scope">
             <el-tag>{{ scope.row.groupName }}</el-tag>
           </template>
         </el-table-column>
-        <el-table-column align="center" label="Score" width="150">
+        <el-table-column align="center" prop="score" sortable label="Score" width="90">
           <template slot-scope="scope">
             <!--          {{ scope.row.score }}-->
             <!--          <el-input>{{ scope.row.score }}</el-input>-->
             <el-input v-model.trim="scope.row.score" />
+          </template>
+        </el-table-column>
+        <el-table-column align="center" label="Comments">
+          <template slot-scope="scope">
+            <!--          {{ scope.row.score }}-->
+            <!--          <el-input>{{ scope.row.score }}</el-input>-->
+            <el-input v-model.trim="scope.row.comments" />
           </template>
         </el-table-column>
       </el-table>
@@ -61,15 +69,18 @@
 
 <script>
 // import { fetchList } from '@/api/article'
+import BookTypeOption from './components/BookTypeOption'
 
 export default {
+  components: { BookTypeOption },
   data() {
     return {
       tableHeader: [],
       downloadLoading: false,
       listLoading: false,
+      bookType: 'xlsx',
       scorelist: [
-        { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99' },
+        { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
         { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
         { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
       ],
@@ -103,8 +114,8 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['Index', 'SID', 'Name', 'Group Name', 'Score']
-        const filterVal = ['index', 'id', 'name', 'groupName', 'score']
+        const tHeader = ['Index', 'SID', 'Name', 'Group Name', 'Score', 'Comments']
+        const filterVal = ['index', 'id', 'name', 'groupName', 'score', 'comments']
         const scorelist = this.scorelist
         const data = this.formatJson(filterVal, scorelist)
         excel.export_json_to_excel({
@@ -144,9 +155,9 @@ export default {
   border-radius: 30px;
 }
 
-//.el-input__inner {
-//  padding-left: 30px;
-//}
+.el-input__inner {
+  padding-left: 20px;
+}
 
 .search3 {
   float: left;
@@ -155,9 +166,9 @@ export default {
 
 #t_border_online {
   height: 100%;
-  width: 60%;
+  width: 80%;
   border: 2px solid $primary;
-  margin-left: 300px;
+  margin-left: 150px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;

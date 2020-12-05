@@ -19,6 +19,8 @@
         >
           Export Excel
         </el-button>
+        <el-button type="primary" style="float: right;margin-right: 50px;" plain @click="auto_grouping">无效组一键组队
+        </el-button>
         <!--        <el-checkbox-group-->
         <!--          v-model="checkedgroups"-->
         <!--          style="float: right;margin-right: 50px;"-->
@@ -148,8 +150,8 @@
           width="170px"
         >
           <template slot-scope="scope">
-            <el-button type="success" size="small" @click="handleClick(scope.row)">选人加入</el-button>
-            <el-button type="danger" size="small" @click="handleClick(scope.row)">解散</el-button>
+            <el-button type="success" size="small" @click="add_member(scope.row)">选人加入</el-button>
+            <el-button type="danger" size="small" @click="break_up(scope.row)">解散</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -255,6 +257,15 @@ export default {
       // if (!this.checkedgroups.length) {
       //
       // }
+    },
+    auto_grouping() {
+
+    },
+    add_member(row) {
+
+    },
+    break_up(row) {
+
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
