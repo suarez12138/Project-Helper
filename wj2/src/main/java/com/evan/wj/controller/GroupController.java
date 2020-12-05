@@ -73,7 +73,7 @@ public class GroupController {
     @GetMapping(value = "/vue-element-admin/student/group/the_group")
     @ResponseBody
     // MyGroupResult
-    public MyGroupResult getTheGroup(@RequestParam("  group_name") String group_name){
+    public MyGroupResult getTheGroup(@RequestParam("group_name") String group_name){
         List<MyGroup> myGroups = new ArrayList<MyGroup>();
 
 //        MyGroup a = new MyGroup(1,"wky1","boy");
