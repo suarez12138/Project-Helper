@@ -74,7 +74,7 @@
       <template slot="paneR">
         <a href="/#/createProject/createProject">
           <div class="border2">
-            <div class="center">Create a new group</div>
+            <div class="center">Create a new Project</div>
           </div>
         </a>
         <div class="border3">
