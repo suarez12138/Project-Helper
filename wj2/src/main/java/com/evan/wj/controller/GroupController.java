@@ -34,7 +34,7 @@ public class GroupController {
     @GetMapping(value = "/vue-element-admin/student/group/my_group")
     @ResponseBody
     // MyGroupResult
-    public MyGroupResult getMyGroup(@RequestParam("token") String token, @RequestParam("person_id") int project_id){
+    public MyGroupResult getMyGroup(@RequestParam("token") String token, @RequestParam("project_id") int project_id){
         List<MyGroup_getGroId> gro_id_list = groupDAO.getAMyGroup_getGroID(project_id,token);
         int gro_id = gro_id_list.get(0).getId();
         // NameGender {int id, String name, String gender, List<String》 tag}
@@ -55,7 +55,6 @@ public class GroupController {
                 if(person == p.getId()){
                     p.addtags(tg.getTag());
                 }
-
             }
         }
 
