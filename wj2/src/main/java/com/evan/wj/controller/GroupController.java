@@ -28,14 +28,16 @@ public class GroupController {
         return allGroupResult;
     }
 
-
-
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/my_group")
     @ResponseBody
     // MyGroupResult
     public MyGroupResult getMyGroup(@RequestParam("token") String token, @RequestParam("project_id") int project_id){
         List<MyGroup> myGroups = new ArrayList<MyGroup>();
+
+//        MyGroup a = new MyGroup(1,"wky1","boy");
+//        a.addtags("前端");
+//        myGroups.add(a);
 
         // GetGroID {id }
         List<MyGroup_getGroId> gro_id_list = groupDAO.getAMyGroup_getGroID(token, project_id);
@@ -55,12 +57,13 @@ public class GroupController {
             // MyGroup {int id, String name, String gender, List<String》 tag}
             for (MyGroup p: myGroups){
                 if(person == p.getId()){
-                    p.addtags(tg.getTag());
+                    p.getTags().add(tg.getTag());
                 }
             }
         }
 
         MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups);
         return myGroupResult;
+
     }
 }
