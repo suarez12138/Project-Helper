@@ -35,12 +35,21 @@
         </el-form-item>
 
         <el-form-item label="有效答辩周" prop="time">
-          <el-cascader
-            v-model="create_ruleForm.time"
-            :options="options"
-            :props="props"
-            clearable
-          />
+
+          <el-select v-model="create_ruleForm.time" multiple placeholder="请选择">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+          <!--          <el-cascader-->
+          <!--            v-model="create_ruleForm.time"-->
+          <!--            :options="options"-->
+          <!--            :props="props"-->
+          <!--            clearable-->
+          <!--          />-->
         </el-form-item>
 
         <el-form-item label="跨班组队" prop="across_lab" required>
@@ -84,14 +93,26 @@
             style="display: block; margin-top: 7px;"
             active-color="#13ce66"
             inactive-color="#ff4949"
-            active-text="立即开启"
-            inactive-text="暂不开启"
+            active-text="开启"
+            inactive-text="禁用"
           />
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" plain @click="submitForm('ruleForm')">立即创建</el-button>
-          <el-button plain @click="resetForm('ruleForm')">重置</el-button>
+          <el-button type="primary" plain @click="submitForm('ruleForm')">确认更新</el-button>
+          <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
+          <el-popconfirm
+            confirm-button-text="确定"
+            cancel-button-text="取消"
+            icon="el-icon-info"
+            icon-color="red"
+            title="确定删除本Project吗？"
+            placement="top"
+            style="float: right;margin-right: 150px;"
+            @confirm="deleteProject"
+          >
+            <el-button slot="reference" plain type="danger">删除此Project</el-button>
+          </el-popconfirm>
         </el-form-item>
       </el-form>
 
@@ -211,6 +232,9 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    deleteProject() {
+
     }
   }
 }
@@ -218,6 +242,7 @@ export default {
 
 <style lang="scss">
 @import "~@/styles/variables.scss";
+
 .components-container {
   position: relative;
   height: 100vh;

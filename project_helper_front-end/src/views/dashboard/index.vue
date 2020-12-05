@@ -74,7 +74,7 @@
       <template slot="paneR">
         <a href="/#/createProject/createProject">
           <div class="border2">
-            <div class="center">Create a new group</div>
+            <div class="center">Create a new Project</div>
           </div>
         </a>
         <div class="border3">
@@ -276,7 +276,7 @@ div {
 }
 
 .border1::-webkit-scrollbar-track ,.border2::-webkit-scrollbar-track{  /*滚动条轨道*/
-  background: #ffffff;
+  background: #999;
   border-radius: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
