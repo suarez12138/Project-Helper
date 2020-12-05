@@ -18,8 +18,8 @@ public interface GroupDAO extends JpaRepository<User,Integer> {
 
 
 
-    @Query("select new com.evan.wj.bean.MyGroup_getGroId(g.id) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where g.project =?1 and p.id =?2")
-    List<MyGroup_getGroId> getAMyGroup_getGroID(int project_id, int person_id);
+    @Query("select new com.evan.wj.bean.MyGroup_getGroId(g.id) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where g.project =?1 and p.name =?2")
+    List<MyGroup_getGroId> getAMyGroup_getGroID(int project_id, String token);
 
     @Query("select new com.evan.wj.bean.MyGroup_getNameGender(p.id, p.name, p.gender) from PersonGroup pg join People p on pg.person = p.id where pg.gro = 1")
     List<MyGroup_getNameGender> getAMyGroup_getName(int group_id);
