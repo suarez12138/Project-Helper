@@ -22,6 +22,7 @@ public class ProjectController {
 
         AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return allProjectResult;
+        
     }
 
 
