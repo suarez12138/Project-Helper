@@ -55,7 +55,7 @@ public class GroupController {
             // MyGroup {int id, String name, String gender, List<String》 tag}
             for (MyGroup p: myGroups){
                 if(person == p.getId()){
-                    p.addtags(tg.getTag());
+                    p.getTags().add(tg.getTag());
                 }
             }
         }
