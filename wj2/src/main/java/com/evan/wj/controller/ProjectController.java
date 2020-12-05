@@ -5,6 +5,7 @@ import com.evan.wj.dao.GroupDAO;
 import com.evan.wj.dao.ProjectDAO;
 import com.evan.wj.result.AllGroupResult;
 import com.evan.wj.result.AllProjectResult;
+import com.evan.wj.result.TempleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,11 +19,13 @@ public class ProjectController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/dashboard/project_list")
     @ResponseBody
-    public AllProjectResult getAllGroup(@RequestParam("token") String token){
+    public TempleteResult<AllProject> getAllGroup(@RequestParam("token") String token){
 
-        AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
-        return allProjectResult;
-        
+        TempleteResult<AllProject> allProjectResult_t = new TempleteResult<>(20000,projectDAO.getAllProject(token));
+
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return allProjectResult_t;
+
     }
 
 
