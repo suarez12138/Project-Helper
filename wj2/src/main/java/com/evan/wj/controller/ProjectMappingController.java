@@ -21,9 +21,9 @@ public class ProjectMappingController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/all_project")
     @ResponseBody
-    public TempleteResult<ProjectMapping> getAllGroup(@RequestParam("token") String token){
+    public TempleteResult<ProjectMapping> getAllGroup(){
 
-        TempleteResult<ProjectMapping> allProjectResult_t = new TempleteResult<ProjectMapping>(20000,projectMappingDAO.getMapping(token));
+        TempleteResult<ProjectMapping> allProjectResult_t = new TempleteResult<ProjectMapping>(20000,projectMappingDAO.getMapping());
 
         //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return allProjectResult_t;
