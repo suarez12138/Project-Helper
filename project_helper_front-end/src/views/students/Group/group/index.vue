@@ -32,14 +32,14 @@
               width="100"
             >
               <template slot-scope="scope">
-                <el-popover trigger="click" placement="right" class="pout">
+                <el-popover trigger="click"  placement="right" class="pout">
                   <!--                  <div id="border3_3">-->
                   <div class="title">Selected Group</div>
                   <el-table
                     ref="filterTable"
                     v-loading="listLoading"
                     class="juzhong"
-                    :data="tableData2"
+                    :data="tableData_of_OneGroup"
                     style="width: 100%"
                   >
                     <el-table-column
@@ -69,7 +69,7 @@
                   <!--                  <p>张三 SPRINGBOOT</p>-->
                   <!--                  <p>李四 VUE</p>-->
                   <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium" @click="returnrow()">{{ scope.row.name }}</el-tag>
+                    <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
                   </div>
                 </el-popover>
               </template>
@@ -145,7 +145,7 @@
             ref="filterTable"
             v-loading="listLoading"
             class="juzhong"
-            :data="tableData2"
+            :data="MyGroupTableData"
             style="width: 100%"
           >
             <el-table-column
@@ -250,8 +250,8 @@
 <script>
 import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
-import { fetchGroupsList } from '@/api/group'
-import { fetchMyGroup } from '@/api/group'
+import { fetchGroupsList } from '@/api/student/group'
+import { fetchMyGroup } from '@/api/student/group'
 import { fetchList } from '@/api/article'
 import { getToken } from '@/utils/auth'
 
@@ -296,8 +296,25 @@ export default {
         // }
         null
       ],
-      tableData2:
+      MyGroupTableData:
         null,
+      // [
+      //   {
+      //   name: '张小虎',
+      //   gender: '男',
+      //   skill: 'SPRING BOOT'
+      // }, {
+      //   name: '王小虎',
+      //   gender: '女',
+      //   skill: 'VUE'
+      // }, {
+      //   name: '王小虎'
+      // }, {
+      //   name: '王小虎'
+      // }
+      // ],
+      tableData_of_OneGroup:
+      null,
       // [
       //   {
       //   name: '张小虎',
@@ -341,8 +358,10 @@ export default {
   methods: {
     getAllGroups() {
       this.listLoading = true
-      fetchGroupsList().then(response => {
-        this.tableData33 = response.data.items
+      fetchGroupsList(1).then(response => {
+        
+        console.log(response)
+        this.tableData33 = response.allGroups
         this.listLoading = false
       })
     },
@@ -350,8 +369,17 @@ export default {
       this.listLoading = true
       console.log(getToken())
       console.log('aaaaaaaaaaaaaa')
-      fetchMyGroup(getToken()).then(response => {
-        this.tableData2 = response.data.items
+      fetchMyGroup(getToken(), 1).then(response => {
+      // fetchMyGroup('wky', 1).then(response => {
+        this.MyGroupTableData = response.myGroups
+        this.listLoading = false
+      })
+    },
+    getGroup_by_name(name) {
+        // alert(name)
+        alert(localStorage.getItem("current_project"))
+        fetchMyGroup(name).then(response => {
+        this.tableData_of_OneGroup = response.data.items
         this.listLoading = false
       })
     },
@@ -361,6 +389,7 @@ export default {
     },
     returnrow(row) {
       console.log(row)
+      alert(row)
     },
     toggleTooltip: function() {
       this.show_tooltip = !this.show_tooltip

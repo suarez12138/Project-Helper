@@ -15,6 +15,15 @@ public class Submission {
     String operate_time;
     String submission_type;
     String text;
+    String Ano_name;
+
+    public String getAno_name() {
+        return Ano_name;
+    }
+
+    public void setAno_name(String ano_name) {
+        Ano_name = ano_name;
+    }
 
     public int getId() {
         return id;
