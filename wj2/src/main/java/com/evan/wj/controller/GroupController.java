@@ -62,7 +62,7 @@ public class GroupController {
             }
         }
 
-        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups);
+        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups.size(),myGroups);
         return myGroupResult;
 
     }
@@ -99,7 +99,7 @@ public class GroupController {
             }
         }
 
-        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups);
+        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups.size(), myGroups);
         return myGroupResult;
     }
 
@@ -134,7 +134,7 @@ public class GroupController {
             }
         }
 
-        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups);
+        MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups.size() ,myGroups);
         return myGroupResult;
     }
 
