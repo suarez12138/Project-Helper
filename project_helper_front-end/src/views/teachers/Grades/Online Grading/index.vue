@@ -59,7 +59,12 @@
           <template slot-scope="scope">
             <!--          {{ scope.row.score }}-->
             <!--          <el-input>{{ scope.row.score }}</el-input>-->
-            <el-input v-model.trim="scope.row.comments" />
+            <el-input
+              v-model="scope.row.comments"
+              type="textarea"
+              autosize
+              placeholder="请输入评语"
+            />
           </template>
         </el-table-column>
       </el-table>
@@ -151,8 +156,11 @@ export default {
   height: 100vh;
 }
 
-.el-card, .el-input__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+.el-card, .el-input__inner, .el-textarea__inner,.el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
   border-radius: 30px;
+}
+.el-table .cell {
+  white-space: pre-line; //保留空白符序列，但是正常地进行换行。
 }
 
 .el-input__inner {
