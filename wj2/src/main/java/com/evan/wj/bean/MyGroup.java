@@ -1,5 +1,6 @@
 package com.evan.wj.bean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MyGroup {
@@ -12,7 +13,7 @@ public class MyGroup {
         this.id = id;
         this.name = name;
         this.gender = gender;
-
+        this.tags = new ArrayList<String>();
     }
 
     public void addtags(String tag){
