@@ -76,7 +76,6 @@ public class LoginController {
     @ResponseBody
     public Result3 logout(@RequestParam("token") String token) {
 //        System.out.print("miyyyyyyyyaaaa\n");
-
         return new Result3(20000);
     }
 

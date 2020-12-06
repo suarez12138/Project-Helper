@@ -14,7 +14,7 @@ public class User {
     @Column(name = "id")
     int id;
 
-    String username;
+    String username; // 学号
     String password;
 
 

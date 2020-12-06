@@ -39,7 +39,6 @@ public class PersonInfo_proController {
                     s1.addSkill(s2.getTag());
                     break;
                 }
-
             }
         }
 
