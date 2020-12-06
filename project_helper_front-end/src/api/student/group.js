@@ -1,7 +1,14 @@
 import request from '@/utils/request'
 
 
-// export function fetchGroupsList(project_id) {
+export function fetchAllProject() {
+  return request({
+    url: '/vue-element-admin/student/group/all_project',
+    method: 'get'
+  })
+}
+
+
 export function fetchGroupsList(project_id) {
   return request({
     url: '/vue-element-admin/student/group/group_list',

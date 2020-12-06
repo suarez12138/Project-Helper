@@ -17,7 +17,6 @@ public interface GroupDAO extends JpaRepository<User,Integer> {
     List<AllGroup> getAllGroup(int project_id);
 
 
-
     @Query("select new com.evan.wj.bean.MyGroup_getGroId(g.id) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where p.stu_id =?1 and g.project =?2")
     List<MyGroup_getGroId> getAMyGroup_getGroID(String token,int project_id);
 
@@ -29,6 +28,8 @@ public interface GroupDAO extends JpaRepository<User,Integer> {
 
     @Query("select new com.evan.wj.bean.MyGroup_getGroId(g.id) from Gro g where g.group_name =?1")
     List<MyGroup_getGroId> getAMyGroup_getGroID2(String group_name);
+
+
 
 
 

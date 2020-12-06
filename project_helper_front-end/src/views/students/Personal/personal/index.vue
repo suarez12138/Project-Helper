@@ -26,7 +26,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible1 = false">确 定</el-button>
+        <el-button type="primary" @click="dialogFormVisible1 = false, update_MyInformation_table()">确 定</el-button>
       </div>
     </el-dialog>
     <div>
@@ -128,6 +128,8 @@
 </template>
 
 <script>
+import { get_AllStudents } from '@/api/student/personal'
+import { update_MyInformation } from '@/api/student/personal'
 
 export default {
   name: 'DragSelectDemo',
@@ -139,31 +141,34 @@ export default {
         population: '',
         information: ''
       },
-      tableData22: [{
-        select: false,
-        name: '张小虎',
-        gender: '男',
-        lab: 2,
-        skill: 'SPRING BOOT',
-        hope: '不搞基',
-        status: '已组队'
-      }, {
-        select: false,
-        name: '王小虎',
-        gender: '女',
-        lab: 3,
-        skill: 'VUE',
-        hope: '不划水',
-        status: '未组队'
-      }, {
-        select: true,
-        name: '王小虎',
-        status: '已组队'
-      }, {
-        select: false,
-        name: '王小虎',
-        status: '未组队'
-      }],
+      tableData22: 
+      null
+      // [{
+      //   select: false,
+      //   name: '张小虎',
+      //   gender: '男',
+      //   lab: 2,
+      //   skill: 'SPRING BOOT',
+      //   hope: '不搞基',
+      //   status: '已组队'
+      // }, {
+      //   select: false,
+      //   name: '王小虎',
+      //   gender: '女',
+      //   lab: 3,
+      //   skill: 'VUE',
+      //   hope: '不划水',
+      //   status: '未组队'
+      // }, {
+      //   select: true,
+      //   name: '王小虎',
+      //   status: '已组队'
+      // }, {
+      //   select: false,
+      //   name: '王小虎',
+      //   status: '未组队'
+      // }]
+      ,
       form: {
         skill: '',
         expect: ''
@@ -173,6 +178,9 @@ export default {
       formLabelWidth: '120px',
       search: ''
     }
+  },
+  created(){
+    this.get_AllStudent_table()
   },
   computed: {
     tableData2: function() {
@@ -189,6 +197,24 @@ export default {
     }
   },
   methods: {
+    get_AllStudent_table(){
+      get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
+        this.tableData22 = response.allGroups
+      }
+      )
+    },
+    update_MyInformation_table(){
+      // alert("miao")
+      // alert(this.form.skill)
+      // alert(this.form.expect)
+      localStorage.getItem('current_project_id'), 
+      // update_MyInformation({project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
+        update_MyInformation({project_id: "miao", skill: "miao", expect: "miao"}).then(response => {
+        // alert("miao")
+
+
+      })
+    },
     resetDateFilter() {
       this.$refs.filterTable.clearFilter('date')
     },
