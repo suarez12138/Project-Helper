@@ -32,7 +32,7 @@
               width="100"
             >
               <template slot-scope="scope">
-                <el-popover trigger="click"  placement="right" class="pout">
+                <el-popover trigger="click" placement="right" class="pout">
                   <!--                  <div id="border3_3">-->
                   <div class="title">Selected Group</div>
                   <el-table
@@ -252,6 +252,8 @@ import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
+import { fetchTheGroup } from '@/api/student/group'
+
 import { fetchList } from '@/api/article'
 import { getToken } from '@/utils/auth'
 
@@ -273,7 +275,9 @@ export default {
       value2: true,
       list1: [],
       list2: [],
-      textarea: '',
+      project_dict: {},
+      current_project: localStorage.getItem('current_project').substring(1,(localStorage.getItem('current_project').length - 1)), 
+      textarea: '', 
       tableData33: [
         //   {
         //   name: '组1',
@@ -303,14 +307,6 @@ export default {
       //   name: '张小虎',
       //   gender: '男',
       //   skill: 'SPRING BOOT'
-      // }, {
-      //   name: '王小虎',
-      //   gender: '女',
-      //   skill: 'VUE'
-      // }, {
-      //   name: '王小虎'
-      // }, {
-      //   name: '王小虎'
       // }
       // ],
       tableData_of_OneGroup:
@@ -320,14 +316,6 @@ export default {
       //   name: '张小虎',
       //   gender: '男',
       //   skill: 'SPRING BOOT'
-      // }, {
-      //   name: '王小虎',
-      //   gender: '女',
-      //   skill: 'VUE'
-      // }, {
-      //   name: '王小虎'
-      // }, {
-      //   name: '王小虎'
       // }
       // ],
       ruleForm: {
@@ -352,15 +340,13 @@ export default {
     }
   },
   created() {
-    this.getAllGroups()
     this.getMyGroup()
+    this.getAllGroups()
   },
   methods: {
     getAllGroups() {
       this.listLoading = true
-      fetchGroupsList(1).then(response => {
-        
-        console.log(response)
+      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.tableData33 = response.allGroups
         this.listLoading = false
       })
@@ -370,16 +356,13 @@ export default {
       console.log(getToken())
       console.log('aaaaaaaaaaaaaa')
       fetchMyGroup(getToken(), 1).then(response => {
-      // fetchMyGroup('wky', 1).then(response => {
         this.MyGroupTableData = response.myGroups
         this.listLoading = false
       })
     },
     getGroup_by_name(name) {
-        // alert(name)
-        alert(localStorage.getItem("current_project"))
-        fetchMyGroup(name).then(response => {
-        this.tableData_of_OneGroup = response.data.items
+        fetchTheGroup(name).then(response => {
+        this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false
       })
     },
