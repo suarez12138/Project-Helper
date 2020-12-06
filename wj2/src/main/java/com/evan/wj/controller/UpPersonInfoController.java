@@ -22,7 +22,7 @@ public class UpPersonInfoController {
     UpPersonInfoDAO upPersonInfoDAO;
 
     @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/student/personal/updata_my_info")
+    @PostMapping(value = "/vue-element-admin/student/personal/update_my_info")
     @ResponseBody
     public Void_return update_personal_info(@RequestBody Person_info_update Pi){
         int project_id = Pi.getProject_id();
