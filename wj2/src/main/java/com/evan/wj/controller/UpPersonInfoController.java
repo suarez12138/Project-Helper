@@ -21,13 +21,13 @@ public class UpPersonInfoController {
     UpPersonInfoDAO upPersonInfoDAO;
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/personal/updattest")
+    @GetMapping(value = "/vue-element-admin/student/personal/updata_my_info")
     @ResponseBody
     public void update_personal_info(@RequestBody Person_info_update Pi){
         int project_id = Pi.getProject_id();
         String stu_id = Pi.getToken();
         List<Integer> skills = Pi.getSkill();
-        String hope = Pi.getHope();
+        String hope = Pi.getExpect();
 
         int person_id = upPersonInfoDAO.getID(stu_id).get(0).getId();
 
