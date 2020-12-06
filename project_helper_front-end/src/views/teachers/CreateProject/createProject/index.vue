@@ -62,6 +62,28 @@
             inactive-text="不允许"
           />
         </el-form-item>
+        <el-form-item label="技能设定" prop="skills">
+          <el-tag
+            v-for="tag in dynamicTags"
+            :key="tag"
+            v-model="create_ruleForm.skills"
+            closable
+            :disable-transitions="false"
+            @close="handleClose(tag)"
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            v-if="inputVisible"
+            ref="saveTagInput"
+            v-model="inputValue"
+            class="input-new-tag"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          />
+          <el-button v-else class="button-new-tag el-icon-circle-plus" plain type="primary" size="small" @click="showInput">  Add</el-button>
+        </el-form-item>
 
         <el-form-item
           label="停止组队时间"
@@ -103,7 +125,6 @@
           <el-button plain @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
-
     </div>
   </div>
 </template>
@@ -128,6 +149,9 @@ export default {
 
     return {
       props: { multiple: true },
+      dynamicTags: [],
+      inputVisible: false,
+      inputValue: '',
       create_ruleForm: {
         course: '',
         name: '',
@@ -136,7 +160,8 @@ export default {
         groupingEndTime: '',
         groupingEndTime2: '',
         across_lab: true,
-        grouping: true
+        grouping: true,
+        skills: []
       },
       rules: {
         course: [
@@ -223,6 +248,27 @@ export default {
     },
     resetForm(formName) {
       this.$refs[formName].resetFields()
+    },
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+    },
+
+    showInput() {
+      this.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+
+    handleInputConfirm() {
+      const inputValue = this.inputValue
+      if (inputValue) {
+        this.dynamicTags.push(inputValue)
+      }
+      this.inputVisible = false
+      this.inputValue = ''
+      this.create_ruleForm.skills = this.dynamicTags
+      // console.log(this.create_ruleForm.skills)
     }
   }
 }
@@ -242,6 +288,21 @@ export default {
 .el-popover {
   border-radius: 20px;
   box-shadow: 0 0 40px #CCCCCC;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+}
+.button-new-tag {
+  margin-left: 10px;
+  height: 32px;
+  line-height: 30px;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.input-new-tag {
+  width: 90px;
+  margin-left: 10px;
+  vertical-align: bottom;
 }
 
 #t_border3_1 {

@@ -2,7 +2,7 @@
   <div class="components-container">
     <div id="t_border3_1">
       <div class="title">{{ title }}</div>
-      <div style="color: $primary; font-size: 20px; text-align: center; padding-bottom: 30px;">DDL: {{ ddl }}</div>
+      <div class="ddl">DDL: {{ ddl }}</div>
       <div class="content2">{{ content }}</div>
       <div class="score">Score: {{ score }}</div>
       <div class="remark">Remark: {{ remark }}</div>
@@ -128,7 +128,7 @@ export default {
   //border: #2e1341 1px;
 }
 
-.score ,.remark{
+.score, .remark {
   //margin-left: 60px;
   margin: 20px 60px 30px 60px;
   font-size: 25px;
@@ -152,5 +152,12 @@ export default {
 
 .search_icon2 {
   color: $primary;
+}
+
+.ddl {
+  color: $primary;
+  font-size: 20px;
+  text-align: center;
+  padding-bottom: 30px;
 }
 </style>

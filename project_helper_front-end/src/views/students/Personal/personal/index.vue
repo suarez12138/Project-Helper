@@ -1,140 +1,142 @@
 <template>
-  <div class="border_p">
-    <div class="personal_title"> Personal information</div>
-    <el-button type="text" style="float: left;margin-left: 50px;" size="large" @click="handleClick()"><i
-      class="el-icon-circle-plus"
-    /> 邀请组队
-    </el-button>
+  <div class="components-container">
+    <div class="border_p">
+      <div class="personal_title"> Personal information</div>
+      <el-button type="text" style="float: left;margin-left: 50px;" size="large" @click="handleClick()"><i
+        class="el-icon-circle-plus"
+      /> 邀请组队
+      </el-button>
 
-    <el-button type="text" style="float: left;margin-left: 270px;" @click="dialogFormVisible1 = true">
-      <svg-icon icon-class="edit" />
-      修改我的信息
-    </el-button>
-    <div class="search-Box" style=" margin-right: 30px; width: 30%; float: right">
-      <el-input v-model="search" placeholder="请输入关键字" class="search" />
-      <svg-icon icon-class="search" class="search_icon4" />
-    </div>
-
-    <el-dialog title="关于此project" :visible.sync="dialogFormVisible1" width="500px" append-to-body>
-      <el-form :model="form">
-        <!-- <el-form-item label="你的技能" :label-width="formLabelWidth">
-          <el-input v-model="form.skill" autocomplete="off" />
-        </el-form-item> -->
-        <el-form-item label="你的技能" :label-width="formLabelWidth">
-          <el-select v-model="form.skill" multiple placeholder="请选择你的技能">
-            <!--            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />-->
-            <el-option
-              v-for="item in skill_form"
-              :key="item.tag_id"
-              :label="item.tag"
-              :value="item.tag_id"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item label="期待队友类型" :label-width="formLabelWidth">
-          <el-input v-model="form.expect" autocomplete="off" />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible1 = false, update_MyInformation_table()">确 定</el-button>
+      <el-button type="text" style="float: left;margin-left: 270px;" @click="dialogFormVisible1 = true">
+        <svg-icon icon-class="edit" />
+        修改我的信息
+      </el-button>
+      <div class="search-Box" style=" margin-right: 30px; width: 30%; float: right">
+        <el-input v-model="search" placeholder="请输入关键字" class="search" />
+        <svg-icon icon-class="search" class="search_icon4" />
       </div>
-    </el-dialog>
-    <div>
 
-      <el-table
-        ref="filterTable"
-        :data="tableData2"
-        style="width: 100%"
-        @selection-change="handleSelectionChange"
-      >
-        <!--        <el-table-column-->
-        <!--          type="index"-->
-        <!--          :index="index"-->
-        <!--        />-->
-        <el-table-column
-          prop="select"
-          type="selection"
-          width="55"
-        />
-        <el-table-column
-          prop="name"
-          label="姓名"
-          sortable
-          width="100"
-        />
-        <el-table-column
-          prop="gender"
-          label="性别"
-          sortable
-          width="100"
-          :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
-          :filter-method="filterHandler"
-        />
-        <el-table-column
-          prop="lab"
-          label="Lab"
-          sortable
-        />
-        <el-table-column
-          prop="skill"
-          label="技能"
-          sortable
-          :formatter="formatter"
-        />
-        <el-table-column
-          prop="hope"
-          label="期待队友类型"
-          sortable
-        />
-        <el-table-column
-          prop="status"
-          label="状态"
-          sortable
-          width="100"
-          :filters="[{ text: '未组队', value: '未组队' }, { text: '已组队', value: '已组队' }]"
-          :filter-method="filterstatus"
-          filter-placement="bottom-end"
+      <el-dialog title="关于此project" :visible.sync="dialogFormVisible1" width="500px" append-to-body>
+        <el-form :model="form">
+          <!-- <el-form-item label="你的技能" :label-width="formLabelWidth">
+            <el-input v-model="form.skill" autocomplete="off" />
+          </el-form-item> -->
+          <el-form-item label="你的技能" :label-width="formLabelWidth">
+            <el-select v-model="form.skill" multiple placeholder="请选择你的技能">
+              <!--            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />-->
+              <el-option
+                v-for="item in skill_form"
+                :key="item.tag_id"
+                :label="item.tag"
+                :value="item.tag_id"
+              />
+            </el-select>
+          </el-form-item>
+          <el-form-item label="期待队友类型" :label-width="formLabelWidth">
+            <el-input v-model="form.expect" autocomplete="off" />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible1 = false">取 消</el-button>
+          <el-button type="primary" @click="dialogFormVisible1 = false, update_MyInformation_table()">确 定</el-button>
+        </div>
+      </el-dialog>
+      <div>
+
+        <el-table
+          ref="filterTable"
+          :data="tableData2"
+          style="width: 100%"
+          @selection-change="handleSelectionChange"
         >
-          <template slot-scope="scope">
-            <el-tag
-              :type="scope.row.status === '未组队' ? 'primary' : 'success'"
-              disable-transitions
-            >{{ scope.row.status }}
-            </el-tag>
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-    <el-dialog title="创建小组" :visible.sync="dialogFormVisible" width="500px" append-to-body>
-      <el-form :model="createGroupForm">
-        <el-form-item label="小组名称" :label-width="formLabelWidth">
-          <el-input v-model="createGroupForm.name" autocomplete="off" />
-        </el-form-item>
-        <!--        <el-form-item label="意向人数" :label-width="formLabelWidth">-->
-        <!--          <el-select v-model="form.population" placeholder="请选择意向人数">-->
-        <!--            <el-option label="区域一" value="shanghai"></el-option>-->
-        <!--            <el-option label="区域二" value="beijing"></el-option>-->
-        <!--          </el-select>-->
-        <!--        </el-form-item>-->
-        <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
-          <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" />
-        </el-form-item>
-        <el-form-item label="小组信息" :label-width="formLabelWidth">
-          <el-input
-            v-model="createGroupForm.information"
-            autocomplete="off"
-            maxlength="50"
-            show-word-limit
+          <!--        <el-table-column-->
+          <!--          type="index"-->
+          <!--          :index="index"-->
+          <!--        />-->
+          <el-table-column
+            prop="select"
+            type="selection"
+            width="55"
           />
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="submitForm('createGroupForm',createGroupForm)">确 定
-        </el-button>
+          <el-table-column
+            prop="name"
+            label="姓名"
+            sortable
+            width="100"
+          />
+          <el-table-column
+            prop="gender"
+            label="性别"
+            sortable
+            width="100"
+            :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
+            :filter-method="filterHandler"
+          />
+          <el-table-column
+            prop="lab"
+            label="Lab"
+            sortable
+          />
+          <el-table-column
+            prop="skill"
+            label="技能"
+            sortable
+            :formatter="formatter"
+          />
+          <el-table-column
+            prop="hope"
+            label="期待队友类型"
+            sortable
+          />
+          <el-table-column
+            prop="status"
+            label="状态"
+            sortable
+            width="100"
+            :filters="[{ text: '未组队', value: '未组队' }, { text: '已组队', value: '已组队' }]"
+            :filter-method="filterstatus"
+            filter-placement="bottom-end"
+          >
+            <template slot-scope="scope">
+              <el-tag
+                :type="scope.row.status === '未组队' ? 'primary' : 'success'"
+                disable-transitions
+              >{{ scope.row.status }}
+              </el-tag>
+            </template>
+          </el-table-column>
+        </el-table>
       </div>
-    </el-dialog>
+      <el-dialog title="创建小组" :visible.sync="dialogFormVisible" width="500px" append-to-body>
+        <el-form :model="createGroupForm">
+          <el-form-item label="小组名称" :label-width="formLabelWidth">
+            <el-input v-model="createGroupForm.name" autocomplete="off" />
+          </el-form-item>
+          <!--        <el-form-item label="意向人数" :label-width="formLabelWidth">-->
+          <!--          <el-select v-model="form.population" placeholder="请选择意向人数">-->
+          <!--            <el-option label="区域一" value="shanghai"></el-option>-->
+          <!--            <el-option label="区域二" value="beijing"></el-option>-->
+          <!--          </el-select>-->
+          <!--        </el-form-item>-->
+          <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
+            <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" />
+          </el-form-item>
+          <el-form-item label="小组信息" :label-width="formLabelWidth">
+            <el-input
+              v-model="createGroupForm.information"
+              autocomplete="off"
+              maxlength="50"
+              show-word-limit
+            />
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="dialogFormVisible = false">取 消</el-button>
+          <el-button type="primary" @click="submitForm('createGroupForm',createGroupForm)">确 定
+          </el-button>
+        </div>
+      </el-dialog>
+    </div>
   </div>
 </template>
 
@@ -185,14 +187,13 @@ export default {
         skill: [],
         expect: ''
       },
-      skill_form: 
-      null
-      // [
+      skill_form:
+        null, // [
       //   { tag_id: 1, tag: '前端' },
       //   { tag_id: 2, tag: '后端' },
       //   { tag_id: 3, tag: 'miaomiao叫' }
       // ]
-      ,
+
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
@@ -213,27 +214,31 @@ export default {
       return this.tableData22
     }
   },
-  created(){
+  created() {
     this.get_AllStudent_table()
     this.get_AllTags_table()
   },
   methods: {
-    get_AllStudent_table(){
+    get_AllStudent_table() {
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
       })
     },
-    get_AllTags_table()
-    {
+    get_AllTags_table() {
       get_AllTags(localStorage.getItem('current_project_id')).then(response => {
         this.skill_form = response.data
       })
-      alert(skill_form)
+      // alert(this.skill_form)
     },
-    update_MyInformation_table(){
+    update_MyInformation_table() {
       alert(this.form.skill)
       alert(this.form.expect)
-      update_MyInformation({token: getToken(), project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
+      update_MyInformation({
+        token: getToken(),
+        project_id: localStorage.getItem('current_project_id'),
+        skill: this.form.skill,
+        expect: this.form.expect
+      }).then(response => {
         // update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
         // alert("miao")
       })
@@ -292,6 +297,10 @@ export default {
 <style lang="scss">
 @import "~@/styles/variables.scss";
 
+.components-container {
+  position: relative;
+  height: 100vh;
+}
 .search {
   float: right;
   width: 80% !important;
@@ -327,7 +336,7 @@ export default {
 }
 
 .border_p {
-  height: 900px;
+  height: 100%;
   width: 60%;
   border: 2px solid $primary;
   margin-left: 300px;

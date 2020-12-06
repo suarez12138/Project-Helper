@@ -62,6 +62,28 @@
             inactive-text="不允许"
           />
         </el-form-item>
+        <el-form-item label="技能设定" prop="skills">
+          <el-tag
+            v-for="tag in dynamicTags"
+            :key="tag"
+            v-model="create_ruleForm.skills"
+            closable
+            :disable-transitions="false"
+            @close="handleClose(tag)"
+          >
+            {{ tag }}
+          </el-tag>
+          <el-input
+            v-if="inputVisible"
+            ref="saveTagInput"
+            v-model="inputValue"
+            class="input-new-tag"
+            size="small"
+            @keyup.enter.native="handleInputConfirm"
+            @blur="handleInputConfirm"
+          />
+          <el-button v-else class="button-new-tag el-icon-circle-plus" plain type="primary" size="small" @click="showInput">  Add</el-button>
+        </el-form-item>
 
         <el-form-item
           label="停止组队时间"
@@ -151,6 +173,9 @@ export default {
 
     return {
       props: { multiple: true },
+      dynamicTags: [],
+      inputVisible: false,
+      inputValue: '',
       create_ruleForm: {
         // course: '',
         name: '',
@@ -247,6 +272,27 @@ export default {
     },
     deleteProject() {
 
+    },
+    handleClose(tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
+    },
+
+    showInput() {
+      this.inputVisible = true
+      this.$nextTick(_ => {
+        this.$refs.saveTagInput.$refs.input.focus()
+      })
+    },
+
+    handleInputConfirm() {
+      const inputValue = this.inputValue
+      if (inputValue) {
+        this.dynamicTags.push(inputValue)
+      }
+      this.inputVisible = false
+      this.inputValue = ''
+      this.create_ruleForm.skills = this.dynamicTags
+      // console.log(this.create_ruleForm.skills)
     }
   }
 }
