@@ -11,7 +11,7 @@ public class Tag {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String project;
+    int project;
     String tag;
 
 
@@ -25,12 +25,11 @@ public class Tag {
     }
 
 
-
-    public String getProject() {
+    public int getProject() {
         return project;
     }
 
-    public void setProject(String project) {
+    public void setProject(int project) {
         this.project = project;
     }
 
