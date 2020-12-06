@@ -2,8 +2,10 @@
   <div class="components-container">
     <div id="t_border3_1">
       <div class="title">{{ title }}</div>
-      <div class="title">DDL: {{ ddl }}</div>
-      <div class="content">{{ content }}</div>
+      <div style="color: $primary; font-size: 20px; text-align: center; padding-bottom: 30px;">DDL: {{ ddl }}</div>
+      <div class="content2">{{ content }}</div>
+      <div class="score">Score: {{ score }}</div>
+      <div class="remark">Remark: {{ remark }}</div>
       <el-upload
         class="upload-demo"
         action="https://jsonplaceholder.typicode.com/posts/"
@@ -32,6 +34,8 @@ export default {
       title: 'This is title',
       ddl: '2020-12-9 22:00',
       content: 'this is content',
+      score: '90',
+      remark: 'this is remark.',
       fileList: [{
         name: 'food.jpeg',
         url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
@@ -103,10 +107,11 @@ export default {
 
 .title {
   color: $primary;
-  font-size: 30px;
+  font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .juzhong {
@@ -115,26 +120,32 @@ export default {
   width: 75% !important;
 }
 
-.content {
+.content2 {
   font-size: 25px;
   margin: 20px 60px 60px 60px;
   overflow-y: auto;
-  height: 300px;
+  height: 200px;
   //border: #2e1341 1px;
 }
 
-.content::-webkit-scrollbar { /*滚动条整体*/
+.score ,.remark{
+  //margin-left: 60px;
+  margin: 20px 60px 30px 60px;
+  font-size: 25px;
+}
+
+.content2::-webkit-scrollbar { /*滚动条整体*/
   width: 10px;
 }
 
-.content::-webkit-scrollbar-track { /*滚动条轨道*/
+.content2::-webkit-scrollbar-track { /*滚动条轨道*/
   /*background:#999;*/
   background: #999;
   border-radius: 20px;
 
 }
 
-.content::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+.content2::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
   background: $primary;
   border-radius: 10px;
 }

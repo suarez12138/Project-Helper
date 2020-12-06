@@ -320,10 +320,11 @@ export default {
 
 .title {
   color: $primary;
-  font-size: 30px;
+  font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 40px;
 }
 
 .juzhong {
