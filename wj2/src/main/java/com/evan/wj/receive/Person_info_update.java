@@ -6,7 +6,7 @@ public class Person_info_update {
     int project_id;
     String token;
     List<Integer> skill;
-    String hope;
+    String expect;
 
     public int getProject_id() {
         return project_id;
@@ -32,11 +32,11 @@ public class Person_info_update {
         this.skill = skill;
     }
 
-    public String getHope() {
-        return hope;
+    public String getExpect() {
+        return expect;
     }
 
-    public void setHope(String hope) {
-        this.hope = hope;
+    public void setExpect(String expect) {
+        this.expect = expect;
     }
 }
