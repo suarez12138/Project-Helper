@@ -5,12 +5,29 @@ import Layout from '@/layout/index'
 const submissionRouter = {
   path: '/submission',
   component: Layout,
+  name: 'submission',
+  meta: { title: 'Submission', icon: 'clipboard' },
   children: [
     {
-      path: 'submission',
+      path: 'submission1',
       component: () => import('@/views/teachers/Submission/submission/index'), // Parent router-view
-      name: 'submission',
-      meta: { title: 'Submission', icon: 'clipboard' }
+      name: 'submission1',
+      meta: { title: 'S1', icon: 'clipboard' }
+    }, {
+      path: 'submission2',
+      component: () => import('@/views/teachers/Submission/p2/index'), // Parent router-view
+      name: 'submission2',
+      meta: { title: 'S2', icon: 'clipboard' }
+    }, {
+      path: 'submission3',
+      component: () => import('@/views/teachers/Submission/p3/index'), // Parent router-view
+      name: 'submission3',
+      meta: { title: 'S3', icon: 'clipboard' }
+    }, {
+      path: 'submission4',
+      component: () => import('@/views/teachers/Submission/p4/index'), // Parent router-view
+      name: 'submission4',
+      meta: { title: 'S4', icon: 'clipboard' }
     }
   ]
 }

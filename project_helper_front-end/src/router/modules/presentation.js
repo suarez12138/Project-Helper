@@ -5,16 +5,23 @@ import Layout from '@/layout/index'
 const teacher_presentationRouter = {
   path: '/teacher_presentation',
   component: Layout,
+  name: 'Presentation',
+  meta: {
+    title: 'Presentation',
+    icon: 'people'
+    // roles: ['teacher']
+  },
   children: [
     {
       path: 'presentation',
       component: () => import('@/views/teachers/Presentation/presentation/index'), // Parent router-view
-      name: 'Presentation',
-      meta: {
-        title: 'Presentation',
-        icon: 'people'
-        // roles: ['teacher']
-      }
+      name: 'P1',
+      meta: { title: 'P1', icon: 'people' }
+    }, {
+      path: 'presentation2',
+      component: () => import('@/views/teachers/Presentation/p2/index'), // Parent router-view
+      name: 'P2',
+      meta: { title: 'P2', icon: 'people' }
     }
   ]
 }
