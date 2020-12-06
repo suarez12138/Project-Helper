@@ -34,7 +34,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="有效答辩周" prop="time">
+        <el-form-item label="答辩周" prop="time">
           <el-select v-model="create_ruleForm.time" multiple placeholder="请选择">
             <el-option
               v-for="item in options"

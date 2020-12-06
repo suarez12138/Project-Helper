@@ -11,12 +11,12 @@
         label-width="120px"
         class="demo-ruleForm"
       >
-        <el-form-item label="课程" prop="course">
-          <el-select v-model="create_ruleForm.course" placeholder="请选择相应课程">
-            <el-option label="课程一" value="shanghai" />
-            <el-option label="课程二" value="beijing" />
-          </el-select>
-        </el-form-item>
+        <!--        <el-form-item label="课程" prop="course">-->
+        <!--          <el-select v-model="create_ruleForm.course" placeholder="请选择相应课程">-->
+        <!--            <el-option label="课程一" value="shanghai" />-->
+        <!--            <el-option label="课程二" value="beijing" />-->
+        <!--          </el-select>-->
+        <!--        </el-form-item>-->
 
         <el-form-item label="项目名称" prop="name">
           <el-input v-model="create_ruleForm.name" style="padding-right: 200px;" />
@@ -34,7 +34,7 @@
           />
         </el-form-item>
 
-        <el-form-item label="有效答辩周" prop="time">
+        <el-form-item label="答辩周" prop="time">
 
           <el-select v-model="create_ruleForm.time" multiple placeholder="请选择">
             <el-option
@@ -98,6 +98,17 @@
           />
         </el-form-item>
 
+        <el-form-item label="答辩时间填写" prop="pre">
+          <el-switch
+            v-model="create_ruleForm.pre"
+            style="display: block; margin-top: 7px;"
+            active-color="#13ce66"
+            inactive-color="#ff4949"
+            active-text="开启"
+            inactive-text="禁用"
+          />
+        </el-form-item>
+
         <el-form-item>
           <el-button type="primary" plain @click="submitForm('ruleForm')">确认更新</el-button>
           <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
@@ -141,14 +152,15 @@ export default {
     return {
       props: { multiple: true },
       create_ruleForm: {
-        course: '',
+        // course: '',
         name: '',
         population: [2, 4],
         time: [],
         groupingEndTime: '',
         groupingEndTime2: '',
         across_lab: true,
-        grouping: true
+        grouping: true,
+        pre: false
       },
       rules: {
         course: [

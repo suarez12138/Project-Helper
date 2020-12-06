@@ -44,8 +44,8 @@ export default {
   border-radius: 30px;
 }
 
-.el-input__inner {
-  padding-left: 50px;
-}
+/*.el-input__inner {*/
+/*  padding-left: 50px;*/
+/*}*/
 
 </style>

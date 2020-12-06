@@ -1,25 +1,25 @@
 <template>
   <div class="components-container">
-    <div id="t_border3_1">
+    <div id="t_border3_1_large">
       <div class="title">Group Information</div>
-      <div class="search-Box" style="margin-top: 20px;margin-left: 40px;">
+      <div class="search-Box" style="margin-top: 20px;margin-left: 20px;">
         <svg-icon class="search_icon2" icon-class="search" />
         <el-input
           v-model="search"
           placeholder="请输入关键字"
-          class="search2"
           style="width: 30%;margin-left: 10px;"
         />
+        <BookTypeOption v-model="bookType" style="margin:0 0 0 60px;" />
         <el-button
           :loading="downloadLoading"
-          style="margin:0 0 0 60px;"
+          style="margin:0 0 0 10px;"
           type="primary"
           icon="el-icon-document"
           @click="handleDownload"
         >
           Export Excel
         </el-button>
-        <el-button type="primary" style="float: right;margin-right: 50px;" plain @click="auto_grouping">无效组一键组队
+        <el-button type="primary" style="float: right;margin-right: 20px;" plain @click="auto_grouping">无效组一键组队
         </el-button>
         <!--        <el-checkbox-group-->
         <!--          v-model="checkedgroups"-->
@@ -41,11 +41,8 @@
         highlight-current-row
         @current-change="handleCurrentChange"
       >
-        <!--        <el-table-column-->
-        <!--          type="index"-->
-        <!--          :index="indexMethod"-->
-        <!--        />-->
         <el-table-column
+          align="center"
           prop="name"
           label="组名"
           sortable
@@ -62,28 +59,32 @@
                 style="width: 100%"
               >
                 <el-table-column
+                  align="center"
                   prop="name"
                   label="姓名"
                   sortable
-                  width="180"
+                  width="120"
                 />
                 <el-table-column
+                  align="center"
                   prop="gender"
                   label="性别"
                   sortable
-                  width="180"
+                  width="120"
                   :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
                   :filter-method="filterHandler"
                 />
                 <el-table-column
+                  align="center"
                   prop="skill"
+                  width="200"
                   label="技能"
                   sortable
                   :formatter="formatter"
                 />
               </el-table>
-              <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px;">小组信息：</div>
-              <div class="juzhong">不搞基</div>
+              <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px; margin-left: 30px;">小组信息：</div>
+              <div class="juzhong" style="margin-left: 30px;">不搞基</div>
               <!--                  </div>-->
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
@@ -94,24 +95,28 @@
           </template>
         </el-table-column>
         <el-table-column
+          align="center"
           prop="pre_time"
           label="预期答辩时间"
           sortable
           width="130"
         />
         <el-table-column
+          align="center"
           prop="information"
           label="小组信息"
           sortable
         />
 
         <el-table-column
+          align="center"
           prop="population"
           label="小组人数"
           sortable
           width="110"
         />
         <el-table-column
+          align="center"
           prop="valid"
           label="是否有效"
           :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
@@ -128,6 +133,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          align="center"
           prop="status"
           label="状态"
           sortable
@@ -145,29 +151,138 @@
           </template>
         </el-table-column>
         <el-table-column
+          align="center"
           fixed="right"
           label="操作"
           width="170px"
         >
           <template slot-scope="scope">
             <el-button type="success" size="small" @click="add_member(scope.row)">选人加入</el-button>
-            <el-button type="danger" size="small" @click="break_up(scope.row)">解散</el-button>
+            <el-button type="danger" size="small" @click="break_up(scope.row,scope.$index)">解散</el-button>
           </template>
         </el-table-column>
       </el-table>
+      <el-dialog
+        title="请选择"
+        :visible.sync="dialogVisible"
+        width="60%"
+        append-to-body
+      >
+        <div>
+
+          <div class="search-Box" style=" margin-right: 30px;width: 30%; float: right">
+            <!--            <svg-icon icon-class="search" class="search_icon"  />-->
+            <el-input v-model="search" prefix-icon="search_icon" placeholder="请输入关键字" style="float:right;" />
+          </div>
+
+          <el-table
+            ref="filterTable"
+            :data="tableData_inside"
+            style="width: 100%"
+          >
+            <el-table-column
+              align="center"
+              prop="SID"
+              label="SID"
+              sortable
+              width="100"
+            />
+            <el-table-column
+              align="center"
+              prop="name"
+              label="姓名"
+              sortable
+              width="100"
+            />
+            <el-table-column
+              align="center"
+              prop="gender"
+              label="性别"
+              sortable
+              width="100"
+              :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
+              :filter-method="filterHandler"
+            />
+            <el-table-column
+              align="center"
+              prop="lab"
+              label="Lab"
+              sortable
+              width="70"
+            />
+            <el-table-column
+              align="center"
+              prop="skill"
+              label="技能"
+              sortable
+              :formatter="formatter"
+            />
+            <el-table-column
+              align="center"
+              prop="hope"
+              label="期待队友类型"
+              sortable
+              width="130"
+            />
+            <el-table-column
+              align="center"
+              prop="status"
+              label="状态"
+              sortable
+              width="100"
+              :filters="[{ text: '未组队', value: '未组队' }, { text: '已组队', value: '已组队' }]"
+              :filter-method="filterstatus"
+              filter-placement="bottom-end"
+            >
+              <template slot-scope="scope">
+                <el-tag
+                  :type="scope.row.status === '未组队' ? 'primary' : 'success'"
+                  disable-transitions
+                >{{ scope.row.status }}
+                </el-tag>
+              </template>
+            </el-table-column>
+
+            <el-table-column
+              align="center"
+              fixed="right"
+              label="操作"
+              width="120"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  type="primary"
+                  size="small"
+                  @click.native.prevent="add_member2(scope.row)"
+                >
+                  拉 入
+                </el-button>
+              </template>
+            </el-table-column>
+
+          </el-table>
+        </div>
+        <span slot="footer" class="dialog-footer">
+          <el-button plain type="primary" @click="dialogVisible = false">关 闭</el-button>
+          <!--          <el-button type="primary" @click="add_member2()">确 定</el-button>-->
+        </span>
+      </el-dialog>
     </div>
   </div>
 </template>
 
 <script>
-import { fetchList } from '@/api/article'
+// import {fetchList} from '@/api/article'
+import BookTypeOption from './components/BookTypeOption'
 
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
-  name: 'DndListDemo',
-  // components: { splitPane },
+  // name: 'DndListDemo',
+  components: { BookTypeOption },
   data() {
     return {
+      selectRow: '',
+      dialogVisible: false,
       checkedgroups: [],
       groups: groupOptions,
       downloadLoading: false,
@@ -176,6 +291,7 @@ export default {
       lowerBound: 4,
       list1: [],
       list2: [],
+      bookType: 'xlsx',
       textarea: '',
       tableData33: [{
         name: '组1',
@@ -219,6 +335,27 @@ export default {
         population: '',
         information: ''
       },
+      tableData_inside2: [{
+        name: '张小虎',
+        SID: '11812100',
+        gender: '男',
+        lab: 2,
+        skill: 'SPRING BOOT',
+        hope: '不搞基',
+        status: '已组队'
+      }, {
+        name: '王小虎',
+        gender: '女',
+        skill: 'VUE',
+        hope: '不划水',
+        status: '未组队'
+      }, {
+        name: '王小虎',
+        status: '已组队'
+      }, {
+        name: '王小虎',
+        status: '未组队'
+      }],
       search: ''
     }
   },
@@ -246,26 +383,42 @@ export default {
       // } else {
       //
       // }
+    },
+    tableData_inside: function() {
+      var search = this.search
+      if (search) {
+        return this.tableData_inside2.filter(function(dataNews) {
+          return Object.keys(dataNews).some(function(key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.tableData_inside2
     }
   },
-  created() {
-    this.getData()
-  },
+
+  // created() {
+  //   this.getData()
+  // },
   methods: {
-    changeView() {
-      // console.log(this.checkedgroups)
-      // if (!this.checkedgroups.length) {
-      //
-      // }
-    },
+    // changeView() {
+    //   // console.log(this.checkedgroups)
+    //   // if (!this.checkedgroups.length) {
+    //   //
+    //   // }
+    // },
     auto_grouping() {
 
     },
     add_member(row) {
-
+      this.selectRow = row
+      this.dialogVisible = true
     },
-    break_up(row) {
-
+    add_member2() {
+      this.dialogVisible = false
+    },
+    break_up(row, index) {
+      this.tableData33.splice(index, 1)
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
@@ -274,8 +427,8 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['组名']
-        const filterVal = ['name']
+        const tHeader = ['组名', '学号', '姓名', 'Lab班级'] // 这个需要多表查询
+        const filterVal = ['name']// 这里需要补全变量名
         const scorelist = this.tableData33
         const data = this.formatJson(filterVal, scorelist)
         excel.export_json_to_excel({
@@ -302,13 +455,13 @@ export default {
     toggleTooltip: function() {
       this.show_tooltip = !this.show_tooltip
     },
-    getData() {
-      this.listLoading = true
-      fetchList().then(response => {
-        this.list1 = response.data.items.splice(0, 5)
-        this.list2 = response.data.items
-      })
-    },
+    // getData() {
+    //   this.listLoading = true
+    //   fetchList().then(response => {
+    //     this.list1 = response.data.items.splice(0, 5)
+    //     this.list2 = response.data.items
+    //   })
+    // },
     indexMethod(index) {
       return index
     },
@@ -327,9 +480,6 @@ export default {
     },
     filtervalid(value, row) {
       return row.valid === value
-    },
-    resize() {
-      console.log('resize')
     },
     filterHandler(value, row, column) {
       const property = column['property']
@@ -351,14 +501,14 @@ export default {
   border-radius: 20px !important;
 }
 
-.el-popover {
+.el-popover,.el-dialog {
   border: 1px dashed $primary;
   border-radius: 20px;
   box-shadow: 0 0 10px $primary;
   padding-bottom: 50px;
 }
 
-#t_border3_1 {
+#t_border3_1_large {
   height: 100%;
   width: 80%;
   border: 2px solid $primary;
@@ -367,14 +517,14 @@ export default {
   padding-right: 20px;
 }
 
-#t_border3_1 {
+#t_border3_1_large {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
   box-shadow: 10px 10px 20px $primary;
 }
 
-#t_border3_1:hover {
+#t_border3_1_large:hover {
   box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;
@@ -382,18 +532,18 @@ export default {
 
 .title {
   color: $primary;
-  font-size: 30px;
+  font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 40px;
 }
-
-.juzhong {
-  margin-left: 100px;
-  margin-right: 100px;
-  width: 75% !important;
+.search_icon {
+  float: right;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $primary;
 }
-
 .search_icon2 {
   color: $primary;
 }
