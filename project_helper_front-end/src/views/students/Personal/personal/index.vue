@@ -25,9 +25,9 @@
             <!--            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />-->
             <el-option
               v-for="item in skill_form"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
+              :key="item.tag_id"
+              :label="item.tag"
+              :value="item.tag_id"
             />
           </el-select>
         </el-form-item>
@@ -37,7 +37,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible1 = false">确 定</el-button>
+        <el-button type="primary" @click="dialogFormVisible1 = false, update_MyInformation_table()">确 定</el-button>
       </div>
     </el-dialog>
     <div>
@@ -140,7 +140,9 @@
 
 <script>
 import { get_AllStudents } from '@/api/student/personal'
-// import { update_MyInformation } from '@/api/student/personal'
+import { update_MyInformation } from '@/api/student/personal'
+import { get_AllTags } from '@/api/student/personal'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DragSelectDemo',
@@ -183,11 +185,14 @@ export default {
         skill: [],
         expect: ''
       },
-      skill_form: [
-        { value: 1, label: '前端' },
-        { value: 2, label: '后端' },
-        { value: 3, label: 'miaomiao叫' }
-      ],
+      skill_form: 
+      null
+      // [
+      //   { tag_id: 1, tag: '前端' },
+      //   { tag_id: 2, tag: '后端' },
+      //   { tag_id: 3, tag: 'miaomiao叫' }
+      // ]
+      ,
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
@@ -208,28 +213,31 @@ export default {
       return this.tableData22
     }
   },
-  created() {
+  created(){
     this.get_AllStudent_table()
+    this.get_AllTags_table()
   },
   methods: {
-    get_AllStudent_table() {
+    get_AllStudent_table(){
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
-      }
-      )
+      })
     },
-    // update_MyInformation_table(){
-    //   // alert("miao")
-    //   // alert(this.form.skill)
-    //   // alert(this.form.expect)
-    //   localStorage.getItem('current_project_id'),
-    //   // update_MyInformation({project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
-    //     update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
-    //     // alert("miao")
-    //
-    //
-    //   })
-    // },
+    get_AllTags_table()
+    {
+      get_AllTags(localStorage.getItem('current_project_id')).then(response => {
+        this.skill_form = response.data
+      })
+      alert(skill_form)
+    },
+    update_MyInformation_table(){
+      alert(this.form.skill)
+      alert(this.form.expect)
+      update_MyInformation({token: getToken(), project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
+        // update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
+        // alert("miao")
+      })
+    },
     resetDateFilter() {
       this.$refs.filterTable.clearFilter('date')
     },
@@ -272,13 +280,6 @@ export default {
       this.dialogFormVisible = true
     },
     handleSelectionChange(val) {
-      // for (var i = 0; i < this.tableData22.length; i++) {
-      //   // console.log(this.tableData22)
-      //   this.tableData22[i].select = false
-      // }
-      // for (var i = 0; i < val.length; i++) {
-      //   val[i].select = true
-      // }
       this.multipleSelection = val
       console.log(this.multipleSelection)
     },
