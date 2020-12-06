@@ -54,6 +54,7 @@ public class GroupController {
         // MyGroup_idTag {int id, String tag}
         for (MyGroup_idTag tg: tags ){
             int person = tg.getId();
+            System.out.println(person);
             // MyGroup {int id, String name, String gender, List<String》 tag}
             for (MyGroup p: myGroups){
                 if(person == p.getId()){

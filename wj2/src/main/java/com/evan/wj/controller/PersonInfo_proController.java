@@ -29,7 +29,6 @@ public class PersonInfo_proController {
 
         List<ID_tag> sub2 = personInfoDAO.get_idTag2(project_id);
 
-
         int p2_id_t = 0;
         int p1 = 0;
         for(ID_tag s2: sub2){
@@ -38,8 +37,9 @@ public class PersonInfo_proController {
                 p1 = s1.getId();
                 if (p2_id_t == p1){
                     s1.addSkill(s2.getTag());
+                    break;
                 }
-                break;
+
             }
         }
 
