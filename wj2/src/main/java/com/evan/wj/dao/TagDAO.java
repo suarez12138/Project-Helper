@@ -9,6 +9,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public  interface TagDAO extends JpaRepository<User,Integer> {
-    @Query("select new com.evan.wj.bean.All_tag_inProject(t.tag) from Tag t where t.project =?1")
+    @Query("select new com.evan.wj.bean.All_tag_inProject(t.id ,t.tag) from Tag t where t.project =?1")
     List<All_tag_inProject> get_AllTag_in_project(int stu_id);
 }
