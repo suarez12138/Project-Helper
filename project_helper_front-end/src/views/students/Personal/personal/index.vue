@@ -20,13 +20,15 @@
         <!-- <el-form-item label="你的技能" :label-width="formLabelWidth">
           <el-input v-model="form.skill" autocomplete="off" />
         </el-form-item> -->
-        <el-form-item label="你的技能">
-          <!--      <el-input v-model.trim="user.location" />-->
-          <el-select v-model="form.skill" clearable placeholder="请选择你的技能">
-            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />
-             <el-option label="湖畔" value="湖畔" />
-            <el-option label="荔园" value="荔园" />
-            <el-option label="欣园" value="欣园" />
+        <el-form-item label="你的技能" :label-width="formLabelWidth">
+          <el-select v-model="form.skill" multiple placeholder="请选择你的技能">
+            <!--            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />-->
+            <el-option
+              v-for="item in skill_form"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
           </el-select>
         </el-form-item>
         <el-form-item label="期待队友类型" :label-width="formLabelWidth">
@@ -35,7 +37,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible1 = false">取 消</el-button>
-        <el-button type="primary" @click="dialogFormVisible1 = false, update_MyInformation_table()">确 定</el-button>
+        <el-button type="primary" @click="dialogFormVisible1 = false">确 定</el-button>
       </div>
     </el-dialog>
     <div>
@@ -138,7 +140,7 @@
 
 <script>
 import { get_AllStudents } from '@/api/student/personal'
-import { update_MyInformation } from '@/api/student/personal'
+// import { update_MyInformation } from '@/api/student/personal'
 
 export default {
   name: 'DragSelectDemo',
@@ -150,9 +152,8 @@ export default {
         population: '',
         information: ''
       },
-      tableData22: 
-      null
-      // [{
+      tableData22:
+        null, // [{
       //   select: false,
       //   name: '张小虎',
       //   gender: '男',
@@ -177,24 +178,21 @@ export default {
       //   name: '王小虎',
       //   status: '未组队'
       // }]
-      ,
+
       form: {
-        skill: '',
+        skill: [],
         expect: ''
       },
       skill_form: [
-        {1: '前端'},
-        {2: '后端'},
-        {3: 'miaomiao叫'}
+        { value: 1, label: '前端' },
+        { value: 2, label: '后端' },
+        { value: 3, label: 'miaomiao叫' }
       ],
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
       search: ''
     }
-  },
-  created(){
-    this.get_AllStudent_table()
   },
   computed: {
     tableData2: function() {
@@ -210,25 +208,28 @@ export default {
       return this.tableData22
     }
   },
+  created() {
+    this.get_AllStudent_table()
+  },
   methods: {
-    get_AllStudent_table(){
+    get_AllStudent_table() {
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
       }
       )
     },
-    update_MyInformation_table(){
-      // alert("miao")
-      // alert(this.form.skill)
-      // alert(this.form.expect)
-      localStorage.getItem('current_project_id'), 
-      // update_MyInformation({project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
-        update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
-        // alert("miao")
-
-
-      })
-    },
+    // update_MyInformation_table(){
+    //   // alert("miao")
+    //   // alert(this.form.skill)
+    //   // alert(this.form.expect)
+    //   localStorage.getItem('current_project_id'),
+    //   // update_MyInformation({project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
+    //     update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
+    //     // alert("miao")
+    //
+    //
+    //   })
+    // },
     resetDateFilter() {
       this.$refs.filterTable.clearFilter('date')
     },
@@ -252,7 +253,10 @@ export default {
     },
     handleClick() {
       // console.log(this.multipleSelection)
-      // console.log(this.multipleSelection == null)
+      console.log(this.skill_form)
+      for (var item in this.skill_form) {
+        console.log(item)
+      }
       if (this.multipleSelection == null) {
         this.$alert('请选择想组队的同学！', '组队失败', {
           confirmButtonText: '确定'
