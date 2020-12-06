@@ -159,7 +159,7 @@ export default {
         }
         this.list.push(obj)
       }
-      // console.log(this.list)
+      console.log(this.list)
     }
   }
 }

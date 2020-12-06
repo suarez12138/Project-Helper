@@ -17,8 +17,19 @@
 
     <el-dialog title="关于此project" :visible.sync="dialogFormVisible1" width="500px" append-to-body>
       <el-form :model="form">
-        <el-form-item label="你的技能" :label-width="formLabelWidth">
+        <!-- <el-form-item label="你的技能" :label-width="formLabelWidth">
           <el-input v-model="form.skill" autocomplete="off" />
+        </el-form-item> -->
+        <el-form-item label="你的技能" :label-width="formLabelWidth">
+          <el-select v-model="form.skill" multiple placeholder="请选择你的技能">
+            <!--            <el-option v-for="(user,i) in skill_form" key = label='i' value='user' />-->
+            <el-option
+              v-for="item in skill_form"
+              :key="item.tag_id"
+              :label="item.tag"
+              :value="item.tag_id"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="期待队友类型" :label-width="formLabelWidth">
           <el-input v-model="form.expect" autocomplete="off" />
@@ -130,6 +141,8 @@
 <script>
 import { get_AllStudents } from '@/api/student/personal'
 import { update_MyInformation } from '@/api/student/personal'
+import { get_AllTags } from '@/api/student/personal'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DragSelectDemo',
@@ -141,9 +154,8 @@ export default {
         population: '',
         information: ''
       },
-      tableData22: 
-      null
-      // [{
+      tableData22:
+        null, // [{
       //   select: false,
       //   name: '张小虎',
       //   gender: '男',
@@ -168,19 +180,24 @@ export default {
       //   name: '王小虎',
       //   status: '未组队'
       // }]
-      ,
+
       form: {
-        skill: '',
+        skill: [],
         expect: ''
       },
+      skill_form: 
+      null
+      // [
+      //   { tag_id: 1, tag: '前端' },
+      //   { tag_id: 2, tag: '后端' },
+      //   { tag_id: 3, tag: 'miaomiao叫' }
+      // ]
+      ,
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
       search: ''
     }
-  },
-  created(){
-    this.get_AllStudent_table()
   },
   computed: {
     tableData2: function() {
@@ -196,23 +213,29 @@ export default {
       return this.tableData22
     }
   },
+  created(){
+    this.get_AllStudent_table()
+    this.get_AllTags_table()
+  },
   methods: {
     get_AllStudent_table(){
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
-        this.tableData22 = response.allGroups
-      }
-      )
+        this.tableData22 = response.data
+      })
+    },
+    get_AllTags_table()
+    {
+      get_AllTags(localStorage.getItem('current_project_id')).then(response => {
+        this.skill_form = response.data
+      })
+      alert(skill_form)
     },
     update_MyInformation_table(){
-      // alert("miao")
-      // alert(this.form.skill)
-      // alert(this.form.expect)
-      localStorage.getItem('current_project_id'), 
-      // update_MyInformation({project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
-        update_MyInformation({project_id: "miao", skill: "miao", expect: "miao"}).then(response => {
+      alert(this.form.skill)
+      alert(this.form.expect)
+      update_MyInformation({token: getToken(), project_id: localStorage.getItem('current_project_id'), skill: this.form.skill, expect: this.form.expect}).then(response => {
+        // update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
         // alert("miao")
-
-
       })
     },
     resetDateFilter() {
@@ -238,7 +261,10 @@ export default {
     },
     handleClick() {
       // console.log(this.multipleSelection)
-      // console.log(this.multipleSelection == null)
+      console.log(this.skill_form)
+      for (var item in this.skill_form) {
+        console.log(item)
+      }
       if (this.multipleSelection == null) {
         this.$alert('请选择想组队的同学！', '组队失败', {
           confirmButtonText: '确定'
@@ -254,13 +280,6 @@ export default {
       this.dialogFormVisible = true
     },
     handleSelectionChange(val) {
-      // for (var i = 0; i < this.tableData22.length; i++) {
-      //   // console.log(this.tableData22)
-      //   this.tableData22[i].select = false
-      // }
-      // for (var i = 0; i < val.length; i++) {
-      //   val[i].select = true
-      // }
       this.multipleSelection = val
       console.log(this.multipleSelection)
     },
