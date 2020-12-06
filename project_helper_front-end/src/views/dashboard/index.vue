@@ -89,11 +89,12 @@
 import splitPane from 'vue-splitpane'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
-import {fetchMyProjectList} from '@/api/student/dashboard'
-import {fetchMyAnnouncementList} from '@/api/student/dashboard'
+import { fetchMyProjectList } from '@/api/student/dashboard'
+import { fetchMyAnnouncementList } from '@/api/student/dashboard'
+import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 
-const STORAGE_KEY = "current_project"
+const STORAGE_KEY = "current_project_id"
 export default {
   name: 'SplitpaneDemo',
   components: { splitPane },
@@ -127,17 +128,31 @@ export default {
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
       // ]
       ,
+      project_dict: {},
       value: new Date()
     }
   },
   created() {
     this.getMyProjects()
     this.getMyAnnouncement()
+    this.getAllProject()
   },
   methods: {
     checkPermission,
     resize() {
       console.log('resize')
+    },
+    getAllProject(){
+      fetchAllProject().then(response => {
+        // this.project_dict
+        // alert(response.data.length)
+        for (var i=0;i<response.data.length;i++)
+        { 
+            this.project_dict[response.data[i].project] = response.data[i].project_id
+            // alert(response.data[i].project)
+            // alert(this.project_dict[response.data[i].project])
+        }
+      })
     },
     getMyProjects(){
       fetchMyProjectList(getToken()).then(response => {
@@ -147,12 +162,12 @@ export default {
     },
     getMyAnnouncement(){
       fetchMyAnnouncementList(getToken()).then(response => {
-        this.announcements = response.data.items
+        this.announcements = response.data
       })
 
     },
     miao(name){
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(name))
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
       // alert(localStorage.getItem("current_project"))
     }
   }
