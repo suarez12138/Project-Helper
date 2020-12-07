@@ -10,7 +10,8 @@
           class="search2"
           style="width: 30%;margin-left: 10px;"
         />
-        <el-button type="primary" style="float: right;margin-right: 50px;" plain @click="auto_download">一键下载所有提交
+        <el-button plain type="primary" style="float: right;margin-right: 50px;">上传成绩<i class="el-icon-upload el-icon--right" /></el-button>
+        <el-button type="primary" style="margin-left: 50px;" plain @click="auto_download">一键下载所有提交
         </el-button>
       </div>
 
@@ -18,21 +19,16 @@
         ref="filterTable"
         :data="tableData3"
         style="width: 100%"
-        highlight-current-row
-        @current-change="handleCurrentChange"
       >
-        <!--        <el-table-column-->
-        <!--          type="index"-->
-        <!--          :index="indexMethod"-->
-        <!--        />-->
         <el-table-column
+          align="center"
           prop="name"
           label="组名"
           sortable
           width="100px;"
         >
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="right" class="pout">
+            <el-popover trigger="click" placement="right" class="pout">
               <!--                  <div id="border3_3">-->
               <div class="title">Selected Group</div>
               <el-table
@@ -74,6 +70,7 @@
           </template>
         </el-table-column>
         <el-table-column
+          align="center"
           prop="status"
           label="状态"
           sortable
@@ -91,12 +88,25 @@
           </template>
         </el-table-column>
         <el-table-column
+          align="center"
           label="操作"
-          width="100px"
+          width="120px"
         >
           <template slot-scope="scope">
-            <el-button type="primary" size="small" @click="lookup(scope.row)">查看提交</el-button>
+            <el-dropdown trigger="click">
+              <el-button type="primary" size="small" @click="try1()">
+                查看提交<i class="el-icon-arrow-down el-icon--right" />
+              </el-button>
+              <el-dropdown-menu slot="dropdown">
+                <!--eslint-disable-next-line-->
+                <el-dropdown-item v-for="item in scope.row.submission">{{ item.name }}</el-dropdown-item>
+              </el-dropdown-menu>
+            </el-dropdown>
           </template>
+
+          <!--          <template slot-scope="scope">-->
+          <!--            <el-button type="primary" size="small" @click="lookup(scope.row)">查看提交</el-button>-->
+          <!--          </template>-->
         </el-table-column>
         <el-table-column align="center" prop="score" sortable label="Score" width="90">
           <template slot-scope="scope">
@@ -138,7 +148,14 @@ export default {
       textarea: '',
       tableData33: [{
         name: '组1',
-        status: '已提交'
+        status: '已提交',
+        submission: [{
+          name: 'food.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }, {
+          name: 'food2.jpeg',
+          url: 'https://fuss10.elemecdn.com/3/63/4e7f3a15429bfda99bce42a18cdd1jpeg.jpeg?imageMogr2/thumbnail/360x360/format/webp/quality/100'
+        }]
       }, {
         name: '组13',
         status: '未提交'
@@ -187,6 +204,9 @@ export default {
   //   this.getData()
   // },
   methods: {
+    try1() {
+      console.log(this.tableData33[0].submission)
+    },
     changeView() {
       // console.log(this.checkedgroups)
       // if (!this.checkedgroups.length) {
@@ -244,21 +264,18 @@ export default {
     indexMethod(index) {
       return index
     },
-    handleCurrentChange(val) {
-      this.currentRow = val
-      console.log(this.currentRow)
-    },
-    handleChange(value) {
-      console.log(value)
-    },
+    // handleCurrentChange(val) {
+    //   this.currentRow = val
+    //   console.log(this.currentRow)
+    // },
+    // handleChange(value) {
+    //   console.log(value)
+    // },
     formatter(row, column) {
       return row.skill
     },
     filterstatus(value, row) {
       return row.status === value
-    },
-    resize() {
-      console.log('resize')
     },
     filterHandler(value, row, column) {
       const property = column['property']
@@ -274,6 +291,15 @@ export default {
 .components-container {
   position: relative;
   height: 100vh;
+  //background-color: $primary;
+}
+
+.el-dropdown {
+  vertical-align: top;
+}
+
+.el-card, .el-input__inner, .el-textarea__inner,.el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+  border-radius: 30px;
 }
 
 .el-tag, .el-button, .el-input__inner, .el-textarea__inner {
@@ -310,12 +336,12 @@ export default {
 }
 
 .el-table .cell {
-  white-space: pre-line!important; //保留空白符序列，但是正常地进行换行。
+  white-space: pre-line !important; //保留空白符序列，但是正常地进行换行。
   //white-space: pre-wrap; //保留空白符序列，但是正常地进行换行。
 }
 
-.el-textarea__inner{
-  white-space: pre-line!important;
+.el-textarea__inner {
+  white-space: pre-line !important;
 }
 
 .title {

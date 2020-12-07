@@ -321,7 +321,7 @@ export default {
 .border_p::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #ffffff;
   border-radius: 20px;
-  margin-top: 240px;
+  margin-top: 40px;
   margin-bottom: 40px;
 
 }

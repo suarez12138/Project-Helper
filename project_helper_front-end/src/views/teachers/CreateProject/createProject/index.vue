@@ -19,7 +19,7 @@
         </el-form-item>
 
         <el-form-item label="项目名称" prop="name">
-          <el-input v-model="create_ruleForm.name" style="padding-right: 200px;" />
+          <el-input v-model="create_ruleForm.name" style="width: 60%" />
         </el-form-item>
 
         <el-form-item label="小组人数" prop="population" required>
@@ -287,8 +287,9 @@ export default {
 
 .el-popover {
   border-radius: 20px;
-  box-shadow: 0 0 40px #CCCCCC;
+  box-shadow: 0 0 40px $primary;
 }
+
 .el-tag + .el-tag {
   margin-left: 10px;
 }

@@ -1,13 +1,14 @@
 <template>
-  <el-form>
-    <el-form-item label="Name">
-      <el-input v-model.trim="user.name" />
+  <el-form label-width="80px">
+    <el-form-item label="SID">
+      <el-input v-model.trim="user.name" :disabled="true" />
     </el-form-item>
     <el-form-item label="Gender">
-      <el-input v-model.trim="user.gender" />
-    </el-form-item>
-    <el-form-item label="Email">
-      <el-input v-model.trim="user.email" />
+      <el-select v-model="user.gender" clearable placeholder="请选择性别">
+        <el-option label="女" value="女" />
+        <el-option label="男" value="男" />
+        <el-option label="其他" value="其他" />
+      </el-select>
     </el-form-item>
     <el-form-item label="Location">
       <!--      <el-input v-model.trim="user.location" />-->
@@ -16,6 +17,17 @@
         <el-option label="荔园" value="荔园" />
         <el-option label="欣园" value="欣园" />
       </el-select>
+    </el-form-item>
+    <el-form-item label="Email">
+      <el-input v-model.trim="user.email" style="width: 80%;" />
+    </el-form-item>
+    <el-form-item label="简介">
+      <el-input
+        v-model="user.introduction"
+        type="textarea"
+        :autosize="{ minRows: 2}"
+        placeholder="请输入个人介绍"
+      />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" plain @click="submit">Update</el-button>
@@ -33,7 +45,8 @@ export default {
           name: '',
           gender: '',
           email: '',
-          location: ''
+          location: '',
+          introduction: '我bu是我'// 这里调用了上一级index里的数据
         }
       }
     }
