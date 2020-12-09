@@ -2,16 +2,31 @@
   <div class="components-container">
     <div id="t_border3_1">
       <div class="title">Submission Information</div>
-      <div class="search-Box" style="margin-top: 20px;margin-left: 40px;">
+      <div class="search-Box" style="margin-top: 20px;margin-left: 20px;">
         <svg-icon class="search_icon2" icon-class="search" />
         <el-input
           v-model="search"
           placeholder="请输入关键字"
           class="search2"
-          style="width: 30%;margin-left: 10px;"
+          style="width: 15%;margin-left: 5px;"
         />
-        <el-button plain type="primary" style="float: right;margin-right: 50px;">上传成绩<i class="el-icon-upload el-icon--right" /></el-button>
-        <el-button type="primary" style="margin-left: 50px;" plain @click="auto_download">一键下载所有提交
+        <el-button plain type="primary" style="float: right;margin-right: 20px;">更新<i
+          class="el-icon-upload el-icon--right"
+        /></el-button>
+        <el-button type="primary" style="margin-left: 30px;margin-right: 50px;" plain @click="auto_download">下载所有提交
+        </el-button>
+        <BookTypeOption v-model="bookType" />
+        <el-button
+          :loading="downloadLoading"
+          style="margin:0 0 20px 20px;"
+          type="primary"
+          icon="el-icon-document"
+          @click="handleDownload"
+        >
+          Export
+        </el-button>
+        <el-button type="primary" icon="el-icon-document">
+          Upload
         </el-button>
       </div>
 
@@ -130,10 +145,12 @@
 
 <script>
 // import { fetchList } from '@/api/article'
+import BookTypeOption from './components/BookTypeOption'
 
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
   name: 'DndListDemo',
+  components: { BookTypeOption },
   // components: { splitPane },
   data() {
     return {
@@ -145,6 +162,7 @@ export default {
       lowerBound: 4,
       list1: [],
       list2: [],
+      bookType: 'xlsx',
       textarea: '',
       tableData33: [{
         name: '组1',
@@ -298,7 +316,7 @@ export default {
   vertical-align: top;
 }
 
-.el-card, .el-input__inner, .el-textarea__inner,.el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+.el-card, .el-input__inner, .el-textarea__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
   border-radius: 30px;
 }
 
@@ -315,9 +333,9 @@ export default {
 
 #t_border3_1 {
   height: 100%;
-  width: 60%;
+  width: 80%;
   border: 2px solid $primary;
-  margin-left: 300px;
+  margin-left: 150px;
   padding-left: 20px;
   padding-right: 20px;
 }

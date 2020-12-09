@@ -149,12 +149,14 @@
             style="width: 100%"
           >
             <el-table-column
+              align="center"
               prop="name"
               label="姓名"
               sortable
               width="100"
             />
             <el-table-column
+              align="center"
               prop="gender"
               label="性别"
               sortable
@@ -163,6 +165,7 @@
               :filter-method="filterHandler"
             />
             <el-table-column
+              align="center"
               prop="skill"
               label="技能"
               sortable
@@ -276,8 +279,8 @@ export default {
       list1: [],
       list2: [],
       project_dict: {},
-      current_project: localStorage.getItem('current_project').substring(1,(localStorage.getItem('current_project').length - 1)), 
-      textarea: '', 
+      current_project: localStorage.getItem('current_project').substring(1, (localStorage.getItem('current_project').length - 1)),
+      textarea: '',
       tableData33: [
         //   {
         //   name: '组1',
@@ -361,7 +364,7 @@ export default {
       })
     },
     getGroup_by_name(name) {
-        fetchTheGroup(name).then(response => {
+      fetchTheGroup(name).then(response => {
         this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false
       })

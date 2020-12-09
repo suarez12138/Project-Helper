@@ -54,17 +54,20 @@
           <!--          :index="index"-->
           <!--        />-->
           <el-table-column
+            align="center"
             prop="select"
             type="selection"
             width="55"
           />
           <el-table-column
+            align="center"
             prop="name"
             label="姓名"
             sortable
             width="100"
           />
           <el-table-column
+            align="center"
             prop="gender"
             label="性别"
             sortable
@@ -73,22 +76,26 @@
             :filter-method="filterHandler"
           />
           <el-table-column
+            align="center"
             prop="lab"
             label="Lab"
             sortable
           />
           <el-table-column
+            align="center"
             prop="skill"
             label="技能"
             sortable
             :formatter="formatter"
           />
           <el-table-column
+            align="center"
             prop="hope"
             label="期待队友类型"
             sortable
           />
           <el-table-column
+            align="center"
             prop="status"
             label="状态"
             sortable
