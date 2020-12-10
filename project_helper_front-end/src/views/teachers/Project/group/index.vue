@@ -274,7 +274,8 @@
 <script>
 // import {fetchList} from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
-
+import { getToken } from '@/utils/auth'
+import { fetchGroupsList } from '@/api/student/group'
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
   // name: 'DndListDemo',
@@ -293,69 +294,54 @@ export default {
       list2: [],
       bookType: 'xlsx',
       textarea: '',
-      tableData33: [{
-        name: '组1',
-        pre_time: '周五上午',
-        information: '不搞基',
-        population: 4,
-        valid: '是',
-        status: '完成组队'
-      }, {
-        name: '组13',
-        pre_time: '周四下午',
-        information: '不划水',
-        population: 3,
-        valid: '否',
-        status: '未完成组队'
-      }, {
-        name: '组32',
-        pre_time: '周五上午',
-        status: '完成组队'
-      }, {
-        name: '组3',
-        pre_time: '周四下午',
-        population: 3,
-        valid: '否',
-        status: '未完成组队'
-      }],
-      tableData2: [{
-        name: '张小虎',
-        gender: '男',
-        skill: 'SPRING BOOT'
-      }, {
-        name: '王小虎',
-        gender: '女',
-        skill: 'VUE'
-      }, {
-        name: '王小虎'
-      }, {
-        name: '王小虎'
-      }],
+      tableData33: 
+      null
+      // [{
+      //   name: '组1',
+      //   pre_time: '周五上午',
+      //   information: '不搞基',
+      //   population: 4,
+      //   valid: '是',
+      //   status: '完成组队'
+      // }, {
+      //   name: '组13',
+      //   pre_time: '周四下午',
+      //   information: '不划水',
+      //   population: 3,
+      //   valid: '否',
+      //   status: '未完成组队'
+      // }, {
+      //   name: '组32',
+      //   pre_time: '周五上午',
+      //   status: '完成组队'
+      // }, {
+      //   name: '组3',
+      //   pre_time: '周四下午',
+      //   population: 3,
+      //   valid: '否',
+      //   status: '未完成组队'
+      // }],
+      // tableData2: [{
+      //   name: '张小虎',
+      //   gender: '男',
+      //   skill: 'SPRING BOOT'
+      // }, {
+      //   name: '王小虎',
+      //   gender: '女',
+      //   skill: 'VUE'
+      // }, {
+      //   name: '王小虎'
+      // }, {
+      //   name: '王小虎'
+      // }]
+      ,
       ruleForm: {
         population: '',
         information: ''
       },
-      tableData_inside2: [{
-        name: '张小虎',
-        SID: '11812100',
-        gender: '男',
-        lab: 2,
-        skill: 'SPRING BOOT',
-        hope: '不搞基',
-        status: '已组队'
-      }, {
-        name: '王小虎',
-        gender: '女',
-        skill: 'VUE',
-        hope: '不划水',
-        status: '未组队'
-      }, {
-        name: '王小虎',
-        status: '已组队'
-      }, {
-        name: '王小虎',
-        status: '未组队'
-      }],
+      tableData_inside2: 
+      null
+      ,
       search: ''
     }
   },
@@ -397,16 +383,18 @@ export default {
     }
   },
 
-  // created() {
-  //   this.getData()
-  // },
+  created() {
+    this.getAllGroups()
+  },
   methods: {
-    // changeView() {
-    //   // console.log(this.checkedgroups)
-    //   // if (!this.checkedgroups.length) {
-    //   //
-    //   // }
-    // },
+    getAllGroups() {
+      this.listLoading = true
+      // alert(localStorage.getItem('current_project_id'))
+      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
+        this.tableData33 = response.allGroups
+        this.listLoading = false
+      })
+    },
     auto_grouping() {
 
     },

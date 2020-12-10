@@ -256,8 +256,6 @@ import splitPane from 'vue-splitpane'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
 import { fetchTheGroup } from '@/api/student/group'
-
-import { fetchList } from '@/api/article'
 import { getToken } from '@/utils/auth'
 
 export default {
@@ -339,6 +337,8 @@ export default {
           })
         })
       }
+      console.log(localStorage)
+    
       return this.tableData33
     }
   },
@@ -349,6 +349,7 @@ export default {
   methods: {
     getAllGroups() {
       this.listLoading = true
+      // alert(localStorage.getItem('current_project_id'))
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.tableData33 = response.allGroups
         this.listLoading = false
@@ -358,7 +359,8 @@ export default {
       this.listLoading = true
       console.log(getToken())
       console.log('aaaaaaaaaaaaaa')
-      fetchMyGroup(getToken(), 1).then(response => {
+      // fetchMyGroup(getToken(), 1).then(response => {
+      fetchMyGroup(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.MyGroupTableData = response.myGroups
         this.listLoading = false
       })

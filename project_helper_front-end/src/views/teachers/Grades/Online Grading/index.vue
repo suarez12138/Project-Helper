@@ -75,7 +75,7 @@
 <script>
 // import { fetchList } from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
-
+import { get_scoreList } from '@/api/teacher/onlineGrading'
 export default {
   components: { BookTypeOption },
   data() {
@@ -84,11 +84,14 @@ export default {
       downloadLoading: false,
       listLoading: false,
       bookType: 'xlsx',
-      scorelist: [
-        { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
-        { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
-        { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
-      ],
+      scorelist: 
+      null
+      // [
+      //   { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
+      //   { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
+      //   { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
+      // ]
+      ,
       search: ''
     }
   },
@@ -105,17 +108,18 @@ export default {
       return this.scorelist
     }
   },
-  // created() {
-  //   this.fetchData()
-  // },
+  created() {
+    this.fetchData()
+  },
   methods: {
-    // fetchData() {
-    //   this.listLoading = true
-    //   fetchList().then(response => {
-    //     this.list = response.data.items
-    //     this.listLoading = false
-    //   })
-    // },
+    fetchData() {
+      this.listLoading = true
+      // get_scoreList(project_id).then(response => {
+      get_scoreList(1).then(response => {
+        this.scorelist = response.data
+        this.listLoading = false
+      })
+    },
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {

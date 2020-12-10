@@ -130,6 +130,8 @@
 </template>
 
 <script>
+import { new_Project } from '@/api/teacher/createProject/'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DndListDemo',
@@ -236,6 +238,24 @@ export default {
   },
   computed: {},
   methods: {
+    new_Project_table() {
+      new_Project({
+        token:                getToken(),
+        course_id:            getCourseid(),
+        project_name:         this.create_ruleForm.course,
+        project_member_limit: this.create_ruleForm.population,
+        project_pre_week:     this.create_ruleForm.time,
+        project_grouping_endDay: this.create_ruleForm.groupingEndTime,
+        project_grouping_endHms: this.create_ruleForm.groupingEndTime2,
+        across_lab:           this.create_ruleForm.across_lab,
+        grouping_freely:      this.create_ruleForm.grouping,
+        all_tags:             this.create_ruleForm.skills,
+        choosable_proj:       this.create_ruleForm.
+
+      }).then(response => {
+
+      })
+    },
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {

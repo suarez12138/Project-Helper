@@ -168,7 +168,14 @@ export default {
     },
     miao(name){
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
+      window.localStorage.setItem('current_project', JSON.stringify(name))
       // alert(localStorage.getItem("current_project"))
+      console.log(localStorage.getItem("current_project"))
+      console.log(this.project_dict)
+      console.log(this.project_dict[name])
+      console.log(localStorage)
+
+      console.log('aaaa')
     }
   }
 }
