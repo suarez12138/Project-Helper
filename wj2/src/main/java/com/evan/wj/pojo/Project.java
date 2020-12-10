@@ -17,13 +17,6 @@ public class Project {
     String bool_cross_class;
     String bool_force_join;
 
-    public String getBool_force_join() {
-        return bool_force_join;
-    }
-
-    public void setBool_force_join(String bool_force_join) {
-        this.bool_force_join = bool_force_join;
-    }
 
     public int getId() {
         return id;
@@ -33,20 +26,20 @@ public class Project {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public int getCourse() {
         return course;
     }
 
     public void setCourse(int course) {
         this.course = course;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getMin_people() {
@@ -71,5 +64,13 @@ public class Project {
 
     public void setBool_cross_class(String bool_cross_class) {
         this.bool_cross_class = bool_cross_class;
+    }
+
+    public String getBool_force_join() {
+        return bool_force_join;
+    }
+
+    public void setBool_force_join(String bool_force_join) {
+        this.bool_force_join = bool_force_join;
     }
 }

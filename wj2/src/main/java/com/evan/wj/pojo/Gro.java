@@ -1,4 +1,4 @@
-      package com.evan.wj.pojo;
+package com.evan.wj.pojo;
 
         import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
         import javax.persistence.*;
@@ -14,7 +14,8 @@ public class Gro {
     int project;
     String group_name;
     String group_status;
-    String pre_time;
+    String pre_week;
+    String pre_day;
 
     public int getId() {
         return id;
@@ -48,11 +49,19 @@ public class Gro {
         this.group_status = group_status;
     }
 
-    public String getPre_time() {
-        return pre_time;
+    public String getPre_week() {
+        return pre_week;
     }
 
-    public void setPre_time(String pre_time) {
-        this.pre_time = pre_time;
+    public void setPre_week(String pre_week) {
+        this.pre_week = pre_week;
+    }
+
+    public String getPre_day() {
+        return pre_day;
+    }
+
+    public void setPre_day(String pre_day) {
+        this.pre_day = pre_day;
     }
 }

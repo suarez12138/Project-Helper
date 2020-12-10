@@ -16,7 +16,9 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into project (bool_cross_class, course, max_people, min_people, name) values (true,1,5,4,'1231212r1')", nativeQuery = true)
-    void inseart_person_tag(int person_id, int skill);
+    @Query(value = "insert into project (bool_cross_class, bool_force_join, course, max_people, min_people, name) VALUES (?1,?2,?3,?4,?5,?6)", nativeQuery = true)
+    void inseart_project(String bool_cross, String bool_force,int course_id ,int max, int min, String course_name);
+
+
 
 }

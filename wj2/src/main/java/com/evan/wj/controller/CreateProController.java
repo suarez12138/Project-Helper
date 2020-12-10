@@ -35,9 +35,27 @@ public class CreateProController {
         int course_id = newProInfo.getCourse_id();
         int max_p = newProInfo.getProject_member_limit().get(1);
         int min_p = newProInfo.getProject_member_limit().get(1);
+        String pro_name = newProInfo.getProject_name();
         String bool_cross = newProInfo.getGrouping_freely();
-        String gro_name = newProInfo.getProject_name();
+        String bool_force = newProInfo.getChoosable_proj();
+        List<String> all_tags = newProInfo.getAll_tags();
+        List<String> project_pre_week = newProInfo.getProject_pre_week();
 
+        createProjectDAO.inseart_project(bool_cross,bool_force,course_id,max_p,min_p,pro_name);
+
+        if(bool_force.equals("true")){
+            // 把这个课程下所有的  人 拉进 want people
+        }else{
+            //不用插入
+        }
+
+        for(String t: all_tags){
+            // 把所有 tag 插入 tags 表格中
+        }
+
+        for(String we: project_pre_week){
+            // 把所有 week 插入 checkPoint 表格中
+        }
 
 
         return new Void_return(20000);
