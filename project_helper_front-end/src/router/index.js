@@ -19,14 +19,14 @@ import teach_emailRouter from './modules/teachers/email'
 import teach_submissionRouter from './modules/submission'
 import teach_authorityRouter from './modules/teachers/authority'
 import teach_groupRouter from './modules/teachers/groups'
-import teach_announcementsRouter from './modules/teachers/announcements'
+import teach_announcementsRouter from './modules/announcements'
 // import teach_overviewRouter from './modules/teachers/overview'
 // import stude_projectRouter from './modules/students/projects'
 // import stude_gradeRouter from './modules/students/grades'
 // import stude_presentationRouter from './modules/students/presentation'
 import overviewRouter from './modules/overview'
 import stude_groupRouter from './modules/students/group'
-import stude_announcementRouter from './modules/students/announcement'
+// import stude_announcementRouter from './modules/students/announcement'
 import stude_personalRouter from './modules/students/personal'
 import stude_profileRouter from './modules/students/profile'
 
@@ -212,7 +212,7 @@ export const asyncRoutes = [
   teach_createProjectRouter,
   teach_authorityRouter,
   teach_announcementsRouter,
-  stude_announcementRouter,
+  // stude_announcementRouter,
   teach_groupRouter,
   teach_gradeRouter,
   // teach_projectsRouter,

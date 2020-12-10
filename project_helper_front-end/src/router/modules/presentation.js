@@ -16,7 +16,7 @@ const teacher_presentationRouter = {
       path: 'presentation',
       component: () => import('@/views/teachers/Presentation/presentation/index'), // Parent router-view
       name: 'P1',
-      meta: { title: 'P1', icon: 'people' }
+      meta: { title: 'P1', icon: 'people', roles: ['teacher'] }
     }, {
       path: 'presentation2',
       component: () => import('@/views/teachers/Presentation/p2/index'), // Parent router-view

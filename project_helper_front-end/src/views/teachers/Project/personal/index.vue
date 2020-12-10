@@ -93,8 +93,11 @@
             prop="skill"
             label="技能"
             sortable
-            :formatter="formatter"
-          />
+          > <template slot-scope="scope">
+            <!--eslint-disable-next-line-->
+            <el-tag v-for="item in scope.row.skill" effect="dark">{{ item }}</el-tag>
+          </template>
+          </el-table-column>
           <el-table-column
             align="center"
             prop="hope"
@@ -131,8 +134,7 @@
                 type="danger"
                 size="small"
                 @click.native.prevent="remove_from_group(scope.row)"
-              >
-                移出小组
+              >移出小组
               </el-button>
             </template>
           </el-table-column>
@@ -158,13 +160,13 @@ export default {
         SID: '11812100',
         gender: '男',
         lab: 2,
-        skill: 'SPRING BOOT',
+        skill: ['SPRING BOOT', 'lala', 'testlongest', 'lalalala', 'disanhang'],
         hope: '不搞基',
         status: '已组队'
       }, {
         name: '王小虎',
         gender: '女',
-        skill: 'VUE',
+        skill: ['VUE', 'hehe'],
         hope: '不划水',
         status: '未组队'
       }, {
@@ -335,5 +337,9 @@ export default {
   text-align: center;
   padding-top: 20px;
   padding-bottom: 40px;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+  margin-bottom: 5px;
 }
 </style>

@@ -56,10 +56,13 @@ export default {
   methods: {
     getUser() {
       this.user = {
-        name: this.name,
+        id: this.name,
         role: this.roles.join(' | '),
         email: 'admin@test.com',
-        avatar: this.avatar
+        avatar: this.avatar,
+        gender: '',
+        location: '',
+        introduction: '我就是我'
       }
     }
   }
@@ -68,7 +71,7 @@ export default {
 
 <style>
 
-.el-card, .el-input__inner, .el-button,.el-select-dropdown,.el-select-dropdown__list,.el-select-dropdown__item.hover  {
+.el-card, .el-input__inner, .el-textarea__inner,.el-button,.el-select-dropdown,.el-select-dropdown__list,.el-select-dropdown__item.hover  {
   border-radius: 30px;
 }
 </style>

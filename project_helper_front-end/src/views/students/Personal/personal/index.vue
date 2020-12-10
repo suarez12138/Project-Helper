@@ -7,7 +7,7 @@
       /> 邀请组队
       </el-button>
 
-      <el-button type="text" style="float: left;margin-left: 270px;" @click="dialogFormVisible1 = true">
+      <el-button type="text" style="float: left;margin-left: 27%;" @click="dialogFormVisible1 = true">
         <svg-icon icon-class="edit" />
         修改我的信息
       </el-button>
@@ -42,11 +42,12 @@
         </div>
       </el-dialog>
       <div>
-
         <el-table
           ref="filterTable"
           :data="tableData2"
-          style="width: 100%"
+          :height="hei"
+          style="width: 100%;overflow-y: auto;"
+          class="table1"
           @selection-change="handleSelectionChange"
         >
           <!--        <el-table-column-->
@@ -54,17 +55,20 @@
           <!--          :index="index"-->
           <!--        />-->
           <el-table-column
+            align="center"
             prop="select"
             type="selection"
             width="55"
           />
           <el-table-column
+            align="center"
             prop="name"
             label="姓名"
             sortable
             width="100"
           />
           <el-table-column
+            align="center"
             prop="gender"
             label="性别"
             sortable
@@ -73,22 +77,27 @@
             :filter-method="filterHandler"
           />
           <el-table-column
+            align="center"
             prop="lab"
             label="Lab"
             sortable
+            width="100"
           />
           <el-table-column
+            align="center"
             prop="skill"
             label="技能"
             sortable
             :formatter="formatter"
           />
           <el-table-column
+            align="center"
             prop="hope"
             label="期待队友类型"
             sortable
           />
           <el-table-column
+            align="center"
             prop="status"
             label="状态"
             sortable
@@ -151,6 +160,7 @@ export default {
   data() {
     return {
       index: 0,
+      hei: window.innerHeight * 0.75,
       createGroupForm: {
         name: '',
         population: '',
@@ -291,6 +301,19 @@ export default {
     submitForm(ruleForm, ruleForm2) {
       this.dialogFormVisible = false
     }
+    // 重置table高度
+    // resetHeight() {
+    //   return new Promise((resolve, reject) => {
+    //     this.hei = 0
+    //     resolve()
+    //   })
+    // },
+    // // 设置table高度
+    // fetTableHeight() {
+    //   this.resetHeight().then(res => {
+    //     this.hei = this.$refs.tableWrapper.getBoundingClientRect().height - 10
+    //   })
+    // }
   }
 }
 </script>
@@ -301,6 +324,7 @@ export default {
   position: relative;
   height: 100vh;
 }
+
 .search {
   float: right;
   width: 80% !important;
@@ -314,32 +338,36 @@ export default {
   border-radius: 20px;
 }
 
-.border_p::-webkit-scrollbar { /*滚动条整体*/
+.table1::-webkit-scrollbar {
+  width: 0;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
   width: 10px;
 }
 
-.border_p::-webkit-scrollbar-track { /*滚动条轨道*/
+.el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #ffffff;
   border-radius: 20px;
-  margin-top: 240px;
-  margin-bottom: 40px;
+  //margin-top: 30px;
+  //margin-bottom: 30px;
 
 }
 
-.border_p::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+.el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
   background: $primary;
   border-radius: 10px;
 }
 
-.border_p::-webkit-scrollbar-corner { /*滚动条边角*/
+.el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
   background: $primary;
 }
 
 .border_p {
   height: 100%;
-  width: 60%;
+  width: 80%;
   border: 2px solid $primary;
-  margin-left: 300px;
+  margin-left: 150px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;

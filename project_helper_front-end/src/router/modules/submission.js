@@ -15,17 +15,17 @@ const submissionRouter = {
       meta: { title: 'S1', icon: 'clipboard' }
     }, {
       path: 'submission2',
-      component: () => import('@/views/teachers/Submission/p2/index'), // Parent router-view
+      component: () => import('@/views/teachers/Submission/s2/index'), // Parent router-view
       name: 'submission2',
-      meta: { title: 'S2', icon: 'clipboard' }
+      meta: { title: 'S2', icon: 'clipboard', roles: ['teacher'] }
     }, {
       path: 'submission3',
-      component: () => import('@/views/teachers/Submission/p3/index'), // Parent router-view
+      component: () => import('@/views/teachers/Submission/s3/index'), // Parent router-view
       name: 'submission3',
-      meta: { title: 'S3', icon: 'clipboard' }
+      meta: { title: 'S3', icon: 'clipboard', roles: ['teacher'] }
     }, {
       path: 'submission4',
-      component: () => import('@/views/teachers/Submission/p4/index'), // Parent router-view
+      component: () => import('@/views/teachers/Submission/s4/index'), // Parent router-view
       name: 'submission4',
       meta: { title: 'S4', icon: 'clipboard' }
     }
