@@ -3,8 +3,6 @@ package com.evan.wj.pojo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 
-
-
 @Entity
 public class WantPerson {
     @Id

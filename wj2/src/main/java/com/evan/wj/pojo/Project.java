@@ -15,6 +15,15 @@ public class Project {
     int min_people;
     int max_people;
     String bool_cross_class;
+    String bool_force_join;
+
+    public String getBool_force_join() {
+        return bool_force_join;
+    }
+
+    public void setBool_force_join(String bool_force_join) {
+        this.bool_force_join = bool_force_join;
+    }
 
     public int getId() {
         return id;

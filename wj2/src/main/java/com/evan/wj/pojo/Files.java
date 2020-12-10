@@ -5,13 +5,14 @@ import javax.persistence.*;
 
 @Entity
 
-public class File {
+public class Files {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
     String file_name;
     String file_path;
+
 
     public int getId() {
         return id;

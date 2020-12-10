@@ -35,17 +35,10 @@ public class GroupController {
     public MyGroupResult getMyGroup(@RequestParam("token") String token, @RequestParam("project_id") int project_id){
         List<MyGroup> myGroups = new ArrayList<MyGroup>();
 
-//        MyGroup a = new MyGroup(1,"wky1","boy");
-//        a.addtags("前端");
-//        myGroups.add(a);
-
-        // GetGroID {id }
         List<MyGroup_getGroId> gro_id_list = groupDAO.getAMyGroup_getGroID(token, project_id);
         int gro_id = gro_id_list.get(0).getId();
-        // NameGender {int id, String name, String gender, List<String》 tag}
         List<MyGroup_getNameGender> people_id_list = groupDAO.getAMyGroup_getName(gro_id);
 
-        // MyGroup {int id, String name, String gender, List<String》 tag}
         for(MyGroup_getNameGender ids:people_id_list){
             myGroups.add(new MyGroup(ids.getId(),ids.getName(),ids.getGender()));
         }
@@ -112,10 +105,9 @@ public class GroupController {
     public MyGroupResult getTheGroup_teacher(@RequestParam("group_name") String group_name){
         List<MyGroup> myGroups = new ArrayList<MyGroup>();
 
-        // GetGroID {id }
         List<MyGroup_getGroId> gro_id_list = groupDAO.getAMyGroup_getGroID2(group_name);
         int gro_id = gro_id_list.get(0).getId();
-        // NameGender {int id, String name, String gender, List<String》 tag}
+
         List<MyGroup_getNameGender> people_id_list = groupDAO.getAMyGroup_getName(gro_id);
 
         // MyGroup {int id, String name, String gender, List<String》 tag}
