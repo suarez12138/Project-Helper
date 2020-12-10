@@ -94,16 +94,15 @@ import { fetchMyAnnouncementList } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 
-const STORAGE_KEY = "current_project_id"
+const STORAGE_KEY = 'current_project_id'
 export default {
   name: 'SplitpaneDemo',
   components: { splitPane },
   directives: { permission },
   data() {
     return {
-      projects: 
-      null
-      // [
+      projects:
+      null, // [
       //   { course: 'OOAD', p_name: 'Project Helper' },
       //   { course: 'AI', p_name: 'Reversi' },
       //   { course: 'AI', p_name: 'Reversi' },
@@ -114,10 +113,9 @@ export default {
       //   { course: 'AI', p_name: 'Reversi' },
       //   { course: 'AI', p_name: 'IMP' }
       // ]
-      ,
-      announcements: 
-      null
-      // [
+
+      announcements:
+      null, // [
       //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
       //   { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
@@ -127,7 +125,7 @@ export default {
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
       // ]
-      ,
+
       project_dict: {},
       value: new Date()
     }
@@ -142,40 +140,35 @@ export default {
     resize() {
       console.log('resize')
     },
-    getAllProject(){
+    getAllProject() {
       fetchAllProject().then(response => {
         // this.project_dict
         // alert(response.data.length)
-        for (var i=0;i<response.data.length;i++)
-        { 
-            this.project_dict[response.data[i].project] = response.data[i].project_id
-            // alert(response.data[i].project)
-            // alert(this.project_dict[response.data[i].project])
+        for (var i = 0; i < response.data.length; i++) {
+          this.project_dict[response.data[i].project] = response.data[i].project_id
+          // alert(response.data[i].project)
+          // alert(this.project_dict[response.data[i].project])
         }
       })
     },
-    getMyProjects(){
+    getMyProjects() {
       fetchMyProjectList(getToken()).then(response => {
         this.projects = response.data
       })
-
     },
-    getMyAnnouncement(){
+    getMyAnnouncement() {
       fetchMyAnnouncementList(getToken()).then(response => {
         this.announcements = response.data
       })
-
     },
-    miao(name){
+    miao(name) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
       window.localStorage.setItem('current_project', JSON.stringify(name))
       // alert(localStorage.getItem("current_project"))
-      console.log(localStorage.getItem("current_project"))
-      console.log(this.project_dict)
-      console.log(this.project_dict[name])
-      console.log(localStorage)
-
-      console.log('aaaa')
+      // console.log(localStorage.getItem("current_project"))
+      // console.log(this.project_dict)
+      // console.log(this.project_dict[name])
+      // console.log(localStorage)
     }
   }
 }

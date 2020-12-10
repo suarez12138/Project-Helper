@@ -62,6 +62,13 @@
           />
           <el-table-column
             align="center"
+            prop="stu_id"
+            label="SID"
+            sortable
+            width="100"
+          />
+          <el-table-column
+            align="center"
             prop="name"
             label="姓名"
             sortable
@@ -85,11 +92,22 @@
           />
           <el-table-column
             align="center"
+            prop="dormitory"
+            label="宿舍"
+            sortable
+            width="100"
+          />
+          <el-table-column
+            align="center"
             prop="skill"
             label="技能"
             sortable
-            :formatter="formatter"
-          />
+          >
+            <template slot-scope="scope">
+              <!--eslint-disable-next-line-->
+              <el-tag v-for="item in scope.row.skill" effect="dark">{{ item }}</el-tag>
+            </template>
+          </el-table-column>
           <el-table-column
             align="center"
             prop="hope"
@@ -397,5 +415,9 @@ export default {
   margin-right: 10px;
   margin-top: 10px;
   color: $primary;
+}
+.el-tag + .el-tag {
+  margin-left: 10px;
+  margin-bottom: 5px;
 }
 </style>
