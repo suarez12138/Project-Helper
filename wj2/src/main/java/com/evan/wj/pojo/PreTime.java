@@ -12,7 +12,7 @@ public class PreTime {
     int id;
 
     int project;
-    String pre_week;
+    String pre_day;
     String text;
 
     public int getProject() {
@@ -23,13 +23,6 @@ public class PreTime {
         this.project = project;
     }
 
-    public String getPre_week() {
-        return pre_week;
-    }
-
-    public void setPre_week(String pre_week) {
-        this.pre_week = pre_week;
-    }
 
     public String getText() {
         return text;
@@ -37,5 +30,21 @@ public class PreTime {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getPre_day() {
+        return pre_day;
+    }
+
+    public void setPre_day(String pre_day) {
+        this.pre_day = pre_day;
     }
 }
