@@ -1,6 +1,9 @@
 <template>
   <el-form label-width="80px">
     <el-form-item label="SID">
+      <el-input v-model.trim="user.id" :disabled="true" />
+    </el-form-item>
+    <el-form-item label="Name">
       <el-input v-model.trim="user.name" :disabled="true" />
     </el-form-item>
     <el-form-item label="Gender">
@@ -42,6 +45,7 @@ export default {
       type: Object,
       default: () => {
         return {
+          id: '',
           name: '',
           gender: '',
           email: '',
