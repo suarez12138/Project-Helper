@@ -8,7 +8,7 @@
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">{{ project.course }}</div>
+              <div class="coursename">{{ project.course }}</div>
               <br>
               <div class="projectname">{{ project.project_name }}</div>
             </div>
@@ -22,7 +22,9 @@
           <!--eslint-disable-next-line-->
           <div v-for="announcement in announcements" class="announcetitle">
             <a href="/#/announcement/announcement">
-              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{ announcement.by }}<br>{{ announcement.time }}
+              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{
+                announcement.by
+              }}<br>{{ announcement.time }}
 
             </a>
           </div>
@@ -64,7 +66,7 @@
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">{{ project.course }}</div>
+              <div class="coursename">{{ project.course }}</div>
               <br>
               <div class="projectname">{{ project.project_name }}</div>
             </div>
@@ -102,7 +104,7 @@ export default {
   data() {
     return {
       projects:
-      null, // [
+        null, // [
       //   { course: 'OOAD', p_name: 'Project Helper' },
       //   { course: 'AI', p_name: 'Reversi' },
       //   { course: 'AI', p_name: 'Reversi' },
@@ -115,7 +117,7 @@ export default {
       // ]
 
       announcements:
-      null, // [
+        null, // [
       //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
       //   { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
@@ -164,6 +166,7 @@ export default {
     miao(name) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
       window.localStorage.setItem('current_project', JSON.stringify(name))
+      window.dispatchEvent(new Event('setItemEvent'))
       // alert(localStorage.getItem("current_project"))
       // console.log(localStorage.getItem("current_project"))
       // console.log(this.project_dict)
@@ -209,10 +212,18 @@ export default {
 
 .projectname {
   color: #cccccc;
-  font-size: 30px;
+  font-size: 25px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  padding-top: 15px;
+  padding-top: 20px;
+}
+
+.coursename {
+  color: #cccccc;
+  font-size: 25px;
+  transition: 0.2s ease-in-out;
+  text-align: center;
+  padding-top: 30px;
 }
 
 .border1:hover, .border2:hover, .border3:hover {
@@ -266,7 +277,7 @@ div {
   display: block;
 }
 
-.projectmenu:hover .projectname {
+.projectmenu:hover .projectname, .projectmenu:hover .coursename {
   color: #203025;
   transition: 0.2s ease-in-out;
   filter: none;
@@ -316,25 +327,27 @@ div {
   margin-bottom: 0;
 }
 
-.border1::-webkit-scrollbar ,.border2::-webkit-scrollbar{ /*滚动条整体*/
+.border1::-webkit-scrollbar, .border2::-webkit-scrollbar { /*滚动条整体*/
   width: 10px;
 }
 
-.border1::-webkit-scrollbar-track ,.border2::-webkit-scrollbar-track{  /*滚动条轨道*/
+.border1::-webkit-scrollbar-track, .border2::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #999;
   border-radius: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.border1::-webkit-scrollbar-thumb{
+
+.border1::-webkit-scrollbar-thumb {
   background: #151516;
 
 }
-.border2::-webkit-scrollbar-thumb{
+
+.border2::-webkit-scrollbar-thumb {
   background: #c52d47;
 }
 
-.border1::-webkit-scrollbar-thumb ,.border2::-webkit-scrollbar-thumb{ /*滚动条里面的滑块*/
+.border1::-webkit-scrollbar-thumb, .border2::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
   border-radius: 10px;
 }
 
@@ -346,7 +359,7 @@ div {
 
 .announcetitle {
   text-align: left;
-  margin-left: 200px;
+  margin-left: 30%;
   padding-top: 10px;
 }
 
