@@ -1,13 +1,13 @@
 <template>
   <div class="components-container">
-    <div class="border_p">
+    <div class="border_great">
       <div class="personal_title"> Personal information</div>
       <el-button type="text" style="float: left;margin-left: 50px;" size="large" @click="handleClick()"><i
         class="el-icon-circle-plus"
       /> 邀请组队
       </el-button>
 
-      <el-button type="text" style="float: left;margin-left: 27%;" @click="dialogFormVisible1 = true">
+      <el-button type="text" style="float: left;margin-left: 35%;" @click="dialogFormVisible1 = true">
         <svg-icon icon-class="edit" />
         修改我的信息
       </el-button>
@@ -381,11 +381,10 @@ export default {
   background: $primary;
 }
 
-.border_p {
+.border_great {
   height: 100%;
-  width: 80%;
+  width:  100%;
   border: 2px solid $primary;
-  margin-left: 150px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
@@ -395,7 +394,7 @@ export default {
   padding-right: 20px;
 }
 
-.border_p:hover {
+.border_great:hover {
   box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;

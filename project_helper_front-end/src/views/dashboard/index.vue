@@ -3,7 +3,7 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div class="border1">
-          <div class="title">Projects</div>
+          <div class="home_title">Projects</div>
 
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
@@ -13,12 +13,16 @@
               <div class="projectname">{{ project.project_name }}</div>
             </div>
           </a>
-
+          <a href="/#/join/join">
+            <div class="addprojectmenu">
+              <div id="photo" />
+            </div>
+          </a>
         </div>
       </template>
       <template slot="paneR">
         <div class="border2">
-          <div class="title">Announcements</div>
+          <div class="home_title">Announcements</div>
           <!--eslint-disable-next-line-->
           <div v-for="announcement in announcements" class="announcetitle">
             <a href="/#/announcement/announcement">
@@ -62,7 +66,7 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div class="border1">
-          <div class="title">Projects</div>
+          <div class="home_title">Projects</div>
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" href="/#/overview/overview">
             <div class="projectmenu">
@@ -257,7 +261,7 @@ export default {
 /*  filter: blur(5px) !important;*/
 /*}*/
 
-.projectmenu:hover {
+.projectmenu:hover, .addprojectmenu:hover {
   box-shadow: 12px 20px 20px #000000;
   background-color: #cccccc;
   border: #ffffff;
@@ -315,7 +319,7 @@ div {
   height: 15%;
 }
 
-.projectmenu {
+.projectmenu, .addprojectmenu {
   background-color: #203025;
   margin: 10%;
   height: 20%;
@@ -325,6 +329,19 @@ div {
   float: left;
   transition: 0.3s ease-in-out;
   margin-bottom: 0;
+}
+
+.addprojectmenu {
+  /*filter: blur(1px);*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#photo {
+  background: url("add.png") no-repeat;
+  margin-top: 23px;
+  margin-left: 45px;
+  width: 100%;
+  height: 100%;
 }
 
 .border1::-webkit-scrollbar, .border2::-webkit-scrollbar { /*滚动条整体*/
@@ -351,7 +368,7 @@ div {
   border-radius: 10px;
 }
 
-.announcetitle, .title {
+.announcetitle, .home_title {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
@@ -363,7 +380,7 @@ div {
   padding-top: 10px;
 }
 
-.title {
+.home_title {
   padding-top: 30px;
   font-size: 40px;
   color: #ffffff;
