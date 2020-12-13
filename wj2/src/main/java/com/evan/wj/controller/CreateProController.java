@@ -4,6 +4,7 @@ import com.evan.wj.bean.AllCourse;
 import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.dao.CreateProjectDAO;
 import com.evan.wj.dao.TagDAO;
+import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.receive.NewProjectReceive;
 import com.evan.wj.receive.Person_info_update;
 import com.evan.wj.result.TempleteResult;
@@ -19,8 +20,11 @@ public class CreateProController {
     @Autowired
     CreateProjectDAO createProjectDAO;
 
+    @Autowired
+    UpPersonInfoDAO upPersonInfoDAO;
+
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/personal/temp232")
+    @GetMapping(value = "/vue-element-admin/teacher/project/get_course")
     @ResponseBody
     public TempleteResult<AllCourse> getAllCourse(@RequestParam("token") String token){
         List<AllCourse> sub1 = createProjectDAO.getAllCourse(token);
@@ -29,7 +33,7 @@ public class CreateProController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/personal/temp232123124")
+    @PostMapping(value = "/vue-element-admin/teacher/project/new_project")
     @ResponseBody
     public Void_return create_new_project(@RequestBody NewProjectReceive newProInfo){
         int course_id = newProInfo.getCourse_id();
@@ -43,7 +47,7 @@ public class CreateProController {
         createProjectDAO.inseart_project(bool_cross,bool_force,course_id,max_p,min_p,pro_name);
         String token = newProInfo.getToken();
 
-
+        int teacher_id = upPersonInfoDAO.getID(token).get(0).getId();
 
         if(bool_force.equals("true")){
             // 把这个课程下所有的  人 拉进 want people

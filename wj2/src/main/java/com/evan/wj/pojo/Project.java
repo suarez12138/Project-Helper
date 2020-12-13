@@ -17,6 +17,15 @@ public class Project {
     String bool_cross_class;
     String bool_force_join;
     int teacher_id;
+    String grouping_ddl;
+
+    public String getGrouping_ddl() {
+        return grouping_ddl;
+    }
+
+    public void setGrouping_ddl(String grouping_ddl) {
+        this.grouping_ddl = grouping_ddl;
+    }
 
     public int getTeacher_id() {
         return teacher_id;
