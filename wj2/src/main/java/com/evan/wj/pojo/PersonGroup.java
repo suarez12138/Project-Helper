@@ -14,7 +14,7 @@ public class PersonGroup {
     int gro;
     int person;
     String pg_status;
-    String grade;
+    double grade;
 
     public int getId() {
         return id;
@@ -48,11 +48,11 @@ public class PersonGroup {
         this.pg_status = pg_status;
     }
 
-    public String getGrade() {
+    public double getGrade() {
         return grade;
     }
 
-    public void setGrade(String grade) {
+    public void setGrade(double grade) {
         this.grade = grade;
     }
 }

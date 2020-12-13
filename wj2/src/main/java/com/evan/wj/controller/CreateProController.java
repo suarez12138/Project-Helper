@@ -46,7 +46,7 @@ public class CreateProController {
         String bool_cross = newProInfo.getAcross_lab();
         String bool_force = newProInfo.getChoosable_proj();
 
-        String group_ddl = newProInfo.getPro_grouping_endDay().substring(10) + " " + newProInfo.getPro_grouping_endHms().substring(10);
+        String group_ddl = newProInfo.getPro_grouping_endDay().substring(0,10) + " " + newProInfo.getPro_grouping_endHms().substring(11,16);
         createProjectDAO.inseart_project(bool_cross,bool_force,course_id,max_p,min_p,pro_name,teacher_id, group_ddl);
         return new Void_return(20000);
     }

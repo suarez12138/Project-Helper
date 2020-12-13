@@ -1,52 +1,53 @@
 package com.evan.wj.bean;
 
 public class Announcement {
-    String name;
-    String project;
-    String by;
-    String time;
+    String Ann_name;
+    String project_name;
+    String teacher_name;
+    String release_time;
     String text;
     int project_id;
 
-    public Announcement(String name, String project, String by, String time, String text, int project_id) {
-        this.name = name;
-        this.project = project;
-        this.by = by;
-        this.time = time;
+    public Announcement(String ann_name, String project_name, String teacher_name, String release_time, String text, int project_id) {
+        Ann_name = ann_name;
+        this.project_name = project_name;
+        this.teacher_name = teacher_name;
+        this.release_time = release_time;
         this.text = text;
         this.project_id = project_id;
     }
 
-    public String getName() {
-        return name;
+
+    public String getAnn_name() {
+        return Ann_name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setAnn_name(String ann_name) {
+        Ann_name = ann_name;
     }
 
-    public String getProject() {
-        return project;
+    public String getProject_name() {
+        return project_name;
     }
 
-    public void setProject(String project) {
-        this.project = project;
+    public void setProject_name(String project_name) {
+        this.project_name = project_name;
     }
 
-    public String getBy() {
-        return by;
+    public String getTeacher_name() {
+        return teacher_name;
     }
 
-    public void setBy(String by) {
-        this.by = by;
+    public void setTeacher_name(String teacher_name) {
+        this.teacher_name = teacher_name;
     }
 
-    public String getTime() {
-        return time;
+    public String getRelease_time() {
+        return release_time;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setRelease_time(String release_time) {
+        this.release_time = release_time;
     }
 
     public String getText() {
