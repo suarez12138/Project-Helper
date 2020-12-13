@@ -17,7 +17,9 @@
             ref="filterTable"
             v-loading="listLoading"
             :data="tableData3"
-            style="width: 100%"
+            style="width: 100%;overflow-y: auto;"
+            class="table1"
+            :height="hei"
             highlight-current-row
             @current-change="handleCurrentChange"
           >
@@ -34,7 +36,7 @@
               <template slot-scope="scope">
                 <el-popover trigger="click" placement="right" class="pout">
                   <!--                  <div id="border3_3">-->
-                  <div class="title">Selected Group</div>
+                  <div class="title_3">{{ sel_name }}</div>
                   <el-table
                     ref="filterTable"
                     v-loading="listLoading"
@@ -104,12 +106,13 @@
               </template>
             </el-table-column>
             <el-table-column
+              align="center"
               fixed="right"
               label="操作"
               width="100"
             >
               <template slot-scope="scope">
-                <el-button type="text" size="small" @click="handleClick(scope.row)">加入</el-button>
+                <el-button type="primary" plain size="small" @click="handleClick(scope.row)">加入</el-button>
               </template>
             </el-table-column>
           </el-table>
@@ -173,6 +176,16 @@
             />
           </el-table>
           <el-form class="juzhong" style="margin-top: 40px;">
+            <el-form-item label="开放加入">
+              <el-switch
+                v-model="value2"
+                active-color="#13ce66"
+                inactive-color="#ff4949"
+                active-text="是"
+                inactive-text="否"
+                @change="handleChange(value2)"
+              />
+            </el-form-item>
             <el-form-item label="预期答辩时间">
               <el-select v-model="ruleForm.population" placeholder="预期答辩时间" />
             </el-form-item>
@@ -184,25 +197,27 @@
                 show-word-limit
               />
             </el-form-item>
-            <el-form-item label="提交项目" prop="submitProject">
-              <el-upload
-                class="upload-demo"
-                action="https://jsonplaceholder.typicode.com/posts/"
-                :on-preview="handlePreview"
-                :on-remove="handleRemove"
-                :before-remove="beforeRemove"
-                multiple
-                :limit="5"
-                :on-exceed="handleExceed"
-                :file-list="fileList"
-              >
-                <el-button size="small" plain type="primary">点击上传</el-button>
-                <!--                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>-->
-              </el-upload>
-            </el-form-item>
+
+            <!--            <el-form-item label="提交项目" prop="submitProject">-->
+            <!--              <el-upload-->
+            <!--                class="upload-demo"-->
+            <!--                action="https://jsonplaceholder.typicode.com/posts/"-->
+            <!--                :on-preview="handlePreview"-->
+            <!--                :on-remove="handleRemove"-->
+            <!--                :before-remove="beforeRemove"-->
+            <!--                multiple-->
+            <!--                :limit="5"-->
+            <!--                :on-exceed="handleExceed"-->
+            <!--                :file-list="fileList"-->
+            <!--              >-->
+            <!--                <el-button size="small" plain type="primary">点击上传</el-button>-->
+            <!--                &lt;!&ndash;                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>&ndash;&gt;-->
+            <!--              </el-upload>-->
+            <!--            </el-form-item>-->
             <el-form-item class="flo" style="margin-left: 20px">
               <el-button type="primary" plain @click="submitForm('ruleForm')">确认</el-button>
             </el-form-item>
+
             <el-popconfirm
               confirm-button-text="确定"
               cancel-button-text="取消"
@@ -226,16 +241,7 @@
             <!--                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
             <!--              </span>-->
             <!--            </el-dialog>-->
-            <el-switch
-              v-model="value2"
-              class="flo"
-              style="display: block;  margin-top: 10px;  margin-right: 70px; float: right;"
-              active-color="#13ce66"
-              inactive-color="#ff4949"
-              active-text="开放加入"
-              inactive-text="不开放加入"
-              @change="handleChange(value2)"
-            />
+
           </el-form>
         </div>
       </template>
@@ -264,6 +270,8 @@ export default {
   data() {
     return {
       show_tooltip: false,
+      sel_name: 'Title',
+      hei: window.innerHeight * 0.80,
       text_content: 'My Group',
       fileList: [{
         name: 'food.jpeg',
@@ -311,7 +319,7 @@ export default {
       // }
       // ],
       tableData_of_OneGroup:
-      null,
+        null,
       // [
       //   {
       //   name: '张小虎',
@@ -338,7 +346,7 @@ export default {
         })
       }
       console.log(localStorage)
-    
+
       return this.tableData33
     }
   },
@@ -366,6 +374,7 @@ export default {
       })
     },
     getGroup_by_name(name) {
+      this.sel_name = name
       fetchTheGroup(name).then(response => {
         this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false
@@ -494,29 +503,29 @@ export default {
   box-shadow: 12px 20px 20px $primary;
 }
 
-#border3_1::-webkit-scrollbar { /*滚动条整体*/
-  width: 10px;
-}
-
-#border3_1::-webkit-scrollbar-track { /*滚动条轨道*/
-  /*background:#999;*/
-  background: #ffffff;
-  border-radius: 20px;
-  margin-top: 40px;
-  margin-bottom: 40px;
-}
-
-#border3_1::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: $primary;
-  border-radius: 10px;
-}
+//#border3_1::-webkit-scrollbar { /*滚动条整体*/
+//  width: 10px;
+//}
+//
+//#border3_1::-webkit-scrollbar-track { /*滚动条轨道*/
+//  /*background:#999;*/
+//  background: #ffffff;
+//  border-radius: 20px;
+//  margin-top: 40px;
+//  margin-bottom: 40px;
+//}
+//
+//#border3_1::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+//  background: $primary;
+//  border-radius: 10px;
+//}
 
 /*#border3_1::-webkit-scrollbar-thumb:hover{!*滚动条鼠标事件，鼠标放上去出现的事件*!*/
 /*  background:#ffffff;*/
 /*}*/
-#border3_1::-webkit-scrollbar-corner { /*滚动条边角*/
-  background: $primary;
-}
+//#border3_1::-webkit-scrollbar-corner { /*滚动条边角*/
+//  background: $primary;
+//}
 
 .title_3 {
   color: $primary;
@@ -547,6 +556,30 @@ export default {
   margin-right: 10px;
   margin-top: 10px;
   color: $primary;
+}
 
+.table1::-webkit-scrollbar {
+  width: 0;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  //margin-top: 30px;
+  //margin-bottom: 30px;
+
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
+  background: $primary;
 }
 </style>

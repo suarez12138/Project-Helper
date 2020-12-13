@@ -22,6 +22,12 @@ const roles = [
     name: 'student',
     description: 'Student. Can see all pages except permission page',
     routes: routes.filter(i => i.path !== '/permission')// just a mock
+  },
+  {
+    key: 'controller',
+    name: 'controller',
+    description: 'controller. Can see all pages except permission page',
+    routes: routes.filter(i => i.path !== '/permission')// just a mock
   }
   // ,
   // {

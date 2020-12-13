@@ -3,26 +3,32 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div class="border1">
-          <div class="title">Projects</div>
+          <div class="home_title">Projects</div>
 
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">{{ project.course }}</div>
+              <div class="coursename">{{ project.course }}</div>
               <br>
               <div class="projectname">{{ project.project_name }}</div>
             </div>
           </a>
-
+          <a href="/#/join/join">
+            <div class="addprojectmenu">
+              <div id="photo" />
+            </div>
+          </a>
         </div>
       </template>
       <template slot="paneR">
         <div class="border2">
-          <div class="title">Announcements</div>
+          <div class="home_title">Announcements</div>
           <!--eslint-disable-next-line-->
           <div v-for="announcement in announcements" class="announcetitle">
             <a href="/#/announcement/announcement">
-              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{ announcement.by }}<br>{{ announcement.time }}
+              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{
+                announcement.by
+              }}<br>{{ announcement.time }}
 
             </a>
           </div>
@@ -60,11 +66,11 @@
     <split-pane split="vertical" @resize="resize">
       <template slot="paneL">
         <div class="border1">
-          <div class="title">Projects</div>
+          <div class="home_title">Projects</div>
           <!--eslint-disable-next-line-->
           <a v-for="project in projects" href="/#/overview/overview">
             <div class="projectmenu">
-              <div class="projectname">{{ project.course }}</div>
+              <div class="coursename">{{ project.course }}</div>
               <br>
               <div class="projectname">{{ project.project_name }}</div>
             </div>
@@ -83,6 +89,145 @@
       </template>
     </split-pane>
   </div>
+  <div v-else-if="checkPermission(['controller'])" class="components-container">
+    <!--    <el-menu-->
+    <!--      :default-active="activeIndex2"-->
+    <!--      class="el-menu-demo"-->
+    <!--      mode="horizontal"-->
+    <!--      @select="handleSelect"-->
+    <!--      text-color="#fff"-->
+    <!--      active-text-color="#ffd04b">-->
+    <!--      <el-menu-item index="1">处理中心</el-menu-item>-->
+    <!--      <el-submenu index="2">-->
+    <!--        <template slot="title">我的工作台</template>-->
+    <!--      </el-submenu>-->
+    <!--      <el-menu-item index="3" >消息中心</el-menu-item>-->
+    <!--      <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>-->
+    <!--    </el-menu>-->
+    <el-tabs type="border-card">
+      <el-tab-pane label="User Creating">
+        <el-form
+          ref="ruleForm"
+          :model="create_Form"
+          status-icon
+          label-width="120px"
+          class="demo-ruleForm"
+          style="margin-top: 50px;"
+        >
+          <el-form-item label="用户名" prop="name" required>
+            <el-input v-model="create_Form.name" style="width: 30%" />
+          </el-form-item>
+          <el-form-item label="真名" prop="name" required>
+            <el-input v-model="create_Form.truename" style="width: 30%" />
+          </el-form-item>
+          <el-form-item label="初始密码" prop="name" required>
+            <el-input v-model="create_Form.password" style="width: 30%" />
+          </el-form-item>
+
+          <el-form-item label="权限" prop="privilege" required>
+            <el-select v-model="create_Form.role" placeholder="请选择相应权限">
+              <el-option label="teacher" value="teacher" />
+              <el-option label="student" value="student" />
+              <el-option label="admin" value="controller" />
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" plain @click="submitForm1('ruleForm')">确认生成</el-button>
+            <el-button plain @click="resetForm1('ruleForm')">重置</el-button>
+          </el-form-item>
+        </el-form>
+        <el-divider />
+        <div class="pi">批量生成:</div>
+        <upload-excel-component :on-success="handleSuccess1" :before-upload="beforeUpload1" />
+      </el-tab-pane>
+      <el-tab-pane label="User Privilege">
+
+        <el-form
+          ref="ruleForm"
+          :model="Privilege_Form"
+          status-icon
+          label-width="120px"
+          class="demo-ruleForm"
+          style="margin-top: 50px;"
+        >
+          <el-form-item label="用户名" prop="name" required>
+            <el-input v-model="Privilege_Form.name" style="width: 30%" />
+          </el-form-item>
+
+          <el-form-item label="权限" prop="privilege" required>
+            <el-select v-model="Privilege_Form.role" placeholder="请选择相应权限">
+              <el-option label="teacher" value="teacher" />
+              <el-option label="student" value="student" />
+              <el-option label="admin" value="controller" />
+            </el-select>
+          </el-form-item>
+          <el-form-item>
+            <el-button type="primary" plain @click="submitForm2('ruleForm')">确认分配</el-button>
+            <el-button plain @click="resetForm2('ruleForm')">重置</el-button>
+          </el-form-item>
+
+        </el-form>
+        <el-divider />
+        <div class="pi">批量调整:</div>
+
+        <upload-excel-component :on-success="handleSuccess2" :before-upload="beforeUpload2" />
+      </el-tab-pane>
+      <el-tab-pane label="Course Assignment">
+        <el-form
+          :model="course_Form"
+          status-icon
+          label-width="15%"
+          class="demo-ruleForm"
+          style="margin-top: 50px;"
+        >
+          <el-form-item label="课程名称" prop="name" required>
+            <el-input v-model="course_Form.name" style="width: 30%" />
+          </el-form-item>
+          <div class="search-Box" style=" margin-left: 15%;width: 30%; ">
+            <svg-icon icon-class="search" class="search_icon" />
+            <el-input v-model="search" placeholder="请输入关键字" class="search" />
+          </div>
+          <el-table
+            ref="filterTable"
+            :data="tableData33"
+            style="width: 80%;margin-left: 10%;"
+            @selection-change="handleSelectionChange"
+          >
+            <el-table-column
+              align="center"
+              prop="select"
+              type="selection"
+              width="55"
+            />
+            <el-table-column
+              align="center"
+              prop="ID"
+              label="ID"
+              sortable
+            />
+
+            <el-table-column
+              align="center"
+              prop="truename"
+              label="姓名"
+              sortable
+            />
+            <el-table-column
+              align="center"
+              prop="role"
+              label="角色"
+              sortable
+            />
+
+          </el-table>
+
+          <el-form-item style="margin-top: 50px;">
+            <el-button type="primary" plain @click="submitForm3('ruleForm')">确认加入</el-button>
+          </el-form-item>
+        </el-form>
+      </el-tab-pane>
+    </el-tabs>
+  </div>
 </template>
 
 <script>
@@ -93,17 +238,40 @@ import { fetchMyProjectList } from '@/api/student/dashboard'
 import { fetchMyAnnouncementList } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
+import UploadExcelComponent from '@/components/UploadExcel/index'
 
-const STORAGE_KEY = "current_project_id"
+const STORAGE_KEY = 'current_project_id'
 export default {
   name: 'SplitpaneDemo',
-  components: { splitPane },
+  components: { splitPane, UploadExcelComponent },
   directives: { permission },
   data() {
     return {
-      projects: 
-      null
-      // [
+      search: '',
+      create_Form: {
+        name: '',
+        truename: '',
+        password: '',
+        privilege: ''
+      },
+      Privilege_Form: {
+        name: '',
+        privilege: ''
+      },
+      course_Form: {
+        name: ''
+      },
+      tableData33: [{
+        ID: '11812925',
+        truename: '黄子健',
+        role: 'student'
+      }],
+      tableData1: [],
+      tableData2: [],
+      tableHeader1: [],
+      tableHeader2: [],
+      projects:
+        null, // [
       //   { course: 'OOAD', p_name: 'Project Helper' },
       //   { course: 'AI', p_name: 'Reversi' },
       //   { course: 'AI', p_name: 'Reversi' },
@@ -114,10 +282,9 @@ export default {
       //   { course: 'AI', p_name: 'Reversi' },
       //   { course: 'AI', p_name: 'IMP' }
       // ]
-      ,
-      announcements: 
-      null
-      // [
+
+      announcements:
+        null, // [
       //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
       //   { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
@@ -127,66 +294,166 @@ export default {
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
       //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
       // ]
-      ,
+
       project_dict: {},
       value: new Date()
     }
   },
+  computed: {
+    tableData3: function() {
+      var search = this.search
+      if (search) {
+        return this.tableData33.filter(function(dataNews) {
+          return Object.keys(dataNews).some(function(key) {
+            return String(dataNews[key]).toLowerCase().indexOf(search) > -1
+          })
+        })
+      }
+      return this.tableData33
+    }
+  },
+
   created() {
     this.getMyProjects()
     this.getMyAnnouncement()
     this.getAllProject()
   },
   methods: {
+    beforeUpload1(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+      if (isLt1M) {
+        return true
+      }
+      this.$message({
+        message: 'Please do not upload files larger than 1m in size.',
+        type: 'warning'
+      })
+      return false
+    },
+    handleSuccess1({ results, header }) {
+      this.tableData1 = results
+      this.tableHeader1 = ['name', 'truename', 'password', 'role']
+    },
+    beforeUpload2(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+      if (isLt1M) {
+        return true
+      }
+      this.$message({
+        message: 'Please do not upload files larger than 1m in size.',
+        type: 'warning'
+      })
+      return false
+    },
+    handleSuccess2({ results, header }) {
+      this.tableData2 = results
+      this.tableHeader2 = ['name', 'role']
+    },
+    resetForm1(formName) {
+      this.$refs[formName].resetFields()
+    },
+    submitForm1(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    resetForm2(formName) {
+      this.$refs[formName].resetFields()
+    },
+    submitForm2(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
+    },
+    submitForm3() {
+      if (this.multipleSelection == null) {
+        this.$alert('请选择想加入的成员！', '加入失败', {
+          confirmButtonText: '确定'
+        })
+        return
+      }
+      // 处理加入
+    },
+    handleSelectionChange(val) {
+      this.multipleSelection = val
+      console.log(this.multipleSelection)
+    },
     checkPermission,
     resize() {
       console.log('resize')
     },
-    getAllProject(){
+    getAllProject() {
       fetchAllProject().then(response => {
         // this.project_dict
         // alert(response.data.length)
-        for (var i=0;i<response.data.length;i++)
-        { 
-            this.project_dict[response.data[i].project] = response.data[i].project_id
-            // alert(response.data[i].project)
-            // alert(this.project_dict[response.data[i].project])
+        for (var i = 0; i < response.data.length; i++) {
+          this.project_dict[response.data[i].project] = response.data[i].project_id
+          // alert(response.data[i].project)
+          // alert(this.project_dict[response.data[i].project])
         }
       })
     },
-    getMyProjects(){
+    getMyProjects() {
       fetchMyProjectList(getToken()).then(response => {
         this.projects = response.data
       })
-
     },
-    getMyAnnouncement(){
+    getMyAnnouncement() {
       fetchMyAnnouncementList(getToken()).then(response => {
         this.announcements = response.data
       })
-
     },
-    miao(name){
+    miao(name) {
       window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
       window.localStorage.setItem('current_project', JSON.stringify(name))
+      window.dispatchEvent(new Event('setItemEvent'))
       // alert(localStorage.getItem("current_project"))
-      console.log(localStorage.getItem("current_project"))
-      console.log(this.project_dict)
-      console.log(this.project_dict[name])
-      console.log(localStorage)
-
-      console.log('aaaa')
+      // console.log(localStorage.getItem("current_project"))
+      // console.log(this.project_dict)
+      // console.log(this.project_dict[name])
+      // console.log(localStorage)
     }
   }
 }
 </script>
 
-<style>
+<style lang="scss">
+@import "~@/styles/variables.scss";
+
 .components-container {
   position: relative;
   height: 100vh;
 }
 
+.el-menu-demo {
+  background-color: $primary;
+}
+.search_icon {
+  float: left;
+  margin-right: 10px;
+  margin-top: 10px;
+  color: $primary;
+}
+
+.search {
+  float: left;
+  margin-right: 10%;
+  width: 80% !important;
+}
+
+.search > .el-input__inner {
+  border-radius: 30px;
+}
 .border1, .border2, .border3 {
   width: 100%;
   border-radius: 50px;
@@ -216,10 +483,18 @@ export default {
 
 .projectname {
   color: #cccccc;
-  font-size: 30px;
+  font-size: 25px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  padding-top: 15px;
+  padding-top: 20px;
+}
+
+.coursename {
+  color: #cccccc;
+  font-size: 25px;
+  transition: 0.2s ease-in-out;
+  text-align: center;
+  padding-top: 30px;
 }
 
 .border1:hover, .border2:hover, .border3:hover {
@@ -253,12 +528,18 @@ export default {
 /*  filter: blur(5px) !important;*/
 /*}*/
 
-.projectmenu:hover {
+.projectmenu:hover, .addprojectmenu:hover {
   box-shadow: 12px 20px 20px #000000;
   background-color: #cccccc;
   border: #ffffff;
   transform: translate(-2px, -8px);
   transition: 0.2s ease-in-out;
+}
+.pi{
+  color: $primary;
+  font-size: 20px;
+  margin-top: 30px;
+  margin-left: 230px;
 }
 
 .center {
@@ -273,7 +554,7 @@ div {
   display: block;
 }
 
-.projectmenu:hover .projectname {
+.projectmenu:hover .projectname, .projectmenu:hover .coursename {
   color: #203025;
   transition: 0.2s ease-in-out;
   filter: none;
@@ -311,7 +592,7 @@ div {
   height: 15%;
 }
 
-.projectmenu {
+.projectmenu, .addprojectmenu {
   background-color: #203025;
   margin: 10%;
   height: 20%;
@@ -323,29 +604,44 @@ div {
   margin-bottom: 0;
 }
 
-.border1::-webkit-scrollbar ,.border2::-webkit-scrollbar{ /*滚动条整体*/
+.addprojectmenu {
+  /*filter: blur(1px);*/
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#photo {
+  background: url("add.png") no-repeat;
+  margin-top: 23px;
+  margin-left: 45px;
+  width: 100%;
+  height: 100%;
+}
+
+.border1::-webkit-scrollbar, .border2::-webkit-scrollbar { /*滚动条整体*/
   width: 10px;
 }
 
-.border1::-webkit-scrollbar-track ,.border2::-webkit-scrollbar-track{  /*滚动条轨道*/
+.border1::-webkit-scrollbar-track, .border2::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #999;
   border-radius: 20px;
   margin-top: 40px;
   margin-bottom: 40px;
 }
-.border1::-webkit-scrollbar-thumb{
+
+.border1::-webkit-scrollbar-thumb {
   background: #151516;
 
 }
-.border2::-webkit-scrollbar-thumb{
+
+.border2::-webkit-scrollbar-thumb {
   background: #c52d47;
 }
 
-.border1::-webkit-scrollbar-thumb ,.border2::-webkit-scrollbar-thumb{ /*滚动条里面的滑块*/
+.border1::-webkit-scrollbar-thumb, .border2::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
   border-radius: 10px;
 }
 
-.announcetitle, .title {
+.announcetitle, .home_title {
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;
@@ -353,11 +649,11 @@ div {
 
 .announcetitle {
   text-align: left;
-  margin-left: 200px;
+  margin-left: 30%;
   padding-top: 10px;
 }
 
-.title {
+.home_title {
   padding-top: 30px;
   font-size: 40px;
   color: #ffffff;

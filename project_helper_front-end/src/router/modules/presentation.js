@@ -8,20 +8,20 @@ const teacher_presentationRouter = {
   name: 'Presentation',
   meta: {
     title: 'Presentation',
-    icon: 'people'
-    // roles: ['teacher']
+    icon: 'el-icon-mic',
+    roles: ['teacher', 'student']
   },
   children: [
     {
       path: 'presentation',
       component: () => import('@/views/teachers/Presentation/presentation/index'), // Parent router-view
       name: 'P1',
-      meta: { title: 'P1', icon: 'people', roles: ['teacher'] }
+      meta: { title: 'P1', icon: 'el-icon-mic', roles: ['teacher'] }
     }, {
       path: 'presentation2',
       component: () => import('@/views/teachers/Presentation/p2/index'), // Parent router-view
       name: 'P2',
-      meta: { title: 'P2', icon: 'people' }
+      meta: { title: 'P2', icon: 'el-icon-mic' }
     }
   ]
 }

@@ -10,7 +10,7 @@ const createProjectRouter = {
       path: 'createProject',
       component: () => import('@/views/teachers/CreateProject/createProject/index'), // Parent router-view
       name: 'createProject',
-      meta: { title: 'Creating Project', icon: 'edit', roles: ['teacher'] }
+      meta: { title: 'Creating Project', icon: 'el-icon-circle-plus-outline', roles: ['teacher'] }
     }
   ]
 }

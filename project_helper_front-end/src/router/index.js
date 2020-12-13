@@ -29,7 +29,7 @@ import stude_groupRouter from './modules/students/group'
 // import stude_announcementRouter from './modules/students/announcement'
 import stude_personalRouter from './modules/students/personal'
 import stude_profileRouter from './modules/students/profile'
-
+import stude_joinRouter from './modules/students/join'
 /**
  * Note: sub-menu only appear when route children.length >= 1
  * Detail see: https://panjiachen.github.io/vue-element-admin-site/guide/essentials/router-and-nav.html
@@ -209,6 +209,7 @@ export const asyncRoutes = [
   // tableRouter,
   // teach_overviewRouter,
   overviewRouter,
+  stude_joinRouter,
   teach_createProjectRouter,
   teach_authorityRouter,
   teach_announcementsRouter,

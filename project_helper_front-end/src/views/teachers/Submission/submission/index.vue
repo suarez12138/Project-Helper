@@ -18,7 +18,7 @@
           sortable
         >
           <template slot-scope="scope">
-            <el-link href="/#/authority/authority" class="buttonText" type="primary" :underline="false">
+            <el-link href="/#submission/submission4" class="buttonText" type="primary" :underline="false">
               {{ scope.row.title }}
             </el-link>
           </template>

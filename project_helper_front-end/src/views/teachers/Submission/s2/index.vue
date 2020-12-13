@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <div id="t_border3_1">
+    <div id="border_large">
       <div class="title">Submission Information</div>
       <div class="search-Box" style="margin-top: 20px;margin-left: 20px;">
         <svg-icon class="search_icon2" icon-class="search" />
@@ -331,7 +331,7 @@ export default {
   padding-bottom: 50px;
 }
 
-#t_border3_1 {
+#border_large {
   height: 100%;
   width: 80%;
   border: 2px solid $primary;
@@ -340,14 +340,14 @@ export default {
   padding-right: 20px;
 }
 
-#t_border3_1 {
+#border_large {
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
   box-shadow: 10px 10px 20px $primary;
 }
 
-#t_border3_1:hover {
+#border_large:hover {
   box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;

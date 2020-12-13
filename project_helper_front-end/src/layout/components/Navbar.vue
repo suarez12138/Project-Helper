@@ -1,8 +1,15 @@
 <template>
   <div class="navbar">
-    <hamburger id="hamburger-container" :is-active="sidebar.opened" class="hamburger-container" @toggleClick="toggleSideBar" />
+    <hamburger
+      id="hamburger-container"
+      :is-active="sidebar.opened"
+      class="hamburger-container"
+      @toggleClick="toggleSideBar"
+    />
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
+
+    <div class="p_name">{{ c_project }}</div>
 
     <div class="right-menu">
       <template v-if="device!=='mobile'">
@@ -63,12 +70,22 @@ export default {
     SizeSelect,
     Search
   },
+  data() {
+    return {
+      c_project: ''
+    }
+  },
   computed: {
     ...mapGetters([
       'sidebar',
       'avatar',
       'device'
     ])
+  },
+  created() {
+    window.addEventListener('setItemEvent', () => {
+      this.c_project = 'Current Project: ' + localStorage.getItem('current_project').substring(1, (localStorage.getItem('current_project').length - 1))
+    })
   },
   methods: {
     toggleSideBar() {
@@ -83,12 +100,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "~@/styles/variables.scss";
+
 .navbar {
   height: 50px;
   overflow: hidden;
   position: relative;
   background: #fff;
-  box-shadow: 0 1px 4px rgba(0,21,41,.08);
+  box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
+
+  .p_name {
+    float: left;
+    color: $primary;
+    margin-left: 30%;
+    margin-top: 16px;
+    font-size: 20px;
+  }
 
   .hamburger-container {
     line-height: 46px;
@@ -96,7 +123,7 @@ export default {
     float: left;
     cursor: pointer;
     transition: background .3s;
-    -webkit-tap-highlight-color:transparent;
+    -webkit-tap-highlight-color: transparent;
 
     &:hover {
       background: rgba(0, 0, 0, .025)
