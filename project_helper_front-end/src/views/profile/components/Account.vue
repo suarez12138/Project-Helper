@@ -1,11 +1,15 @@
 <template>
-  <el-form label-width="80px">
+  <el-form label-width="100px">
     <el-form-item label="SID">
-      <el-input v-model.trim="user.id" :disabled="true" />
+      <el-input v-model.trim="user.id" style="width: 20%;" :disabled="true" />
     </el-form-item>
     <el-form-item label="Name">
-      <el-input v-model.trim="user.name" :disabled="true" />
+      <el-input v-model.trim="user.name" style="width: 20%;" :disabled="true" />
     </el-form-item>
+    <el-form-item label="Password">
+      <el-input v-model.trim="user.password" style="width: 20%;" />
+    </el-form-item>
+
     <el-form-item label="Gender">
       <el-select v-model="user.gender" clearable placeholder="请选择性别">
         <el-option label="女" value="女" />
@@ -22,9 +26,9 @@
       </el-select>
     </el-form-item>
     <el-form-item label="Email">
-      <el-input v-model.trim="user.email" style="width: 80%;" />
+      <el-input v-model.trim="user.email" style="width: 40%;" />
     </el-form-item>
-    <el-form-item label="简介">
+    <el-form-item label="Introduction">
       <el-input
         v-model="user.introduction"
         type="textarea"
@@ -47,6 +51,7 @@ export default {
         return {
           id: '',
           name: '',
+          password: '',
           gender: '',
           email: '',
           location: '',
