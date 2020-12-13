@@ -15,7 +15,6 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.AllCourse(cor.id,cor.course_name) from PersonClass pc join People p on p.id = pc.person join Class c on c.id = pc.class1 join Course cor on cor.id = c.course where p.stu_id = ?1")
     List<AllCourse> getAllCourse(String token);
 
-
     @Transactional
     @Modifying
     @Query(value = "insert into project (bool_cross_class, bool_force_join, course, max_people, min_people, name, teacher_id, grouping_ddl) VALUES (?1,?2,?3,?4,?5,?6,?7,?8)", nativeQuery = true)
@@ -32,6 +31,11 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
     @Query(value = "insert into tag (project, tag) VALUES (?1,?2);", nativeQuery = true)
     void insert_tags(int pro_id, String tag);
 
+    @Transactional
+    @Modifying
+    @Query(value = "insert into check_point (pre_week, project, text) values (?1,?2,'')", nativeQuery = true)
+    void insert_tags(String week, int pro_id);
+
 
 
     @Query("select new com.evan.wj.bean.The_id(p.id) from PersonClass pc join Class c on c.id = pc.class1 join People p on p.id = pc.person where c.course = ?1 and pc.class_authority = 'student'")
@@ -41,11 +45,7 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.The_id(p.id) from Project p where p.bool_cross_class = ?1 and p.bool_force_join = ?2 and p.course = ?3 and p.max_people = ?4 and p.min_people = ?5 and p.name = ?6 and p.teacher_id = ?7")
     List<The_id> getProject_id(String bool_cross, String bool_force,int course_id ,int max, int min, String course_name,int teacher_id);
 
-    @Transactional
-    @Modifying
-    @Query(value = "insert into check_point (pre_week, project, text) values (?1,?2,'')", nativeQuery = true)
-    void insert_tags(String week, int pro_id);
 
-    
+
 
 }

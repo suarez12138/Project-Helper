@@ -18,11 +18,23 @@ public class ProjectController {
     ProjectDAO projectDAO;
 
     @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/teacher/dashboard/project_list")
+    @ResponseBody
+    public TempleteResult<AllProject> getAllProject_teacher(@RequestParam("token") String token){
+
+        TempleteResult<AllProject> allProjectResult_t = new TempleteResult<>(20000,projectDAO.getAllProject_teacher(token));
+
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return allProjectResult_t;
+
+    }
+
+    @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/dashboard/project_list")
     @ResponseBody
-    public TempleteResult<AllProject> getAllGroup(@RequestParam("token") String token){
+    public TempleteResult<AllProject> getAllProject_student(@RequestParam("token") String token){
 
-        TempleteResult<AllProject> allProjectResult_t = new TempleteResult<>(20000,projectDAO.getAllProject(token));
+        TempleteResult<AllProject> allProjectResult_t = new TempleteResult<>(20000,projectDAO.getAllProject_student(token));
 
         //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return allProjectResult_t;

@@ -3,13 +3,13 @@ package com.evan.wj.bean;
 public class AllProject {
     String course;
     String project_name;
-    String the_class;
+
     int project_id;
 
-    public AllProject(String course, String project_name, String the_class, int project_id) {
+    public AllProject(String course, String project_name,int project_id) {
         this.course = course;
         this.project_name = project_name;
-        this.the_class = the_class;
+
         this.project_id = project_id;
     }
 
@@ -29,13 +29,7 @@ public class AllProject {
         this.project_name = project_name;
     }
 
-    public String getThe_class() {
-        return the_class;
-    }
 
-    public void setThe_class(String the_class) {
-        this.the_class = the_class;
-    }
 
     public int getProject_id() {
         return project_id;
