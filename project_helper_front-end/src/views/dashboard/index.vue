@@ -225,6 +225,11 @@
             <el-button type="primary" plain @click="submitForm3('ruleForm')">确认加入</el-button>
           </el-form-item>
         </el-form>
+
+        <el-divider />
+        <div class="pi">批量加入:</div>
+
+        <upload-excel-component :on-success="handleSuccess3" :before-upload="beforeUpload3" />
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -345,6 +350,20 @@ export default {
       })
       return false
     },
+    handleSuccess3({ results, header }) {
+      this.tableData2 = results
+      this.tableHeader2 = ['id']
+    }, beforeUpload3(file) {
+      const isLt1M = file.size / 1024 / 1024 < 1
+      if (isLt1M) {
+        return true
+      }
+      this.$message({
+        message: 'Please do not upload files larger than 1m in size.',
+        type: 'warning'
+      })
+      return false
+    },
     handleSuccess2({ results, header }) {
       this.tableData2 = results
       this.tableHeader2 = ['name', 'role']
@@ -438,6 +457,7 @@ export default {
 .el-menu-demo {
   background-color: $primary;
 }
+
 .search_icon {
   float: left;
   margin-right: 10px;
@@ -454,6 +474,7 @@ export default {
 .search > .el-input__inner {
   border-radius: 30px;
 }
+
 .border1, .border2, .border3 {
   width: 100%;
   border-radius: 50px;
@@ -535,7 +556,8 @@ export default {
   transform: translate(-2px, -8px);
   transition: 0.2s ease-in-out;
 }
-.pi{
+
+.pi {
   color: $primary;
   font-size: 20px;
   margin-top: 30px;

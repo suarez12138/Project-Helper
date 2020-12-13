@@ -17,13 +17,13 @@
             highlight-current-row
             style="margin-top: 50px;"
           >
-            <el-table-column align="center" label="time">
+            <el-table-column align="center" label="Time">
               <template slot-scope="scope">
                 {{ scope.row.time }}
               </template>
             </el-table-column>
 
-            <el-table-column align="center" prop="groupname" sortable label="Score">
+            <el-table-column align="center" prop="groupname" sortable label="Group name">
               <template slot-scope="scope">
                 <!--          {{ scope.row.score }}-->
                 <!--          <el-input>{{ scope.row.score }}</el-input>-->
