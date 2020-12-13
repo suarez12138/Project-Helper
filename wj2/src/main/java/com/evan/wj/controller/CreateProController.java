@@ -43,14 +43,11 @@ public class CreateProController {
         String token = newProInfo.getToken();
         int teacher_id = upPersonInfoDAO.getID(token).get(0).getId();
         String pro_name = newProInfo.getProject_name();
-        String bool_cross = newProInfo.getGrouping_freely();
+        String bool_cross = newProInfo.getAcross_lab();
         String bool_force = newProInfo.getChoosable_proj();
 
         String group_ddl = newProInfo.getPro_grouping_endDay() + " " + newProInfo.getPro_grouping_endHms();
-
         createProjectDAO.inseart_project(bool_cross,bool_force,course_id,max_p,min_p,pro_name,teacher_id, group_ddl);
-
-
         return new Void_return(20000);
     }
 
@@ -64,7 +61,7 @@ public class CreateProController {
         String token = newProInfo.getToken();
         int teacher_id = upPersonInfoDAO.getID(token).get(0).getId();
         String pro_name = newProInfo.getProject_name();
-        String bool_cross = newProInfo.getGrouping_freely();
+        String bool_cross = newProInfo.getAcross_lab();
         String bool_force = newProInfo.getChoosable_proj();
         List<String> all_tags = newProInfo.getAll_tags();
         List<String> project_pre_week = newProInfo.getProject_pre_week();
