@@ -8,8 +8,8 @@ const announcementsRouter = {
   // name: 'announcements',
   meta: {
     title: 'Announcements',
-    icon: 'message'
-
+    icon: 'message',
+    roles: ['teacher', 'student']
   },
   children: [
     {

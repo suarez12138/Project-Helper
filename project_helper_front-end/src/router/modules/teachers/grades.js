@@ -23,13 +23,13 @@ const gradesRouter = {
       path: 'grading',
       component: () => import('@/views/teachers/Grades/Online Grading/index'),
       name: 'Grading',
-      meta: { title: 'Online Grading' }
+      meta: { title: 'Online Grading', icon: 'el-icon-edit-outline' }
     },
     {
       path: 'upload',
       component: () => import('@/views/teachers/Grades/Upload/index'),
       name: 'upload',
-      meta: { title: 'Upload' }
+      meta: { title: 'Upload', icon: 'el-icon-upload' }
     }
   ]
 }
