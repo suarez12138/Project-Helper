@@ -13,8 +13,12 @@
       >
         <el-form-item label="课程" prop="course">
           <el-select v-model="create_ruleForm.course" placeholder="请选择相应课程">
-            <el-option label="课程一" value="shanghai" />
-            <el-option label="课程二" value="beijing" />
+            <el-option 
+            v-for="item in course_form"
+            :key="item.id"
+            :label="item.course_name"
+            :value="item.id"
+             />
           </el-select>
         </el-form-item>
 
@@ -109,7 +113,7 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="自由组队" prop="grouping">
+        <el-form-item label="强制加入" prop="grouping">
           <el-switch
             v-model="create_ruleForm.grouping"
             style="display: block; margin-top: 7px;"
@@ -121,7 +125,7 @@
         </el-form-item>
 
         <el-form-item>
-          <el-button type="primary" plain @click="submitForm('ruleForm')">立即创建</el-button>
+          <el-button type="primary" plain @click="submitForm('ruleForm'), new_Project_table()">立即创建</el-button>
           <el-button plain @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -130,8 +134,10 @@
 </template>
 
 <script>
-import { new_Project } from '@/api/teacher/createProject/'
+import { new_project_insert } from '@/api/teacher/createProject/'
+import { new_project_insert2 } from '@/api/teacher/createProject/'
 import { getToken } from '@/utils/auth'
+import { get_allCourse } from '@/api/teacher/createProject/'
 
 export default {
   name: 'DndListDemo',
@@ -163,8 +169,12 @@ export default {
         groupingEndTime2: '',
         across_lab: true,
         grouping: true,
-        skills: []
+        skills: [],
+        grouping: true
+
       },
+      course_form:
+      null,
       rules: {
         course: [
           { required: true, message: '请输入课程名称', trigger: 'blur' }
@@ -180,83 +190,108 @@ export default {
         ]
       },
       options: [{
-        value: 1,
+        value: 'Week 1',
         label: 'Week 1'
       }, {
-        value: 2,
+        value: 'Week 2',
         label: 'Week 2'
       }, {
-        value: 3,
+        value: 'Week 3',
         label: 'Week 3'
       }, {
-        value: 4,
+        value: 'Week 4',
         label: 'Week 4'
       }, {
-        value: 5,
+        value: 'Week 5',
         label: 'Week 5'
       }, {
-        value: 6,
+        value: 'Week 6',
         label: 'Week 6'
       }, {
-        value: 7,
+        value: 'Week 7',
         label: 'Week 7'
       }, {
-        value: 8,
+        value: 'Week 8',
         label: 'Week 8'
       }, {
-        value: 9,
+        value: 'Week 9',
         label: 'Week 9'
       }, {
-        value: 10,
+        value: 'Week 10',
         label: 'Week 10'
       }, {
-        value: 11,
+        value: 'Week 11',
         label: 'Week 11'
       }, {
-        value: 12,
+        value: 'Week 12',
         label: 'Week 12'
       }, {
-        value: 13,
+        value: 'Week 13',
         label: 'Week 13'
       }, {
-        value: 14,
+        value: 'Week 14',
         label: 'Week 14'
       }, {
-        value: 15,
+        value: 'Week 15',
         label: 'Week 15'
       }, {
-        value: 16,
+        value: 'Week 16',
         label: 'Week 16'
       }, {
-        value: 17,
+        value: 'Week 17',
         label: 'Week 17'
       }, {
-        value: 18,
+        value: 'Week 18',
         label: 'Week 18'
       }]
     }
   },
   computed: {},
+  created() {
+    this.get_courseList()
+  },
   methods: {
-    new_Project_table() {
-      new_Project({
-        token: getToken(),
-        course_id: getCourseid(),
-        project_name: this.create_ruleForm.course,
-        project_member_limit: this.create_ruleForm.population,
-        project_pre_week: this.create_ruleForm.time,
-        project_grouping_endDay: this.create_ruleForm.groupingEndTime,
-        project_grouping_endHms: this.create_ruleForm.groupingEndTime2,
-        across_lab: this.create_ruleForm.across_lab,
-        grouping_freely: this.create_ruleForm.grouping,
-        all_tags: this.create_ruleForm.skills
-        // choosable_proj:       this.create_ruleForm.
-
-      }).then(response => {
-
+    get_courseList() {
+      get_allCourse(getToken()).then(response =>{
+        this.course_form = response.data
       })
     },
+    
+    new_Project_table() {
+      new_project_insert({
+        token: getToken(),
+        course_id: this.create_ruleForm.course,
+        project_name: this.create_ruleForm.name,
+        project_member_limit: this.create_ruleForm.population,
+        project_pre_week: this.create_ruleForm.time,
+        pro_grouping_endDay: this.create_ruleForm.groupingEndTime,
+        pro_grouping_endHms: this.create_ruleForm.groupingEndTime2,
+        across_lab: this.create_ruleForm.across_lab,
+        all_tags: this.create_ruleForm.skills,
+        choosable_proj: this.create_ruleForm.grouping
+      }).then(response => {
+        new_project_insert2({
+          token: getToken(),
+          course_id: this.create_ruleForm.course,
+          project_name: this.create_ruleForm.name,
+          project_member_limit: this.create_ruleForm.population,
+          project_pre_week: this.create_ruleForm.time,
+          pro_grouping_endDay: this.create_ruleForm.groupingEndTime,
+          pro_grouping_endHms: this.create_ruleForm.groupingEndTime2,
+          across_lab: this.create_ruleForm.across_lab,
+          all_tags: this.create_ruleForm.skills,
+          choosable_proj: this.create_ruleForm.grouping
+        }).then(response => {
+          alert("miaoa")
+        })
+        alert(response)
+      })
+    },
+
     submitForm(formName) {
+      console.log(this.course_form)
+      console.log(this.create_ruleForm.course)
+      console.log(this.create_ruleForm.name)
       this.$refs[formName].validate((valid) => {
         if (valid) {
           alert('submit!')

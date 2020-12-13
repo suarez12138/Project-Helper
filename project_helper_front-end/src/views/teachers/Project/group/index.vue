@@ -157,7 +157,7 @@
           width="170px"
         >
           <template slot-scope="scope">
-            <el-button type="success" size="small" @click="add_member(scope.row)">选人加入</el-button>
+            <el-button type="success" size="small" @click="add_member(scope.row), getGroup_by_name(scope.row.name)">选人加入</el-button>
             <el-button type="danger" size="small" @click="break_up(scope.row,scope.$index)">解散</el-button>
           </template>
         </el-table-column>
@@ -177,12 +177,12 @@
 
           <el-table
             ref="filterTable"
-            :data="tableData_inside"
+            :data="tableData_of_OneGroup"
             style="width: 100%"
           >
             <el-table-column
               align="center"
-              prop="SID"
+              prop="id"
               label="SID"
               sortable
               width="100"
@@ -212,7 +212,7 @@
             />
             <el-table-column
               align="center"
-              prop="skill"
+              prop="tags"
               label="技能"
               sortable
               :formatter="formatter"
@@ -276,6 +276,7 @@
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
 import { fetchGroupsList } from '@/api/student/group'
+import { fetchTheGroup } from '@/api/student/group'
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
   // name: 'DndListDemo',
@@ -335,6 +336,8 @@ export default {
       //   name: '王小虎'
       // }]
       ,
+      tableData_of_OneGroup:
+      null,
       ruleForm: {
         population: '',
         information: ''
@@ -392,6 +395,12 @@ export default {
       // alert(localStorage.getItem('current_project_id'))
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.tableData33 = response.allGroups
+        this.listLoading = false
+      })
+    },
+    getGroup_by_name(name) {
+      fetchTheGroup(name).then(response => {
+        this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false
       })
     },

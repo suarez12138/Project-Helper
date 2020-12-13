@@ -85,12 +85,12 @@ export default {
       listLoading: false,
       bookType: 'xlsx',
       scorelist: 
-      null
-      // [
-      //   { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
-      //   { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
-      //   { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
-      // ]
+      // null
+      [
+        { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
+        { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
+        { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
+      ]
       ,
       search: ''
     }
@@ -113,9 +113,9 @@ export default {
   },
   methods: {
     fetchData() {
-      this.listLoading = true
+      // this.listLoading = true
       // get_scoreList(project_id).then(response => {
-      get_scoreList(1).then(response => {
+      get_scoreList(localStorage.getItem('current_project_id')).then(response => {
         this.scorelist = response.data
         this.listLoading = false
       })

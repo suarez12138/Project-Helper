@@ -23,6 +23,8 @@
 
 <script>
 
+import { getToken } from '@/utils/auth'
+import { fetchMyAnnouncementList_student } from '@/api/student/dashboard/'
 export default {
   data() {
     return {
@@ -33,7 +35,17 @@ export default {
       ]
     }
   },
-  methods: {}
+  
+  created() {
+    this.get_announcementList()
+  },
+  methods: {
+    get_announcementList(){
+      fetchMyAnnouncementList_student(getToken()).then(response => {
+        this.announcements = response.data
+      })
+    }
+  }
 }
 </script>
 

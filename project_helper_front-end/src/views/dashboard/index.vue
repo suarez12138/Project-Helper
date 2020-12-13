@@ -239,11 +239,13 @@
 import splitPane from 'vue-splitpane'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
-import { fetchMyProjectList } from '@/api/student/dashboard'
+import { fetchMyProjectList_student } from '@/api/student/dashboard'
+import { fetchMyProjectList_teacher } from '@/api/teacher/dashboard'
 import { fetchMyAnnouncementList } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 import UploadExcelComponent from '@/components/UploadExcel/index'
+import store from '@/store'
 
 const STORAGE_KEY = 'current_project_id'
 export default {
@@ -423,9 +425,18 @@ export default {
       })
     },
     getMyProjects() {
-      fetchMyProjectList(getToken()).then(response => {
-        this.projects = response.data
-      })
+      alert(store.getters.roles == 'teacher');
+      if(store.getters.roles == 'teacher'){
+        fetchMyProjectList_teacher(getToken()).then(response => {
+          this.projects = response.data
+        })
+        
+      }
+      else if(store.getters.roles == 'student'){
+        fetchMyProjectList_teacher(getToken()).then(response => {
+          this.projects = response.data
+        })
+      }
     },
     getMyAnnouncement() {
       fetchMyAnnouncementList(getToken()).then(response => {
