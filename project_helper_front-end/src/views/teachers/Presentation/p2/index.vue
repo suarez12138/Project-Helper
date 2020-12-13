@@ -15,6 +15,7 @@
             border
             fit
             highlight-current-row
+            style="margin-top: 50px;"
           >
             <el-table-column align="center" label="time">
               <template slot-scope="scope">
@@ -142,6 +143,5 @@ export default {
   font-size: 20px;
   text-align: center;
   padding-top: 20px;
-  padding-bottom: 20px;
 }
 </style>

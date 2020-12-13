@@ -9,8 +9,6 @@
 
     <breadcrumb id="breadcrumb-container" class="breadcrumb-container" />
 
-    <div class="p_name">{{ c_project }}</div>
-
     <div class="right-menu">
       <template v-if="device!=='mobile'">
         <search id="header-search" class="right-menu-item" />
@@ -49,6 +47,7 @@
         </el-dropdown-menu>
       </el-dropdown>
     </div>
+    <div class="p_name">{{ c_project }}</div>
   </div>
 </template>
 
@@ -110,9 +109,9 @@ export default {
   box-shadow: 0 1px 4px rgba(0, 21, 41, .08);
 
   .p_name {
-    float: left;
+    float: right;
     color: $primary;
-    margin-left: 30%;
+    margin-right: 30%;
     margin-top: 16px;
     font-size: 20px;
   }
