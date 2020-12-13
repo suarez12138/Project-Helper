@@ -33,15 +33,17 @@ public class CreateProController {
     @ResponseBody
     public Void_return create_new_project(@RequestBody NewProjectReceive newProInfo){
         int course_id = newProInfo.getCourse_id();
+        int min_p = newProInfo.getProject_member_limit().get(0);
         int max_p = newProInfo.getProject_member_limit().get(1);
-        int min_p = newProInfo.getProject_member_limit().get(1);
         String pro_name = newProInfo.getProject_name();
         String bool_cross = newProInfo.getGrouping_freely();
         String bool_force = newProInfo.getChoosable_proj();
         List<String> all_tags = newProInfo.getAll_tags();
         List<String> project_pre_week = newProInfo.getProject_pre_week();
-
         createProjectDAO.inseart_project(bool_cross,bool_force,course_id,max_p,min_p,pro_name);
+        String token = newProInfo.getToken();
+
+
 
         if(bool_force.equals("true")){
             // 把这个课程下所有的  人 拉进 want people

@@ -16,7 +16,15 @@ public class Project {
     int max_people;
     String bool_cross_class;
     String bool_force_join;
+    int teacher_id;
 
+    public int getTeacher_id() {
+        return teacher_id;
+    }
+
+    public void setTeacher_id(int teacher_id) {
+        this.teacher_id = teacher_id;
+    }
 
     public int getId() {
         return id;

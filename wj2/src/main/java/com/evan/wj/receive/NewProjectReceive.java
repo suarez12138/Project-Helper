@@ -19,7 +19,6 @@ public class NewProjectReceive {
         this.token = token;
         this.course_id = course_id;
         this.project_name = project_name;
-
         this.project_member_limit = project_member_limit;
         this.project_pre_week = project_pre_week;
         this.pro_grouping_endDay = pro_grouping_endDay;
