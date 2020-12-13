@@ -27,7 +27,7 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
     void insert_wantPerson(int person_id, int project_id);
 
 
-    @Query("select new com.evan.wj.bean.The_id(p.id) from PersonClass pc join Class c on c.id = pc.class1 join People p on p.id = pc.person where c.course = ?1")
+    @Query("select new com.evan.wj.bean.The_id(p.id) from PersonClass pc join Class c on c.id = pc.class1 join People p on p.id = pc.person where c.course = ?1 and pc.class_authority = 'student'")
     List<The_id> getAllPeopleInCourse(int course_id);
 
 

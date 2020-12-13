@@ -48,6 +48,8 @@ public class CreateProController {
         String token = newProInfo.getToken();
 
         int teacher_id = upPersonInfoDAO.getID(token).get(0).getId();
+        List<Integer> people_ids;
+
 
         if(bool_force.equals("true")){
             // 把这个课程下所有的  人 拉进 want people

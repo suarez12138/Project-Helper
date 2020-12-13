@@ -11,20 +11,21 @@ public class PreTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    int project;
+
     String pre_day;
     int limit_group;
     int limit_time;
     String text;
+    int checkPoint_id;
 
-    public int getProject() {
-        return project;
+
+    public int getCheckPoint_id() {
+        return checkPoint_id;
     }
 
-    public void setProject(int project) {
-        this.project = project;
+    public void setCheckPoint_id(int checkPoint_id) {
+        this.checkPoint_id = checkPoint_id;
     }
-
 
     public String getText() {
         return text;
