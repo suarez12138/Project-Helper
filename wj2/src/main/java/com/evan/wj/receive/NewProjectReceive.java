@@ -11,11 +11,10 @@ public class NewProjectReceive {
     String pro_grouping_endDay;
     String pro_grouping_endHms;
     String across_lab;
-    String grouping_freely;
     List<String> all_tags;
     String choosable_proj;
 
-    public NewProjectReceive(String token, int course_id, String project_name, List<Integer> project_member_limit, List<String> project_pre_week, String pro_grouping_endDay, String pro_grouping_endHms, String across_lab, String grouping_freely, List<String> all_tags, String choosable_proj) {
+    public NewProjectReceive(String token, int course_id, String project_name, List<Integer> project_member_limit, List<String> project_pre_week, String pro_grouping_endDay, String pro_grouping_endHms, String across_lab, List<String> all_tags, String choosable_proj) {
         this.token = token;
         this.course_id = course_id;
         this.project_name = project_name;
@@ -24,7 +23,7 @@ public class NewProjectReceive {
         this.pro_grouping_endDay = pro_grouping_endDay;
         this.pro_grouping_endHms = pro_grouping_endHms;
         this.across_lab = across_lab;
-        this.grouping_freely = grouping_freely;
+
         this.all_tags = all_tags;
         this.choosable_proj = choosable_proj;
     }
@@ -93,13 +92,7 @@ public class NewProjectReceive {
         this.across_lab = across_lab;
     }
 
-    public String getGrouping_freely() {
-        return grouping_freely;
-    }
 
-    public void setGrouping_freely(String grouping_freely) {
-        this.grouping_freely = grouping_freely;
-    }
 
     public List<String> getAll_tags() {
         return all_tags;
