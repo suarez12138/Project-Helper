@@ -60,8 +60,8 @@
           />
           <el-table-column
             align="center"
-            prop="SID"
-            label="SID"
+            prop="stu_id"
+            label="stu_id"
             sortable
             width="100"
           />
@@ -145,6 +145,11 @@
 </template>
 
 <script>
+import { get_AllStudents } from '@/api/student/personal'
+import { update_MyInformation } from '@/api/student/personal'
+import { get_AllTags } from '@/api/student/personal'
+import { getToken } from '@/utils/auth'
+import { fetchTheGroup } from '@/api/student/group'
 export default {
   name: 'DragSelectDemo',
   data() {
@@ -155,27 +160,32 @@ export default {
         population: '',
         information: ''
       },
-      tableData22: [{
-        name: '张小虎',
-        SID: '11812100',
-        gender: '男',
-        lab: 2,
-        skill: ['SPRING BOOT', 'lala', 'testlongest', 'lalalala', 'disanhang'],
-        hope: '不搞基',
-        status: '已组队'
-      }, {
-        name: '王小虎',
-        gender: '女',
-        skill: ['VUE', 'hehe'],
-        hope: '不划水',
-        status: '未组队'
-      }, {
-        name: '王小虎',
-        status: '已组队'
-      }, {
-        name: '王小虎',
-        status: '未组队'
-      }],
+      tableData22: 
+      null
+      // [{
+      //   name: '张小虎',
+      //   SID: '11812100',
+      //   gender: '男',
+      //   lab: 2,
+      //   skill: ['SPRING BOOT', 'lala', 'testlongest', 'lalalala', 'disanhang'],
+      //   hope: '不搞基',
+      //   status: '已组队'
+      // }, {
+      //   name: '王小虎',
+      //   gender: '女',
+      //   skill: ['VUE', 'hehe'],
+      //   hope: '不划水',
+      //   status: '未组队'
+      // }, {
+      //   name: '王小虎',
+      //   status: '已组队'
+      // }, {
+      //   name: '王小虎',
+      //   status: '未组队'
+      // }]
+      ,
+      tableData_of_OneGroup:
+      null,
       form: {
         skill: '',
         expect: ''
@@ -199,7 +209,22 @@ export default {
       return this.tableData22
     }
   },
+  created() {
+    this.get_AllStudent_table()
+    this.get_AllTags_table()
+  },
   methods: {
+    getGroup_by_name(name) {
+      fetchTheGroup(name).then(response => {
+        this.tableData_of_OneGroup = response.myGroups
+        this.listLoading = false
+      })
+    },
+    get_AllStudent_table() {
+      get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
+        this.tableData22 = response.data
+      })
+    },
     remove_from_group(row) {
       // console.log(row)
       if (row.status === '未组队') {

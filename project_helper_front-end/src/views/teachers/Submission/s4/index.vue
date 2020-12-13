@@ -8,13 +8,15 @@
       <div class="remark">Remark: {{ remark }}</div>
       <el-upload
         class="upload-demo"
-        action="https://jsonplaceholder.typicode.com/posts/"
+        action="/vue-element-admin/student/project/upload_file"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
         multiple
         :limit="5"
         :on-exceed="handleExceed"
+        :on-change="fileChange"
+        :on-success="handleSuccess"
         :file-list="fileList"
         style="margin-left: 60px;margin-right: 60px;"
       >
@@ -70,7 +72,8 @@ export default {
     },
     beforeRemove(file, fileList) {
       return this.$confirm(`确定移除 ${file.name}？`)
-    }
+    },
+    handleSuccess(file, )
   }
 }
 </script>

@@ -33,6 +33,7 @@ import UserCard from './components/UserCard'
 // import Activity from './components/Activity'
 // import Timeline from './components/Timeline'
 import Account from './components/Account'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'Profile',
@@ -56,13 +57,15 @@ export default {
   methods: {
     getUser() {
       this.user = {
-        id: this.name,
+        id: getToken(),
         role: this.roles.join(' | '),
+        name: 'miao',
         email: 'admin@test.com',
         avatar: this.avatar,
         gender: '',
         location: '',
         introduction: '我就是我'
+        // introduction: this.introduction
       }
     }
   }
