@@ -12,7 +12,6 @@
         :data="tableData2"
         style="width: 100%"
       >
-
         <el-table-column
           align="center"
           prop="pro_name"

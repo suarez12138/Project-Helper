@@ -17,7 +17,7 @@ const gradesRouter = {
       path: 'data',
       component: () => import('@/views/teachers/Grades/Data/index'), // Parent router-view
       name: 'Data',
-      meta: { title: 'Data' }
+      meta: { title: 'Data', icon: 'el-icon-s-data' }
     },
     {
       path: 'grading',

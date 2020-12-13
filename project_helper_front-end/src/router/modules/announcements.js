@@ -7,7 +7,7 @@ const announcementsRouter = {
   component: Layout,
   // name: 'announcements',
   meta: {
-    title: 'Announcements',
+    title: 'Announcement',
     icon: 'message',
     roles: ['teacher', 'student']
   },
@@ -16,19 +16,19 @@ const announcementsRouter = {
       path: 'announcements',
       component: () => import('@/views/teachers/Announcements/announcements/index'),
       name: 'announcements',
-      meta: { title: 'Announcements', roles: ['teacher'] }
+      meta: { title: 'Announcements', roles: ['teacher'], icon: 'el-icon-folder' }
     },
     {
       path: 'Content',
       component: () => import('@/views/teachers/Announcements/special_one/index'),
       name: 'Content',
-      meta: { title: 'Content', roles: ['student'] }
+      meta: { title: 'Content', roles: ['teacher', 'student'], icon: 'el-icon-document' }
     },
     {
       path: 'create',
       component: () => import('@/views/teachers/Announcements/Create/index'),
       name: 'create',
-      meta: { title: 'Creating', roles: ['teacher'] }
+      meta: { title: 'Creating', roles: ['teacher'], icon: 'el-icon-edit' }
     }
   ]
 }
