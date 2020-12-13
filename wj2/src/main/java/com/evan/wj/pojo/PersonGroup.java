@@ -15,6 +15,16 @@ public class PersonGroup {
     int person;
     String pg_status;
     double grade;
+    String comment;
+
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
 
     public int getId() {
         return id;

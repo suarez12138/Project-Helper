@@ -27,9 +27,10 @@ public interface UpPersonInfoDAO extends JpaRepository<User,Integer> {
     void update_want_person (String hope, int person_id, int project_id);
 
 
-
+    // 通过 stu_id 找 people_id
     @Query("select new com.evan.wj.bean.The_id(p.id) from People p where p.stu_id = ?1")
     List<The_id> getID(String stu_id);
+
 }
 
 
