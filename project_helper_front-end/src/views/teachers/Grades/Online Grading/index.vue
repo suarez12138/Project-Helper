@@ -17,7 +17,7 @@
         >
           Export
         </el-button>
-        <el-button plain type="primary">上传成绩<i class="el-icon-upload el-icon--right" /></el-button>
+        <el-button plain type="primary" @click="handleUpdate">上传成绩<i class="el-icon-upload el-icon--right" /></el-button>
       </div>
       <el-table
         v-loading="listLoading"
@@ -35,17 +35,17 @@
         </el-table-column>
         <el-table-column align="center" prop="id" sortable label="SID" width="100">
           <template slot-scope="scope">
-            {{ scope.row.id }}
+            {{ scope.row.stu_id }}
           </template>
         </el-table-column>
         <el-table-column label="Name" prop="name" sortable align="center" width="120">
           <template slot-scope="scope">
-            {{ scope.row.name }}
+            {{ scope.row.person_name }}
           </template>
         </el-table-column>
         <el-table-column label="Group Name" prop="groupName" sortable width="150" align="center">
           <template slot-scope="scope">
-            <el-tag>{{ scope.row.groupName }}</el-tag>
+            <el-tag>{{ scope.row.group_name }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column align="center" prop="score" sortable label="Score" width="90">
@@ -76,6 +76,8 @@
 // import { fetchList } from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
 import { get_scoreList } from '@/api/teacher/onlineGrading'
+import { post_scoreList } from '@/api/teacher/onlineGrading'
+
 export default {
   components: { BookTypeOption },
   data() {
@@ -85,13 +87,22 @@ export default {
       listLoading: false,
       bookType: 'xlsx',
       scorelist: 
-      // null
-      [
-        { id: '11812925', name: 'jianjian', groupName: '大佬组', score: '99', comments: 'Good job!' },
-        { id: '11812912', name: 'hyq', groupName: '抱大腿', score: '98' },
-        { id: '11813301', name: 'li', groupName: '疯狂划水', score: '' }
-      ]
+      {  person_id: '', 
+         group_id: '', 
+         stu_id: '', 
+         person_name: '', 
+         group_name: '', 
+         score: '', 
+         comments: '' 
+      }
       ,
+      scorelist_for_post:
+      {
+        person_id: '', 
+         group_id: '', 
+         score: '', 
+         comments: '' 
+      },
       search: ''
     }
   },
@@ -112,11 +123,26 @@ export default {
     this.fetchData()
   },
   methods: {
+    handleUpdate() {
+      alert(this.scorelist.stu_id)
+      post_scoreList(
+      //   {
+      //   person_ids: this.scorelist.person_id,
+      //   group_ids: this.scorelist.group_id,
+      //   grades: this.scorelist.score,
+      //   comments: this.scorelist.comments
+      // }
+      this.scorelist_for_post
+      ).then(response=>{
+        
+      })
+    },
     fetchData() {
-      // this.listLoading = true
-      // get_scoreList(project_id).then(response => {
+      this.listLoading = true
       get_scoreList(localStorage.getItem('current_project_id')).then(response => {
         this.scorelist = response.data
+        this.scorelist_for_post = response.data
+        // alert(this.scorelist.person_id)
         this.listLoading = false
       })
     },

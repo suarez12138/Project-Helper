@@ -2,7 +2,7 @@
   <div>
 
     <div class="frame">
-      <div class="an_title" style="">Announcements</div>
+      <div class="an_title" style="">Announcements </div>
       <div style="margin-right: 200px; float:right; color:#ffffff;">
         <a href="/#/announcements/create">
           <el-button style="background-color: #c52d47;color: white; " plain icon="el-icon-edit" circle />
@@ -10,13 +10,17 @@
       </div>
       <div class="content">
         <!--eslint-disable-next-line-->
-        <div v-for="an in announcements" class="announcetitle">
-          <a href="/#/announcements/Content">Title: {{ an.name }} <br>By: {{ an.by }}<br>{{ an.time }}</a>
+        <div v-for="an in announcements" @click="miao(an.ann_id)" class="announcetitle">
+          <a href="/#/announcements/Content">
+
+          Title: {{ an.ann_name }} 
+          <br>
+          By: {{ an.teacher_name }}
+          <br>
+          Releace Time: {{ an.release_time }}
+          </a>
         </div>
       </div>
-      <!--    <div class="by_time">{{ an.by }}</div>-->
-      <!--    <div class="by_time">{{ an.time }}</div>-->
-      <!--    <div class="content">{{ an.message }}</div>-->
     </div>
   </div>
 </template>
@@ -24,15 +28,18 @@
 <script>
 
 import { getToken } from '@/utils/auth'
-import { fetchMyAnnouncementList_student } from '@/api/student/dashboard/'
+import { get_announcement_teacher } from '@/api/teacher/announcement/'
+import { get_announcement_content } from '@/api/teacher/announcement/'
+
 export default {
   data() {
     return {
-      announcements: [
-        { name: 'check your progress', by: 'teacherA', time: '2020.11.12' },
-        { name: 'tips', by: 'teacherB', time: '2020.11.11' },
-        { name: 'announce DDL', by: 'teacherA', time: '2020.10.11' }
-      ]
+      announcements: null
+      // [
+        // { name: 'check your progress', by: 'teacherA', time: '2020.11.12' },
+        // { name: 'tips', by: 'teacherB', time: '2020.11.11' },
+        // { name: 'announce DDL', by: 'teacherA', time: '2020.10.11' }
+      // ]
     }
   },
   
@@ -40,8 +47,12 @@ export default {
     this.get_announcementList()
   },
   methods: {
+    miao(data){
+      alert(data)
+      window.localStorage.setItem('current_announcement', JSON.stringify(data))
+    },
     get_announcementList(){
-      fetchMyAnnouncementList_student(getToken()).then(response => {
+      get_announcement_teacher(getToken()).then(response => {
         this.announcements = response.data
       })
     }

@@ -49,7 +49,7 @@
           width="90"
         >
           <template slot-scope="scope">
-            <el-popover trigger="hover" placement="right" class="pout">
+            <el-popover  trigger="click"  placement="right" class="pout">
               <!--                  <div id="border3_3">-->
               <div class="title">Selected Group</div>
               <el-table
@@ -89,8 +89,8 @@
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium">{{ scope.row.name }}</el-tag>
-              </div>
+                    <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+                  </div>
             </el-popover>
           </template>
         </el-table-column>
@@ -276,6 +276,7 @@
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
 import { fetchGroupsList } from '@/api/student/group'
+import { fetchAllStudent } from '@/api/student/group'
 import { fetchTheGroup } from '@/api/student/group'
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
@@ -296,7 +297,7 @@ export default {
       bookType: 'xlsx',
       textarea: '',
       tableData33: 
-      null
+      null,
       // [{
       //   name: '组1',
       //   pre_time: '周五上午',
@@ -304,39 +305,18 @@ export default {
       //   population: 4,
       //   valid: '是',
       //   status: '完成组队'
-      // }, {
-      //   name: '组13',
-      //   pre_time: '周四下午',
-      //   information: '不划水',
-      //   population: 3,
-      //   valid: '否',
-      //   status: '未完成组队'
-      // }, {
-      //   name: '组32',
-      //   pre_time: '周五上午',
-      //   status: '完成组队'
-      // }, {
-      //   name: '组3',
-      //   pre_time: '周四下午',
-      //   population: 3,
-      //   valid: '否',
-      //   status: '未完成组队'
       // }],
-      // tableData2: [{
+      tableData2: 
+      // [{
       //   name: '张小虎',
       //   gender: '男',
       //   skill: 'SPRING BOOT'
-      // }, {
-      //   name: '王小虎',
-      //   gender: '女',
-      //   skill: 'VUE'
-      // }, {
-      //   name: '王小虎'
-      // }, {
-      //   name: '王小虎'
       // }]
+      null
       ,
       tableData_of_OneGroup:
+      null,
+      all_student:
       null,
       ruleForm: {
         population: '',
@@ -390,6 +370,11 @@ export default {
     this.getAllGroups()
   },
   methods: {
+    getStudents() {
+      fetchAllStudent(getToken,localStorage.getItem('current_project_id')).then(response =>{
+        this.tableData_of_OneGroup = response.data
+      })
+    },
     getAllGroups() {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
@@ -400,7 +385,7 @@ export default {
     },
     getGroup_by_name(name) {
       fetchTheGroup(name).then(response => {
-        this.tableData_of_OneGroup = response.myGroups
+        this.tableData2 = response.myGroups
         this.listLoading = false
       })
     },

@@ -1,28 +1,54 @@
 <template>
+  <!-- <div class="frame">
+    <div class="an_title">{{ ann.ann_name }}</div>
+    <div class="by_time">{{ ann.teacher_name }}</div>
+    <div class="by_time">{{ ann.release_time }}</div>
+    <div class="content">{{ ann.text }}</div>
+  </div> -->
+
+
   <div class="frame">
-    <div class="an_title">{{ an.name }}</div>
-    <div class="by_time">{{ an.by }}</div>
-    <div class="by_time">{{ an.time }}</div>
-    <div class="content">{{ an.message }}</div>
-  </div>
+        <!--eslint-disable-next-line-->
+        <div v-for="an in ann"  class="announcetitle">
+
+          <div class="an_title">{{ an.ann_name }}</div>
+          <div class="by_time">{{ an.teacher_name }}</div>
+          <div class="by_time">{{ an.release_time }}</div>
+          <div class="content">{{ an.text }}</div>
+
+        </div>
+      </div>
 </template>
 
 <script>
 import checkPermission from '@/utils/permission'
+import { get_announcement_content } from '@/api/teacher/announcement/'
 
 export default {
   data() {
     return {
-      an: {
-        name: 'Title',
-        by: 'Teacher 1',
-        time: '2020.11.23',
-        message: 'This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.'
+      ann: 
+      // null
+      {
+        ann_name: 'Title',
+        teacher_name: 'Teacher 1',
+        release_time: '2020.11.23',
+        text: 'This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.'
       }
     }
   },
+  
+  created() {
+    this.show_announcement_content()
+  },
   methods: {
-    checkPermission
+    checkPermission,
+    show_announcement_content(){
+      get_announcement_content(localStorage.getItem("current_announcement")).then(response => {
+        this.ann = response.data
+      })
+    }
+
   }
 }
 </script>
