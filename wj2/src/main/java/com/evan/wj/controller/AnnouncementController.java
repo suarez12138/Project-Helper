@@ -43,4 +43,32 @@ public class AnnouncementController {
         return allProjectResult_t;
 
     }
+
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/dashboard/announcement_content")
+    @ResponseBody
+    public TempleteResult<Announcement> getAllAnn_stu(@RequestParam("announcement_id") int ann_id){
+
+        TempleteResult<Announcement> allProjectResult_t = new TempleteResult<Announcement>(20000,announcementDAO.getAllAnnouncement_student2(ann_id));
+
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return allProjectResult_t;
+
+    }
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/teacher/dashboard/announcement_content")
+    @ResponseBody
+    public TempleteResult<Announcement> getAllAnn_teacher(@RequestParam("announcement_id") int ann_id){
+
+        TempleteResult<Announcement> allProjectResult_t = new TempleteResult<Announcement>(20000,announcementDAO.getAllAnnouncement_teacher2(ann_id));
+
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return allProjectResult_t;
+
+    }
+
+
+
 }

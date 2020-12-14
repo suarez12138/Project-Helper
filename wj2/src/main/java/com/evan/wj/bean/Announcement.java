@@ -7,16 +7,17 @@ public class Announcement {
     String release_time;
     String text;
     int project_id;
+    int ann_id;
 
-    public Announcement(String ann_name, String project_name, String teacher_name, String release_time, String text, int project_id) {
+    public Announcement(String ann_name, String project_name, String teacher_name, String release_time, String text, int project_id, int ann_id) {
         Ann_name = ann_name;
         this.project_name = project_name;
         this.teacher_name = teacher_name;
         this.release_time = release_time;
         this.text = text;
         this.project_id = project_id;
+        this.ann_id = ann_id;
     }
-
 
     public String getAnn_name() {
         return Ann_name;
@@ -64,5 +65,13 @@ public class Announcement {
 
     public void setProject_id(int project_id) {
         this.project_id = project_id;
+    }
+
+    public int getAnn_id() {
+        return ann_id;
+    }
+
+    public void setAnn_id(int ann_id) {
+        this.ann_id = ann_id;
     }
 }
