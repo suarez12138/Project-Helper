@@ -16,7 +16,6 @@ public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
     List<OnlineGrade> getAllPerson(int project_id);
 
 
-
     @Transactional
     @Modifying
     @Query(value = "update person_group set grade = ?1 where person = ?2 and gro = ?3;", nativeQuery = true)
