@@ -12,6 +12,6 @@ public interface ProjectDAO  extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.AllProject(cor.course_name, pro.name,  pro.id) from PersonClass pc join People p on p.id = pc.person join Class c on c.id = pc.class1 join Course cor on cor.id = c.course join Project pro on pro.course = c.course and pro.teacher_id = p.id where p.stu_id =?1 and pc.pc_status <> 'learnt'")
     List<AllProject> getAllProject_teacher(String token);
 
-    @Query("select new com.evan.wj.bean.AllProject(cor.course_name, pro.name,  pro.id) from WantPerson wp join People p on wp.person = p.id join Project pro on pro.id = wp.project join Course cor on cor.id = pro.course where p.stu_id =?1")
+    @Query("select new com.evan.wj.bean.AllProject(cor.course_name, pro.name,  pro.id) from WantPerson wp join People p on p.id = wp.person join Project pro on pro.id = wp.project join Course cor on cor.id = pro.course where p.stu_id = ?1")
     List<AllProject> getAllProject_student(String token);
 }
