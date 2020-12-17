@@ -8,24 +8,6 @@
         </div>
         <div class="title_3" @click.stop="toggleTooltip">{{ text_content }}</div>
       </div>
-      <!--          <div class="title">My Group</div>-->
-      <!--          <el-popover-->
-      <!--            placement="bottom"-->
-      <!--            title="标题"-->
-      <!--            width="200"-->
-      <!--            trigger="click">-->
-      <!--            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">-->
-      <!--            <input-->
-      <!--              class="edictInput"-->
-      <!--              type="text"-->
-      <!--              v-model="editAssumption"-->
-      <!--              ref="focusAssumptionInput"-->
-      <!--              placeholder="请输入内容"-->
-      <!--              autofocus="autofocus"-->
-      <!--              v-if="scopeAssumption.row.assumptionFlag"/>-->
-      <!--            <el-button slot="reference" style="position: relative;float: left;margin-left: 10px;margin-top: 20px;">修改-->
-      <!--            </el-button>-->
-      <!--          </el-popover>-->
       <el-table
         ref="filterTable"
         v-loading="listLoading"
@@ -33,6 +15,13 @@
         :data="MyGroupTableData"
         style="width: 100%"
       >
+        <el-table-column
+          align="center"
+          prop="SID"
+          label="学号"
+          sortable
+          width="100"
+        />
         <el-table-column
           align="center"
           prop="name"
@@ -54,8 +43,12 @@
           prop="skill"
           label="技能"
           sortable
-          :formatter="formatter"
-        />
+        >
+          <template slot-scope="scope">
+            <!--eslint-disable-next-line-->
+            <el-tag v-for="item in scope.row.skill" effect="dark">{{ item }}</el-tag>
+          </template>
+        </el-table-column>
       </el-table>
       <el-form class="juzhong" style="margin-top: 40px;">
         <el-form-item label="开放加入">
@@ -169,6 +162,7 @@ export default {
       fetchMyGroup(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.MyGroupTableData = response.myGroups
         this.listLoading = false
+        console.log(this.MyGroupTableData)
       })
     },
     handleChange(value) {

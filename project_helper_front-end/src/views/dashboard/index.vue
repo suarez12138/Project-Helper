@@ -500,6 +500,11 @@ export default {
   overflow-y: auto;
 }
 
+.border2,.border3{
+  width: 95%;
+  float: right;
+}
+
 .border1 {
   height: 100%;
   box-shadow: 0 0 40px #151516;

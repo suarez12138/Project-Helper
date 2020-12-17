@@ -206,10 +206,13 @@ export default {
 }
 
 #border2_1, #border2_2, #border2_3, #border2_4 {
-  width: 100%;
+  width: 98%;
   border-radius: 50px;
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
+}
+#border2_2, #border2_3, #border2_4{
+  float: right;
 }
 
 #border2_1:hover .title1, #border2_1:hover .announcetitle, #border2_2:hover .title2, #border2_3:hover .title2, #border2_4:hover .title2 {
