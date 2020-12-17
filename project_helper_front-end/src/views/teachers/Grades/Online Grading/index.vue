@@ -21,29 +21,25 @@
       </div>
       <el-table
         v-loading="listLoading"
-        width="650"
         :data="scorelist2"
         element-loading-text="Loading..."
-        border
-        fit
-        highlight-current-row
       >
-        <el-table-column align="center" label="Index" width="60">
+        <el-table-column align="center" label="Index" width="60" prop="index">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="id" sortable label="SID" width="100">
+        <el-table-column align="center" prop="stu_id" sortable label="SID" width="100">
           <template slot-scope="scope">
             {{ scope.row.stu_id }}
           </template>
         </el-table-column>
-        <el-table-column label="Name" prop="name" sortable align="center" width="100">
+        <el-table-column label="Name" prop="person_name" sortable align="center" width="100">
           <template slot-scope="scope">
             {{ scope.row.person_name }}
           </template>
         </el-table-column>
-        <el-table-column label="Group Name" prop="groupName" sortable width="150" align="center">
+        <el-table-column label="Group Name" prop="group_name" sortable width="150" align="center">
           <template slot-scope="scope">
             <el-tag>{{ scope.row.group_name }}</el-tag>
           </template>
@@ -63,9 +59,15 @@
             />
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="confirm" sortable label="Confirm" width="80">
+        <el-table-column align="center" prop="confirm" sortable label="Confirm" width="120">
           <template slot-scope="scope">
-            <el-button type="success" size = 'mini' @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.comments)" round>确认</el-button>
+            <el-button
+              type="success"
+              size="mini"
+              round
+              @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.comments)"
+            >确认
+            </el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,20 +85,22 @@ export default {
   components: { BookTypeOption },
   data() {
     return {
+      // hei: '500px',
+      // hei: window.innerHeight * 0.75,
       tableHeader: [],
       downloadLoading: false,
       listLoading: false,
       bookType: 'xlsx',
-      scorelist: 
-      {  person_id: '', 
-         group_id: '', 
-         stu_id: '', 
-         person_name: '', 
-         group_name: '', 
-         score: '', 
-         comments: '' 
-      }
-      ,
+      scorelist:
+        {
+          person_id: '',
+          group_id: '',
+          stu_id: '',
+          person_name: '',
+          group_name: '',
+          score: '',
+          comments: ''
+        },
       modified_person_ids: [],
       modified_group_ids: [],
       modified_scores: [],
@@ -116,25 +120,24 @@ export default {
         })
       }
       return this.scorelist
-    },
-        
+    }
+
   },
   created() {
     this.fetchData()
   },
-  methods: { 
+  methods: {
     miao(person_id, group_id, score, comments) {
-      
       this.modified_person_ids[this.count] = person_id
       this.modified_group_ids[this.count] = group_id
       this.modified_scores[this.count] = score
       this.modified_comments[this.count] = comments
       // alert(this.modified_person_ids[this.count])
-      this.count = this.count+1
+      this.count = this.count + 1
       // alert(this.count)
     },
     handleUpdate() {
-      alert("miao")
+      alert('miao')
       alert(this.scorelist[1].stu_id)
       // this.modified_person_ids = this.scorelist.person_id
       // this.modified_group_ids = this.scorelist.group_id
@@ -147,10 +150,8 @@ export default {
         score: this.modified_scores,
         comment: this.modified_comments
 
+      }).then(response => {
 
-
-      }).then(response=>{
-        
       })
     },
     fetchData() {
@@ -202,9 +203,10 @@ export default {
   height: 100vh;
 }
 
-.el-card, .el-input__inner, .el-textarea__inner,.el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+.el-card, .el-input__inner, .el-textarea__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
   border-radius: 30px;
 }
+
 .el-table .cell {
   white-space: pre-line; //保留空白符序列，但是正常地进行换行。
 }
@@ -220,14 +222,15 @@ export default {
 
 #t_border_online {
   height: 100%;
-  width: 80%;
+  width: 100%;
   border: 2px solid $primary;
-  margin-left: 150px;
+  //margin-left: 150px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;
   box-shadow: 10px 10px 20px $primary;
   padding: 20px 85px 85px 85px;
+  overflow-y: auto;
 }
 
 #t_border_online:hover {
@@ -251,5 +254,26 @@ export default {
   margin-right: 10px;
   margin-top: 10px;
   color: $primary;
+}
+
+#t_border_online::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+#t_border_online::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  margin-top: 45px;
+  margin-bottom: 45px;
+
+}
+
+#t_border_online::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
+}
+
+#t_border_online::-webkit-scrollbar-corner { /*滚动条边角*/
+  background: $primary;
 }
 </style>

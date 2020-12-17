@@ -15,7 +15,7 @@
           </a>
           <a href="/#/join/join">
             <div class="addprojectmenu">
-              <div id="photo" />
+              <div class="photo" />
             </div>
           </a>
         </div>
@@ -73,6 +73,11 @@
               <div class="coursename">{{ project.course }}</div>
               <br>
               <div class="projectname">{{ project.project_name }}</div>
+            </div>
+          </a>
+          <a href="/#/createProject/createProject">
+            <div class="addprojectmenu">
+              <div class="photo" />
             </div>
           </a>
         </div>
@@ -239,7 +244,7 @@
 import splitPane from 'vue-splitpane'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
-import { fetchMyProjectList_student } from '@/api/student/dashboard'
+// import { fetchMyProjectList_student } from '@/api/student/dashboard'
 import { fetchMyProjectList_teacher } from '@/api/teacher/dashboard'
 import { fetchMyAnnouncementList } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
@@ -426,13 +431,11 @@ export default {
     },
     getMyProjects() {
       // alert(store.getters.roles == 'teacher');
-      if(store.getters.roles == 'teacher'){
+      if (store.getters.roles === 'teacher') {
         fetchMyProjectList_teacher(getToken()).then(response => {
           this.projects = response.data
         })
-        
-      }
-      else if(store.getters.roles == 'student'){
+      } else if (store.getters.roles === 'student') {
         fetchMyProjectList_teacher(getToken()).then(response => {
           this.projects = response.data
         })
@@ -642,7 +645,7 @@ div {
   background-color: rgba(0, 0, 0, 0.1);
 }
 
-#photo {
+.photo {
   background: url("add.png") no-repeat;
   margin-top: 23px;
   margin-left: 45px;

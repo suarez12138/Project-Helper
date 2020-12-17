@@ -37,8 +37,9 @@
       <el-table
         ref="filterTable"
         :data="tableData3"
-        style="width: 100%"
+        style="width: 100%;"
         highlight-current-row
+        :height="hei"
         @current-change="handleCurrentChange"
       >
         <el-table-column
@@ -49,7 +50,7 @@
           width="90"
         >
           <template slot-scope="scope">
-            <el-popover  trigger="click"  placement="right" class="pout">
+            <el-popover trigger="click" placement="right" class="pout">
               <!--                  <div id="border3_3">-->
               <div class="title">Selected Group</div>
               <el-table
@@ -89,8 +90,8 @@
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
               <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
-                  </div>
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+              </div>
             </el-popover>
           </template>
         </el-table-column>
@@ -284,6 +285,7 @@ export default {
   components: { BookTypeOption },
   data() {
     return {
+      hei: window.innerHeight * 0.75,
       selectRow: '',
       dialogVisible: false,
       checkedgroups: [],
@@ -296,7 +298,7 @@ export default {
       list2: [],
       bookType: 'xlsx',
       textarea: '',
-      tableData33: 
+      tableData33:
       null,
       // [{
       //   name: '组1',
@@ -306,14 +308,13 @@ export default {
       //   valid: '是',
       //   status: '完成组队'
       // }],
-      tableData2: 
+      tableData2:
       // [{
       //   name: '张小虎',
       //   gender: '男',
       //   skill: 'SPRING BOOT'
       // }]
-      null
-      ,
+      null,
       tableData_of_OneGroup:
       null,
       all_student:
@@ -322,9 +323,8 @@ export default {
         population: '',
         information: ''
       },
-      tableData_inside2: 
-      null
-      ,
+      tableData_inside2:
+      null,
       search: ''
     }
   },
@@ -371,7 +371,7 @@ export default {
   },
   methods: {
     getStudents() {
-      fetchAllStudent(getToken,localStorage.getItem('current_project_id')).then(response =>{
+      fetchAllStudent(getToken, localStorage.getItem('current_project_id')).then(response => {
         this.tableData_of_OneGroup = response.data
       })
     },
@@ -497,6 +497,7 @@ export default {
   margin-left: 150px;
   padding-left: 20px;
   padding-right: 20px;
+  //overflow-y: auto;
 }
 
 #t_border3_1_large {
@@ -528,5 +529,26 @@ export default {
 }
 .search_icon2 {
   color: $primary;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  //margin-top: 30px;
+  margin-bottom: 30px;
+
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
+  background: $primary;
 }
 </style>

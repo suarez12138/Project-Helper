@@ -45,6 +45,7 @@
           ref="filterTable"
           :data="tableData2"
           style="width: 100%"
+          :height="hei"
           @selection-change="handleSelectionChange"
         >
           <!--        <el-table-column-->
@@ -146,23 +147,23 @@
 
 <script>
 import { get_AllStudents } from '@/api/student/personal'
-import { update_MyInformation } from '@/api/student/personal'
-import { get_AllTags } from '@/api/student/personal'
-import { getToken } from '@/utils/auth'
+// import { update_MyInformation } from '@/api/student/personal'
+// import { get_AllTags } from '@/api/student/personal'
+// import { getToken } from '@/utils/auth'
 import { fetchTheGroup } from '@/api/student/group'
 export default {
   name: 'DragSelectDemo',
   data() {
     return {
+      hei: window.innerHeight * 0.75,
       index: 0,
       createGroupForm: {
         name: '',
         population: '',
         information: ''
       },
-      tableData22: 
-      null
-      // [{
+      tableData22:
+      null, // [{
       //   name: '张小虎',
       //   SID: '11812100',
       //   gender: '男',
@@ -183,7 +184,7 @@ export default {
       //   name: '王小虎',
       //   status: '未组队'
       // }]
-      ,
+
       tableData_of_OneGroup:
       null,
       form: {
@@ -306,26 +307,26 @@ export default {
 .el-tag, .el-button, .el-dialog, .el-input__inner, .el-select-dropdown {
   border-radius: 20px;
 }
-
-.t_border3_1_large::-webkit-scrollbar { /*滚动条整体*/
-  width: 10px;
-}
-
-.t_border3_1_large::-webkit-scrollbar-track { /*滚动条轨道*/
-  background: #ffffff;
-  border-radius: 20px;
-  margin-top: 240px;
-  margin-bottom: 40px;
-}
-
-.t_border3_1_large::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: $primary;
-  border-radius: 10px;
-}
-
-.t_border3_1_large::-webkit-scrollbar-corner { /*滚动条边角*/
-  background: $primary;
-}
+//
+//.t_border3_1_large::-webkit-scrollbar { /*滚动条整体*/
+//  width: 10px;
+//}
+//
+//.t_border3_1_large::-webkit-scrollbar-track { /*滚动条轨道*/
+//  background: #ffffff;
+//  border-radius: 20px;
+//  margin-top: 240px;
+//  margin-bottom: 40px;
+//}
+//
+//.t_border3_1_large::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+//  background: $primary;
+//  border-radius: 10px;
+//}
+//
+//.t_border3_1_large::-webkit-scrollbar-corner { /*滚动条边角*/
+//  background: $primary;
+//}
 
 .t_border3_1_large {
   //height: 900px;
@@ -366,5 +367,25 @@ export default {
 .el-tag + .el-tag {
   margin-left: 10px;
   margin-bottom: 5px;
+}
+.el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  //margin-top: 30px;
+  margin-bottom: 30px;
+
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
+}
+
+.el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
+  background: $primary;
 }
 </style>
