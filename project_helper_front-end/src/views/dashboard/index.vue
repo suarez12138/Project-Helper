@@ -425,7 +425,7 @@ export default {
       })
     },
     getMyProjects() {
-      alert(store.getters.roles == 'teacher');
+      // alert(store.getters.roles == 'teacher');
       if(store.getters.roles == 'teacher'){
         fetchMyProjectList_teacher(getToken()).then(response => {
           this.projects = response.data

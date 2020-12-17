@@ -6,7 +6,7 @@
           <div class="title1">Announcements</div>
           <!--          <ol class="title">-->
           <!--eslint-disable-next-line-->
-          <div v-for="an in announcements" class="announcetitle">
+          <div v-for="an in announcements" @click="miao(an.ann_id)" class="announcetitle">
             <a href="/#/announcement/announcement">
               Title: {{ an.name }} <br> By:{{ an.by }}<br>{{ an.time }}
             </a>
@@ -88,6 +88,9 @@
 
 import splitPane from 'vue-splitpane'
 import checkPermission from '@/utils/permission'
+import { getToken } from '@/utils/auth'
+import { get_announcement_teacher } from '@/api/teacher/announcement/'
+import { get_announcement_content } from '@/api/teacher/announcement/'
 
 export default {
   name: 'DragDialogDemo',
@@ -96,19 +99,28 @@ export default {
   data() {
     return {
       dialogTableVisible: false,
-      announcements: [
-        { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
-        { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-        { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
-      ]
+      announcements: 
+      // [
+        // { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' }
+      // ]
+      null
     }
   },
+
+  created() {
+      this.get_announcementList()
+    },
+  
   methods: {
+    miao(data){
+      alert(data)
+      window.localStorage.setItem('current_announcement', JSON.stringify(data))
+    },
+    get_announcementList(){
+      get_announcement_teacher(getToken()).then(response => {
+        this.announcements = response.data
+      })
+    },
     checkPermission,
     // v-el-drag-dialog onDrag callback function
     handleDrag() {
