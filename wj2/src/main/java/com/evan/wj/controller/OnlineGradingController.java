@@ -35,10 +35,11 @@ public class OnlineGradingController {
     public Void_return create_new_project(@RequestBody OnlineGradeUpdateReceive rec){
         List<Integer> group_ids = rec.getGroup_ids();
         List<Integer> person_ids = rec.getPerson_ids();
-        List<Double> grades =  rec.getGrades();
+        List<String> grades =  rec.getGrades();
         List<String> comments = rec.getComments();
+
         for(int i=0;i<person_ids.size();i++){
-            onlineGradingDAO.update_grade(grades.get(i),person_ids.get(i),group_ids.get(i));
+            onlineGradingDAO.update_grade(Double.parseDouble(grades.get(i)),person_ids.get(i),group_ids.get(i));
             onlineGradingDAO.update_comment(comments.get(i),person_ids.get(i),group_ids.get(i));
         }
         return new Void_return(20000);
