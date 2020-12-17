@@ -43,6 +43,9 @@
 </template>
 
 <script>
+import { getToken } from '@/utils/auth'
+import { update_profile } from '@/api/student/profile'
+
 export default {
   props: {
     user: {
@@ -62,6 +65,18 @@ export default {
   },
   methods: {
     submit() {
+      update_profile({
+        token: getToken(),
+        id: this.user.id,
+        name: this.user.name,
+        password: this.user.password,
+        gender: this.user.gender,
+        email: this.user.email,
+        location: this.user.location,
+        introduction: this.user.introduction
+      }).then(response => {
+          
+      })
       this.$message({
         message: 'User information has been updated successfully',
         type: 'success',
