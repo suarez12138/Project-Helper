@@ -15,15 +15,15 @@ public class PersonGroup {
     int person;
     String pg_status;
     double grade;
-    String comment;
+    String text;
 
 
-    public String getComment() {
-        return comment;
+    public String getText() {
+        return text;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setText(String text) {
+        this.text = text;
     }
 
     public int getId() {

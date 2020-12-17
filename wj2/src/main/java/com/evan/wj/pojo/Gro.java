@@ -16,6 +16,15 @@ public class Gro {
     String group_status;
     String pre_week;
     String pre_day;
+    String text;
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
 
     public int getId() {
         return id;

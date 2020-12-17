@@ -40,6 +40,4 @@ public class ProjectController {
         return allProjectResult_t;
 
     }
-
-
 }
