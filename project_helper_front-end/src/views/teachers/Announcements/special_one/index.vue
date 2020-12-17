@@ -6,18 +6,17 @@
     <div class="content">{{ ann.text }}</div>
   </div> -->
 
-
   <div class="frame">
-        <!--eslint-disable-next-line-->
-        <div v-for="an in ann"  class="announcetitle">
+    <!--eslint-disable-next-line-->
+    <!--        <div v-for="an in ann"  class="announcetitle">-->
 
-          <div class="an_title">{{ an.ann_name }}</div>
-          <div class="by_time">{{ an.teacher_name }}</div>
-          <div class="by_time">{{ an.release_time }}</div>
-          <div class="content">{{ an.text }}</div>
-
-        </div>
-      </div>
+    <div class="an_title">{{ ann[0].ann_name }}</div>
+    <div class="by_time">{{ ann[0].teacher_name }}</div>
+    <div class="by_time">{{ ann[0].release_time }}</div>
+    <!--          <div class="content"></div>-->
+    <div class="content" v-html="ann[0].text" />
+  </div>
+  <!--  </div>-->
 </template>
 
 <script>
@@ -27,25 +26,42 @@ import { get_announcement_content } from '@/api/teacher/announcement/'
 export default {
   data() {
     return {
-      ann: 
+      // html: '<p><strong>This is test</strong></p>\n' +
+      //   '<ul>\n' +
+      //   '<li>vue</li>\n' +
+      //   '<li>element</li>\n' +
+      //   '<li>webpack</li>\n' +
+      //   '<li>hyq</li>\n' +
+      //   '</ul>',
+      ann:
       // null
-      {
-        ann_name: 'Title',
-        teacher_name: 'Teacher 1',
-        release_time: '2020.11.23',
-        text: 'This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.'
-      }
+        {
+          ann_name: 'Title',
+          teacher_name: 'Teacher 1',
+          release_time: '2020.11.23',
+          // text: 'This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.This is content.'
+          text: '<p><strong>This is test</strong></p>\n' +
+            '<ul>\n' +
+            '<li>vue</li>\n' +
+            '<li>element</li>\n' +
+            '<li>webpack</li>\n' +
+            '<li>hyq</li>\n' +
+            '</ul>'
+        }
     }
   },
-  
+
   created() {
     this.show_announcement_content()
   },
   methods: {
     checkPermission,
-    show_announcement_content(){
-      get_announcement_content(localStorage.getItem("current_announcement")).then(response => {
+    show_announcement_content() {
+      get_announcement_content(localStorage.getItem('current_announcement')).then(response => {
         this.ann = response.data
+        console.log(121)
+        // var element=document.getElementsByClassName("content");
+        // element.innerHTML="<p style=\"text-align: center;\"><strong>ddd</strong></p>\n<blockquote><p style=\"text-align: center; padding-left: 40px;\">asdfasf</p></blockquote>";
       })
     }
 
