@@ -53,7 +53,7 @@
         </el-upload>
       </div>
       <div style="float: right;margin-right: 100px;margin-bottom: 100px;">
-        <el-button v-loading="loading" style="margin-left: 10px;" plain type="success" @click="submitForm">
+        <el-button v-loading="loading" style="margin-left: 10px;" plain type="success" @click="submit">
           Send
         </el-button>
       </div>
@@ -69,6 +69,8 @@ import Tinymce from '@/components/Tinymce'
 import { validURL } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
+import { Submenu } from 'element-ui'
+import { post_announcement_teacher } from '@/api/teacher/announcement'
 // import Warning from './Warning'
 // import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 
@@ -142,38 +144,23 @@ export default {
       }],
       options2: [
         {
-          value: '全体学生',
-          label: '全体学生'
+          value: 'all',
+          label: 'All Students'
         }, {
-          value: 'lab1',
-          label: 'Lab 1'
+          value: 'finished_groups',
+          label: 'Finished Groups'
         }, {
-          value: 'lab2',
-          label: 'Lab 2'
+          value: 'unfinished_group',
+          label: 'Unfinished Group'
         }, {
-          value: 'lab3',
-          label: 'Lab 3'
+          value: 'valid_group',
+          label: 'Valid Group'
         }, {
-          value: 'lab4',
-          label: 'Lab 4'
+          value: 'unvalid_group',
+          label: 'Unvalid Group'
         }, {
-          value: '已完成组队小组',
-          label: '已完成组队小组'
-        }, {
-          value: '未完成组队小组',
-          label: '未完成组队小组'
-        }, {
-          value: '无效小组',
-          label: '无效小组'
-        }, {
-          value: '有效小组',
-          label: '有效小组'
-        }, {
-          value: '未组队个人',
-          label: '未组队个人'
-        }, {
-          value: '已组队个人',
-          label: '已组队个人'
+          value: 'students_not_in_group',
+          label: 'Students not in Group'
         }
       ]
     }
@@ -196,33 +183,24 @@ export default {
     }
   },
   created() {
-    if (this.isEdit) {
-      const id = this.$route.params && this.$route.params.id
-      this.fetchData(id)
-    }
+    
 
-    // Why need to make a copy of this.$route here?
-    // Because if you enter this page and quickly switch tag, may be in the execution of the setTagsViewTitle function, this.$route is no longer pointing to the current page
-    // https://github.com/PanJiaChen/vue-element-admin/issues/1221
-    this.tempRoute = Object.assign({}, this.$route)
   },
   methods: {
-    fetchData(id) {
-      fetchArticle(id).then(response => {
-        this.postForm = response.data
+    submit() {
+      alert(this.postForm.content_short)
+      // console.log(this.postForm.content)
+      post_announcement_teacher({
+        title: this.postForm.title,
+        send_to: this.postForm.content_short
 
-        // just for test
-        this.postForm.title += `   Article Id:${this.postForm.id}`
-        this.postForm.content_short += `   Article Id:${this.postForm.id}`
+      }).then(response => {
 
-        // set tagsview title
-        this.setTagsViewTitle()
-
-        // set page title
-        this.setPageTitle()
-      }).catch(err => {
-        console.log(err)
       })
+      
+
+
+      this.submitForm()
     },
     setTagsViewTitle() {
       const title = 'Edit Article'

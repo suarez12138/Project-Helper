@@ -244,7 +244,7 @@
 import splitPane from 'vue-splitpane'
 import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
-// import { fetchMyProjectList_student } from '@/api/student/dashboard'
+import { fetchMyProjectList_student } from '@/api/student/dashboard'
 import { fetchMyProjectList_teacher } from '@/api/teacher/dashboard'
 import { fetchMyAnnouncementList } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
@@ -331,6 +331,24 @@ export default {
     this.getAllProject()
   },
   methods: {
+    getMyProjects() {
+      alert(store.getters.roles);
+      if (store.getters.roles == 'teacher') {
+        // alert("miao");
+        fetchMyProjectList_teacher(getToken()).then(response => {
+          this.projects = response.data
+        })
+      } else if (store.getters.roles == 'student') {
+        fetchMyProjectList_student(getToken()).then(response => {
+          this.projects = response.data
+        })
+      }
+    },
+    getMyAnnouncement() {
+      fetchMyAnnouncementList(getToken()).then(response => {
+        this.announcements = response.data
+      })
+    },
     beforeUpload1(file) {
       const isLt1M = file.size / 1024 / 1024 < 1
       if (isLt1M) {
@@ -427,23 +445,6 @@ export default {
           // alert(response.data[i].project)
           // alert(this.project_dict[response.data[i].project])
         }
-      })
-    },
-    getMyProjects() {
-      // alert(store.getters.roles == 'teacher');
-      if (store.getters.roles === 'teacher') {
-        fetchMyProjectList_teacher(getToken()).then(response => {
-          this.projects = response.data
-        })
-      } else if (store.getters.roles === 'student') {
-        fetchMyProjectList_teacher(getToken()).then(response => {
-          this.projects = response.data
-        })
-      }
-    },
-    getMyAnnouncement() {
-      fetchMyAnnouncementList(getToken()).then(response => {
-        this.announcements = response.data
       })
     },
     miao(name) {

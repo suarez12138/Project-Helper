@@ -34,6 +34,7 @@ import UserCard from './components/UserCard'
 // import Timeline from './components/Timeline'
 import Account from './components/Account'
 import { getToken } from '@/utils/auth'
+import { get_profile } from '@/api/student/profile'
 
 export default {
   name: 'Profile',
@@ -64,9 +65,31 @@ export default {
         avatar: this.avatar,
         gender: '',
         location: '',
-        introduction: '我就是我'
-        // introduction: this.introduction
+        introduction: '我bu就是我'
       }
+      get_profile(getToken()).then(response => {
+        this.user = {
+          id: getToken(),
+          role: this.roles.join(' | '),
+          name: response.data.name,
+          email: getToken()+"@mail.sustech.edu.cn",
+          avatar: this.avatar,
+          gender: response.data.gender,
+          location: response.data.location,
+          introduction: response.data.introduction
+        }
+      })
+      // this.user = {
+      //   id: getToken(),
+      //   role: this.roles.join(' | '),
+      //   name: 'miao',
+      //   email: 'admin@test.com',
+      //   avatar: this.avatar,
+      //   gender: '',
+      //   location: '',
+      //   introduction: '我bu就是我'
+      //   // introduction: this.introduction
+      // }
     }
   }
 }
