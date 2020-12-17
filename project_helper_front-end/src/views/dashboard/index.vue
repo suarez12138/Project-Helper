@@ -6,7 +6,7 @@
           <div class="home_title">Projects</div>
 
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
+          <a v-for="project in projects" @click="miao(project.project_name, project.project_id)" href="/#/overview/overview">
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
@@ -331,8 +331,20 @@ export default {
     this.getAllProject()
   },
   methods: {
+    miao(name, id) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
+      window.localStorage.setItem('current_project', JSON.stringify(name))
+      // alert(id)
+      window.localStorage.setItem('current_project_id', id)
+      window.dispatchEvent(new Event('setItemEvent'))
+      // alert(localStorage.getItem("current_project_id"))
+      // console.log(localStorage.getItem("current_project"))
+      // console.log(this.project_dict)
+      // console.log(this.project_dict[name])
+      // console.log(localStorage)
+    },
     getMyProjects() {
-      alert(store.getters.roles);
+      // alert(store.getters.roles);
       if (store.getters.roles == 'teacher') {
         // alert("miao");
         fetchMyProjectList_teacher(getToken()).then(response => {
@@ -446,16 +458,6 @@ export default {
           // alert(this.project_dict[response.data[i].project])
         }
       })
-    },
-    miao(name) {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
-      window.localStorage.setItem('current_project', JSON.stringify(name))
-      window.dispatchEvent(new Event('setItemEvent'))
-      // alert(localStorage.getItem("current_project"))
-      // console.log(localStorage.getItem("current_project"))
-      // console.log(this.project_dict)
-      // console.log(this.project_dict[name])
-      // console.log(localStorage)
     }
   }
 }
