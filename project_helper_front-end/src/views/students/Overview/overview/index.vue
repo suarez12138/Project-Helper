@@ -15,7 +15,7 @@
         </div>
       </template>
       <template slot="paneR">
-        <a href="/#/">
+        <a href="/#/studentMyGroup/studentMyGroup">
           <div id="border2_2">
             <div class="title2">My Group</div>
           </div>
@@ -90,7 +90,7 @@ import splitPane from 'vue-splitpane'
 import checkPermission from '@/utils/permission'
 import { getToken } from '@/utils/auth'
 import { get_announcement_teacher } from '@/api/teacher/announcement/'
-import { get_announcement_content } from '@/api/teacher/announcement/'
+// import { get_announcement_content } from '@/api/teacher/announcement/'
 
 export default {
   name: 'DragDialogDemo',
@@ -99,24 +99,24 @@ export default {
   data() {
     return {
       dialogTableVisible: false,
-      announcements: 
+      announcements:
       // [
-        // { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' }
+      // { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' }
       // ]
       null
     }
   },
 
   created() {
-      this.get_announcementList()
-    },
-  
+    this.get_announcementList()
+  },
+
   methods: {
-    miao(data){
+    miao(data) {
       alert(data)
       window.localStorage.setItem('current_announcement', JSON.stringify(data))
     },
-    get_announcementList(){
+    get_announcementList() {
       get_announcement_teacher(getToken()).then(response => {
         this.announcements = response.data
       })

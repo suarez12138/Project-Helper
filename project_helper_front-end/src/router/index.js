@@ -25,7 +25,8 @@ import teach_announcementsRouter from './modules/announcements'
 // import stude_gradeRouter from './modules/students/grades'
 // import stude_presentationRouter from './modules/students/presentation'
 import overviewRouter from './modules/overview'
-import stude_groupRouter from './modules/students/group'
+import stude_groupRouter from './modules/students/grouping'
+import stude_MygroupRouter from './modules/students/myGroup'
 // import stude_announcementRouter from './modules/students/announcement'
 import stude_personalRouter from './modules/students/personal'
 import stude_profileRouter from './modules/students/profile'
@@ -189,18 +190,18 @@ export const asyncRoutes = [
     ]
   },
 
-  // {
-  //   path: '/icon',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: 'index',
-  //       component: () => import('@/views/icons/index'),
-  //       name: 'Icons',
-  //       meta: { title: 'Icons', icon: 'icon', noCache: true }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/icon',
+    component: Layout,
+    children: [
+      {
+        path: 'index',
+        component: () => import('@/views/icons/index'),
+        name: 'Icons',
+        meta: { title: 'Icons', icon: 'icon', noCache: true }
+      }
+    ]
+  },
 
   /** when your routing map is too long, you can split it into small modules **/
   // componentsRouter,
@@ -225,6 +226,7 @@ export const asyncRoutes = [
   // stude_presentationRouter,
   stude_groupRouter,
   stude_personalRouter,
+  stude_MygroupRouter,
   stude_profileRouter,
 
   // {
