@@ -68,7 +68,7 @@
         <div class="border1">
           <div class="home_title">Projects</div>
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" href="/#/overview/overview">
+          <a v-for="project in projects" @click="miao(project.project_name, project.project_id)" href="/#/overview/overview">
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
