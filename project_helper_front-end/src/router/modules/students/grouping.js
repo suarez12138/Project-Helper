@@ -10,7 +10,7 @@ const groupRouter = {
       path: 'studentGroup',
       component: () => import('@/views/students/Group/group/index'), // Parent router-view
       name: 'studentGroup',
-      meta: { title: 'Group', icon: 'peoples', roles: ['student'] }
+      meta: { title: 'Grouping', icon: 'el-icon-search', roles: ['student'] }
     }
   ]
 }

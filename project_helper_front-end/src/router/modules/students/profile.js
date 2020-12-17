@@ -10,7 +10,7 @@ const announcementRouter = {
       path: 'profile',
       component: () => import('@/views/profile/index'), // Parent router-view
       name: 'profile',
-      meta: { title: 'Profile', icon: 'people', roles: ['student'] }
+      meta: { title: 'Profile', icon: 'user', roles: ['student'] }
     }
   ]
 }

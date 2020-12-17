@@ -28,7 +28,7 @@
         fit
         highlight-current-row
       >
-        <el-table-column align="center" label="Index" width="80">
+        <el-table-column align="center" label="Index" width="60">
           <template slot-scope="scope">
             {{ scope.$index }}
           </template>
@@ -38,7 +38,7 @@
             {{ scope.row.stu_id }}
           </template>
         </el-table-column>
-        <el-table-column label="Name" prop="name" sortable align="center" width="120">
+        <el-table-column label="Name" prop="name" sortable align="center" width="100">
           <template slot-scope="scope">
             {{ scope.row.person_name }}
           </template>
@@ -50,21 +50,22 @@
         </el-table-column>
         <el-table-column align="center" prop="score" sortable label="Score" width="90">
           <template slot-scope="scope">
-            <!--          {{ scope.row.score }}-->
-            <!--          <el-input>{{ scope.row.score }}</el-input>-->
             <el-input v-model.trim="scope.row.score" />
           </template>
         </el-table-column>
         <el-table-column align="center" label="Comments">
           <template slot-scope="scope">
-            <!--          {{ scope.row.score }}-->
-            <!--          <el-input>{{ scope.row.score }}</el-input>-->
             <el-input
               v-model="scope.row.comments"
               type="textarea"
               autosize
               placeholder="请输入评语"
             />
+          </template>
+        </el-table-column>
+        <el-table-column align="center" prop="confirm" sortable label="Confirm" width="80">
+          <template slot-scope="scope">
+            <el-button type="success" size = 'mini' @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.comments)" round>确认</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -96,14 +97,12 @@ export default {
          comments: '' 
       }
       ,
-      scorelist_for_post:
-      {
-        person_id: '', 
-         group_id: '', 
-         score: '', 
-         comments: '' 
-      },
-      search: ''
+      modified_person_ids: [],
+      modified_group_ids: [],
+      modified_scores: [],
+      modified_comments: [],
+      search: '',
+      count: 0
     }
   },
   computed: {
@@ -117,23 +116,40 @@ export default {
         })
       }
       return this.scorelist
-    }
+    },
+        
   },
   created() {
     this.fetchData()
   },
-  methods: {
+  methods: { 
+    miao(person_id, group_id, score, comments) {
+      
+      this.modified_person_ids[this.count] = person_id
+      this.modified_group_ids[this.count] = group_id
+      this.modified_scores[this.count] = score
+      this.modified_comments[this.count] = comments
+      // alert(this.modified_person_ids[this.count])
+      this.count = this.count+1
+      // alert(this.count)
+    },
     handleUpdate() {
-      alert(this.scorelist.stu_id)
-      post_scoreList(
-      //   {
-      //   person_ids: this.scorelist.person_id,
-      //   group_ids: this.scorelist.group_id,
-      //   grades: this.scorelist.score,
-      //   comments: this.scorelist.comments
-      // }
-      this.scorelist_for_post
-      ).then(response=>{
+      alert("miao")
+      alert(this.scorelist[1].stu_id)
+      // this.modified_person_ids = this.scorelist.person_id
+      // this.modified_group_ids = this.scorelist.group_id
+      // this.modified_scores = this.scorelist.score
+      // this.modified_comments = this.scorelist.comments
+
+      post_scoreList({
+        person_id: this.modified_person_ids,
+        group_id: this.modified_group_ids,
+        score: this.modified_scores,
+        comment: this.modified_comments
+
+
+
+      }).then(response=>{
         
       })
     },

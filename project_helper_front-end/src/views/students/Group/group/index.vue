@@ -1,263 +1,157 @@
 <template>
   <div class="components-container">
-    <split-pane split="vertical" @resize="resize">
-      <template slot="paneL">
-        <div id="border3_1">
-          <div class="title_3">Grouping Information</div>
-          <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
-            <svg-icon icon-class="search" class="search_icon5" />
-            <el-input
-              v-model="search"
-              placeholder="请输入关键字"
-              class="search2"
-              style="width: 30%;"
-            />
-          </div>
-          <el-table
-            ref="filterTable"
-            v-loading="listLoading"
-            :data="tableData3"
-            style="width: 100%;overflow-y: auto;"
-            class="table1"
-            :height="hei"
-            highlight-current-row
-            @current-change="handleCurrentChange"
-          >
-            <el-table-column
-              type="index"
-              :index="indexMethod"
-            />
-            <el-table-column
-              prop="name"
-              label="组名"
-              sortable
-              width="100"
-            >
-              <template slot-scope="scope">
-                <el-popover trigger="click" placement="right" class="pout">
-                  <!--                  <div id="border3_3">-->
-                  <div class="title_3">{{ sel_name }}</div>
-                  <el-table
-                    ref="filterTable"
-                    v-loading="listLoading"
-                    class="juzhong"
-                    :data="tableData_of_OneGroup"
-                    style="width: 100%"
-                  >
-                    <el-table-column
-                      prop="name"
-                      label="姓名"
-                      sortable
-                      width="180"
-                    />
-                    <el-table-column
-                      prop="gender"
-                      label="性别"
-                      sortable
-                      width="180"
-                      :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
-                      :filter-method="filterHandler"
-                    />
-                    <el-table-column
-                      prop="skill"
-                      label="技能"
-                      sortable
-                      :formatter="formatter"
-                    />
-                  </el-table>
-                  <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px;">小组信息：</div>
-                  <div class="juzhong">不搞基</div>
-                  <!--                  </div>-->
-                  <!--                  <p>张三 SPRINGBOOT</p>-->
-                  <!--                  <p>李四 VUE</p>-->
-                  <div slot="reference" class="name-wrapper">
-                    <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
-                  </div>
-                </el-popover>
-              </template>
-            </el-table-column>
-            <el-table-column
-              prop="pre_time"
-              label="预期答辩时间"
-              sortable
-              width="130"
-            />
-            <el-table-column
-              prop="information"
-              label="小组信息"
-              sortable
-            />
-            <!--              width="250"-->
-            <el-table-column
-              prop="status"
-              label="状态"
-              sortable
-              width="120"
-              :filters="[{ text: '完成组队', value: '完成组队' }, { text: '未完成组队', value: '未完成组队' }]"
-              :filter-method="filterstatus"
-              filter-placement="bottom-end"
-            >
-              <template slot-scope="scope">
-                <el-tag
-                  :type="scope.row.status === '未完成组队' ? 'primary' : 'success'"
-                  disable-transitions
-                >{{ scope.row.status }}
-                </el-tag>
-              </template>
-            </el-table-column>
-            <el-table-column
-              align="center"
-              fixed="right"
-              label="操作"
-              width="100"
-            >
-              <template slot-scope="scope">
-                <el-button type="primary" plain size="small" @click="handleClick(scope.row)">加入</el-button>
-              </template>
-            </el-table-column>
-          </el-table>
-        </div>
-      </template>
-      <template slot="paneR">
-        <div id="border3_2">
-          <div @click="hideTooltip">
-            <div v-if="show_tooltip" class=" title_3" @click.stop>
-              <el-input v-model="text_content" class="juzhong" type="text" />
-            </div>
-            <div class="title_3" @click.stop="toggleTooltip">{{ text_content }}</div>
-          </div>
-          <!--          <div class="title">My Group</div>-->
-          <!--          <el-popover-->
-          <!--            placement="bottom"-->
-          <!--            title="标题"-->
-          <!--            width="200"-->
-          <!--            trigger="click">-->
-          <!--            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">-->
-          <!--            <input-->
-          <!--              class="edictInput"-->
-          <!--              type="text"-->
-          <!--              v-model="editAssumption"-->
-          <!--              ref="focusAssumptionInput"-->
-          <!--              placeholder="请输入内容"-->
-          <!--              autofocus="autofocus"-->
-          <!--              v-if="scopeAssumption.row.assumptionFlag"/>-->
-          <!--            <el-button slot="reference" style="position: relative;float: left;margin-left: 10px;margin-top: 20px;">修改-->
-          <!--            </el-button>-->
-          <!--          </el-popover>-->
-          <el-table
-            ref="filterTable"
-            v-loading="listLoading"
-            class="juzhong"
-            :data="MyGroupTableData"
-            style="width: 100%"
-          >
-            <el-table-column
-              align="center"
-              prop="name"
-              label="姓名"
-              sortable
-              width="100"
-            />
-            <el-table-column
-              align="center"
-              prop="gender"
-              label="性别"
-              sortable
-              width="100"
-              :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
-              :filter-method="filterHandler"
-            />
-            <el-table-column
-              align="center"
-              prop="skill"
-              label="技能"
-              sortable
-              :formatter="formatter"
-            />
-          </el-table>
-          <el-form class="juzhong" style="margin-top: 40px;">
-            <el-form-item label="开放加入">
-              <el-switch
-                v-model="value2"
-                active-color="#13ce66"
-                inactive-color="#ff4949"
-                active-text="是"
-                inactive-text="否"
-                @change="handleChange(value2)"
-              />
-            </el-form-item>
-            <el-form-item label="预期答辩时间">
-              <el-select v-model="ruleForm.population" placeholder="预期答辩时间" />
-            </el-form-item>
-            <el-form-item label="小组信息" prop="information">
-              <el-input
-                v-model="ruleForm.information"
-                type="textarea"
-                maxlength="50"
-                show-word-limit
-              />
-            </el-form-item>
+    <div id="border3_1">
+      <div class="title_3">Grouping Information</div>
+      <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
+        <svg-icon icon-class="search" class="search_icon5" />
+        <el-input
+          v-model="search"
+          placeholder="请输入关键字"
+          class="search2"
+          style="width: 30%;"
+        />
+      </div>
+      <el-table
+        ref="filterTable"
+        v-loading="listLoading"
+        :data="tableData3"
+        style="width: 100%;overflow-y: auto;"
+        class="table1"
+        :height="hei"
+        highlight-current-row
+        @current-change="handleCurrentChange"
+      >
+        <el-table-column
+          align="center"
+          type="index"
+          :index="indexMethod"
+        />
+        <el-table-column
+          align="center"
+          prop="name"
+          label="组名"
+          sortable
+          width="100"
+        >
+          <template slot-scope="scope">
+            <el-popover trigger="click" placement="right" class="pout">
+              <!--                  <div id="border3_3">-->
+              <div class="title_3">{{ sel_name }}</div>
+              <el-table
+                ref="filterTable"
+                v-loading="listLoading"
+                class="juzhong"
+                :data="tableData_of_OneGroup"
+                style="width: 100%"
+              >
+                <el-table-column
+                  align="center"
+                  prop="name"
+                  label="姓名"
+                  sortable
+                  width="180"
+                />
+                <el-table-column
+                  align="center"
+                  prop="gender"
+                  label="性别"
+                  sortable
+                  width="180"
+                  :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
+                  :filter-method="filterHandler"
+                />
+                <el-table-column
+                  align="center"
+                  prop="skill"
+                  label="技能"
+                  sortable
+                  :formatter="formatter"
+                />
+              </el-table>
+              <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px;">小组信息：</div>
+              <div class="juzhong">不搞基</div>
+              <!--                  </div>-->
+              <!--                  <p>张三 SPRINGBOOT</p>-->
+              <!--                  <p>李四 VUE</p>-->
+              <div slot="reference" class="name-wrapper">
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+              </div>
+            </el-popover>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="pre_time"
+          label="预期答辩时间"
+          sortable
+          width="130"
+        />
+        <el-table-column
+          align="center"
+          prop="information"
+          label="小组信息"
+          sortable
+        />
+        <el-table-column
+          align="center"
+          prop="population"
+          label="小组人数"
+          sortable
+          width="110"
+        />
+        <el-table-column
+          align="center"
+          prop="valid"
+          label="是否有效"
+          :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
+          :filter-method="filtervalid"
+          sortable
+          width="130"
+        >
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.valid === '否' ? 'primary' : 'success'"
+              disable-transitions
+            >{{ scope.row.valid }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          prop="status"
+          label="状态"
+          sortable
+          width="120"
+          :filters="[{ text: '完成组队', value: '完成组队' }, { text: '未完成组队', value: '未完成组队' }]"
+          :filter-method="filterstatus"
+          filter-placement="bottom-end"
+        >
+          <template slot-scope="scope">
+            <el-tag
+              :type="scope.row.status === '未完成组队' ? 'primary' : 'success'"
+              disable-transitions
+            >{{ scope.row.status }}
+            </el-tag>
+          </template>
+        </el-table-column>
+        <el-table-column
+          align="center"
+          fixed="right"
+          label="操作"
+          width="100"
+        >
+          <template slot-scope="scope">
+            <el-button type="primary" plain size="small" @click="handleClick(scope.row)">加入</el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+    </div>
 
-            <!--            <el-form-item label="提交项目" prop="submitProject">-->
-            <!--              <el-upload-->
-            <!--                class="upload-demo"-->
-            <!--                action="https://jsonplaceholder.typicode.com/posts/"-->
-            <!--                :on-preview="handlePreview"-->
-            <!--                :on-remove="handleRemove"-->
-            <!--                :before-remove="beforeRemove"-->
-            <!--                multiple-->
-            <!--                :limit="5"-->
-            <!--                :on-exceed="handleExceed"-->
-            <!--                :file-list="fileList"-->
-            <!--              >-->
-            <!--                <el-button size="small" plain type="primary">点击上传</el-button>-->
-            <!--                &lt;!&ndash;                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>&ndash;&gt;-->
-            <!--              </el-upload>-->
-            <!--            </el-form-item>-->
-            <el-form-item class="flo" style="margin-left: 20px">
-              <el-button type="primary" plain @click="submitForm('ruleForm')">确认</el-button>
-            </el-form-item>
-
-            <el-popconfirm
-              confirm-button-text="确定"
-              cancel-button-text="取消"
-              icon="el-icon-info"
-              icon-color="red"
-              title="确定退出该组吗？"
-              placement="top"
-              @confirm="quit"
-            >
-              <el-button slot="reference" class="flo" type="danger" style="float: right;" plain>退出该组</el-button>
-            </el-popconfirm>
-            <!--            <el-dialog-->
-            <!--              title="提示"-->
-            <!--              :visible.sync="dialogVisible"-->
-            <!--              width="30%"-->
-            <!--              :before-close="handleClose"-->
-            <!--              append-to-body>-->
-            <!--              <span>确定退出该组吗？</span>-->
-            <!--              <span slot="footer" class="dialog-footer">-->
-            <!--                <el-button @click="dialogVisible = false">取 消</el-button>-->
-            <!--                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
-            <!--              </span>-->
-            <!--            </el-dialog>-->
-
-          </el-form>
-        </div>
-      </template>
-    </split-pane>
-
-    <!--    <aside>drag-list base on-->
-    <!--      <a href="https://github.com/SortableJS/Vue.Draggable" target="_blank">Vue.Draggable</a>-->
-    <!--    </aside>-->
-    <!--    <div class="editor-container">-->
-    <!--      <dnd-list :list1="list1" :list2="list2" list1-title="List" list2-title="Article pool" />-->
-    <!--    </div>-->
   </div>
 </template>
 
 <script>
-import splitPane from 'vue-splitpane'
+// import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
@@ -266,7 +160,7 @@ import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DndListDemo',
-  components: { splitPane },
+  // components: { splitPane },
   data() {
     return {
       show_tooltip: false,
@@ -405,6 +299,9 @@ export default {
       this.currentRow = val
       console.log(this.currentRow)
     },
+    filtervalid(value, row) {
+      return row.valid === value
+    },
     open() {
       this.$alert('此组已完成组队，尝试加入其他组吧！', '组队失败', {
         confirmButtonText: '确定'
@@ -484,7 +381,7 @@ export default {
 }
 
 #border3_1 {
-  height: 100%;
+  height: 101%;
   overflow-y: auto;
   margin-right: 15px;
 }
@@ -529,10 +426,11 @@ export default {
 
 .title_3 {
   color: $primary;
-  font-size: 30px;
+  font-size: 40px;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;
+  padding-bottom: 40px;
   /*float: left;*/
   /*margin-left: 300px;*/
   /*position: relative;*/
@@ -570,7 +468,7 @@ export default {
   background: #ffffff;
   border-radius: 20px;
   //margin-top: 30px;
-  //margin-bottom: 30px;
+  margin-bottom: 30px;
 
 }
 

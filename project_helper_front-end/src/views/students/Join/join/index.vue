@@ -2,8 +2,8 @@
   <div class="border_p">
     <div class="personal_title"> Join New Project</div>
     <div>
-      <div class="search-Box" style=" margin-right: 30px;width: 30%; float: right">
-        <el-input v-model="search" placeholder="请输入关键字" class="search" />
+      <div style=" margin-right: 30px;width: 30%; float: right">
+        <el-input v-model="search" placeholder="请输入关键字" class="search2" />
         <svg-icon icon-class="search" class="search_icon" />
       </div>
 
@@ -95,12 +95,12 @@ export default {
 <style lang="scss">
 @import "~@/styles/variables.scss";
 
-.search {
+.search2 {
   float: right;
   width: 80% !important;
 }
 
-.search > .el-input__inner {
+.search2 > .el-input__inner {
   border-radius: 30px;
 }
 

@@ -10,7 +10,7 @@ const personalRouter = {
       path: 'personal',
       component: () => import('@/views/students/Personal/personal/index'), // Parent router-view
       name: 'personal',
-      meta: { title: 'Personal', icon: 'user', roles: ['student'] }
+      meta: { title: 'Personal', icon: 'people', roles: ['student'] }
     }
   ]
 }
