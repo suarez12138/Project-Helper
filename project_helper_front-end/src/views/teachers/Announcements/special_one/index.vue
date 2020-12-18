@@ -15,6 +15,9 @@
     <div class="by_time">{{ ann[0].release_time }}</div>
     <!--          <div class="content"></div>-->
     <div class="content" v-html="ann[0].text" />
+    <!--eslint-disable-next-line-->
+    <div v-for="attachment in ann[0].attach" >
+      <div class="attach">{{ attachment.name }}</div></div>
   </div>
   <!--  </div>-->
 </template>
@@ -46,7 +49,12 @@ export default {
             '<li>element</li>\n' +
             '<li>webpack</li>\n' +
             '<li>hyq</li>\n' +
-            '</ul>'
+            '</ul>',
+          attach: [
+            { name: 'file1', url: '' },
+            { name: 'file2', url: '' },
+            { name: 'file3', url: '' }// 可以尝试这样传
+          ]
         }
     }
   },
@@ -60,6 +68,7 @@ export default {
       get_announcement_content(localStorage.getItem('current_announcement')).then(response => {
         this.ann = response.data
         console.log(121)
+        console.log(this.ann)
         // var element=document.getElementsByClassName("content");
         // element.innerHTML="<p style=\"text-align: center;\"><strong>ddd</strong></p>\n<blockquote><p style=\"text-align: center; padding-left: 40px;\">asdfasf</p></blockquote>";
       })
