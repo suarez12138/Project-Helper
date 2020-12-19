@@ -252,10 +252,7 @@ export default {
   methods: {
     getAllGroups() {
       this.listLoading = true
-      alert('miao')
-      alert(localStorage.getItem('current_project_id'))
       fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
-        alert('miao')
       })
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.tableData33 = response.allGroups
