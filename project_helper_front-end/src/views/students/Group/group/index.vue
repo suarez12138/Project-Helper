@@ -153,6 +153,7 @@
 <script>
 // import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
+import { fetchGroupsListState } from '@/api/student/group'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
 import { fetchTheGroup } from '@/api/student/group'
@@ -251,7 +252,8 @@ export default {
   methods: {
     getAllGroups() {
       this.listLoading = true
-      // alert(localStorage.getItem('current_project_id'))
+      fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
+      })
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.tableData33 = response.allGroups
         this.listLoading = false

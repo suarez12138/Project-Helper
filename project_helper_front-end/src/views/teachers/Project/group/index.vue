@@ -52,7 +52,7 @@
           <template slot-scope="scope">
             <el-popover trigger="click" placement="right" class="pout">
               <!--                  <div id="border3_3">-->
-              <div class="title">Selected Group</div>
+              <div class="title">{{ sel_name }}</div>
               <el-table
                 ref="filterTable"
                 class="juzhong"
@@ -166,7 +166,7 @@
       <el-dialog
         title="请选择"
         :visible.sync="dialogVisible"
-        width="60%"
+        width="70%"
         append-to-body
       >
         <div>
@@ -286,6 +286,7 @@ export default {
   data() {
     return {
       hei: window.innerHeight * 0.75,
+      sel_name: 'Title',
       selectRow: '',
       dialogVisible: false,
       checkedgroups: [],
@@ -384,6 +385,7 @@ export default {
       })
     },
     getGroup_by_name(name) {
+      this.sel_name = name
       fetchTheGroup(name).then(response => {
         this.tableData2 = response.myGroups
         this.listLoading = false
@@ -492,9 +494,9 @@ export default {
 
 #t_border3_1_large {
   height: 100%;
-  width: 80%;
+  width: 100%;
   border: 2px solid $primary;
-  margin-left: 150px;
+  //margin-left: 150px;
   padding-left: 20px;
   padding-right: 20px;
   //overflow-y: auto;

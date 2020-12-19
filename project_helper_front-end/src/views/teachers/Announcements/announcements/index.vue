@@ -48,7 +48,7 @@ export default {
   },
   methods: {
     miao(data){
-      alert(data)
+      // alert(data)
       window.localStorage.setItem('current_announcement', JSON.stringify(data))
     },
     get_announcementList(){

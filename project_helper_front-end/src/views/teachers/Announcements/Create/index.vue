@@ -5,14 +5,26 @@
         <el-row>
           <el-col :span="24">
             <el-form-item style="margin-bottom: 40px;" prop="title" label="Title :">
-              <el-input v-model="postForm.title" :maxlength="100" placeholder="Please input title" style="width: 50%" name="name" required>
+              <el-input
+                v-model="postForm.title"
+                :maxlength="100"
+                placeholder="Please input title"
+                style="width: 50%"
+                name="name"
+                required
+              >
                 Title
               </el-input>
             </el-form-item>
           </el-col>
         </el-row>
         <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Send to:">
-          <el-select v-model="postForm.content_short" multiple placeholder="Tag choices" style="float:left; width: 20%;">
+          <el-select
+            v-model="postForm.content_short"
+            multiple
+            placeholder="Tag choices"
+            style="float:left; width: 20%;"
+          >
             <el-option
               v-for="item in options2"
               :key="item.value"
@@ -33,7 +45,9 @@
           <!--          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
         </el-form-item>
         <el-form-item prop="content" style="margin-bottom: 30px;">
-          <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+          <!--          <Tinymce ref="editor" v-model="postForm.content" :height="400" />-->
+          <markdown-editor ref="markdownEditor" v-model="postForm.content" :language="language" height="300px" />
+
         </el-form-item>
       </div>
       <div class="transmit_upload">
@@ -62,14 +76,16 @@
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
+// import Tinymce from '@/components/Tinymce'
+import MarkdownEditor from '@/components/MarkdownEditor'
+
 // import Upload from '@/components/Upload/SingleImage3'
 // import MDinput from '@/components/MDinput'
 // import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
-import { fetchArticle } from '@/api/article'
+// import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
-import { Submenu } from 'element-ui'
+// import { Submenu } from 'element-ui'
 import { post_announcement_teacher } from '@/api/teacher/announcement'
 // import Warning from './Warning'
 // import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
@@ -90,7 +106,8 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce },
+  components: { MarkdownEditor },
+
   props: {
     isEdit: {
       type: Boolean,
@@ -126,8 +143,15 @@ export default {
     }
     return {
       postForm: Object.assign({}, defaultForm),
+      html: '',
       loading: false,
       userListOptions: [],
+      // content4: content,
+      languageTypeList: {
+        'en': 'en_US',
+        'zh': 'zh_CN',
+        'es': 'es_ES'
+      },
       rules: {
         image_uri: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
@@ -166,6 +190,9 @@ export default {
     }
   },
   computed: {
+    language() {
+      return this.languageTypeList['en']
+    },
     contentShortLength() {
       return this.postForm.content_short.length
     },
@@ -183,11 +210,12 @@ export default {
     }
   },
   created() {
-    
 
   },
   methods: {
     submit() {
+      this.html = this.$refs.markdownEditor.getHtml()
+      console.log(this.html)
       alert(this.postForm.content_short)
       // console.log(this.postForm.content)
       post_announcement_teacher({
@@ -197,8 +225,6 @@ export default {
       }).then(response => {
 
       })
-      
-
 
       this.submitForm()
     },

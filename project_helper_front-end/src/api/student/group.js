@@ -18,6 +18,14 @@ export function fetchGroupsList(project_id) {
   })
 }
 
+export function fetchGroupsListState(project_id) {
+  return request({
+    url: '/vue-element-admin/student/group/group_list_state',
+    method: 'get',
+    params: {project_id}
+  })
+}
+
 
 export function fetchMyGroup(token, project_id) {
   return request({

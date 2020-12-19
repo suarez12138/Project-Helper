@@ -62,16 +62,16 @@
           <el-table-column
             align="center"
             prop="stu_id"
-            label="stu_id"
+            label="学号"
             sortable
-            width="100"
+            width="90"
           />
           <el-table-column
             align="center"
             prop="name"
             label="姓名"
             sortable
-            width="100"
+            width="80"
           />
           <el-table-column
             align="center"
@@ -88,6 +88,13 @@
             label="Lab"
             sortable
             width="70"
+          />
+          <el-table-column
+            align="center"
+            prop="dormitory"
+            label="宿舍"
+            sortable
+            width="80"
           />
           <el-table-column
             align="center"
@@ -331,9 +338,9 @@ export default {
 .t_border3_1_large {
   //height: 900px;
   height: 100%;
-  width: 80%;
+  width: 100%;
   border: 2px solid $primary;
-  margin-left: 150px;
+  //margin-left: 150px;
   border-radius: 50px;
   transform: translate(0, 0);
   transition: all 0.3s ease-in-out;

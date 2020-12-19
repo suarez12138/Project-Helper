@@ -7,8 +7,8 @@
           <!--          <ol class="title">-->
           <!--eslint-disable-next-line-->
           <div v-for="an in announcements" @click="miao(an.ann_id)" class="announcetitle">
-            <a href="/#/announcement/announcement">
-              Title: {{ an.name }} <br> By:{{ an.by }}<br>{{ an.time }}
+            <a href="/#/announcements/Content">
+              Title: {{ an.ann_name }} <br> By:{{ an.teacher_name }}<br>{{ an.release_time }}
             </a>
           </div>
           <!--          </ol>-->
@@ -90,7 +90,7 @@ import splitPane from 'vue-splitpane'
 import checkPermission from '@/utils/permission'
 import { getToken } from '@/utils/auth'
 import { get_announcement_teacher } from '@/api/teacher/announcement/'
-// import { get_announcement_content } from '@/api/teacher/announcement/'
+import { fetchMyAnnouncementList_student } from '@/api/student/dashboard'
 
 export default {
   name: 'DragDialogDemo',
@@ -117,7 +117,7 @@ export default {
       window.localStorage.setItem('current_announcement', JSON.stringify(data))
     },
     get_announcementList() {
-      get_announcement_teacher(getToken()).then(response => {
+      fetchMyAnnouncementList_student(getToken()).then(response => {
         this.announcements = response.data
       })
     },
@@ -206,10 +206,13 @@ export default {
 }
 
 #border2_1, #border2_2, #border2_3, #border2_4 {
-  width: 100%;
+  width: 98%;
   border-radius: 50px;
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
+}
+#border2_2, #border2_3, #border2_4{
+  float: right;
 }
 
 #border2_1:hover .title1, #border2_1:hover .announcetitle, #border2_2:hover .title2, #border2_3:hover .title2, #border2_4:hover .title2 {

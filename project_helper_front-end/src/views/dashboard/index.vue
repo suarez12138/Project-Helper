@@ -6,7 +6,7 @@
           <div class="home_title">Projects</div>
 
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" @click="miao(project.project_name)" href="/#/overview/overview">
+          <a v-for="project in projects" @click="saveProj_ID_NAME(project.project_name, project.project_id)" href="/#/overview/overview">
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
@@ -24,36 +24,13 @@
         <div class="border2">
           <div class="home_title">Announcements</div>
           <!--eslint-disable-next-line-->
-          <div v-for="announcement in announcements" class="announcetitle">
-            <a href="/#/announcement/announcement">
-              Title: {{ announcement.name }} <br> Project: {{ announcement.project }}<br>By:{{
-                announcement.by
-              }}<br>{{ announcement.time }}
+          <div v-for="announcement in announcements" @click="saveAnnounce_ID(announcement.ann_id)" class="announcetitle">
+            <a href="/#/announcements/Content">
+              Title: {{ announcement.ann_name }} <br> Project: {{ announcement.project_name }}<br>By:{{
+                announcement.teacher_name
+              }}<br>{{ announcement.release_time }}
 
             </a>
-          </div>
-          <div>
-            <!--            <el-table-->
-            <!--              :data="tableData"-->
-            <!--              class="an-table"-->
-            <!--              height="250"-->
-            <!--              border-->
-            <!--              style="width: 100%">-->
-            <!--              <el-table-column-->
-            <!--                prop="date"-->
-            <!--                label="日期"-->
-            <!--                width="180">-->
-            <!--              </el-table-column>-->
-            <!--              <el-table-column-->
-            <!--                prop="name"-->
-            <!--                label="姓名"-->
-            <!--                width="180">-->
-            <!--              </el-table-column>-->
-            <!--              <el-table-column-->
-            <!--                prop="address"-->
-            <!--                label="地址">-->
-            <!--              </el-table-column>-->
-            <!--            </el-table>-->
           </div>
         </div>
         <div class="border3">
@@ -68,7 +45,7 @@
         <div class="border1">
           <div class="home_title">Projects</div>
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" href="/#/overview/overview">
+          <a v-for="project in projects" @click="saveProj_ID_NAME(project.project_name, project.project_id)" href="/#/overview/overview">
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
@@ -95,20 +72,6 @@
     </split-pane>
   </div>
   <div v-else-if="checkPermission(['controller'])" class="components-container">
-    <!--    <el-menu-->
-    <!--      :default-active="activeIndex2"-->
-    <!--      class="el-menu-demo"-->
-    <!--      mode="horizontal"-->
-    <!--      @select="handleSelect"-->
-    <!--      text-color="#fff"-->
-    <!--      active-text-color="#ffd04b">-->
-    <!--      <el-menu-item index="1">处理中心</el-menu-item>-->
-    <!--      <el-submenu index="2">-->
-    <!--        <template slot="title">我的工作台</template>-->
-    <!--      </el-submenu>-->
-    <!--      <el-menu-item index="3" >消息中心</el-menu-item>-->
-    <!--      <el-menu-item index="4"><a href="https://www.ele.me" target="_blank">订单管理</a></el-menu-item>-->
-    <!--    </el-menu>-->
     <el-tabs type="border-card">
       <el-tab-pane label="User Creating">
         <el-form
@@ -246,7 +209,7 @@ import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
 import { fetchMyProjectList_student } from '@/api/student/dashboard'
 import { fetchMyProjectList_teacher } from '@/api/teacher/dashboard'
-import { fetchMyAnnouncementList } from '@/api/student/dashboard'
+import { fetchMyAnnouncementList_student } from '@/api/student/dashboard'
 import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 import UploadExcelComponent from '@/components/UploadExcel/index'
@@ -284,27 +247,12 @@ export default {
       tableHeader2: [],
       projects:
         null, // [
-      //   { course: 'OOAD', p_name: 'Project Helper' },
-      //   { course: 'AI', p_name: 'Reversi' },
-      //   { course: 'AI', p_name: 'Reversi' },
-      //   { course: 'Computer Network', p_name: 'RDT' },
-      //   { course: 'AI', p_name: 'IMP' },
-      //   { course: 'AI', p_name: 'Reversi' },
-      //   { course: 'AI', p_name: 'Reversi' },
-      //   { course: 'AI', p_name: 'Reversi' },
-      //   { course: 'AI', p_name: 'IMP' }
+      //   { course: 'OOAD', p_name: 'Project Helper' }
       // ]
 
       announcements:
         null, // [
-      //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' },
-      //   { name: 'tips', project: 'project4', by: 'teacher B', time: '2020.11.12' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' },
-      //   { name: 'announce DDL', project: 'project1', by: 'teacher A', time: '2020.10.11' }
+      //   { name: 'check your progress', project: 'project3', by: 'teacher A', time: '2020.11.21' }
       // ]
 
       project_dict: {},
@@ -327,12 +275,33 @@ export default {
 
   created() {
     this.getMyProjects()
-    this.getMyAnnouncement()
     this.getAllProject()
+    this.get_announcementList()
   },
   methods: {
+    saveAnnounce_ID(data) {
+      window.localStorage.setItem('current_announcement', JSON.stringify(data))
+    },
+    saveProj_ID_NAME(name, id) {
+      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
+      window.localStorage.setItem('current_project', JSON.stringify(name))
+      // alert(id)
+      window.localStorage.setItem('current_project_id', id)
+      window.dispatchEvent(new Event('setItemEvent'))
+      // alert(localStorage.getItem("current_project_id"))
+      // console.log(localStorage.getItem("current_project"))
+      // console.log(this.project_dict)
+      // console.log(this.project_dict[name])
+      // console.log(localStorage)
+    },
+    get_announcementList() {
+      // alert("miao")
+      fetchMyAnnouncementList_student(getToken()).then(response => {
+        this.announcements = response.data
+      })
+    },
     getMyProjects() {
-      alert(store.getters.roles);
+      // alert(store.getters.roles);
       if (store.getters.roles == 'teacher') {
         // alert("miao");
         fetchMyProjectList_teacher(getToken()).then(response => {
@@ -343,11 +312,6 @@ export default {
           this.projects = response.data
         })
       }
-    },
-    getMyAnnouncement() {
-      fetchMyAnnouncementList(getToken()).then(response => {
-        this.announcements = response.data
-      })
     },
     beforeUpload1(file) {
       const isLt1M = file.size / 1024 / 1024 < 1
@@ -446,16 +410,6 @@ export default {
           // alert(this.project_dict[response.data[i].project])
         }
       })
-    },
-    miao(name) {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(this.project_dict[name]))
-      window.localStorage.setItem('current_project', JSON.stringify(name))
-      window.dispatchEvent(new Event('setItemEvent'))
-      // alert(localStorage.getItem("current_project"))
-      // console.log(localStorage.getItem("current_project"))
-      // console.log(this.project_dict)
-      // console.log(this.project_dict[name])
-      // console.log(localStorage)
     }
   }
 }
@@ -496,6 +450,11 @@ export default {
   transition: all 0.3s ease-in-out;
   transform: translate(0, 0);
   overflow-y: auto;
+}
+
+.border2,.border3{
+  width: 95%;
+  float: right;
 }
 
 .border1 {
@@ -549,20 +508,6 @@ export default {
 .border3:hover {
   box-shadow: 12px 20px 20px #1623A6;
 }
-
-/*.projectmenu ::after {*/
-/*-webkit-filter: blur(0px);*/
-/*-moz-filter: blur(0px);*/
-/*-ms-filter: blur(0px);*/
-/*-o-filter: blur(0px);*/
-/*filter: blur(0px);*/
-/*  z-index: -1;*/
-/*  -webkit-filter: blur(5px);*/
-/*  -moz-filter: blur(5px);*/
-/*  -ms-filter: blur(5px);*/
-/*  -o-filter: blur(5px);*/
-/*  filter: blur(5px) !important;*/
-/*}*/
 
 .projectmenu:hover, .addprojectmenu:hover {
   box-shadow: 12px 20px 20px #000000;
