@@ -10,10 +10,8 @@ import com.evan.wj.result.TempleteResult;
 import com.evan.wj.result.Void_return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
 @Controller
 public class ProjectController {
     @Autowired
@@ -61,7 +59,7 @@ public class ProjectController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/join/join_project")
+    @PostMapping(value = "/vue-element-admin/student/join/join_project")
     @ResponseBody
     public Void_return Insert_wantPerson(@RequestParam("token") String token,@RequestParam("project_id") int project_id){
 
