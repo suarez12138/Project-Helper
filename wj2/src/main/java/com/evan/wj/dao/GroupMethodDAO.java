@@ -7,7 +7,9 @@ import com.evan.wj.bean.GG_AllTag;
 import com.evan.wj.bean.GG_MinMaxOfGroup;
 import com.evan.wj.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,6 +42,19 @@ public interface GroupMethodDAO extends JpaRepository<User,Integer> {
             "and (pt.tag in (select t.id from Tag t where t.project = ?1 ) or pt.tag is null)")
     List<GG_AllGroup> getAllGroupWithMinPeople(int project_id, int min_people, int max_perople);
 
+
+
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from gro g where g.id = ?1;", nativeQuery = true)
+    void deleteFromGro(int group_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from person_group pg where pg.gro = ?1;", nativeQuery = true)
+    void deleteFromPersonGroup(int goup_id);
 
 
 
