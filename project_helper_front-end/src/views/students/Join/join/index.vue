@@ -14,7 +14,7 @@
       >
         <el-table-column
           align="center"
-          prop="pro_name"
+          prop="project_name"
           label="项目名称"
           sortable
         />
@@ -42,15 +42,15 @@
 
 <script>
 import checkPermission from '@/utils/permission'
+import { get_joinableProject } from '@/api/student/join'
+import join_project from '@/api/student/join'
+import { getToken } from '@/utils/auth'
 
 export default {
   name: 'DragSelectDemo',
   data() {
     return {
-      tableData22: [{
-        pro_name: 'Project Helper',
-        course: 'OOAD'
-      }],
+      tableData22: null,
       search: ''
     }
   },
@@ -67,7 +67,24 @@ export default {
       return this.tableData22
     }
   },
+  created() {
+    this.getJoinableProjectList()
+  },
   methods: {
+    getJoinableProjectList() {
+      get_joinableProject(getToken()).then(response => {
+        this.tableData22 = response.data
+      })
+    },
+    handleClick(row) {
+      alert(row.project_id)
+      join_project({
+        stu_id:       getToken(),
+        project_id:   row.project_id
+      }).then(response => {
+
+      })
+    },
     checkPermission,
     resetDateFilter() {
       this.$refs.filterTable.clearFilter('date')
@@ -84,9 +101,6 @@ export default {
     filterHandler(value, row, column) {
       const property = column['property']
       return row[property] === value
-    },
-    handleClick(row) {
-
     }
   }
 }
