@@ -40,4 +40,17 @@ public class ProjectController {
         return allProjectResult_t;
 
     }
+
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/join/joinable_project")
+    @ResponseBody
+    public TempleteResult<AllProject> getAllProject_student_canjoin(@RequestParam("token") String token){
+
+        TempleteResult<AllProject> allProjectResult_t = new TempleteResult<>(20000,projectDAO.getAllProject_student_canjoin(token));
+
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return allProjectResult_t;
+
+    }
 }
