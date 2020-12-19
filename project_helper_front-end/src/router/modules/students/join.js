@@ -10,7 +10,7 @@ const joinRouter = {
       path: 'join',
       component: () => import('@/views/students/Join/join/index'), // Parent router-view
       name: 'studentGroup',
-      meta: { title: 'New Project', icon: 'el-icon-circle-plus-outline', roles: ['student'] }
+      meta: { title: 'Join Project', icon: 'el-icon-circle-plus-outline', roles: ['student'] }
     }]
 }
 
