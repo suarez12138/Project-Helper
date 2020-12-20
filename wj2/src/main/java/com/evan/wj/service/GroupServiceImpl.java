@@ -27,7 +27,7 @@ public class GroupServiceImpl implements GroupService{
         List<MyGroup_getNameGender> people_id_list = groupDAO.getAMyGroup_getName(gro_id);
 
         for(MyGroup_getNameGender ids:people_id_list){
-            myGroups.add(new MyGroup(ids.getId(),ids.getStu_id(),ids.getName(),ids.getGender()));
+            myGroups.add(new MyGroup(ids.getId(),ids.getStu_id(),ids.getDorm() ,ids.getName(),ids.getGender()));
         }
 
         List<MyGroup_idTag> tags = groupDAO.gettags(gro_id,project_id);

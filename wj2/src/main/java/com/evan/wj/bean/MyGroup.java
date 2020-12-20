@@ -6,11 +6,12 @@ import java.util.List;
 public class MyGroup {
     int id;
     String stu_id;
+    String dorm;
     String name;
     String gender;
     List<String> tags;
 
-    public MyGroup(int id,String stu_id, String name, String gender) {
+    public MyGroup(int id,String stu_id,String dorm,String name, String gender) {
         this.id = id;
         this.stu_id = stu_id;
         this.name = name;
@@ -20,6 +21,15 @@ public class MyGroup {
 
     public void addtags(String tag){
         this.tags.add(tag);
+    }
+
+
+    public String getDorm() {
+        return dorm;
+    }
+
+    public void setDorm(String dorm) {
+        this.dorm = dorm;
     }
 
     public String getStu_id() {

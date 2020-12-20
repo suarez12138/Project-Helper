@@ -3,15 +3,25 @@ package com.evan.wj.bean;
 public class MyGroup_getNameGender {
     int id;
     String stu_id;
+    String dorm;
     String name;
     String gender;
 
 
-    public MyGroup_getNameGender(int id, String stu_id, String name, String gender) {
+    public MyGroup_getNameGender(int id, String stu_id,String dorm ,String name, String gender) {
         this.id = id;
         this.stu_id = stu_id;
+        this.dorm = dorm;
         this.name = name;
         this.gender = gender;
+    }
+
+    public String getDorm() {
+        return dorm;
+    }
+
+    public void setDorm(String dorm) {
+        this.dorm = dorm;
     }
 
     public String getStu_id() {

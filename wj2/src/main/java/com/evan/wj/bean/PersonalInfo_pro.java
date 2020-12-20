@@ -6,6 +6,7 @@ import java.util.List;
 public class PersonalInfo_pro {
     int id;
     String stu_id;
+    String dorm;
     String name;
     String gender;
     String lab;
@@ -13,8 +14,9 @@ public class PersonalInfo_pro {
     String hope;
     String status;
 
-    public PersonalInfo_pro(int id, String stu_id, String name, String gender, String lab, String hope, String status) {
+    public PersonalInfo_pro(int id, String stu_id, String dorm ,String name, String gender, String lab, String hope, String status) {
         this.id = id;
+        this.dorm = dorm;
         this.name = name;
         this.stu_id = stu_id;
         this.gender = gender;
@@ -22,6 +24,14 @@ public class PersonalInfo_pro {
         this.skill = new ArrayList<String>();
         this.hope = hope;
         this.status = status;
+    }
+
+    public String getDorm() {
+        return dorm;
+    }
+
+    public void setDorm(String dorm) {
+        this.dorm = dorm;
     }
 
     public String getStu_id() {
