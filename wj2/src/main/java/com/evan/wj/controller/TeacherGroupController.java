@@ -8,10 +8,7 @@ import com.evan.wj.result.TempleteResult;
 import com.evan.wj.result.Void_return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,7 +18,7 @@ public class TeacherGroupController {
     TeacherGroupDAO teacherGroupDAO;
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/personal/temp")
+    @PostMapping(value = "/vue-element-admin/teacher/group/drop_group")
     @ResponseBody
     public Message_return getAllGroup(@RequestParam("gro_id") int gro_id){
 
