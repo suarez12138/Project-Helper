@@ -15,8 +15,9 @@ public class Gro {
     String group_name;
     String group_status;
     String pre_week;
-    String pre_day;
+    int pre_day;
     String text;
+    int index_inPreDay;
 
     public String getText() {
         return text;
@@ -66,11 +67,19 @@ public class Gro {
         this.pre_week = pre_week;
     }
 
-    public String getPre_day() {
+    public int getPre_day() {
         return pre_day;
     }
 
-    public void setPre_day(String pre_day) {
+    public void setPre_day(int pre_day) {
         this.pre_day = pre_day;
+    }
+
+    public int getIndex_inPreDay() {
+        return index_inPreDay;
+    }
+
+    public void setIndex_inPreDay(int index_inPreDay) {
+        this.index_inPreDay = index_inPreDay;
     }
 }
