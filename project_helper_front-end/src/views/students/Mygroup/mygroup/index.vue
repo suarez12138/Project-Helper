@@ -62,33 +62,25 @@
           />
         </el-form-item>
         <el-form-item label="预期答辩时间">
-          <el-select v-model="myGroupForm.population" placeholder="预期答辩时间" />
+          <el-select v-model="myGroupForm.pre_week" placeholder="预期答辩时间" >
+              <el-option
+                v-for="item in options"
+                :key="item.check_point_id"
+                :label="item.week"
+                :value="item.checkPoint_id"
+              />
+            </el-select>
+          </el-form-item>
         </el-form-item>
         <el-form-item label="小组信息" prop="information">
           <el-input
-            v-model="myGroupForm.information"
+            v-model="myGroupForm.text"
             type="textarea"
             maxlength="50"
             show-word-limit
           />
         </el-form-item>
 
-        <!--            <el-form-item label="提交项目" prop="submitProject">-->
-        <!--              <el-upload-->
-        <!--                class="upload-demo"-->
-        <!--                action="https://jsonplaceholder.typicode.com/posts/"-->
-        <!--                :on-preview="handlePreview"-->
-        <!--                :on-remove="handleRemove"-->
-        <!--                :before-remove="beforeRemove"-->
-        <!--                multiple-->
-        <!--                :limit="5"-->
-        <!--                :on-exceed="handleExceed"-->
-        <!--                :file-list="fileList"-->
-        <!--              >-->
-        <!--                <el-button size="small" plain type="primary">点击上传</el-button>-->
-        <!--                &lt;!&ndash;                <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>&ndash;&gt;-->
-        <!--              </el-upload>-->
-        <!--            </el-form-item>-->
         <el-form-item class="flo" style="margin-left: 20px">
           <el-button type="primary" plain @click="submitForm('myGroupForm')">确认</el-button>
         </el-form-item>
@@ -104,18 +96,6 @@
         >
           <el-button slot="reference" class="flo" type="danger" style="float: right;" plain>退出该组</el-button>
         </el-popconfirm>
-        <!--            <el-dialog-->
-        <!--              title="提示"-->
-        <!--              :visible.sync="dialogVisible"-->
-        <!--              width="30%"-->
-        <!--              :before-close="handleClose"-->
-        <!--              append-to-body>-->
-        <!--              <span>确定退出该组吗？</span>-->
-        <!--              <span slot="footer" class="dialog-footer">-->
-        <!--                <el-button @click="dialogVisible = false">取 消</el-button>-->
-        <!--                <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
-        <!--              </span>-->
-        <!--            </el-dialog>-->
 
       </el-form>
     </div>
@@ -125,6 +105,11 @@
 <script>
 
 import { fetchMyGroup } from '@/api/student/group'
+import { fetchMyGroup_state } from '@/api/student/group'
+import { fetchTheGroup } from '@/api/student/group'
+import { updateMyGroup_state } from '@/api/student/group'
+import { dropMyGroup } from '@/api/student/group'
+import { get_availableWeek } from '@/api/student/creatGroup'
 import { getToken } from '@/utils/auth'
 
 export default {
@@ -143,30 +128,48 @@ export default {
       MyGroupTableData:
         null,
       listLoading: false,
-      myGroupForm: {
-        population: '',
-        information: ''
-      }
+      myGroupForm: null,
+      myGroupState: null,
+      options: null
     }
   },
   created() {
     this.getMyGroup()
+    this.getMyGropuState()
+    this.get_availableWeekList()
   },
   methods: {
-
+    get_availableWeekList() {
+      get_availableWeek(localStorage.getItem('current_project_id')).then(response => {
+        this.options = response.data
+      })
+    },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
-      console.log(getToken())
-      console.log('aaaaaaaaaaaaaa')
-      // fetchMyGroup(getToken(), 1).then(response => {
       fetchMyGroup(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.MyGroupTableData = response.myGroups
         this.listLoading = false
         console.log(this.MyGroupTableData)
       })
     },
+    getMyGropuState() {
+      fetchMyGroup_state(getToken(), localStorage.getItem('current_project_id')).then(response => {
+        this.myGroupForm = response.data[0]
+        this.text_content = response.data[0].group_name
+      }) 
+    },
     handleChange(value) {
-      console.log(value)
+      
+    },
+    submitForm(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          alert('submit!')
+        } else {
+          console.log('error submit!!')
+          return false
+        }
+      })
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
@@ -186,29 +189,8 @@ export default {
         this.list2 = response.data.items
       })
     },
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
-      })
-    },
     quit() {
     }
-
-    // submitForm(formName) {
-    //   this.$refs[formName].validate((valid) => {
-    //     if (valid) {
-    //       alert('submit!')
-    //     } else {
-    //       console.log('error submit!!')
-    //       return false
-    //     }
-    //   })
-    // }
   }
 }
 </script>

@@ -35,6 +35,13 @@ export function fetchMyGroup(token, project_id) {
   })
 }
 
+export function fetchMyGroup_state(token, project_id) {
+  return request({
+    url: '/vue-element-admin/student/group/my_group_state',
+    method: 'get',
+    params: {token, project_id}
+  })
+}
 
 export function fetchTheGroup(group_name) {
   return request({
@@ -45,8 +52,20 @@ export function fetchTheGroup(group_name) {
 }
 
 
+export function updateMyGroup_state(gro_id, gro_status, text, check_point_id, gro_name) {
+  return request({
+    url: '/vue-element-admin/student/group/update_group_state',
+    method: 'post',
+    params: {gro_id, gro_status, text, check_point_id, gro_name}
+  })
+}
 
 
-
-
+export function dropMyGroup(token, gro_id) {
+  return request({
+    url: '/vue-element-admin/student/group/drop_group',
+    method: 'post',
+    params: {token, gro_id}
+  })
+}
 
