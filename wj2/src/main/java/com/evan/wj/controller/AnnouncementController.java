@@ -29,7 +29,6 @@ public class AnnouncementController {
 
         //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return allProjectResult_t;
-
     }
 
     @CrossOrigin
