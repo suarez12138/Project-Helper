@@ -265,13 +265,16 @@ export default {
         person_id: this.grouping_members,
         self_id: getToken()
       }).then(response => {
-
+        this.dialogFormVisible = false
+        if (response.message !== null) {
+          this.$message.error(response.message)
+        } else {
+          this.$message({
+            message: '组队成功！',
+            type: 'success'
+          })
+        }
       })
-      this.$message({
-        message: '组队成功！',
-        type: 'success'
-      })
-      this.dialogFormVisible = false
     },
     update_MyInformation_table() {
       // alert(this.form.skill)
@@ -406,7 +409,7 @@ export default {
 
 .border_great {
   height: 100%;
-  width:  100%;
+  width: 100%;
   border: 2px solid $primary;
   border-radius: 50px;
   transform: translate(0, 0);
@@ -438,6 +441,7 @@ export default {
   margin-top: 10px;
   color: $primary;
 }
+
 .el-tag + .el-tag {
   margin-left: 10px;
   margin-bottom: 5px;
