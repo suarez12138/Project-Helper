@@ -34,7 +34,7 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
     @Transactional
     @Modifying
     @Query(value = "insert into check_point (pre_week, project, text) values (?1,?2,'')", nativeQuery = true)
-    void insert_tags(String week, int pro_id);
+    void insert_checkPoint(String week, int pro_id);
 
 
 

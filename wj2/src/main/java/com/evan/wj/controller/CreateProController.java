@@ -81,7 +81,7 @@ public class CreateProController {
         }
         for(String week: project_pre_week){
             // 把所有 week 插入 checkPoint 表格中
-            createProjectDAO.insert_tags(week,pro_id);
+            createProjectDAO.insert_checkPoint(week,pro_id);
         }
         return new Void_return(20000);
     }
