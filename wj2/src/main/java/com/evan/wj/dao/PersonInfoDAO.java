@@ -29,6 +29,32 @@ public interface PersonInfoDAO extends JpaRepository<User,Integer> {
             "where t.project = ?1")
     List<ID_tag> get_idTag2(int project_id);
 
+////////////////////////////////////
+    @Query("select p.bool_cross_class from Project p where p.id = ?1")
+    List<String> get_CrossClass(int project_id);
+
+
+    @Query("select c.id from PersonClass pc join People p on pc.person = p.id join Class c on c.id = pc.class1 join Project pro on c.course = pro.course where pro.id = ?1 and p.stu_id = ?2" )
+    List<Integer> get_classID(int project_id, String stu_id);
+
+
+    @Query("select new com.evan.wj.bean.PersonalInfo_pro(p.id, p.stu_id,p.domitory, p.name,p.gender,c.class_name,wp.text,wp.gro_status)from People p join PersonClass pc on p.id = pc.person join Class c on c.id = pc.class1 join Project pro on pro.course = c.course join WantPerson wp on wp.person = p.id where pro.id = ?1 and p.id in (select pc.person from PersonClass pc where pc.class1 = ?2)")
+    List<PersonalInfo_pro> getperson_classCross(int project_id, int classID);
+
+
+    @Query("select new com.evan.wj.bean.ID_tag(p.id,t.tag) " +
+            "from PeopleTag pt " +
+            "join People p on pt.person = p.id " +
+            "join Tag t on pt.tag = t.id " +
+            "where t.project = ?1 and p.id in (select pc.person from PersonClass pc where pc.class1 = ?2)")
+    List<ID_tag> get_idTag2_classCross(int project_id, int classID);
+
+/////////////////////////////////////
+
+
+
+
+
     @Query("select new com.evan.wj.bean.MyGroup_idTag(p.id,t.tag) from People p join PeopleTag pg on p.id = pg.person join Tag t on t.id = pg.tag where t.project =?1")
     List<MyGroup_idTag> gettags3(int project_id);
 

@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-
 public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.OnlineGrade(p.id, g.id, p.stu_id, p.name,g.group_name) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where g.project = 1")
     List<OnlineGrade> getAllPerson(int project_id);
@@ -26,6 +25,8 @@ public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
     @Modifying
     @Query(value = "update person_group set text = ?1 where person = ?2 and gro = ?3;", nativeQuery = true)
     void update_comment(String comment, int person_id, int group_id);
+
+
 
 }
 
