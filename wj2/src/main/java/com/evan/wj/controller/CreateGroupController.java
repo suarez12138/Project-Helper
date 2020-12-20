@@ -1,70 +1,70 @@
-//package com.evan.wj.controller;
-//
-//import com.evan.wj.bean.All_tag_inProject;
-//import com.evan.wj.bean.ID_week;
-//import com.evan.wj.dao.CreateGroupDAO;
-//import com.evan.wj.dao.TagDAO;
-//import com.evan.wj.receive.NewGroupReceive;
-//import com.evan.wj.receive.Person_info_update;
-//import com.evan.wj.result.Message_return;
-//import com.evan.wj.result.TempleteResult;
-//import com.evan.wj.result.Void_return;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-//import org.springframework.web.bind.annotation.*;
-//
-//import javax.persistence.criteria.CriteriaBuilder;
-//import java.util.List;
-//
-//@Controller
-//public class CreateGroupController {
-//
-//    @Autowired
-//    CreateGroupDAO createGroupDAO;
-//
+package com.evan.wj.controller;
+
+import com.evan.wj.bean.All_tag_inProject;
+import com.evan.wj.bean.ID_week;
+import com.evan.wj.dao.CreateGroupDAO;
+import com.evan.wj.dao.TagDAO;
+import com.evan.wj.receive.NewGroupReceive;
+import com.evan.wj.receive.Person_info_update;
+import com.evan.wj.result.Message_return;
+import com.evan.wj.result.TempleteResult;
+import com.evan.wj.result.Void_return;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.criteria.CriteriaBuilder;
+import java.util.List;
+
+@Controller
+public class CreateGroupController {
+
+    @Autowired
+    CreateGroupDAO createGroupDAO;
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/group/get_weeks")
+    @ResponseBody
+    public TempleteResult<ID_week> getAllGroup(@RequestParam("project_id") int project_id){
+        List<ID_week> sub1 = createGroupDAO.getAllWeek(project_id);
+        TempleteResult<ID_week> allProjectResult_t = new TempleteResult<ID_week>(20000,sub1);
+        return allProjectResult_t;
+    }
+
+
 //    @CrossOrigin
-//    @GetMapping(value = "/vue-element-admin/student/group/get_weeks")
+//    @PostMapping(value = "/vue-element-admin/student/personal/update_my_infoasasasvasvasvas")
 //    @ResponseBody
-//    public TempleteResult<ID_week> getAllGroup(@RequestParam("project_id") int project_id){
-//        List<ID_week> sub1 = createGroupDAO.getAllWeek(project_id);
-//        TempleteResult<ID_week> allProjectResult_t = new TempleteResult<ID_week>(20000,sub1);
-//        return allProjectResult_t;
+//    public Message_return update_personal_info(@RequestBody NewGroupReceive rec){
+//        int pro_id = rec.getProject_id();
+//        int my_id = rec.getSelf_id();
+//        String group_name = rec.getGroup_name();
+//        String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
+//        String pre_week = rec.getWeek();
+//        if(my_status.equals("已组队")){
+//            return new Message_return(20000,"Failed, you already in one group'");
+//        }
+//        List<String> temp = createGroupDAO.getUniqueName(group_name);
+//        if(temp.size() == 0){
+//            return new Message_return(20000,"The group name"+ group_name + "already exist'");
+//        }
+//
+//        createGroupDAO.insert_gro(group_name, (rec.getWeek()),pro_id);
+//
+//        int gro_id = createGroupDAO.getGroupId(group_name).get(0);
+//        createGroupDAO.insert_PersonGro(gro_id,my_id);
+//        createGroupDAO.update_wantPerson(my_id,pro_id);
+//        List<Integer> team_members = rec.getPerson_id();
+//        for(int p_id: team_members){
+//            createGroupDAO.insert_PersonGro(gro_id,p_id);
+//            createGroupDAO.update_wantPerson(p_id,pro_id);
+//        }
+//
+//
+//        return new Message_return(20000,"Create successlly'");
 //    }
-//
-//
-////    @CrossOrigin
-////    @PostMapping(value = "/vue-element-admin/student/personal/update_my_infoasasasvasvasvas")
-////    @ResponseBody
-////    public Message_return update_personal_info(@RequestBody NewGroupReceive rec){
-////        int pro_id = rec.getProject_id();
-////        int my_id = rec.getSelf_id();
-////        String group_name = rec.getGroup_name();
-////        String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
-////        String pre_week = rec.getWeek();
-////        if(my_status.equals("已组队")){
-////            return new Message_return(20000,"Failed, you already in one group'");
-////        }
-////        List<String> temp = createGroupDAO.getUniqueName(group_name);
-////        if(temp.size() == 0){
-////            return new Message_return(20000,"The group name"+ group_name + "already exist'");
-////        }
-////
-////        createGroupDAO.insert_gro(group_name, (rec.getWeek()),pro_id);
-////
-////        int gro_id = createGroupDAO.getGroupId(group_name).get(0);
-////        createGroupDAO.insert_PersonGro(gro_id,my_id);
-////        createGroupDAO.update_wantPerson(my_id,pro_id);
-////        List<Integer> team_members = rec.getPerson_id();
-////        for(int p_id: team_members){
-////            createGroupDAO.insert_PersonGro(gro_id,p_id);
-////            createGroupDAO.update_wantPerson(p_id,pro_id);
-////        }
-////
-////
-////        return new Message_return(20000,"Create successlly'");
-////    }
-//
-//
-//
-//
-//}
+
+
+
+
+}
