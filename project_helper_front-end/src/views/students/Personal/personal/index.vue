@@ -144,7 +144,7 @@
               <el-option
                 v-for="item in options"
                 :key="item.checkPoint_id"
-                :label="'Week '+item.week"
+                :label="item.week"
                 :value="item.checkPoint_id"
               />
             </el-select>

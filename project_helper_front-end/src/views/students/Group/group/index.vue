@@ -182,15 +182,7 @@ export default {
       project_dict: {},
       current_project: localStorage.getItem('current_project').substring(1, (localStorage.getItem('current_project').length - 1)),
       textarea: '',
-      tableData33: [
-        //   {
-        //   name: '组1',
-        //   pre_time: '周五上午',
-        //   information: '不搞基',
-        //   status: '完成组队'
-        // }
-        null
-      ],
+      tableData33: [],
       MyGroupTableData:
         null,
       // [
@@ -244,22 +236,19 @@ export default {
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.groupList = response.allGroups
         // alert(response.allGroups[0].pre_time)
-        alert("miao")
-        set_table33()
+        // alert("miao")
         this.listLoading = false
       })
       fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
         this.groupStates = response.data
-        
+        this.set_table33()
       })
-      
-      
-
     },
-    set_table33(){
-      alert(this.groupList[0].name)
+    set_table33() {
+      // alert(this.groupList[0].pre_time)
       var length = this.groupList.length
-      for(var i=0;i<length;i++)
+      // alert(length)
+      for (var i = 0; i < length; i++)
       {
         this.tableData33.push({
           name: this.groupList[i].name,
@@ -272,9 +261,18 @@ export default {
           min_people: this.groupStates[i].min_people,
           group_info: this.groupStates[i].group_info
         })
+        alert(this.tableData33)
+        alert(this.groupList[0].name)
+        alert(this.tableData33[0].pre_time)
+        alert(this.tableData33[i].status)
+        alert(this.tableData33[i].is_valid)
+        alert(this.tableData33[i].can_join)
+        alert(this.tableData33[i].people_number)
+        alert(this.tableData33[i].max_people)
+        alert(this.tableData33[i].min_people)
+        alert(this.tableData33[i].group_info)
 
       }
-      alert(this.tableData33)
     },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
