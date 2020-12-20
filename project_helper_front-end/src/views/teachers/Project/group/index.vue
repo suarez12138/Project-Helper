@@ -277,7 +277,7 @@
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
 import { fetchGroupsList } from '@/api/student/group'
-import { fetchAllStudent } from '@/api/student/group'
+import { fetchAllStudent } from '@/api/teacher/gruop'
 import { fetchTheGroup } from '@/api/student/group'
 const groupOptions = ['只看有效组', '只看无效组']
 export default {

@@ -1,11 +1,11 @@
 import request from '@/utils/request'
 
 
-export function get_AllStudents(project_id) {
+export function get_AllStudents(token, project_id) {
   return request({
     url: '/vue-element-admin/student/personal/all_students',
     method: 'get',
-    params: {project_id}
+    params: {token, project_id}
   })
 }
 

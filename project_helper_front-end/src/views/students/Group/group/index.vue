@@ -261,16 +261,16 @@ export default {
           min_people: this.groupStates[i].min_people,
           group_info: this.groupStates[i].group_info
         })
-        alert(this.tableData33)
-        alert(this.groupList[0].name)
-        alert(this.tableData33[0].pre_time)
-        alert(this.tableData33[i].status)
-        alert(this.tableData33[i].is_valid)
-        alert(this.tableData33[i].can_join)
-        alert(this.tableData33[i].people_number)
-        alert(this.tableData33[i].max_people)
-        alert(this.tableData33[i].min_people)
-        alert(this.tableData33[i].group_info)
+        // alert(this.tableData33)
+        // alert(this.groupList[0].name)
+        // alert(this.tableData33[0].pre_time)
+        // alert(this.tableData33[i].status)
+        // alert(this.tableData33[i].is_valid)
+        // alert(this.tableData33[i].can_join)
+        // alert(this.tableData33[i].people_number)
+        // alert(this.tableData33[i].max_people)
+        // alert(this.tableData33[i].min_people)
+        // alert(this.tableData33[i].group_info)
 
       }
     },

@@ -240,7 +240,7 @@ export default {
   },
   methods: {
     get_AllStudent_table() {
-      get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
+      get_AllStudents(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
       })
     },
