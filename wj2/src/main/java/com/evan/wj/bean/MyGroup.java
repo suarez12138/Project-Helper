@@ -5,21 +5,30 @@ import java.util.List;
 
 public class MyGroup {
     int id;
+    String stu_id;
     String name;
     String gender;
     List<String> tags;
 
-    public MyGroup(int id, String name, String gender) {
+    public MyGroup(int id,String stu_id, String name, String gender) {
         this.id = id;
+        this.stu_id = stu_id;
         this.name = name;
         this.gender = gender;
         this.tags = new ArrayList<String>();
     }
 
     public void addtags(String tag){
-        tags.add(tag);
+        this.tags.add(tag);
     }
 
+    public String getStu_id() {
+        return stu_id;
+    }
+
+    public void setStu_id(String stu_id) {
+        this.stu_id = stu_id;
+    }
 
     public int getId() {
         return id;
