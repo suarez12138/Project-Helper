@@ -13,7 +13,7 @@ import java.util.List;
 
 public interface GroupDAO extends JpaRepository<User,Integer> {
 
-    @Query("select new com.evan.wj.bean.AllGroup(g.id, g.group_name, g.pre_week, g.group_status) from Gro g where g.group_status <> 'Graded' and g.project =?1 order by g.id")
+    @Query("select new com.evan.wj.bean.AllGroup(g.id, g.group_name, cp.pre_week, g.group_status) from Gro g join CheckPoint cp on cp.id = g.check_point_id where g.group_status <> 'Graded' and g.project =?1 order by g.id")
     List<AllGroup> getAllGroup(int project_id);
 
 
