@@ -6,25 +6,18 @@ public class NewGroupReceive {
 
     int project_id;
     String group_name;
-    int week;
+    int check_point_id;
     String text;
     List<Integer> person_id;
     int self_id;
 
-    public NewGroupReceive(int project_id, String group_name, int week, String text, List<Integer> person_id, int self_id) {
+
+    public NewGroupReceive(int project_id, String group_name, int check_point_id, String text, List<Integer> person_id, int self_id) {
         this.project_id = project_id;
         this.group_name = group_name;
-        this.week = week;
+        this.check_point_id = check_point_id;
         this.text = text;
         this.person_id = person_id;
-        this.self_id = self_id;
-    }
-
-    public int getSelf_id() {
-        return self_id;
-    }
-
-    public void setSelf_id(int self_id) {
         this.self_id = self_id;
     }
 
@@ -44,12 +37,12 @@ public class NewGroupReceive {
         this.group_name = group_name;
     }
 
-    public int getWeek() {
-        return week;
+    public int getCheck_point_id() {
+        return check_point_id;
     }
 
-    public void setWeek(int week) {
-        this.week = week;
+    public void setCheck_point_id(int check_point_id) {
+        this.check_point_id = check_point_id;
     }
 
     public String getText() {
@@ -66,5 +59,13 @@ public class NewGroupReceive {
 
     public void setPerson_id(List<Integer> person_id) {
         this.person_id = person_id;
+    }
+
+    public int getSelf_id() {
+        return self_id;
+    }
+
+    public void setSelf_id(int self_id) {
+        this.self_id = self_id;
     }
 }
