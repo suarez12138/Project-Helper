@@ -32,7 +32,15 @@ public interface CreateGroupDAO extends JpaRepository<User,Integer> {
 
 
         @Query("select wp.gro_status from WantPerson wp where wp.person = ?1 and wp.project = ?2 ")
-        List<String> getAllWeek(int person_id, int project_id);
+        List<String> getStatus(int person_id, int project_id);
+
+
+        @Query("select g.group_name from Gro g where g.group_name = ?1 ")
+        List<String> getUniqueName(String GroupName);
+
+        @Query("select g.id from Gro g where g.group_name = ?1 ")
+        List<Integer> getGroupId(String GroupName);
+
 
 
 

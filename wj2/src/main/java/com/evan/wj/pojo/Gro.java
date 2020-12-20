@@ -14,7 +14,7 @@ public class Gro {
     int project;
     String group_name;
     String group_status;
-    String pre_week;
+    int check_point_id;
     int pre_day;
     String text;
     int index_inPreDay;
@@ -59,12 +59,12 @@ public class Gro {
         this.group_status = group_status;
     }
 
-    public String getPre_week() {
-        return pre_week;
+    public int getCheck_point_id() {
+        return check_point_id;
     }
 
-    public void setPre_week(String pre_week) {
-        this.pre_week = pre_week;
+    public void setCheck_point_id(int check_point_id) {
+        this.check_point_id = check_point_id;
     }
 
     public int getPre_day() {
