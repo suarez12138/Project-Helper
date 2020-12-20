@@ -24,7 +24,7 @@ public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "update person_group set comment = ?1 where person = ?2 and gro = ?3;", nativeQuery = true)
+    @Query(value = "update person_group set text = ?1 where person = ?2 and gro = ?3;", nativeQuery = true)
     void update_comment(String comment, int person_id, int group_id);
 
 }
