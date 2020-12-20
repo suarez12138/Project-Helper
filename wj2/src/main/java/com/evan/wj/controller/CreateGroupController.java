@@ -44,15 +44,16 @@ public class CreateGroupController {
         String my_stu_id = rec.getSelf_id();
         int my_id = upPersonInfoDAO.getID(my_stu_id).get(0).getId();
         String group_name = rec.getGroup_name();
-        String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
         int check_point = rec.getCheck_point_id();
-        if(my_status.equals("已组队")){
-            return new Message_return(20000,"Failed, you already in one group'");
-        }
-        List<String> temp = createGroupDAO.getUniqueName(group_name);
-        if(temp.size() >0){
-            return new Message_return(20000,"The group name"+ group_name + "already exist'");
-        }
+
+//        String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
+//        if(my_status.equals("已组队")){
+//            return new Message_return(20000,"Failed, you already in one group'");
+//        }
+//        List<String> temp = createGroupDAO.getUniqueName(group_name);
+//        if(temp.size() >0){
+//            return new Message_return(20000,"The group name"+ group_name + "already exist'");
+//        }
 
         createGroupDAO.insert_gro(check_point,group_name,pro_id);
 
@@ -72,8 +73,6 @@ public class CreateGroupController {
 
         return new Message_return(20000,"Create successfully'");
     }
-
-
 
 
 }
