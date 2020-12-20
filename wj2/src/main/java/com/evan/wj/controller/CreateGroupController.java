@@ -4,6 +4,7 @@ import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.ID_week;
 import com.evan.wj.dao.CreateGroupDAO;
 import com.evan.wj.dao.TagDAO;
+import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.receive.NewGroupReceive;
 import com.evan.wj.receive.Person_info_update;
 import com.evan.wj.result.Message_return;
@@ -22,6 +23,9 @@ public class CreateGroupController {
     @Autowired
     CreateGroupDAO createGroupDAO;
 
+    @Autowired
+    UpPersonInfoDAO upPersonInfoDAO;
+
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/get_weeks")
     @ResponseBody
@@ -37,7 +41,8 @@ public class CreateGroupController {
     @ResponseBody
     public Message_return update_personal_info(@RequestBody NewGroupReceive rec){
         int pro_id = rec.getProject_id();
-        int my_id = rec.getSelf_id();
+        String my_stu_id = rec.getSelf_id();
+        int my_id = upPersonInfoDAO.getID(my_stu_id).get(0).getId();
         String group_name = rec.getGroup_name();
         String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
         int check_point = rec.getCheck_point_id();

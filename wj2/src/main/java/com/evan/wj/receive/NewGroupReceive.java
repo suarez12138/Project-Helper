@@ -9,10 +9,9 @@ public class NewGroupReceive {
     int check_point_id;
     String text;
     List<Integer> person_id;
-    int self_id;
+    String self_id;
 
-
-    public NewGroupReceive(int project_id, String group_name, int check_point_id, String text, List<Integer> person_id, int self_id) {
+    public NewGroupReceive(int project_id, String group_name, int check_point_id, String text, List<Integer> person_id, String self_id) {
         this.project_id = project_id;
         this.group_name = group_name;
         this.check_point_id = check_point_id;
@@ -61,11 +60,11 @@ public class NewGroupReceive {
         this.person_id = person_id;
     }
 
-    public int getSelf_id() {
+    public String getSelf_id() {
         return self_id;
     }
 
-    public void setSelf_id(int self_id) {
+    public void setSelf_id(String self_id) {
         this.self_id = self_id;
     }
 }
