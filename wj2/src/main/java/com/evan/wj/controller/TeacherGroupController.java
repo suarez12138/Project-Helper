@@ -1,0 +1,32 @@
+package com.evan.wj.controller;
+
+import com.evan.wj.bean.All_tag_inProject;
+import com.evan.wj.dao.TeacherGroupDAO;
+import com.evan.wj.dao.UpPersonInfoDAO;
+import com.evan.wj.result.Message_return;
+import com.evan.wj.result.TempleteResult;
+import com.evan.wj.result.Void_return;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.List;
+
+@Controller
+public class TeacherGroupController {
+    @Autowired
+    TeacherGroupDAO teacherGroupDAO;
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/personal/temp")
+    @ResponseBody
+    public Message_return getAllGroup(@RequestParam("gro_id") int gro_id){
+
+        teacherGroupDAO.delete_Group_teacher(gro_id);
+        teacherGroupDAO.delete_GroupPerson_teacher(gro_id);
+        return new Message_return(20000,"The group has dropped!");
+    }
+}

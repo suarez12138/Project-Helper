@@ -6,6 +6,7 @@ import com.evan.wj.bean.GroupStatus2;
 import com.evan.wj.dao.GroupStatusDao;
 import com.evan.wj.dao.TagDAO;
 import com.evan.wj.dao.UpPersonInfoDAO;
+import com.evan.wj.result.Message_return;
 import com.evan.wj.result.TempleteResult;
 import com.evan.wj.result.Void_return;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +82,7 @@ public class GroupStatusController {
     @CrossOrigin
     @PostMapping(value = "/vue-element-admin/student/group/drop_group")
     @ResponseBody
-    public Void_return quitTheGroup(@RequestParam("token") String token,@RequestParam("gro_id") int gro_id) {
+    public Message_return quitTheGroup(@RequestParam("token") String token, @RequestParam("gro_id") int gro_id) {
 
         long people_number = groupStatusDao.getNumberInGroup(gro_id).get(0);
         int person_id = upPersonInfoDAO.getID(token).get(0).getId();
@@ -91,7 +92,7 @@ public class GroupStatusController {
         }else {
             groupStatusDao.delete_PersonGroup(person_id,gro_id);
         }
-        return new Void_return(20000);
+        return new Message_return(20000,"You have quit the Group!");
     }
 
 
