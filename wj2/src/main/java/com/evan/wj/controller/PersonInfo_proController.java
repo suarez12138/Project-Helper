@@ -57,7 +57,6 @@ public class PersonInfo_proController {
 
         String cross = personInfoDAO.get_CrossClass(project_id).get(0);
         List<PersonalInfo_pro> sub1 = null;
-        System.out.println(cross);
         if(cross.equals("true")){
             sub1 = personInfoDAO.getperson(project_id);
 
