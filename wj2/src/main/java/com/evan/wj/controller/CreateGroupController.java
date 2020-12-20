@@ -33,7 +33,7 @@ public class CreateGroupController {
 
 
     @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/student/personal/update_my_infoasasasvasvasvas")
+    @PostMapping(value = "/vue-element-admin/student/group/create_group")
     @ResponseBody
     public Message_return update_personal_info(@RequestBody NewGroupReceive rec){
         int pro_id = rec.getProject_id();
@@ -55,6 +55,7 @@ public class CreateGroupController {
 
         createGroupDAO.insert_PersonGro(gro_id,my_id);
         createGroupDAO.update_wantPerson(my_id,pro_id);
+
         List<Integer> team_members = rec.getPerson_id();
         for(int p_id: team_members){
             if (p_id!=my_id){
