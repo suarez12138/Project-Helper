@@ -51,10 +51,6 @@ public interface PersonInfoDAO extends JpaRepository<User,Integer> {
 
 /////////////////////////////////////
 
-
-
-
-
     @Query("select new com.evan.wj.bean.MyGroup_idTag(p.id,t.tag) from People p join PeopleTag pg on p.id = pg.person join Tag t on t.id = pg.tag where t.project =?1")
     List<MyGroup_idTag> gettags3(int project_id);
 
