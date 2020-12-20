@@ -53,10 +53,11 @@ public class PersonInfo_proController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/personal/all_students")
     @ResponseBody
-    public TempleteResult<PersonalInfo_pro> getAllGroup_student(@RequestParam("token") String token,@RequestParam("project_id") int project_id){
+    public TempleteResult<PersonalInfo_pro> getAllGroup_student(@RequestParam("token") String token, @RequestParam("project_id") int project_id){
 
         String cross = personInfoDAO.get_CrossClass(project_id).get(0);
         List<PersonalInfo_pro> sub1 = null;
+        System.out.println(cross);
         if(cross.equals("true")){
             sub1 = personInfoDAO.getperson(project_id);
 
