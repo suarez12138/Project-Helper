@@ -271,7 +271,12 @@ export default {
       this.$refs[formName].resetFields()
     },
     deleteProject() {
-
+      console.log('ceshi')
+      // 先处理后端
+      this.$message({
+        message: '删除成功！',
+        type: 'success'
+      })
     },
     handleClose(tag) {
       this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)

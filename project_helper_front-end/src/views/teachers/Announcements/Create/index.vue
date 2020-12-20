@@ -20,7 +20,7 @@
         </el-row>
         <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Send to:">
           <el-select
-            v-model="postForm.content_short"
+            v-model="postForm.to"
             multiple
             placeholder="Tag choices"
             style="float:left; width: 20%;"
@@ -34,7 +34,7 @@
           </el-select>
           <div style="float: left;margin-left: 20px;margin-right: 20px;"> or</div>
           <el-input
-            v-model="postForm.content_short"
+            v-model="postForm.to"
             :rows="1"
             type="textarea"
             class="article-textarea"
@@ -82,7 +82,7 @@ import MarkdownEditor from '@/components/MarkdownEditor'
 // import Upload from '@/components/Upload/SingleImage3'
 // import MDinput from '@/components/MDinput'
 // import Sticky from '@/components/Sticky' // 粘性header组件
-import { validURL } from '@/utils/validate'
+// import { validURL } from '@/utils/validate'
 // import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
 // import { Submenu } from 'element-ui'
@@ -94,9 +94,7 @@ const defaultForm = {
   status: 'draft',
   title: '', // 文章题目
   content: '', // 文章内容
-  content_short: '', // 文章摘要
-  source_uri: '', // 文章外链
-  image_uri: '', // 文章图片
+  to: '',
   display_time: undefined, // 前台展示时间
   id: undefined,
   platforms: ['a-platform'],
@@ -126,21 +124,21 @@ export default {
         callback()
       }
     }
-    const validateSourceUri = (rule, value, callback) => {
-      if (value) {
-        if (validURL(value)) {
-          callback()
-        } else {
-          this.$message({
-            message: '外链url填写不正确',
-            type: 'error'
-          })
-          callback(new Error('外链url填写不正确'))
-        }
-      } else {
-        callback()
-      }
-    }
+    // const validateSourceUri = (rule, value, callback) => {
+    //   if (value) {
+    //     if (validURL(value)) {
+    //       callback()
+    //     } else {
+    //       this.$message({
+    //         message: '外链url填写不正确',
+    //         type: 'error'
+    //       })
+    //       callback(new Error('外链url填写不正确'))
+    //     }
+    //   } else {
+    //     callback()
+    //   }
+    // }
     return {
       postForm: Object.assign({}, defaultForm),
       html: '',
@@ -153,10 +151,8 @@ export default {
         'es': 'es_ES'
       },
       rules: {
-        image_uri: [{ validator: validateRequire }],
         title: [{ validator: validateRequire }],
-        content: [{ validator: validateRequire }],
-        source_uri: [{ validator: validateSourceUri, trigger: 'blur' }]
+        content: [{ validator: validateRequire }]
       },
       tempRoute: {},
       fileList: [{
@@ -168,23 +164,23 @@ export default {
       }],
       options2: [
         {
-          value: 'all',
+          value: 'All Students',
           label: 'All Students'
+        // }, {
+        //   value: 'finished_groups',
+        //   label: 'Finished Groups'
+        // }, {
+        //   value: 'unfinished_group',
+        //   label: 'Unfinished Group'
+        // }, {
+        //   value: 'valid_group',
+        //   label: 'Valid Group'
         }, {
-          value: 'finished_groups',
-          label: 'Finished Groups'
+          value: 'Invalid Group',
+          label: 'Invalid Group'
         }, {
-          value: 'unfinished_group',
-          label: 'Unfinished Group'
-        }, {
-          value: 'valid_group',
-          label: 'Valid Group'
-        }, {
-          value: 'unvalid_group',
-          label: 'Unvalid Group'
-        }, {
-          value: 'students_not_in_group',
-          label: 'Students not in Group'
+          value: 'Students Ungrouped',
+          label: 'Students Ungrouped'
         }
       ]
     }
@@ -194,7 +190,7 @@ export default {
       return this.languageTypeList['en']
     },
     contentShortLength() {
-      return this.postForm.content_short.length
+      return this.postForm.to.length
     },
     displayTime: {
       // set and get is useful when the data
@@ -216,13 +212,12 @@ export default {
     submit() {
       this.html = this.$refs.markdownEditor.getHtml()
       console.log(this.html)
-      alert(this.postForm.content_short)
+      alert(this.postForm.to)
       // console.log(this.postForm.content)
       post_announcement_teacher({
         title: this.postForm.title,
-        send_to: this.postForm.content_short,
-        content: this.postForm.content
-
+        content: this.postForm.content,
+        send_to: this.postForm.to
       }).then(response => {
 
       })
