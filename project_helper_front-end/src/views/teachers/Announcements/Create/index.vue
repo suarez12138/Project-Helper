@@ -220,7 +220,8 @@ export default {
       // console.log(this.postForm.content)
       post_announcement_teacher({
         title: this.postForm.title,
-        send_to: this.postForm.content_short
+        send_to: this.postForm.content_short,
+        content: this.postForm.content
 
       }).then(response => {
 

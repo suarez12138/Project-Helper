@@ -88,20 +88,20 @@
         />
         <el-table-column
           align="center"
-          prop="information"
+          prop="group_info"
           label="小组信息"
           sortable
         />
         <el-table-column
           align="center"
-          prop="population"
+          prop="people_number"
           label="小组人数"
           sortable
           width="110"
         />
         <el-table-column
           align="center"
-          prop="valid"
+          prop="is_valid"
           label="是否有效"
           :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
           :filter-method="filtervalid"
@@ -188,19 +188,6 @@ export default {
         //   pre_time: '周五上午',
         //   information: '不搞基',
         //   status: '完成组队'
-        // }, {
-        //   name: '组13',
-        //   pre_time: '周四下午',
-        //   information: '不划水',
-        //   status: '未完成组队'
-        // }, {
-        //   name: '组32',
-        //   pre_time: '周五上午',
-        //   status: '完成组队'
-        // }, {
-        //   name: '组3',
-        //   pre_time: '周四下午',
-        //   status: '未完成组队'
         // }
         null
       ],
@@ -215,6 +202,8 @@ export default {
       // ],
       tableData_of_OneGroup:
         null,
+      groupList: null,
+      groupStates: null,
       // [
       //   {
       //   name: '张小虎',
@@ -246,18 +235,46 @@ export default {
     }
   },
   created() {
-    this.getMyGroup()
+    // this.getMyGroup()
     this.getAllGroups()
   },
   methods: {
     getAllGroups() {
       this.listLoading = true
-      fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
-      })
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
-        this.tableData33 = response.allGroups
+        this.groupList = response.allGroups
+        // alert(response.allGroups[0].pre_time)
+        alert("miao")
+        set_table33()
         this.listLoading = false
       })
+      fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
+        this.groupStates = response.data
+        
+      })
+      
+      
+
+    },
+    set_table33(){
+      alert(this.groupList[0].name)
+      var length = this.groupList.length
+      for(var i=0;i<length;i++)
+      {
+        this.tableData33.push({
+          name: this.groupList[i].name,
+          pre_time: this.groupList[i].pre_time,
+          status: this.groupList[i].status,
+          is_valid: this.groupStates[i].is_valid,
+          can_join: this.groupStates[i].can_join,
+          people_number: this.groupStates[i].people_number,
+          max_people: this.groupStates[i].max_people,
+          min_people: this.groupStates[i].min_people,
+          group_info: this.groupStates[i].group_info
+        })
+
+      }
+      alert(this.tableData33)
     },
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true

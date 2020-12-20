@@ -8,10 +8,10 @@ export function get_joinableProject(token) {
     })
   }
 
-  export function join_project(data) {
+  export function join_project(token, project_id) {
     return request({
       url: '/vue-element-admin/student/join/join_project',
       method: 'post',
-      data
+      params: {token, project_id}
     })
   }

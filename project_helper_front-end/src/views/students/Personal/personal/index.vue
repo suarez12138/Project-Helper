@@ -92,10 +92,10 @@
           />
           <el-table-column
             align="center"
-            prop="dormitory"
+            prop="dorm"
             label="宿舍"
             sortable
-            width="100"
+            width="120"
           />
           <el-table-column
             align="center"
@@ -139,14 +139,15 @@
           <el-form-item label="小组名称" :label-width="formLabelWidth">
             <el-input v-model="createGroupForm.name" autocomplete="off" />
           </el-form-item>
-          <!--        <el-form-item label="意向人数" :label-width="formLabelWidth">-->
-          <!--          <el-select v-model="form.population" placeholder="请选择意向人数">-->
-          <!--            <el-option label="区域一" value="shanghai"></el-option>-->
-          <!--            <el-option label="区域二" value="beijing"></el-option>-->
-          <!--          </el-select>-->
-          <!--        </el-form-item>-->
           <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
-            <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" />
+            <el-select v-model="createGroupForm.pre_week" placeholder="预期答辩时间" >
+              <el-option
+                v-for="item in options"
+                :key="item.checkPoint_id"
+                :label="'Week '+item.week"
+                :value="item.checkPoint_id"
+              />
+            </el-select>
           </el-form-item>
           <el-form-item label="小组信息" :label-width="formLabelWidth">
             <el-input
@@ -171,6 +172,8 @@
 import { get_AllStudents } from '@/api/student/personal'
 import { update_MyInformation } from '@/api/student/personal'
 import { get_AllTags } from '@/api/student/personal'
+import { get_availableWeek } from '@/api/student/creatGroup'
+import { create_group } from '@/api/student/creatGroup'
 import { getToken } from '@/utils/auth'
 
 export default {
@@ -181,7 +184,7 @@ export default {
       hei: window.innerHeight * 0.75,
       createGroupForm: {
         name: '',
-        population: '',
+        pre_week: '',
         information: ''
       },
       tableData22:
@@ -193,22 +196,6 @@ export default {
       //   skill: 'SPRING BOOT',
       //   hope: '不搞基',
       //   status: '已组队'
-      // }, {
-      //   select: false,
-      //   name: '王小虎',
-      //   gender: '女',
-      //   lab: 3,
-      //   skill: 'VUE',
-      //   hope: '不划水',
-      //   status: '未组队'
-      // }, {
-      //   select: true,
-      //   name: '王小虎',
-      //   status: '已组队'
-      // }, {
-      //   select: false,
-      //   name: '王小虎',
-      //   status: '未组队'
       // }]
 
       form: {
@@ -221,11 +208,15 @@ export default {
       //   { tag_id: 2, tag: '后端' },
       //   { tag_id: 3, tag: 'miaomiao叫' }
       // ]
-
+      grouping_members: [],
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
-      search: ''
+      search: '',
+      options: [{
+        value: 'Week 1',
+        label: 'Week 1'
+      }]
     }
   },
   computed: {
@@ -245,6 +236,7 @@ export default {
   created() {
     this.get_AllStudent_table()
     this.get_AllTags_table()
+    this.get_preWeek()
   },
   methods: {
     get_AllStudent_table() {
@@ -257,6 +249,24 @@ export default {
         this.skill_form = response.data
       })
       // alert(this.skill_form)
+    },
+    get_preWeek() {
+      get_availableWeek(localStorage.getItem('current_project_id')).then(response => {
+        this.options = response.data
+      })
+      // alert(this.options[0].week)
+    },
+    submitForm(ruleForm, ruleForm2) {
+      create_group({
+        project_id: localStorage.getItem('current_project_id'),
+        group_name: this.createGroupForm.name,
+        check_point_id: this.createGroupForm.pre_week,
+        text: this.createGroupForm.information,
+        person_id: this.grouping_members,
+        self_id: getToken()
+      }).then(response => {
+        
+      })
     },
     update_MyInformation_table() {
       alert(this.form.skill)
@@ -314,11 +324,16 @@ export default {
     },
     handleSelectionChange(val) {
       this.multipleSelection = val
+      // alert(this.multipleSelection[0].id)
       console.log(this.multipleSelection)
-    },
-    submitForm(ruleForm, ruleForm2) {
-      this.dialogFormVisible = false
+      this.grouping_members = []
+      var length = this.multipleSelection.length
+      for(var i=0; i < length; i++){
+        this.grouping_members.push(this.multipleSelection[i].id)
+
+      }
     }
+    
     // 重置table高度
     // resetHeight() {
     //   return new Promise((resolve, reject) => {

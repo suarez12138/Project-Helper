@@ -17,7 +17,7 @@
       >
         <el-table-column
           align="center"
-          prop="SID"
+          prop="stu_id"
           label="学号"
           sortable
           width="100"
@@ -40,13 +40,13 @@
         />
         <el-table-column
           align="center"
-          prop="skill"
+          prop="tags"
           label="技能"
           sortable
         >
           <template slot-scope="scope">
             <!--eslint-disable-next-line-->
-            <el-tag v-for="item in scope.row.skill" effect="dark">{{ item }}</el-tag>
+            <el-tag v-for="item in scope.row.tags" effect="dark">{{ item }}</el-tag>
           </template>
         </el-table-column>
       </el-table>

@@ -43,7 +43,7 @@
 <script>
 import checkPermission from '@/utils/permission'
 import { get_joinableProject } from '@/api/student/join'
-import join_project from '@/api/student/join'
+import { join_project } from '@/api/student/join'
 import { getToken } from '@/utils/auth'
 
 export default {
@@ -77,13 +77,14 @@ export default {
       })
     },
     handleClick(row) {
-      alert(row.project_id)
-      join_project({
-        stu_id:       getToken(),
-        project_id:   row.project_id
-      }).then(response => {
-
+      // alert(row.project_id)
+      join_project(
+        getToken(),
+        row.project_id
+      ).then(response => {
       })
+      alert("Join Success!")
+      location.reload(true)
     },
     checkPermission,
     resetDateFilter() {
