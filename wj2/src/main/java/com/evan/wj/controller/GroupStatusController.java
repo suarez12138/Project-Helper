@@ -5,13 +5,12 @@ import com.evan.wj.bean.GroupStatus;
 import com.evan.wj.bean.GroupStatus2;
 import com.evan.wj.dao.GroupStatusDao;
 import com.evan.wj.dao.TagDAO;
+import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.result.TempleteResult;
+import com.evan.wj.result.Void_return;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,6 +20,9 @@ public class GroupStatusController {
 
     @Autowired
     GroupStatusDao groupStatusDao;
+
+    @Autowired
+    UpPersonInfoDAO upPersonInfoDAO;
 
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/group_list_state")
@@ -56,4 +58,44 @@ public class GroupStatusController {
         TempleteResult<GroupStatus2> allProjectResult_t = new TempleteResult<GroupStatus2>(20000,sub1);
         return allProjectResult_t;
     }
+
+
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/student/group/update_group_state")
+    @ResponseBody
+    public Void_return UpdateMyGroupStatus2(@RequestParam("gro_id") int gro_id,
+                                            @RequestParam("gro_status") String status,
+                                            @RequestParam("text") String text,
+                                            @RequestParam("check_point_id") int cp,
+                                            @RequestParam("gro_name") String gro_name)
+    {
+        groupStatusDao.update_checkPoint(cp,gro_id);
+        groupStatusDao.update_GroupName(gro_name,gro_id);
+        groupStatusDao.update_GroupStatus(status,gro_id);
+        groupStatusDao.update_text(text,gro_id);
+        return new Void_return(20000);
+    }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/student/group/drop_group")
+    @ResponseBody
+    public Void_return quitTheGroup(@RequestParam("token") String token,@RequestParam("gro_id") int gro_id) {
+
+        long people_number = groupStatusDao.getNumberInGroup(gro_id).get(0);
+        int person_id = upPersonInfoDAO.getID(token).get(0).getId();
+        if(people_number == 1){
+            groupStatusDao.delete_PersonGroup(person_id,gro_id);
+            groupStatusDao.delete_group(gro_id);
+        }else {
+            groupStatusDao.delete_PersonGroup(person_id,gro_id);
+        }
+
+
+        return new Void_return(20000);
+    }
+
+
+
 }
