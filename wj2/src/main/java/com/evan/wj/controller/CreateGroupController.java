@@ -52,19 +52,12 @@ public class CreateGroupController {
         }
         List<String> temp = createGroupDAO.getUniqueName(group_name);
         if(temp.size() >0){
-            return new Message_return(20000,"The group name"+ group_name + "already exist'");
+            return new Message_return(20000,"The group name '"+ group_name + "' already exist");
         }
-
         createGroupDAO.insert_gro(check_point,group_name,pro_id);
-
         int gro_id = createGroupDAO.getGroupId(group_name).get(0);
-
         createGroupDAO.insert_PersonGro(gro_id,my_id);
-
-
-
         createGroupDAO.update_wantPerson(my_id,pro_id);
-
         List<Integer> team_members = rec.getPerson_id();
         for(int p_id: team_members){
             if (p_id!=my_id){
@@ -72,10 +65,6 @@ public class CreateGroupController {
                 createGroupDAO.update_wantPerson(p_id,pro_id);
             }
         }
-
-
         return new Message_return(20000,"Create successfully'");
     }
-
-
 }

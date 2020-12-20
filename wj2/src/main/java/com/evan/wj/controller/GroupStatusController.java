@@ -2,6 +2,7 @@ package com.evan.wj.controller;
 
 import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.GroupStatus;
+import com.evan.wj.bean.GroupStatus2;
 import com.evan.wj.dao.GroupStatusDao;
 import com.evan.wj.dao.TagDAO;
 import com.evan.wj.result.TempleteResult;
@@ -41,6 +42,18 @@ public class GroupStatusController {
             }
         }
         TempleteResult<GroupStatus> allProjectResult_t = new TempleteResult<GroupStatus>(20000,sub1);
+        return allProjectResult_t;
+    }
+
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/group/my_group_state")
+    @ResponseBody
+    public TempleteResult<GroupStatus2> getMyGroupStatus(@RequestParam("token") String token,@RequestParam("project_id") int project_id){
+
+        List<GroupStatus2> sub1 = groupStatusDao.getStatus2(project_id,token);
+
+        TempleteResult<GroupStatus2> allProjectResult_t = new TempleteResult<GroupStatus2>(20000,sub1);
         return allProjectResult_t;
     }
 }
