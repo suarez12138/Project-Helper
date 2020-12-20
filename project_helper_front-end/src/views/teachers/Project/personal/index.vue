@@ -243,6 +243,10 @@ export default {
       } else {
         // 先post改后端，最后改前端
         row.status = '未组队'
+        this.$message({
+          message: '移出成功！',
+          type: 'success'
+        })
       }
     },
     resetDateFilter() {

@@ -22,7 +22,7 @@ const announcementsRouter = {
       path: 'Content',
       component: () => import('@/views/teachers/Announcements/special_one/index'),
       name: 'Content',
-      meta: { title: 'Content', roles: ['teacher', 'student'], icon: 'el-icon-document' }
+      meta: { title: 'Announcement', roles: ['teacher', 'student'], icon: 'el-icon-document' }
     },
     {
       path: 'create',

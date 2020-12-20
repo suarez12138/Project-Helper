@@ -140,7 +140,7 @@
             <el-input v-model="createGroupForm.name" autocomplete="off" />
           </el-form-item>
           <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
-            <el-select v-model="createGroupForm.pre_week" placeholder="预期答辩时间" >
+            <el-select v-model="createGroupForm.pre_week" placeholder="预期答辩时间">
               <el-option
                 v-for="item in options"
                 :key="item.checkPoint_id"
@@ -240,7 +240,7 @@ export default {
   },
   methods: {
     get_AllStudent_table() {
-      get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
+      get_AllStudents(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
       })
     },
@@ -265,12 +265,17 @@ export default {
         person_id: this.grouping_members,
         self_id: getToken()
       }).then(response => {
-        
+
       })
+      this.$message({
+        message: '组队成功！',
+        type: 'success'
+      })
+      this.dialogFormVisible = false
     },
     update_MyInformation_table() {
-      alert(this.form.skill)
-      alert(this.form.expect)
+      // alert(this.form.skill)
+      // alert(this.form.expect)
       update_MyInformation({
         token: getToken(),
         project_id: localStorage.getItem('current_project_id'),
@@ -279,6 +284,10 @@ export default {
       }).then(response => {
         // update_MyInformation({project_id: "miao", skill: 'sdsd', expect: "miao"}).then(response => {
         // alert("miao")
+      })
+      this.$message({
+        message: '设置成功！',
+        type: 'success'
       })
     },
     resetDateFilter() {
@@ -328,12 +337,11 @@ export default {
       console.log(this.multipleSelection)
       this.grouping_members = []
       var length = this.multipleSelection.length
-      for(var i=0; i < length; i++){
+      for (var i = 0; i < length; i++) {
         this.grouping_members.push(this.multipleSelection[i].id)
-
       }
     }
-    
+
     // 重置table高度
     // resetHeight() {
     //   return new Promise((resolve, reject) => {

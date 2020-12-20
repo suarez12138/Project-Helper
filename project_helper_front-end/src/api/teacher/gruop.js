@@ -30,7 +30,7 @@ export function fetchTheGroup(group_name) {
 
 export function fetchAllStudent(project_id, group_name) {
   return request({
-    url: '/vue-element-admin/teacher/group/all_student',
+    url: '/vue-element-admin/teacher/group/all_students',
     method: 'get',
     params: {project_id, group_name}
   })

@@ -122,13 +122,13 @@
           label="状态"
           sortable
           width="120"
-          :filters="[{ text: '完成组队', value: '完成组队' }, { text: '未完成组队', value: '未完成组队' }]"
+          :filters="[{ text: '不可加入', value: '不可加入' }, { text: '可加入', value: '可加入' }]"
           :filter-method="filterstatus"
           filter-placement="bottom-end"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.status === '未完成组队' ? 'primary' : 'success'"
+              :type="scope.row.status === '可加入' ? 'primary' : 'success'"
               disable-transitions
             >{{ scope.row.status }}
             </el-tag>
@@ -248,8 +248,7 @@ export default {
       // alert(this.groupList[0].pre_time)
       var length = this.groupList.length
       // alert(length)
-      for (var i = 0; i < length; i++)
-      {
+      for (var i = 0; i < length; i++) {
         this.tableData33.push({
           name: this.groupList[i].name,
           pre_time: this.groupList[i].pre_time,
@@ -261,17 +260,16 @@ export default {
           min_people: this.groupStates[i].min_people,
           group_info: this.groupStates[i].group_info
         })
-        alert(this.tableData33)
-        alert(this.groupList[0].name)
-        alert(this.tableData33[0].pre_time)
-        alert(this.tableData33[i].status)
-        alert(this.tableData33[i].is_valid)
-        alert(this.tableData33[i].can_join)
-        alert(this.tableData33[i].people_number)
-        alert(this.tableData33[i].max_people)
-        alert(this.tableData33[i].min_people)
-        alert(this.tableData33[i].group_info)
-
+        // alert(this.tableData33)
+        // alert(this.groupList[0].name)
+        // alert(this.tableData33[0].pre_time)
+        // alert(this.tableData33[i].status)
+        // alert(this.tableData33[i].is_valid)
+        // alert(this.tableData33[i].can_join)
+        // alert(this.tableData33[i].people_number)
+        // alert(this.tableData33[i].max_people)
+        // alert(this.tableData33[i].min_people)
+        // alert(this.tableData33[i].group_info)
       }
     },
     getMyGroup() { // 应该传一些学号什么的回去
@@ -320,14 +318,14 @@ export default {
       return row.valid === value
     },
     open() {
-      this.$alert('此组已完成组队，尝试加入其他组吧！', '组队失败', {
+      this.$alert('此组已不可加入，尝试加入其他组吧！', '组队失败', {
         confirmButtonText: '确定'
       })
     },
     quit() {
     },
     handleClick(row) {
-      if (row.status === '完成组队') {
+      if (row.status === '不可加入') {
         this.open()
       }
     },

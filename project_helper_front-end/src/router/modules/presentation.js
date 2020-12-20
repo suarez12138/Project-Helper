@@ -16,12 +16,12 @@ const teacher_presentationRouter = {
       path: 'presentation',
       component: () => import('@/views/teachers/Presentation/presentation/index'), // Parent router-view
       name: 'P1',
-      meta: { title: 'P1', icon: 'el-icon-mic', roles: ['teacher'] }
+      meta: { title: 'Setting', icon: 'el-icon-mic', roles: ['teacher'] }
     }, {
       path: 'presentation2',
       component: () => import('@/views/teachers/Presentation/p2/index'), // Parent router-view
       name: 'P2',
-      meta: { title: 'P2', icon: 'el-icon-mic' }
+      meta: { title: 'Pre Registration', icon: 'el-icon-mic' }
     }
   ]
 }

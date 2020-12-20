@@ -277,7 +277,7 @@
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
 import { fetchGroupsList } from '@/api/student/group'
-import { fetchAllStudent } from '@/api/student/group'
+import { fetchAllStudent } from '@/api/teacher/gruop'
 import { fetchTheGroup } from '@/api/student/group'
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
@@ -403,6 +403,10 @@ export default {
     },
     break_up(row, index) {
       this.tableData33.splice(index, 1)
+      this.$message({
+        message: '成功解散此组！',
+        type: 'success'
+      })
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新

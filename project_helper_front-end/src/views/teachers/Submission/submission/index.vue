@@ -59,10 +59,12 @@
   <div v-else-if="checkPermission(['teacher'])" class="border_p">
     <div class="personal_title"> Submission</div>
     <div>
-      <el-button type="text" style="float: left;margin-left: 20px;" size="large" @click="handleClick()"><i
-        class="el-icon-circle-plus"
-      /> 新建
-      </el-button>
+      <a href="/#/submission/submission3">
+        <el-button type="text" style="float: left;margin-left: 20px;" size="large"><i
+          class="el-icon-circle-plus"
+        /> 新建
+        </el-button>
+      </a>
       <div class="search-Box" style=" margin-right: 30px;width: 30%; float: right">
         <el-input v-model="search" placeholder="请输入关键字" class="search" />
         <svg-icon icon-class="search" class="search_icon" />
@@ -129,7 +131,7 @@
             <el-button
               type="danger"
               size="small"
-              @click.native.prevent="delete_submission(scope.row)"
+              @click.native.prevent="delete_submission(scope.row,scope.$index)"
             > 删除
             </el-button>
           </template>
@@ -208,10 +210,16 @@ export default {
       console.log(this.multipleSelection)
     },
     edit_submission(row) {
-
+      // 这里需要用一个submissionID之类的信息去后端拿
+      this.$router.push({ path: '/submission/submission3' })
     },
-    delete_submission(row) {
-
+    delete_submission(row, index) {
+      // 先删数据库的再前端显示
+      this.tableData22.splice(index, 1)
+      this.$message({
+        message: '成功删除此submission！',
+        type: 'success'
+      })
     }
   }
 }

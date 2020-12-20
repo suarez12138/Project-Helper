@@ -159,16 +159,26 @@ export default {
       }) 
     },
     handleChange(value) {
-      
+      if(value == true){
+        this.myGroupForm.group_status = '可加入'
+      }
+      else if(value == false){
+        this.myGroupForm.group_status = '不可加入'
+      }
     },
     submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
-        } else {
-          console.log('error submit!!')
-          return false
-        }
+      if(this.myGroupForm.pre_week[0] != 'W'){
+        this.myGroupForm.check_point_id = this.myGroupForm.pre_week
+      }
+      alert(this.myGroupForm.check_point_id)
+      updateMyGroup_state(
+        this.myGroupForm.gro_id,
+        this.myGroupForm.group_status,
+        this.myGroupForm.text,
+        this.myGroupForm.check_point_id,
+        this.text_content
+      ).then(response => {
+        alert("Update Success!")
       })
     },
     hideTooltip: function() {
