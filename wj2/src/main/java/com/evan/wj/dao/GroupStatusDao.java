@@ -17,7 +17,7 @@ public interface GroupStatusDao extends JpaRepository<User,Integer> {
 
 
 
-        @Query("select new com.evan.wj.bean.GroupStatus2(g.id,g.group_name ,cp.pre_week, g.group_status, g.text) from PersonGroup pg join People p on p.id = pg.person join Gro g on g.id = pg.gro join CheckPoint cp on g.check_point_id = cp.id where g.project = ?1 and p.stu_id = ?2")
+        @Query("select new com.evan.wj.bean.GroupStatus2(g.id,g.check_point_id ,g.group_name ,cp.pre_week, g.group_status, g.text) from PersonGroup pg join People p on p.id = pg.person join Gro g on g.id = pg.gro join CheckPoint cp on g.check_point_id = cp.id where g.project = ?1 and p.stu_id = ?2")
         List<GroupStatus2> getStatus2(int project_id, String token);
 
         @Transactional

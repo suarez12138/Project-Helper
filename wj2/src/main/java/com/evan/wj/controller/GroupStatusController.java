@@ -91,8 +91,6 @@ public class GroupStatusController {
         }else {
             groupStatusDao.delete_PersonGroup(person_id,gro_id);
         }
-
-
         return new Void_return(20000);
     }
 

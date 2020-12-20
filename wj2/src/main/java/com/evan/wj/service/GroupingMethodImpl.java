@@ -36,14 +36,23 @@ public class GroupingMethodImpl {
 
         int[][] A = new int[501][501];
 
-        int gro_id = 0;
 
+        int last_gro_id = 0;
+        int gro_id = 0;
+        int count = 0;
         for(GG_AllGroup g1: Groups1){
             gro_id = g1.getGroup_id();
+            if(gro_id != last_gro_id){
+                // 删除小组
+                groupMethodDAO.deleteFromGro(gro_id);
+                groupMethodDAO.deleteFromPersonGroup(gro_id);
+                count = 0;
+            }
+            count++;
+            last_gro_id = gro_id;
 
-
-            groupMethodDAO.deleteFromGro(gro_id);
-            groupMethodDAO.deleteFromPersonGroup(gro_id);
+            // 已组队 =》未组队
+            groupMethodDAO.update_wantPerson(project_id,g1.getPerson_id());
             candidates.add(new GG_AllPeopleNotGrouped(g1.getPerson_id(),g1.getClass_id(),g1.getDormitory(),g1.getTag()));
         }
 

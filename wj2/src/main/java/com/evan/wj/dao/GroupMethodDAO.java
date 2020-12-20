@@ -29,7 +29,7 @@ public interface GroupMethodDAO extends JpaRepository<User,Integer> {
             "where g.project = ?1 and g.id in (select g.id from Gro g join PersonGroup pg on g.id = pg.gro " +
             "where g.project = ?1 group by g.id having count(g.id) < ?2) and pc.class1 in (" +
             "select c.id from Class c join Project p on c.course = p.course where p.id = ?1)" +
-            "and (pt.tag in (select t.id from Tag t where t.project = ?1 ) or pt.tag is null)")
+            "and (pt.tag in (select t.id from Tag t where t.project = ?1 ) or pt.tag is null) order by g.id")
     List<GG_AllGroup> getAllGroupWithLessPeople(int project_id, int min_people);
 
     @Query("select new com.evan.wj.bean.GG_AllGroup(g.id, pg.person, pc.class1, p.domitory, pt.tag) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person " +
@@ -39,7 +39,7 @@ public interface GroupMethodDAO extends JpaRepository<User,Integer> {
             "having count(g.id) >= ?2) and count(g.id) <?3 " +
             "and pc.class1 in (" +
             "select c.id from Class c join Project p on c.course = p.course where p.id = ?1)" +
-            "and (pt.tag in (select t.id from Tag t where t.project = ?1 ) or pt.tag is null)")
+            "and (pt.tag in (select t.id from Tag t where t.project = ?1 ) or pt.tag is null) order by g.id")
     List<GG_AllGroup> getAllGroupWithMinPeople(int project_id, int min_people, int max_perople);
 
 
@@ -54,8 +54,13 @@ public interface GroupMethodDAO extends JpaRepository<User,Integer> {
     @Transactional
     @Modifying
     @Query(value = "delete from person_group pg where pg.gro = ?1;", nativeQuery = true)
-    void deleteFromPersonGroup(int goup_id);
+    void deleteFromPersonGroup(int group_id);
 
+
+    @Transactional
+    @Modifying
+    @Query(value = "update want_person set gro_status = '未组队' where project = ?1 and person = ?2", nativeQuery = true)
+    void update_wantPerson(int project_id, int person_id);
 
 
 
