@@ -76,13 +76,13 @@ public class GroupingMethod2 {
         int index_p = 0;
         int new_groID = 0;
         Set<Integer> tagSet = new TreeSet<>();
-        Set<Integer> classTag = new TreeSet<>();
-        Set<String> dormTag = new TreeSet<>();
+        Set<Integer> classSet = new TreeSet<>();
+        Set<String> dormSet = new TreeSet<>();
 
         while (Peoples2.size() >= Min){
             tagSet.clear();
-            classTag.clear();
-            dormTag.clear();
+            classSet.clear();
+            dormSet.clear();
             index_p = 0;
             score = 0;
             max_score = -100000000;
@@ -94,29 +94,29 @@ public class GroupingMethod2 {
             groupMethod2DAO.insert_PersonGro(new_groID,temp_p.person_id);
             groupMethod2DAO.update_single_yizudui(temp_p.person_id,project_id);
             tagSet.addAll(temp_p.tagSet);
-            classTag.add(temp_p.class1);
-            dormTag.add(temp_p.dormitory);
+            classSet.add(temp_p.class1);
+            dormSet.add(temp_p.dormitory);
 
             for(int i=0;i<Min-1;i++){
                 for (int j=0;j<Peoples2.size();j++) {
                     Set<Integer> tagSet2 = new TreeSet<>(tagSet);
-                    Set<Integer> classTag2 = new TreeSet<>(classTag);
-                    Set<String> dormTag2 = new TreeSet<>(dormTag);
+                    Set<Integer> classSet2 = new TreeSet<>(classSet);
+                    Set<String> dormSet2 = new TreeSet<>(dormSet);
                     temp_p = Peoples2.get(j);
                     tagSet2.addAll(temp_p.tagSet);
-                    classTag2.add(temp_p.class1);
-                    dormTag2.add(temp_p.dormitory);
-                    score = (tagSet2.size() - tagSet.size()) * 20 - (dormTag2.size()-dormTag.size()) * 5 - (classTag2.size() - classTag.size()) * 1000;
+                    classSet2.add(temp_p.class1);
+                    dormSet2.add(temp_p.dormitory);
+                    score = (tagSet2.size() - tagSet.size()) * 20 - (dormSet.size()-dormSet.size()) * 5 - (classSet.size() - classSet.size()) * 1000;
                     if (score > max_score){
                         max_score = score;
                         index_p = j;
                     }
                     tagSet = tagSet2;
-                    classTag = classTag2;
-                    dormTag = dormTag2;
+                    classSet = classSet2;
+                    dormSet = dormSet2;
                 }
                 if(canCrossClass.equals("false")){
-                    if(max_score < -100){
+                    if(max_score < -500){
                         break;
                     }
                 }

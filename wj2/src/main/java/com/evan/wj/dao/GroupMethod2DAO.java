@@ -40,7 +40,7 @@ public interface GroupMethod2DAO extends JpaRepository<User,Integer> {
     List<GG_People2> getPeople2(int project_id);
 
     // 获取所有的 tag 信息
-    @Query("select new com.evan.wj.bean.GG_PersonIDTag(pt.person, t.id) from Tag t join PeopleTag pt on pt.tag = t.id where t.project = ?1")
+    @Query("select new com.evan.wj.bean.GG_PersonIDTag(pt.person, t.id) from Tag t join PeopleTag pt on pt.tag = t.id where t.project = ?1 and pt.person in(select wp.person from WantPerson wp where wp.project = ?1 and wp.gro_status = '未组队')")
     List<GG_PersonIDTag> getPersonTag(int project_id);
 
     // 通过 groupName 获取 group_id
