@@ -526,10 +526,10 @@ export default {
 
 .center {
   color: #ffffff;
-  font-size: 55px;
+  font-size: 50px;
   transition: 0.2s ease-in-out;
   text-align: center;
-  padding-top: 182px;
+  padding-top: 170px;
 }
 
 div {

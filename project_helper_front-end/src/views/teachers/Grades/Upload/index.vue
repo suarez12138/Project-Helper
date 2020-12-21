@@ -1,6 +1,7 @@
 <template>
   <div style="padding:30px;">
     <upload-excel-component :on-success="handleSuccess" :before-upload="beforeUpload" />
+    <el-button plain type="primary" style="float:right; margin:20px 660px 30px 100px;" @click="handleUpdate">确认上传<i class="el-icon-upload el-icon--right" /></el-button>
     <el-table :data="tableData" border highlight-current-row style="width: 100%;margin-top:20px;">
       <el-table-column v-for="item of tableHeader" :key="item" :prop="item" :label="item" />
     </el-table>
@@ -34,6 +35,9 @@ export default {
     handleSuccess({ results, header }) {
       this.tableData = results
       this.tableHeader = ['Index', 'SID', 'Name', 'Group Name', 'Score']
+    },
+    handleUpdate() {
+
     }
   }
 }
