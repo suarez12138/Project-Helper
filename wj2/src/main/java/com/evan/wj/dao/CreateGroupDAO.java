@@ -17,8 +17,8 @@ public interface CreateGroupDAO extends JpaRepository<User,Integer> {
 
         @Transactional
         @Modifying
-        @Query(value = "insert into gro (check_point_id, group_name, group_status, index_in_pre_day, pre_day, project, text) values (?1,?2,'可加入',0,0,?3,'');", nativeQuery = true)
-        void insert_gro(int checkPoint, String group_name, int project_id);
+        @Query(value = "insert into gro (check_point_id, group_name, group_status, index_in_pre_day, pre_day, project, text) values (?1,?2,'可加入',0,0,?3,?4);", nativeQuery = true)
+        void insert_gro(int checkPoint, String group_name, int project_id,String text);
 
         @Transactional
         @Modifying

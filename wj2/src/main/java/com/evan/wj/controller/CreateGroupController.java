@@ -54,8 +54,9 @@ public class CreateGroupController {
         if(temp.size() >0){
             return new Message_return(20000,"The group name '"+ group_name + "' already exist");
         }
-        createGroupDAO.insert_gro(check_point,group_name,pro_id);
+        createGroupDAO.insert_gro(check_point,group_name,pro_id,rec.getText());
         int gro_id = createGroupDAO.getGroupId(group_name).get(0);
+
         createGroupDAO.insert_PersonGro(gro_id,my_id);
         createGroupDAO.update_wantPerson(my_id,pro_id);
         List<Integer> team_members = rec.getPerson_id();
