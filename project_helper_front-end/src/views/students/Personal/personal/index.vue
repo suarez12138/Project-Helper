@@ -266,7 +266,7 @@ export default {
         self_id: getToken()
       }).then(response => {
         this.dialogFormVisible = false
-        if (response.message !== null) {
+        if (response.message != 'Success!') {
           this.$message.error(response.message)
         } else {
           this.$message({

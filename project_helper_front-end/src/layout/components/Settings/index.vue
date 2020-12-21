@@ -72,6 +72,9 @@ export default {
   },
   methods: {
     themeChange(val) {
+      console.log('lala' + val)
+      window.localStorage.setItem('saved_theme', val)
+      console.log(localStorage)
       this.$store.dispatch('settings/changeSetting', {
         key: 'theme',
         value: val

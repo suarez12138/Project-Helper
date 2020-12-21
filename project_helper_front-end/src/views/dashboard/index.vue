@@ -603,6 +603,10 @@ div {
   width: 10px;
 }
 
+.border3::-webkit-scrollbar{
+  width: 0px!important;
+}
+
 .border1::-webkit-scrollbar-track, .border2::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #999;
   border-radius: 20px;

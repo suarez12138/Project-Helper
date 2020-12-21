@@ -1,6 +1,13 @@
 <template>
   <div class="login-container">
-    <el-form ref="loginForm" :model="loginForm" :rules="loginRules" class="login-form" autocomplete="on" label-position="left">
+    <el-form
+      ref="loginForm"
+      :model="loginForm"
+      :rules="loginRules"
+      class="login-form"
+      autocomplete="on"
+      label-position="left"
+    >
 
       <div class="title-container">
         <h3 class="title">Login Form</h3>
@@ -45,7 +52,13 @@
         </el-form-item>
       </el-tooltip>
 
-      <el-button :loading="loading" type="primary" style="width:100%;margin-bottom:30px;" @click.native.prevent="handleLogin">Login</el-button>
+      <el-button
+        :loading="loading"
+        type="primary"
+        style="width:100%;margin-bottom:30px;"
+        @click.native.prevent="handleLogin"
+      >Login
+      </el-button>
 
       <!-- <div style="position:relative">
         <div class="tips">
@@ -76,6 +89,8 @@
 <script>
 import { validUsername } from '@/utils/validate'
 // import SocialSign from './components/SocialSignin'
+const ORIGINAL_THEME = '#409EFF'
+const version = require('element-ui/package.json').version // element-ui version from node_modules
 
 export default {
   name: 'Login',
@@ -122,6 +137,113 @@ export default {
         }
       },
       immediate: true
+    },
+    async theme(val) {
+      const oldVal = this.chalk ? this.theme : ORIGINAL_THEME
+      if (typeof val !== 'string') return
+      const themeCluster = this.getThemeCluster(val.replace('#', ''))
+      const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
+      console.log(themeCluster, originalCluster)
+      console.log(themeCluster[0])
+      console.log('ceshi2')
+      let test
+      if (localStorage.getItem('saved_theme') != 'null') {
+        test = localStorage.getItem('saved_theme')
+      }
+
+      var tmp = parseInt(themeCluster[0], 16)
+      // if(tmp>4473924){
+      //   tmp-=4473924
+      // }else
+      var minus = true
+      for (var i = 0; i < 6; i++) {
+        if (themeCluster[0][i] === '0') {
+          minus = false
+          break
+        }
+      }
+      if (minus) {
+        if (tmp > 1118481) {
+          tmp -= 1118481
+        }
+      }
+      var outcome = tmp.toString(16)
+      while (outcome.length < 6) {
+        outcome = '0' + outcome
+      }
+
+      var add = true
+      for (var j = 0; j < 6; j++) {
+        if (themeCluster[0][j] === 'f') {
+          add = false
+          break
+        }
+      }
+      if (add) {
+        if (tmp < 14540253) {
+          tmp += 1118481
+        }
+      }
+      var hover = tmp.toString(16)
+
+      console.log(outcome)
+      if (localStorage.getItem('saved_theme') != 'null') {
+        document.getElementsByTagName('body')[0].style.setProperty('--testColor', '#' + test)
+      } else {
+        document.getElementsByTagName('body')[0].style.setProperty('--testColor', '#' + themeCluster[0])
+      }
+      document.getElementsByTagName('body')[0].style.setProperty('--sidebar', '#' + outcome)
+      document.getElementsByTagName('body')[0].style.setProperty('--subMenuBg', '#' + outcome)
+      document.getElementsByTagName('body')[0].style.setProperty('--menuHover', '#' + hover)
+      document.getElementsByTagName('body')[0].style.setProperty('--subMenuHover', '#' + hover)
+      // console.log(document.styleSheets)
+      // return
+
+      const $message = this.$message({
+        message: '  Compiling the theme',
+        customClass: 'theme-message',
+        type: 'success',
+        duration: 0,
+        iconClass: 'el-icon-loading'
+      })
+
+      const getHandler = (variable, id) => {
+        return () => {
+          const originalCluster = this.getThemeCluster(ORIGINAL_THEME.replace('#', ''))
+          const newStyle = this.updateStyle(this[variable], originalCluster, themeCluster)
+
+          let styleTag = document.getElementById(id)
+          if (!styleTag) {
+            styleTag = document.createElement('style')
+            styleTag.setAttribute('id', id)
+            document.head.appendChild(styleTag)
+          }
+          styleTag.innerText = newStyle
+        }
+      }
+      if (!this.chalk) {
+        const url = `https://unpkg.com/element-ui@${version}/lib/theme-chalk/index.css`
+        await this.getCSSString(url, 'chalk')
+      }
+
+      const chalkHandler = getHandler('chalk', 'chalk-style')
+
+      chalkHandler()
+
+      const styles = [].slice.call(document.querySelectorAll('style'))
+        .filter(style => {
+          const text = style.innerText
+          return new RegExp(oldVal, 'i').test(text) && !/Chalk Variables/.test(text)
+        })
+      styles.forEach(style => {
+        const { innerText } = style
+        if (typeof innerText !== 'string') return
+        style.innerText = this.updateStyle(innerText, originalCluster, themeCluster)
+      })
+
+      this.$emit('change', val)
+
+      $message.close()
     }
   },
   created() {
@@ -155,6 +277,13 @@ export default {
     handleLogin() {
       this.$refs.loginForm.validate(valid => {
         if (valid) {
+          if (localStorage.getItem('saved_theme') != 'null') {
+            const theme = localStorage.getItem('saved_theme')
+            this.$store.dispatch('settings/changeSetting', {
+              key: 'theme',
+              value: theme
+            })
+          }
           this.loading = true
           this.$store.dispatch('user/login', this.loginForm)
             .then(() => {
@@ -204,8 +333,8 @@ export default {
 /* 修复input 背景不协调 和光标变色 */
 /* Detail see https://github.com/PanJiaChen/vue-element-admin/pull/927 */
 
-$bg:#283443;
-$light_gray:#fff;
+$bg: #283443;
+$light_gray: #fff;
 $cursor: #fff;
 
 @supports (-webkit-mask: none) and (not (cater-color: $cursor)) {
@@ -222,7 +351,7 @@ $cursor: #fff;
     width: 85%;
 
     input {
-      background: transparent!important;
+      background: transparent !important;
       transition: background 5000s ease-out 0.5s;
       border: 0px;
       -webkit-appearance: none;
@@ -250,9 +379,9 @@ $cursor: #fff;
 
 <style lang="scss" scoped>
 
-$bg:#2d3a4b;
-$dark_gray:#889aa4;
-$light_gray:#eee;
+$bg: #2d3a4b;
+$dark_gray: #889aa4;
+$light_gray: #eee;
 
 .login-container {
   min-height: 100%;
@@ -260,10 +389,10 @@ $light_gray:#eee;
   // background-color: $bg;
   background: url("../assets/Yosemite-Color-Block.png") no-repeat;
   background-position: center;
-    height: 100%;
-    width: 100%;
-    background-size: cover;
-    position: fixed;
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  position: fixed;
   overflow: hidden;
 
   .login-form {

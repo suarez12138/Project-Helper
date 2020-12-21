@@ -82,8 +82,11 @@ export default {
         getToken(),
         row.project_id
       ).then(response => {
+        this.$message({
+          message: '加入课程成功！',
+          type: 'success'
+        })
       })
-      alert('Join Success!')
       location.reload(true)
     },
     checkPermission,

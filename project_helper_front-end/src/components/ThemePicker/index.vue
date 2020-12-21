@@ -19,12 +19,16 @@ export default {
   },
   computed: {
     defaultTheme() {
-        // if(localStorage.getItem("saved_theme") != ""){
-        //   return localStorage.getItem("saved_theme")
-        // }
-        // else{
-          return this.$store.state.settings.theme
-        // }
+      if (localStorage.getItem('saved_theme') != 'null') {
+        const theme = localStorage.getItem('saved_theme')
+
+        // console.log("hyq")
+        // console.log(theme)
+        // console.log(localStorage)
+        return theme
+      } else {
+        return this.$store.state.settings.theme
+      }
       // }
     }
   },
@@ -33,6 +37,8 @@ export default {
       handler: function(val, oldVal) {
         this.theme = val
         // window.localStorage.setItem("saved_theme", val)
+        // console.log('hhhhhh')
+        // console.log(val)
         // var str = localStorage.getItem("saved_theme")
         // alert(str.substring(3,(str.length-3)))
         // alert(str.length)
@@ -44,8 +50,9 @@ export default {
       if (typeof val !== 'string') return
       const themeCluster = this.getThemeCluster(val.replace('#', ''))
       const originalCluster = this.getThemeCluster(oldVal.replace('#', ''))
-      console.log(themeCluster, originalCluster)
-      console.log(themeCluster[0])
+      // console.log(themeCluster, originalCluster)
+      // console.log(themeCluster[0])
+      // console.log('ceshi')
 
       var tmp = parseInt(themeCluster[0], 16)
       // if(tmp>4473924){
@@ -82,7 +89,7 @@ export default {
       }
       var hover = tmp.toString(16)
 
-      console.log(outcome)
+      // console.log(outcome)
       document.getElementsByTagName('body')[0].style.setProperty('--testColor', '#' + themeCluster[0])
       document.getElementsByTagName('body')[0].style.setProperty('--sidebar', '#' + outcome)
       document.getElementsByTagName('body')[0].style.setProperty('--subMenuBg', '#' + outcome)

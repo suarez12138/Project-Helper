@@ -59,7 +59,7 @@
             />
           </template>
         </el-table-column>
-        <el-table-column align="center" prop="confirm" sortable label="Confirm" width="120">
+        <el-table-column align="center" prop="confirm" sortable label="Confirm" width="100">
           <template slot-scope="scope">
             <el-button
               type="success"
@@ -68,6 +68,12 @@
               @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.comments)"
             >确认
             </el-button>
+          </template>
+        </el-table-column>
+        <el-table-column prop="change" align="center" width="40">
+          <template slot-scope="scope">
+            <i v-if="scope.row.change" ref="test" class="el-icon-finished theme" />
+            <!--          <i   class="el-icon-finished theme" ></i>-->
           </template>
         </el-table-column>
       </el-table>
@@ -127,7 +133,7 @@ export default {
     this.fetchData()
   },
   methods: {
-    miao(person_id, group_id, score, comments) {
+    miao(person_id, group_id, score, comments, change) {
       this.modified_person_ids[this.count] = person_id
       this.modified_group_ids[this.count] = group_id
       this.modified_scores[this.count] = score
@@ -135,9 +141,15 @@ export default {
       // alert(this.modified_person_ids[this.count])
       this.count = this.count + 1
       // alert(this.count)
+      for (let i = 0; i < this.scorelist.length; i++) {
+        if (this.scorelist[i].person_id == person_id) {
+          this.scorelist[i].change = true
+        }
+      }
+      this.$refs.test.style.display = 'true'
+      // console.log(this.scorelist)
     },
     handleUpdate() {
-      alert('miao')
       alert(this.scorelist[1].stu_id)
       // this.modified_person_ids = this.scorelist.person_id
       // this.modified_group_ids = this.scorelist.group_id
@@ -149,9 +161,13 @@ export default {
         group_id: this.modified_group_ids,
         score: this.modified_scores,
         comment: this.modified_comments
-
       }).then(response => {
 
+      })
+
+      this.$message({
+        message: '更新成功！',
+        type: 'success'
       })
     },
     fetchData() {
@@ -159,8 +175,11 @@ export default {
       get_scoreList(localStorage.getItem('current_project_id')).then(response => {
         this.scorelist = response.data
         this.scorelist_for_post = response.data
-        // alert(this.scorelist.person_id)
+        // console.log(this.scorelist)
         this.listLoading = false
+        for (let i = 0; i < this.scorelist.length; i++) {
+          this.$set(this.scorelist[i], 'change', false)
+        }
       })
     },
     handleDownload() {
@@ -203,8 +222,8 @@ export default {
   height: 100vh;
 }
 
-.el-card, .el-input__inner, .el-textarea__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
-  border-radius: 30px;
+.el-card, .el-input__inner,.el-tag, .el-textarea__inner, .el-button, .el-select-dropdown, .el-select-dropdown__list, .el-select-dropdown__item.hover {
+  border-radius: 30px!important;
 }
 
 .el-table .cell {
@@ -217,7 +236,7 @@ export default {
 
 .search3 {
   float: left;
-  width: 30%;
+  width: 30%!important;
 }
 
 #t_border_online {
@@ -237,6 +256,10 @@ export default {
   box-shadow: 20px 20px 20px $primary;
   transform: translate(-5px, -5px);
   transition: 0.3s ease-in-out;
+}
+
+.theme {
+  color: $primary;
 }
 
 .create_title {
