@@ -22,6 +22,10 @@ public interface GroupStatusDao extends JpaRepository<User,Integer> {
         @Query("select new com.evan.wj.bean.GroupStatus2(g.id,g.check_point_id ,g.group_name ,cp.pre_week, g.group_status, g.text) from PersonGroup pg join People p on p.id = pg.person join Gro g on g.id = pg.gro join CheckPoint cp on g.check_point_id = cp.id where g.project = ?1 and p.stu_id = ?2")
         List<GroupStatus2> getStatus2(int project_id, String token);
 
+
+        @Query("select g.project from Gro g where g.id = ?1")
+        List<Integer> getProID_ByGroID(int gro_id);
+
         @Transactional
         @Modifying
         @Query(value = "update gro set group_name = ?1 where gro.id = ?2", nativeQuery = true)
@@ -57,6 +61,10 @@ public interface GroupStatusDao extends JpaRepository<User,Integer> {
         @Query(value = "delete from person_group where person = ?1 and gro = ?2", nativeQuery = true)
         void delete_PersonGroup (int person_id,int group_id);
 
+        @Transactional
+        @Modifying
+        @Query(value = "update want_person set gro_status = '未组队' where person = ?1 and project = ?2", nativeQuery = true)
+        void update_wantPerson_toWeiZuDui(int person_id, int project_id);
 
 }
 

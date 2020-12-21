@@ -28,7 +28,7 @@ public interface CreateGroupDAO extends JpaRepository<User,Integer> {
         @Transactional
         @Modifying
         @Query(value = "update want_person set gro_status = '已组队' where person = ?1 and project = ?2", nativeQuery = true)
-        void update_wantPerson(int person_id, int project_id);
+        void update_wantPerson_ToYiZuDui(int person_id, int project_id);
 
 //        @Transactional
 //        @Modifying

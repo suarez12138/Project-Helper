@@ -4,10 +4,7 @@ import com.evan.wj.bean.AllGroup;
 import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.GroupStatus;
 import com.evan.wj.bean.GroupStatus2;
-import com.evan.wj.dao.GroupStatusDao;
-import com.evan.wj.dao.PersonInfoDAO;
-import com.evan.wj.dao.TagDAO;
-import com.evan.wj.dao.UpPersonInfoDAO;
+import com.evan.wj.dao.*;
 import com.evan.wj.result.Message_return;
 import com.evan.wj.result.TempleteResult;
 import com.evan.wj.result.Void_return;
@@ -29,6 +26,8 @@ public class GroupStatusController {
 
     @Autowired
     PersonInfoDAO personInfoDAO;
+
+
 
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/teacher/group/group_list_state")
@@ -132,12 +131,15 @@ public class GroupStatusController {
 
         long people_number = groupStatusDao.getNumberInGroup(gro_id).get(0);
         int person_id = upPersonInfoDAO.getID(token).get(0).getId();
+        int project_id = groupStatusDao.getProID_ByGroID(gro_id).get(0);
         if(people_number == 1){
             groupStatusDao.delete_PersonGroup(person_id,gro_id);
             groupStatusDao.delete_group(gro_id);
+
         }else {
             groupStatusDao.delete_PersonGroup(person_id,gro_id);
         }
+        groupStatusDao.update_wantPerson_toWeiZuDui(person_id,project_id);
         return new Message_return(20000,"You have quit the Group!");
     }
 

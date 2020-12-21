@@ -58,12 +58,12 @@ public class CreateGroupController {
         int gro_id = createGroupDAO.getGroupId(group_name).get(0);
 
         createGroupDAO.insert_PersonGro(gro_id,my_id);
-        createGroupDAO.update_wantPerson(my_id,pro_id);
+        createGroupDAO.update_wantPerson_ToYiZuDui(my_id,pro_id);
         List<Integer> team_members = rec.getPerson_id();
         for(int p_id: team_members){
             if (p_id!=my_id){
                 createGroupDAO.insert_PersonGro(gro_id,p_id);
-                createGroupDAO.update_wantPerson(p_id,pro_id);
+                createGroupDAO.update_wantPerson_ToYiZuDui(p_id,pro_id);
             }
         }
         return new Message_return(20000,"Success!");
