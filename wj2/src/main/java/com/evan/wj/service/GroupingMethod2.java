@@ -130,6 +130,7 @@ public class GroupingMethod2 {
                 groupMethod2DAO.insert_PersonGro(new_groID,temp_p.person_id);
                 groupMethod2DAO.update_single_yizudui(temp_p.person_id,project_id);
             }
+
         }
         return new Message_return(20000, "Grouping successfully!");
     }
@@ -141,8 +142,8 @@ class Person_m{
     int person_id;
     int class1;
     int last_group;
-    Person_m(String dormitorym, int class1, int person_id, int last_group){
-        this.dormitory = dormitorym;
+    Person_m(String dormitory, int class1, int person_id, int last_group){
+        this.dormitory = dormitory;
         this.class1 = class1;
         this.person_id = person_id;
         this.last_group = last_group;
