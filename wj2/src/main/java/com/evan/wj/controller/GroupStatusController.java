@@ -1,9 +1,11 @@
 package com.evan.wj.controller;
 
+import com.evan.wj.bean.AllGroup;
 import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.GroupStatus;
 import com.evan.wj.bean.GroupStatus2;
 import com.evan.wj.dao.GroupStatusDao;
+import com.evan.wj.dao.PersonInfoDAO;
 import com.evan.wj.dao.TagDAO;
 import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.result.Message_return;
@@ -25,10 +27,13 @@ public class GroupStatusController {
     @Autowired
     UpPersonInfoDAO upPersonInfoDAO;
 
+    @Autowired
+    PersonInfoDAO personInfoDAO;
+
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/group/group_list_state")
+    @GetMapping(value = "/vue-element-admin/teacher/group/group_list_state")
     @ResponseBody
-    public TempleteResult<GroupStatus> getAllGroup(@RequestParam("project_id") int project_id){
+    public TempleteResult<GroupStatus> Group_status(@RequestParam("project_id") int project_id){
 
         List<GroupStatus> sub1 = groupStatusDao.getStatus(project_id);
         int min = 0;
@@ -47,6 +52,47 @@ public class GroupStatusController {
         TempleteResult<GroupStatus> allProjectResult_t = new TempleteResult<GroupStatus>(20000,sub1);
         return allProjectResult_t;
     }
+
+
+
+
+
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/group/group_list_state")
+    @ResponseBody
+    public TempleteResult<GroupStatus> Group_status_stu(@RequestParam("token") String token,@RequestParam("project_id") int project_id){
+
+        String cross = personInfoDAO.get_CrossClass(project_id).get(0);
+        List<GroupStatus> sub1 = null;
+        if(cross.equals("true")){
+            sub1 = groupStatusDao.getStatus(project_id);
+        }else{
+            sub1 = groupStatusDao.getStatus_stu(project_id,token);
+        }
+
+
+        int min = 0;
+        int max = 0;
+        long num = 0;
+        for(GroupStatus g: sub1){
+            min = g.getMin_people();
+            max = g.getMax_people();
+            num = g.getPeople_number();
+            if(max >= num && min <=num){
+                g.setIs_valid("T");
+            }else {
+                g.setIs_valid("F");
+            }
+        }
+        TempleteResult<GroupStatus> allProjectResult_t = new TempleteResult<GroupStatus>(20000,sub1);
+        return allProjectResult_t;
+    }
+
+
+
+
+
 
 
     @CrossOrigin

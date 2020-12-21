@@ -39,7 +39,7 @@ public class CreateGroupController {
     @CrossOrigin
     @PostMapping(value = "/vue-element-admin/student/group/create_group")
     @ResponseBody
-    public Message_return update_personal_info(@RequestBody NewGroupReceive rec){
+    public Message_return create_group(@RequestBody NewGroupReceive rec){
         int pro_id = rec.getProject_id();
         String my_stu_id = rec.getSelf_id();
         int my_id = upPersonInfoDAO.getID(my_stu_id).get(0).getId();
@@ -65,6 +65,6 @@ public class CreateGroupController {
                 createGroupDAO.update_wantPerson(p_id,pro_id);
             }
         }
-        return new Message_return(20000,"Create successfully'");
+        return new Message_return(20000,"Success!");
     }
 }

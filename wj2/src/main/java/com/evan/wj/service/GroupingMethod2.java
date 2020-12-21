@@ -132,7 +132,7 @@ public class GroupingMethod2 {
             }
 
         }
-        return new Message_return(20000, "Grouping successfully!");
+        return new Message_return(20000, "Success!");
     }
 }
 

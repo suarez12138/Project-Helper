@@ -2,9 +2,11 @@ package com.evan.wj.controller;
 
 import com.evan.wj.bean.*;
 import com.evan.wj.dao.GroupDAO;
+import com.evan.wj.dao.PersonInfoDAO;
 import com.evan.wj.dao.UserDAO;
 import com.evan.wj.result.AllGroupResult;
 import com.evan.wj.result.MyGroupResult;
+import com.evan.wj.result.TempleteResult;
 import com.evan.wj.result.Token;
 import com.evan.wj.service.GroupService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +26,36 @@ public class GroupController {
     @Autowired
     GroupService groupService;
 
+    @Autowired
+    PersonInfoDAO personInfoDAO;
+
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/group/group_list")
+    @GetMapping(value = "/vue-element-admin/teacher/group/group_list")
     @ResponseBody
     public AllGroupResult getAllGroup(@RequestParam("project_id") int project_id){
         AllGroupResult allGroupResult = new AllGroupResult(20000, groupDAO.getAllGroup(project_id));
         return allGroupResult;
     }
+
+
+    @CrossOrigin
+    @GetMapping(value = "/vue-element-admin/student/group/group_list")
+    @ResponseBody
+    public TempleteResult<AllGroup> getAllGroup_stu(@RequestParam("token") String token,@RequestParam("project_id") int project_id){
+
+        String cross = personInfoDAO.get_CrossClass(project_id).get(0);
+        List<AllGroup> sub1 = null;
+        if(cross.equals("true")){
+            sub1 = groupDAO.getAllGroup(project_id);
+
+        }else {
+            sub1 = groupDAO.getAllGroup2(project_id,token);
+
+        }
+        TempleteResult<AllGroup> allProjectResult_t = new TempleteResult<AllGroup>(20000,sub1);
+        return allProjectResult_t;
+    }
+
 
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/my_group")
