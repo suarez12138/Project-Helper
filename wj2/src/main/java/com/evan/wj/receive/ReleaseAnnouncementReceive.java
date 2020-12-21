@@ -2,18 +2,20 @@ package com.evan.wj.receive;
 
 public class ReleaseAnnouncementReceive {
     int project_id;
-    int teacher_id;
+    String token;
     String ann_name;
     String text;
 
 
-    public int getTeacher_id() {
-        return teacher_id;
+    public String getToken() {
+        return token;
     }
 
-    public void setTeacher_id(int teacher_id) {
-        this.teacher_id = teacher_id;
+    public void setToken(String token) {
+        this.token = token;
     }
+
+
 
     public int getProject_id() {
         return project_id;

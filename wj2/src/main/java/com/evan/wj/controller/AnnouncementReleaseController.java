@@ -4,6 +4,7 @@ import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.ClassName;
 import com.evan.wj.dao.AnnouncementReleaseDAO;
 import com.evan.wj.dao.TagDAO;
+import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.receive.OnlineGradeUpdateReceive;
 import com.evan.wj.receive.ReleaseAnnouncementReceive;
 import com.evan.wj.result.TempleteResult;
@@ -22,6 +23,8 @@ import java.util.List;
 public class AnnouncementReleaseController {
     @Autowired
     AnnouncementReleaseDAO announcementReleaseDAO;
+    @Autowired
+    UpPersonInfoDAO upPersonInfoDAO;
 
     @Autowired
     private MailServiceImpl mailService;
@@ -41,10 +44,11 @@ public class AnnouncementReleaseController {
     @ResponseBody
     public Void_return releaseAnnouncement(@RequestBody ReleaseAnnouncementReceive rec){
         int pro_id = rec.getProject_id();
-        int tea_id = rec.getTeacher_id();
+        String token = rec.getToken();
         String title = rec.getAnn_name();
         String content = rec.getText();
 
+        int tea_id = upPersonInfoDAO.getID(token).get(0).getId();
 
         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");//设置日期格式 // ：ss
         String op_time = df.format(new Date());
