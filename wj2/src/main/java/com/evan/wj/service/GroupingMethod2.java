@@ -35,9 +35,10 @@ public class GroupingMethod2 {
         //////////////////////////
         List<Integer> less_groID = groupMethod2DAO.getGroupIdWithLessPeople(project_id,Min);
         for(int g_id:less_groID){
+            groupMethod2DAO.update_all_weizudui(g_id,project_id);
             groupMethod2DAO.deleteFromGro(g_id);
             groupMethod2DAO.deleteFromPersonGroup(g_id);
-            groupMethod2DAO.update_all_weizudui(g_id,project_id);
+
         }
         //////////////////////////
         // candidate {person_id, class_id, dorm, gender}
@@ -78,6 +79,7 @@ public class GroupingMethod2 {
         Set<Integer> tagSet = new TreeSet<>();
         Set<Integer> classSet = new TreeSet<>();
         Set<String> dormSet = new TreeSet<>();
+        Set<Integer> groupSet = new TreeSet<>();
 
         while (Peoples2.size() >= Min){
             tagSet.clear();
@@ -96,17 +98,19 @@ public class GroupingMethod2 {
             tagSet.addAll(temp_p.tagSet);
             classSet.add(temp_p.class1);
             dormSet.add(temp_p.dormitory);
-
+            groupSet.add(temp_p.last_group);
             for(int i=0;i<Min-1;i++){
                 for (int j=0;j<Peoples2.size();j++) {
                     Set<Integer> tagSet2 = new TreeSet<>(tagSet);
                     Set<Integer> classSet2 = new TreeSet<>(classSet);
                     Set<String> dormSet2 = new TreeSet<>(dormSet);
+                    Set<Integer> groupSet2 = new TreeSet<>(groupSet);
                     temp_p = Peoples2.get(j);
                     tagSet2.addAll(temp_p.tagSet);
                     classSet2.add(temp_p.class1);
                     dormSet2.add(temp_p.dormitory);
-                    score = (tagSet2.size() - tagSet.size()) * 20 - (dormSet.size()-dormSet.size()) * 5 - (classSet.size() - classSet.size()) * 1000;
+                    groupSet2.add(temp_p.last_group);
+                    score = (tagSet2.size() - tagSet.size()) * 20 - (dormSet2.size()-dormSet.size()) * 5 - (classSet2.size() - classSet.size()) * 10000-(groupSet2.size()-groupSet.size())*200;
                     if (score > max_score){
                         max_score = score;
                         index_p = j;
@@ -114,9 +118,10 @@ public class GroupingMethod2 {
                     tagSet = tagSet2;
                     classSet = classSet2;
                     dormSet = dormSet2;
+                    groupSet = groupSet2;
                 }
                 if(canCrossClass.equals("false")){
-                    if(max_score < -500){
+                    if(max_score < -3000){
                         break;
                     }
                 }
@@ -126,7 +131,6 @@ public class GroupingMethod2 {
                 groupMethod2DAO.update_single_yizudui(temp_p.person_id,project_id);
             }
         }
-
         return new Message_return(20000, "Grouping successfully!");
     }
 }
@@ -143,7 +147,6 @@ class Person_m{
         this.person_id = person_id;
         this.last_group = last_group;
     }
-
     Person_m(int last_group){
         this.last_group = last_group;
     }
@@ -152,4 +155,6 @@ class Person_m{
         this.class1 = class1;
         this.person_id = person_id;
     }
+
+
 }
