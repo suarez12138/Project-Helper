@@ -41,7 +41,7 @@
           />
         </el-form-item>
         <el-form-item prop="content" style="margin-bottom: 30px;">
-          <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+          <markdown-editor ref="markdownEditor" v-model="postForm.content" :language="language" height="300px" />
         </el-form-item>
       </div>
       <div class="transmit_upload">
@@ -70,7 +70,8 @@
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
+import MarkdownEditor from '@/components/MarkdownEditor'
+// import Tinymce from '@/components/Tinymce'
 // import Upload from '@/components/Upload/SingleImage3'
 // import MDinput from '@/components/MDinput'
 // import Sticky from '@/components/Sticky' // 粘性header组件
@@ -84,10 +85,10 @@ const defaultForm = {
   status: 'draft',
   title: '', // 文章题目
   content: '', // 文章内容
-  content_short: '', // 文章摘要
+  to: '',
   source_uri: '', // 文章外链
   image_uri: '', // 文章图片
-  display_time: undefined, // 前台展示时间
+  time: undefined,
   id: undefined,
   platforms: ['a-platform'],
   comment_disabled: false,
@@ -96,7 +97,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce },
+  components: { MarkdownEditor },
   props: {
     isEdit: {
       type: Boolean,
