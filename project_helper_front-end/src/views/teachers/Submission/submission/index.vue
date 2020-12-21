@@ -289,6 +289,7 @@ export default {
 }
 
 .personal_title {
+  font-weight: bold;
   color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;

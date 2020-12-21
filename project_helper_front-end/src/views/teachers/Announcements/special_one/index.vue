@@ -138,6 +138,7 @@ export default {
 }
 
 .an_title {
+  font-weight: bold;
   font-size: 55px;
   text-align: center;
   padding-top: 40px;

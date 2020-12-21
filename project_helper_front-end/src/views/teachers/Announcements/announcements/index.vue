@@ -13,11 +13,11 @@
         <div v-for="an in announcements" @click="miao(an.ann_id)" class="announcetitle">
           <a href="/#/announcements/Content">
 
-          Title: {{ an.ann_name }} 
-          <br>
-          By: {{ an.teacher_name }}
-          <br>
-          Releace Time: {{ an.release_time }}
+            Title: {{ an.ann_name }}
+            <br>
+            By: {{ an.teacher_name }}
+            <br>
+            Releace Time: {{ an.release_time }}
           </a>
         </div>
       </div>
@@ -29,29 +29,29 @@
 
 import { getToken } from '@/utils/auth'
 import { get_announcement_teacher } from '@/api/teacher/announcement/'
-import { get_announcement_content } from '@/api/teacher/announcement/'
+// import { get_announcement_content } from '@/api/teacher/announcement/'
 
 export default {
   data() {
     return {
       announcements: null
       // [
-        // { name: 'check your progress', by: 'teacherA', time: '2020.11.12' },
-        // { name: 'tips', by: 'teacherB', time: '2020.11.11' },
-        // { name: 'announce DDL', by: 'teacherA', time: '2020.10.11' }
+      // { name: 'check your progress', by: 'teacherA', time: '2020.11.12' },
+      // { name: 'tips', by: 'teacherB', time: '2020.11.11' },
+      // { name: 'announce DDL', by: 'teacherA', time: '2020.10.11' }
       // ]
     }
   },
-  
+
   created() {
     this.get_announcementList()
   },
   methods: {
-    miao(data){
+    miao(data) {
       // alert(data)
       window.localStorage.setItem('current_announcement', JSON.stringify(data))
     },
-    get_announcementList(){
+    get_announcementList() {
       get_announcement_teacher(getToken()).then(response => {
         this.announcements = response.data
       })
@@ -63,6 +63,7 @@ export default {
 <style>
 
 .announcetitle {
+  font-weight: bold;
   color: #dddddd;
   font-size: 20px;
   transition: 0.2s ease-in-out;

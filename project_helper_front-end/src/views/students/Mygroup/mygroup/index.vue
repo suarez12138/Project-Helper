@@ -62,15 +62,14 @@
           />
         </el-form-item>
         <el-form-item label="预期答辩时间">
-          <el-select v-model="myGroupForm.pre_week" placeholder="预期答辩时间" >
-              <el-option
-                v-for="item in options"
-                :key="item.check_point_id"
-                :label="item.week"
-                :value="item.checkPoint_id"
-              />
-            </el-select>
-          </el-form-item>
+          <el-select v-model="myGroupForm.pre_week" placeholder="预期答辩时间">
+            <el-option
+              v-for="item in options"
+              :key="item.check_point_id"
+              :label="item.week"
+              :value="item.checkPoint_id"
+            />
+          </el-select>
         </el-form-item>
         <el-form-item label="小组信息" prop="information">
           <el-input
@@ -106,7 +105,7 @@
 
 import { fetchMyGroup } from '@/api/student/group'
 import { fetchMyGroup_state } from '@/api/student/group'
-import { fetchTheGroup } from '@/api/student/group'
+// import { fetchTheGroup } from '@/api/student/group'
 import { updateMyGroup_state } from '@/api/student/group'
 import { dropMyGroup } from '@/api/student/group'
 import { get_availableWeek } from '@/api/student/creatGroup'
@@ -161,18 +160,17 @@ export default {
       fetchMyGroup_state(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.myGroupForm = response.data[0]
         this.text_content = response.data[0].group_name
-      }) 
+      })
     },
     handleChange(value) {
-      if(value == true){
+      if (value == true) {
         this.myGroupForm.group_status = '可加入'
-      }
-      else if(value == false){
+      } else if (value == false) {
         this.myGroupForm.group_status = '不可加入'
       }
     },
     submitForm(formName) {
-      if(this.myGroupForm.pre_week[0] != 'W'){
+      if (this.myGroupForm.pre_week[0] != 'W') {
         this.myGroupForm.check_point_id = this.myGroupForm.pre_week
       }
       alert(this.myGroupForm.check_point_id)
@@ -183,7 +181,7 @@ export default {
         this.myGroupForm.check_point_id,
         this.text_content
       ).then(response => {
-        alert("Update Success!")
+        alert('Update Success!')
       })
     },
     hideTooltip: function() {
@@ -254,6 +252,7 @@ export default {
 //}
 
 .title_3 {
+  font-weight: bold;
   color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;

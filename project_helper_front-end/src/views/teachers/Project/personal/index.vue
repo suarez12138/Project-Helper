@@ -154,7 +154,7 @@
 
 <script>
 import { get_AllStudents } from '@/api/teacher/personal'
-import { getToken } from '@/utils/auth'
+// import { getToken } from '@/utils/auth'
 import { fetchTheGroup } from '@/api/teacher/group'
 export default {
   name: 'DragSelectDemo',
@@ -354,6 +354,7 @@ export default {
 }
 
 .personal_title {
+  font-weight: bold;
   color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;

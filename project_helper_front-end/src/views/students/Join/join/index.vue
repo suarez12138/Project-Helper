@@ -83,7 +83,7 @@ export default {
         row.project_id
       ).then(response => {
       })
-      alert("Join Success!")
+      alert('Join Success!')
       location.reload(true)
     },
     checkPermission,
@@ -171,6 +171,7 @@ export default {
 }
 
 .personal_title {
+  font-weight: bold;
   color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;

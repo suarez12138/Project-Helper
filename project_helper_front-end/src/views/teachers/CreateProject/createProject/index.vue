@@ -13,12 +13,12 @@
       >
         <el-form-item label="课程" prop="course">
           <el-select v-model="create_ruleForm.course" placeholder="请选择相应课程">
-            <el-option 
-            v-for="item in course_form"
-            :key="item.id"
-            :label="item.course_name"
-            :value="item.id"
-             />
+            <el-option
+              v-for="item in course_form"
+              :key="item.id"
+              :label="item.course_name"
+              :value="item.id"
+            />
           </el-select>
         </el-form-item>
 
@@ -168,7 +168,6 @@ export default {
         groupingEndTime: '',
         groupingEndTime2: '',
         across_lab: true,
-        grouping: true,
         skills: [],
         grouping: true
 
@@ -252,11 +251,11 @@ export default {
   },
   methods: {
     get_courseList() {
-      get_allCourse(getToken()).then(response =>{
+      get_allCourse(getToken()).then(response => {
         this.course_form = response.data
       })
     },
-    
+
     new_Project_table() {
       new_project_insert({
         token: getToken(),
@@ -282,7 +281,7 @@ export default {
           all_tags: this.create_ruleForm.skills,
           choosable_proj: this.create_ruleForm.grouping
         }).then(response => {
-          alert("miaoa")
+          alert('miaoa')
         })
         alert(response)
       })
@@ -379,6 +378,7 @@ export default {
 }
 
 .create_title {
+  font-weight: bold;
   color: $primary;
   font-size: 40px;
   transition: 0.2s ease-in-out;
