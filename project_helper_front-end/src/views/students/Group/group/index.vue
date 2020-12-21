@@ -473,24 +473,27 @@ export default {
 }
 
 .table1::-webkit-scrollbar {
-  width: 0;
+  width: 0!important;
+}
+#border3_1::-webkit-scrollbar {
+  width: 0!important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
-  width: 10px;
+  width: 10px!important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #ffffff;
-  border-radius: 20px;
+  border-radius: 20px!important;
   //margin-top: 30px;
   margin-bottom: 30px;
 
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: $primary;
-  border-radius: 10px;
+  background: $primary!important;
+  border-radius: 10px!important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/

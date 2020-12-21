@@ -56,7 +56,7 @@ export default {
           name: '',
           password: '',
           gender: '',
-          email: getToken()+"@mail.sustech.edu.cn",
+          email: getToken() + '@mail.sustech.edu.cn',
           location: '',
           introduction: '我bu是我'// 这里调用了上一级index里的数据
         }
@@ -72,10 +72,10 @@ export default {
         location: this.user.location,
         introduction: this.user.introduction
       }).then(response => {
-          
+
       })
       this.$message({
-        message: 'User information has been updated successfully',
+        message: 'Updated successfully',
         type: 'success',
         duration: 5 * 1000
       })

@@ -140,7 +140,15 @@ export default {
   methods: {
     miao() {
       dropMyGroup(getToken(), this.myGroupForm.gro_id).then(response => {
-        // alert(response.message)
+        console.log(response.message)
+        if (response.message == 'Success!') {
+          this.$message({
+            message: '退出成功',
+            type: 'success'
+          })
+        } else {
+          this.$message.error(response.message)
+        }
       })
     },
     get_availableWeekList() {
