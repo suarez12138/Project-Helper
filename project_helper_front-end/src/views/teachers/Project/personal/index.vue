@@ -153,11 +153,9 @@
 </template>
 
 <script>
-import { get_AllStudents } from '@/api/student/personal'
-// import { update_MyInformation } from '@/api/student/personal'
-// import { get_AllTags } from '@/api/student/personal'
-// import { getToken } from '@/utils/auth'
-import { fetchTheGroup } from '@/api/student/group'
+import { get_AllStudents } from '@/api/teacher/personal'
+import { getToken } from '@/utils/auth'
+import { fetchTheGroup } from '@/api/teacher/group'
 export default {
   name: 'DragSelectDemo',
   data() {
@@ -178,18 +176,6 @@ export default {
       //   skill: ['SPRING BOOT', 'lala', 'testlongest', 'lalalala', 'disanhang'],
       //   hope: '不搞基',
       //   status: '已组队'
-      // }, {
-      //   name: '王小虎',
-      //   gender: '女',
-      //   skill: ['VUE', 'hehe'],
-      //   hope: '不划水',
-      //   status: '未组队'
-      // }, {
-      //   name: '王小虎',
-      //   status: '已组队'
-      // }, {
-      //   name: '王小虎',
-      //   status: '未组队'
       // }]
 
       tableData_of_OneGroup:

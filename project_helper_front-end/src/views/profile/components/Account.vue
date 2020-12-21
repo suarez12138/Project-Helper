@@ -56,7 +56,7 @@ export default {
           name: '',
           password: '',
           gender: '',
-          email: '',
+          email: getToken()+"@mail.sustech.edu.cn",
           location: '',
           introduction: '我bu是我'// 这里调用了上一级index里的数据
         }
@@ -67,11 +67,8 @@ export default {
     submit() {
       update_profile({
         token: getToken(),
-        id: this.user.id,
-        name: this.user.name,
-        password: this.user.password,
-        gender: this.user.gender,
-        email: this.user.email,
+        Password: this.user.password,
+        Gender: this.user.gender,
         location: this.user.location,
         introduction: this.user.introduction
       }).then(response => {

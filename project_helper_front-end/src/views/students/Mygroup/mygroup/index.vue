@@ -92,7 +92,7 @@
           icon-color="red"
           title="确定退出该组吗？"
           placement="top"
-          @confirm="quit"
+          @onConfirm="miao()"
         >
           <el-button slot="reference" class="flo" type="danger" style="float: right;" plain>退出该组</el-button>
         </el-popconfirm>
@@ -139,6 +139,11 @@ export default {
     this.get_availableWeekList()
   },
   methods: {
+    miao() {
+      dropMyGroup(getToken(), this.myGroupForm.gro_id).then(response => {
+        // alert(response.message)
+      })
+    },
     get_availableWeekList() {
       get_availableWeek(localStorage.getItem('current_project_id')).then(response => {
         this.options = response.data
