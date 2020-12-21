@@ -18,7 +18,7 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Send to:">
+        <!-- <el-form-item style="margin-bottom: 40px;" label-width="70px" label="Send to:">
           <el-select
             v-model="postForm.to"
             multiple
@@ -43,7 +43,7 @@
             style="float: left;width: 40%;border-radius: 20px;"
           />
           <!--          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
-        </el-form-item>
+        <!-- </el-form-item> --> 
         <el-form-item prop="content" style="margin-bottom: 30px;">
           <!--          <Tinymce ref="editor" v-model="postForm.content" :height="400" />-->
           <markdown-editor ref="markdownEditor" v-model="postForm.content" :language="language" height="300px" />
@@ -85,7 +85,7 @@ import MarkdownEditor from '@/components/MarkdownEditor'
 // import { validURL } from '@/utils/validate'
 // import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
-// import { Submenu } from 'element-ui'
+import { getToken } from '@/utils/auth'
 import { post_announcement_teacher } from '@/api/teacher/announcement'
 // import Warning from './Warning'
 // import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
@@ -212,14 +212,14 @@ export default {
     submit() {
       this.html = this.$refs.markdownEditor.getHtml()
       console.log(this.html)
-      alert(this.postForm.to)
       // console.log(this.postForm.content)
       post_announcement_teacher({
-        title: this.postForm.title,
-        content: this.postForm.content,
-        send_to: this.postForm.to
+        project_id: localStorage.getItem("current_project_id"),
+        token: getToken(),
+        ann_name: this.postForm.title,
+        text: this.html
       }).then(response => {
-
+        alert("success")
       })
 
       this.submitForm()

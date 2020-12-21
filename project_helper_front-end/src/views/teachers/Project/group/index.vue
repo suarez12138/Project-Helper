@@ -47,7 +47,7 @@
           prop="name"
           label="组名"
           sortable
-          width="90"
+          width="115"
         >
           <template slot-scope="scope">
             <el-popover trigger="click" placement="right" class="pout">
@@ -159,7 +159,7 @@
         >
           <template slot-scope="scope">
             <el-button type="success" size="small" @click="add_member(scope.row), getGroup_by_name(scope.row.name)">选人加入</el-button>
-            <el-button type="danger" size="small" @click="break_up(scope.row,scope.$index)">解散</el-button>
+            <el-button type="danger" size="small" @click="drop_a_group(scope.row,scope.$index)">解散</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -277,8 +277,11 @@
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
 import { fetchGroupsList } from '@/api/student/group'
-import { fetchAllStudent } from '@/api/teacher/gruop'
-import { fetchTheGroup } from '@/api/student/group'
+import { fetchAllStudent } from '@/api/teacher/group'
+import { dropGroup } from '@/api/teacher/group'
+import { fetchTheGroup } from '@/api/teacher/group'
+import { autoform_Group } from '@/api/teacher/group'
+
 const groupOptions = ['只看有效组', '只看无效组']
 export default {
   // name: 'DndListDemo',
@@ -392,7 +395,9 @@ export default {
       })
     },
     auto_grouping() {
+      autoform_Group(localStorage.getItem('current_project_id')).then(response => {
 
+      })
     },
     add_member(row) {
       this.selectRow = row
@@ -401,12 +406,16 @@ export default {
     add_member2() {
       this.dialogVisible = false
     },
-    break_up(row, index) {
+    drop_a_group(row, index) {
       this.tableData33.splice(index, 1)
-      this.$message({
-        message: '成功解散此组！',
+      dropGroup(row.id).then(response => {
+        // alert(response.message)
+         this.$message({
+        message: response.message,
         type: 'success'
       })
+      })
+     
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新

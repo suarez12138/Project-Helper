@@ -61,7 +61,7 @@ export default {
         id: getToken(),
         role: this.roles.join(' | '),
         name: 'miao',
-        email: 'admin@test.com',
+        email: getToken()+"@mail.sustech.edu.cn",
         avatar: this.avatar,
         gender: '',
         location: '',

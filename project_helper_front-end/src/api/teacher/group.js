@@ -38,5 +38,19 @@ export function fetchAllStudent(project_id, group_name) {
 
 
 
+export function dropGroup(gro_id) {
+  return request({
+    url: '/vue-element-admin/teacher/group/drop_group',
+    method: 'post',
+    params: {gro_id}
+  })
+}
 
 
+export function autoform_Group(project_id) {
+  return request({
+    url: '/vue-element-admin/teacher/group/group_autoform',
+    method: 'post',
+    params: {project_id}
+  })
+}

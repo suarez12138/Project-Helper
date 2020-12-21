@@ -1,3 +1,5 @@
+import request from '@/utils/request'
+
 export function get_profile(token) {
     return request({
       url: '/vue-element-admin/student/profile/detail_profile',
