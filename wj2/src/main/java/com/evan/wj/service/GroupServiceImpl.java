@@ -26,9 +26,14 @@ public class GroupServiceImpl implements GroupService{
         int gro_id = gro_id_list.get(0).getId();
         List<MyGroup_getNameGender> people_id_list = groupDAO.getAMyGroup_getName(gro_id);
 
+        if(people_id_list.size() ==0){
+            return new MyGroupResult(20000, 0, null);
+        }
+
         for(MyGroup_getNameGender ids:people_id_list){
             myGroups.add(new MyGroup(ids.getId(),ids.getStu_id(),ids.getDorm() ,ids.getName(),ids.getGender()));
         }
+
 
         List<MyGroup_idTag> tags = groupDAO.gettags(gro_id,project_id);
         // MyGroup_idTag {int person_id, String tag}
@@ -42,6 +47,7 @@ public class GroupServiceImpl implements GroupService{
                 }
             }
         }
+
         MyGroupResult myGroupResult = new MyGroupResult(20000, myGroups.size(),myGroups);
         return myGroupResult;
     }

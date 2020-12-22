@@ -11,20 +11,19 @@ public class PreTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-    String the_day;
+    String start_time;
     int limit_group;
     int limit_time;
     String text;
-    int checkPoint_id;
-    String the_time;
+    int project_id;
 
 
-    public int getCheckPoint_id() {
-        return checkPoint_id;
+    public int getProject_id() {
+        return project_id;
     }
 
-    public void setCheckPoint_id(int checkPoint_id) {
-        this.checkPoint_id = checkPoint_id;
+    public void setProject_id(int project_id) {
+        this.project_id = project_id;
     }
 
     public String getText() {
@@ -43,20 +42,12 @@ public class PreTime {
         this.id = id;
     }
 
-    public String getThe_day() {
-        return the_day;
+    public String getStart_time() {
+        return start_time;
     }
 
-    public void setThe_day(String the_day) {
-        this.the_day = the_day;
-    }
-
-    public String getThe_time() {
-        return the_time;
-    }
-
-    public void setThe_time(String the_time) {
-        this.the_time = the_time;
+    public void setStart_time(String start_time) {
+        this.start_time = start_time;
     }
 
     public int getLimit_group() {
@@ -74,4 +65,6 @@ public class PreTime {
     public void setLimit_time(int limit_time) {
         this.limit_time = limit_time;
     }
+
+
 }
