@@ -8,7 +8,7 @@ public class GroupStatus2 {
     String group_status;
     String text;
 
- 
+
 
     public GroupStatus2(int gro_id, int check_point_id,String group_name, String pre_week, String group_status, String text) {
         this.check_point_id = check_point_id;

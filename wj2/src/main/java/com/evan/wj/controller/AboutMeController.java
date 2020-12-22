@@ -29,9 +29,13 @@ public class AboutMeController {
         String token = Ab.getToken();
         int person_id = upPersonInfoDAO.getID(token).get(0).getId();
 
+        // in User
+        aboutMeDAO.update_password(Ab.getPassword(),person_id);
+
+
+        //
         aboutMeDAO.update_dorm(Ab.getLocation(),person_id);
         aboutMeDAO.update_gender(Ab.getGender(),person_id);
-        aboutMeDAO.update_password(Ab.getPassword(),person_id);
         aboutMeDAO.update_self_introduction(Ab.getIntroduction(),person_id);
 
 

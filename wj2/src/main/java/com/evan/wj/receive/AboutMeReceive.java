@@ -2,15 +2,15 @@ package com.evan.wj.receive;
 
 public class AboutMeReceive {
     String token;
-    String Password;
-    String Gender;
+    String password;
+    String gender;
     String location;
     String introduction;
 
-    public AboutMeReceive(String token,String password, String gender, String location, String introduction) {
+    public AboutMeReceive(String token, String password, String gender, String location, String introduction) {
         this.token = token;
-        this.Password = password;
-        this.Gender = gender;
+        this.password = password;
+        this.gender = gender;
         this.location = location;
         this.introduction = introduction;
     }
@@ -24,19 +24,19 @@ public class AboutMeReceive {
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        Password = password;
+        this.password = password;
     }
 
     public String getGender() {
-        return Gender;
+        return gender;
     }
 
     public void setGender(String gender) {
-        Gender = gender;
+        this.gender = gender;
     }
 
     public String getLocation() {

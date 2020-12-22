@@ -32,6 +32,9 @@ public interface AboutMeDAO extends JpaRepository<User,Integer> {
     @Query(value = "update people set self_introduction = ?1 where id = ?2", nativeQuery = true)
     void update_self_introduction (String introduction, int person_id);
 
+
+
+
     @Query("select new com.evan.wj.bean.AboutMeDetail(p.id,p.domitory,p.gender,p.self_introduction) from People p where p.stu_id = ?1")
     List<AboutMeDetail> getAboutMeDetail(String token);
 
