@@ -159,9 +159,15 @@ export default {
     getMyGroup() { // 应该传一些学号什么的回去
       this.listLoading = true
       fetchMyGroup(getToken(), localStorage.getItem('current_project_id')).then(response => {
-        this.MyGroupTableData = response.myGroups
-        this.listLoading = false
-        console.log(this.MyGroupTableData)
+        alert(response.gro_len)
+        if(response.gro_len != 0){
+          this.MyGroupTableData = response.myGroups
+          this.listLoading = false
+          console.log(this.MyGroupTableData)
+        }
+        else{
+          alert("miao")
+        }
       })
     },
     getMyGropuState() {
