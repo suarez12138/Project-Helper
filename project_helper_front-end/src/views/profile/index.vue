@@ -57,39 +57,18 @@ export default {
   },
   methods: {
     getUser() {
-      this.user = {
-        id: getToken(),
-        role: this.roles.join(' | '),
-        name: 'miao',
-        email: getToken()+"@mail.sustech.edu.cn",
-        avatar: this.avatar,
-        gender: '',
-        location: '',
-        introduction: '我bu就是我'
-      }
       get_profile(getToken()).then(response => {
         this.user = {
           id: getToken(),
           role: this.roles.join(' | '),
-          name: response.data.name,
+          name: response.data[0].name,
           email: getToken()+"@mail.sustech.edu.cn",
           avatar: this.avatar,
-          gender: response.data.gender,
-          location: response.data.location,
-          introduction: response.data.introduction
+          gender: response.data[0].gender,
+          location: response.data[0].dorm,
+          introduction: response.data[0].self_introduction
         }
       })
-      // this.user = {
-      //   id: getToken(),
-      //   role: this.roles.join(' | '),
-      //   name: 'miao',
-      //   email: 'admin@test.com',
-      //   avatar: this.avatar,
-      //   gender: '',
-      //   location: '',
-      //   introduction: '我bu就是我'
-      //   // introduction: this.introduction
-      // }
     }
   }
 }
