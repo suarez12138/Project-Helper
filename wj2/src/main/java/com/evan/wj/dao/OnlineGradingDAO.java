@@ -11,7 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
-    @Query("select new com.evan.wj.bean.OnlineGrade(p.id, g.id, pg.grade,p.stu_id, p.name,g.group_name, pg.text) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where g.project = 1")
+    @Query("select new com.evan.wj.bean.OnlineGrade(p.id, g.id, pg.grade,p.stu_id, p.name,g.group_name, pg.text) from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where g.project = ?1")
     List<OnlineGrade> getAllPerson(int project_id);
 
 
