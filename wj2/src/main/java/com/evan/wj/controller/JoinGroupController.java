@@ -19,7 +19,7 @@ public class JoinGroupController {
     JoinGroupDAO joinGroupDAO;
 
     @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/student/personal/")
+    @PostMapping(value = "/vue-element-admin/student/group/join_group")
     @ResponseBody
     public Message_return joinGroup(@RequestParam("token") String token, @RequestParam("gro_id") int gro_id){
 
