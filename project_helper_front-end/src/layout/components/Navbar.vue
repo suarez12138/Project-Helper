@@ -112,6 +112,7 @@ export default {
   .p_name {
     float: right;
     color: $primary;
+    font-weight: bold;
     margin-right: 30%;
     margin-top: 16px;
     font-size: 20px;

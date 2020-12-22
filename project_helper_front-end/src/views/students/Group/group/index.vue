@@ -31,7 +31,7 @@
           prop="name"
           label="组名"
           sortable
-          width="100"
+          width="130"
         >
           <template slot-scope="scope">
             <el-popover trigger="click" placement="right" class="pout">
@@ -128,7 +128,7 @@
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.status === '可加入' ? 'primary' : 'success'"
+              :type="scope.row.status === '不可加入' ? 'danger' : 'success'"
               disable-transitions
             >{{ scope.row.status }}
             </el-tag>
@@ -328,9 +328,8 @@ export default {
     },
     handleClick(row) {
       if (row.status === '不可加入') {
-        alert("此组不可加入")
-      }
-      else {
+        alert('此组不可加入')
+      } else {
         alert(row.id)
         joinGroup(getToken(), row.id).then(response => {
           alert(response.message)
