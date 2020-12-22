@@ -25,3 +25,11 @@ export function get_AllTags(project_id) {
         params:{project_id}
     })
 }
+
+export function get_AllUngroupedStudents(project_id) {
+  return request({
+    url: '/vue-element-admin/teacher/personal/all_ungrouped_students',
+    method: 'get',
+    params: {project_id}
+  })
+}

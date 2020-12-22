@@ -52,7 +52,7 @@
         <el-table-column align="center" label="Comments">
           <template slot-scope="scope">
             <el-input
-              v-model="scope.row.comments"
+              v-model="scope.row.com_text"
               type="textarea"
               autosize
               placeholder="请输入评语"
@@ -65,7 +65,7 @@
               type="success"
               size="mini"
               round
-              @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.comments)"
+              @click="miao(scope.row.person_id, scope.row.group_id, scope.row.score, scope.row.com_text)"
             >确认
             </el-button>
           </template>

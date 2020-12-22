@@ -20,8 +20,8 @@ export function post_scoreList(data) {
 
   export function get_grades_distribution(project_id) {
     return request({
-      url: '/vue-element-admin/teacher/grade/grades_stat',
-      method: 'post',
+      url: '/vue-element-admin/teacher/grade/grade_stat',
+      method: 'get',
       params: {project_id}
     })
   }

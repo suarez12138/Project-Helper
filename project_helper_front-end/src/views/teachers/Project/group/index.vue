@@ -77,7 +77,7 @@
                 />
                 <el-table-column
                   align="center"
-                  prop="skill"
+                  prop="tags"
                   width="200"
                   label="技能"
                   sortable
@@ -158,7 +158,7 @@
           width="170px"
         >
           <template slot-scope="scope">
-            <el-button type="success" size="small" @click="add_member(scope.row), getGroup_by_name(scope.row.name)">选人加入</el-button>
+            <el-button type="success" size="small" @click="add_member(scope.row), getGroup_by_name(scope.row.name), add_member_begin()">选人加入</el-button>
             <el-button type="danger" size="small" @click="drop_a_group(scope.row,scope.$index)">解散</el-button>
           </template>
         </el-table-column>
@@ -183,7 +183,7 @@
           >
             <el-table-column
               align="center"
-              prop="id"
+              prop="stu_id"
               label="SID"
               sortable
               width="100"
@@ -254,7 +254,7 @@
                 <el-button
                   type="primary"
                   size="small"
-                  @click.native.prevent="add_member2(scope.row)"
+                  @click.native.prevent="add_member_close(scope.row)"
                 >
                   拉 入
                 </el-button>
@@ -385,11 +385,11 @@ export default {
     getAllGroups() {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
-      fetchGroupsList(getToken(), localStorage.getItem('current_project_id')).then(response => {
-        this.groupList = response.data
+      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
+        this.groupList = response.AllGroups
         this.listLoading = false
       })
-      fetchGroupsListState(getToken(), localStorage.getItem('current_project_id')).then(response => {
+      fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
         this.groupStates = response.data
         this.set_table33()
       })
@@ -397,7 +397,7 @@ export default {
     set_table33() {
       // alert(this.groupList[0].pre_time)
       var length = this.groupList.length
-      alert(length)
+      // alert(length)
       for (var i = 0; i < length; i++) {
         this.tableData33.push({
           name: this.groupList[i].name,
@@ -437,7 +437,10 @@ export default {
     add_member(row) {
 
     },
-    add_member2() {
+    add_member_close() {
+      this.dialogVisible = false
+    },
+    add_member_begin() {
       this.dialogVisible = false
     },
     drop_a_group(row, index) {
@@ -503,7 +506,7 @@ export default {
       console.log(value)
     },
     formatter(row, column) {
-      return row.skill
+      return row.tags
     },
     filterstatus(value, row) {
       return row.status === value
