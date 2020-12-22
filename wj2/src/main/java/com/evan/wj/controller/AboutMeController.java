@@ -31,12 +31,16 @@ public class AboutMeController {
 
         // in User
         aboutMeDAO.update_password(Ab.getPassword(),person_id);
+        System.out.println(Ab.getPassword());
 
 
         //
         aboutMeDAO.update_dorm(Ab.getLocation(),person_id);
+        System.out.println(Ab.getLocation());
         aboutMeDAO.update_gender(Ab.getGender(),person_id);
+        System.out.println(Ab.getGender());
         aboutMeDAO.update_self_introduction(Ab.getIntroduction(),person_id);
+        System.out.println(Ab.getIntroduction());
 
 
         return new Void_return(20000);

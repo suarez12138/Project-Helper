@@ -67,8 +67,8 @@ export default {
     submit() {
       update_profile({
         token: getToken(),
-        Password: this.user.password,
-        Gender: this.user.gender,
+        password: this.user.password,
+        gender: this.user.gender,
         location: this.user.location,
         introduction: this.user.introduction
       }).then(response => {

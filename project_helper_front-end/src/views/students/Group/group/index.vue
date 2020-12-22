@@ -101,16 +101,16 @@
         />
         <el-table-column
           align="center"
-          prop="is_valid"
+          prop="valid"
           label="是否有效"
-          :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
+          :filters="[{ text: '是', value: 'T' }, { text: '否', value: 'F' }]"
           :filter-method="filtervalid"
           sortable
           width="130"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.valid === '否' ? 'primary' : 'success'"
+              :type="scope.row.valid === 'F' ? 'primary' : 'success'"
               disable-transitions
             >{{ scope.row.valid }}
             </el-tag>
@@ -233,13 +233,13 @@ export default {
   methods: {
     getAllGroups() {
       this.listLoading = true
-      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
-        this.groupList = response.allGroups
+      fetchGroupsList(getToken(), localStorage.getItem('current_project_id')).then(response => {
+        this.groupList = response.data
         // alert(response.allGroups[0].pre_time)
         // alert("miao")
         this.listLoading = false
       })
-      fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
+      fetchGroupsListState(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.groupStates = response.data
         this.set_table33()
       })
@@ -253,7 +253,7 @@ export default {
           name: this.groupList[i].name,
           pre_time: this.groupList[i].pre_time,
           status: this.groupList[i].status,
-          is_valid: this.groupStates[i].is_valid,
+          valid: this.groupStates[i].is_valid,
           can_join: this.groupStates[i].can_join,
           people_number: this.groupStates[i].people_number,
           max_people: this.groupStates[i].max_people,
