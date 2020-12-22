@@ -146,6 +146,7 @@ export default {
             message: '退出成功',
             type: 'success'
           })
+          location.reload(true)
         } else {
           this.$message.error(response.message)
         }
@@ -160,13 +161,12 @@ export default {
       this.listLoading = true
       fetchMyGroup(getToken(), localStorage.getItem('current_project_id')).then(response => {
         alert(response.gro_len)
-        if(response.gro_len != 0){
+        if (response.gro_len != 0) {
           this.MyGroupTableData = response.myGroups
           this.listLoading = false
           console.log(this.MyGroupTableData)
-        }
-        else{
-          alert("miao")
+        } else {
+          alert('miao')
         }
       })
     },

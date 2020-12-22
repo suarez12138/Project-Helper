@@ -27,27 +27,18 @@
         </div>
       </div>
 
-      <!--      <div class="user-skills user-bio-section">-->
-      <!--        <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>Skills</span></div>-->
-      <!--        <div class="user-bio-section-body">-->
-      <!--          <div class="progress-item">-->
-      <!--            <span>Vue</span>-->
-      <!--            <el-progress :percentage="70" />-->
-      <!--          </div>-->
-      <!--          <div class="progress-item">-->
-      <!--            <span>JavaScript</span>-->
-      <!--            <el-progress :percentage="18" />-->
-      <!--          </div>-->
-      <!--          <div class="progress-item">-->
-      <!--            <span>Css</span>-->
-      <!--            <el-progress :percentage="12" />-->
-      <!--          </div>-->
-      <!--          <div class="progress-item">-->
-      <!--            <span>ESLint</span>-->
-      <!--            <el-progress :percentage="100" status="success" />-->
-      <!--          </div>-->
-      <!--        </div>-->
-      <!--      </div>-->
+      <div class="user-skills user-bio-section">
+        <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>Scores</span></div>
+        <!-- eslint-disable-next-line -->
+        <div v-for="item in scorelist" class="user-bio-section-body">
+
+          <div class="progress-item" style="margin-bottom: 15px;">
+            <span style="font-weight: bolder">{{ item.pro_name }}</span>
+            <el-progress :percentage="item.score" />
+            Comments:{{ item.comment }}
+          </div>
+        </div>
+      </div>
     </div>
   </el-card>
 </template>
@@ -68,6 +59,15 @@ export default {
           role: ''
         }
       }
+    }
+  },
+  data() {
+    return {
+      scorelist: [
+        { pro_name: 'Project Helper', score: '90', comment: 'Good job!' },
+        { pro_name: 'IMP', score: '70', comment: 'Just so so!' },
+        { pro_name: 'Reliable Data Transfer', score: '85', comment: 'Good job!' }
+      ]
     }
   }
 }

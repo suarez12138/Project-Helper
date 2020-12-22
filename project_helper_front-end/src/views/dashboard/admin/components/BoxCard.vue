@@ -107,7 +107,7 @@ export default {
   }
   .progress-item {
     margin-bottom: 10px;
-    font-size: 14px;
+    font-size: 4px;
   }
   @media only screen and (max-width: 1510px){
     .mallki-text{
