@@ -23,9 +23,9 @@ public class PersonInfo_proController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/teacher/personal/all_students")
     @ResponseBody
-    public TempleteResult<PersonalInfo_pro> getAllGroup_teacher(@RequestParam("project_id") int project_id){
+    public TempleteResult<PersonalInfo_pro_tea> getAllGroup_teacher(@RequestParam("project_id") int project_id){
 
-        List<PersonalInfo_pro> sub1 = personInfoDAO.getperson(project_id);
+        List<PersonalInfo_pro_tea> sub1 = personInfoDAO.getperson_teacher(project_id);
 
         List<ID_tag> sub2 = personInfoDAO.get_idTag2(project_id);
 
@@ -33,7 +33,7 @@ public class PersonInfo_proController {
         int p1 = 0;
         for(ID_tag s2: sub2){
             p2_id_t = s2.getId();
-            for (PersonalInfo_pro s1: sub1){
+            for (PersonalInfo_pro_tea s1: sub1){
                 p1 = s1.getId();
                 if (p2_id_t == p1){
                     s1.addSkill(s2.getTag());
@@ -42,7 +42,7 @@ public class PersonInfo_proController {
             }
         }
 
-        TempleteResult<PersonalInfo_pro> allProjectResult_t = new TempleteResult<PersonalInfo_pro>(20000,sub1);
+        TempleteResult<PersonalInfo_pro_tea> allProjectResult_t = new TempleteResult<PersonalInfo_pro_tea>(20000,sub1);
         //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return allProjectResult_t;
 

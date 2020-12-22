@@ -11,12 +11,12 @@ public class PreTime {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     int id;
 
-
-    String pre_day;
+    String the_day;
     int limit_group;
     int limit_time;
     String text;
     int checkPoint_id;
+    String the_time;
 
 
     public int getCheckPoint_id() {
@@ -43,12 +43,20 @@ public class PreTime {
         this.id = id;
     }
 
-    public String getPre_day() {
-        return pre_day;
+    public String getThe_day() {
+        return the_day;
     }
 
-    public void setPre_day(String pre_day) {
-        this.pre_day = pre_day;
+    public void setThe_day(String the_day) {
+        this.the_day = the_day;
+    }
+
+    public String getThe_time() {
+        return the_time;
+    }
+
+    public void setThe_time(String the_time) {
+        this.the_time = the_time;
     }
 
     public int getLimit_group() {

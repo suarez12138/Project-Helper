@@ -22,7 +22,7 @@ public class GradeController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/grade/grade_stat")
+    @GetMapping(value = "/vue-element-admin/teacher/grade/grade_stat")
     @ResponseBody
     public TempleteResult<Grade> getAllGroup(@RequestParam("project_id") int project_id){
         List<Integer> grades = gradeDAO.getGrade(project_id);
