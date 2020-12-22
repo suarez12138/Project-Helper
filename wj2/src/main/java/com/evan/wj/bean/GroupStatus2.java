@@ -8,13 +8,18 @@ public class GroupStatus2 {
     String group_status;
     String text;
 
+ 
+
     public GroupStatus2(int gro_id, int check_point_id,String group_name, String pre_week, String group_status, String text) {
+        this.check_point_id = check_point_id;
         this.gro_id = gro_id;
         this.group_name = group_name;
         Pre_week = pre_week;
         this.group_status = group_status;
         this.text = text;
     }
+
+
 
     public int getCheck_point_id() {
         return check_point_id;
