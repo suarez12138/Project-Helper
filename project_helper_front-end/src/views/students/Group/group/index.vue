@@ -62,7 +62,7 @@
                 />
                 <el-table-column
                   align="center"
-                  prop="skill"
+                  prop="tags"
                   label="技能"
                   sortable
                   :formatter="formatter"
@@ -340,7 +340,7 @@ export default {
       console.log(value)
     },
     formatter(row, column) {
-      return row.skill
+      return row.tags
     },
     filterstatus(value, row) {
       return row.tag === value

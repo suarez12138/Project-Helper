@@ -91,10 +91,10 @@
           />
           <el-table-column
             align="center"
-            prop="dormitory"
+            prop="dorm"
             label="宿舍"
             sortable
-            width="80"
+            width="110"
           />
           <el-table-column
             align="center"
@@ -141,7 +141,7 @@
               <el-button
                 type="danger"
                 size="small"
-                @click.native.prevent="remove_from_group(scope.row)"
+                @click.native.prevent="miao(scope.row.stu_id, scope.row.gro_id, scope.row.status)"
               >移出小组
               </el-button>
             </template>
@@ -154,8 +154,11 @@
 
 <script>
 import { get_AllStudents } from '@/api/teacher/personal'
+import { get_AllUngroupedStudents } from '@/api/teacher/personal'
 // import { getToken } from '@/utils/auth'
 import { fetchTheGroup } from '@/api/teacher/group'
+import { dropMyGroup } from '@/api/student/group'
+
 export default {
   name: 'DragSelectDemo',
   data() {
@@ -168,7 +171,8 @@ export default {
         information: ''
       },
       tableData22:
-      null, // [{
+            [], 
+      //       [{
       //   name: '张小虎',
       //   SID: '11812100',
       //   gender: '男',
@@ -176,7 +180,7 @@ export default {
       //   skill: ['SPRING BOOT', 'lala', 'testlongest', 'lalalala', 'disanhang'],
       //   hope: '不搞基',
       //   status: '已组队'
-      // }]
+      // }],
 
       tableData_of_OneGroup:
       null,
@@ -208,6 +212,28 @@ export default {
     this.get_AllTags_table()
   },
   methods: {
+    miao(stu_id, group_id, status) {
+      alert(group_id)
+      if(status == '未组队'){
+        this.$message({
+            message: '退出失败，该同学未进组',
+            type: 'success'//////////////////////////////////////////////////////
+          })
+      }
+      else{
+        dropMyGroup(stu_id, group_id).then(response => {
+          console.log(response.message)
+          if (response.message == 'Success!') {
+            this.$message({
+              message: '退出成功',
+              type: 'success'
+            })
+          } else {
+            this.$message.error(response.message)
+          }
+        })
+      }
+    },
     getGroup_by_name(name) {
       fetchTheGroup(name).then(response => {
         this.tableData_of_OneGroup = response.myGroups
@@ -217,6 +243,17 @@ export default {
     get_AllStudent_table() {
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
+        this.get_AllUngroupedStudent_table()
+
+      })
+    },
+    get_AllUngroupedStudent_table() {
+      get_AllUngroupedStudents(localStorage.getItem('current_project_id')).then(response => {
+        var length = response.data.length
+        for(var i = 0; i < length; i++){
+          this.tableData22.push(response.data[i])
+        }
+
       })
     },
     remove_from_group(row) {

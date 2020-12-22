@@ -266,13 +266,18 @@ export default {
         self_id: getToken()
       }).then(response => {
         this.dialogFormVisible = false
+        // console.log(this.multipleSelection)
         if (response.message != 'Success!') {
           this.$message.error(response.message)
         } else {
+          // for (var i=0;i<this.multipleSelection.length;i++){
+          //   this.multipleSelection[i].status='已组队'
+          // }
           this.$message({
             message: '组队成功！',
             type: 'success'
           })
+          location.reload(true)
         }
       })
     },
