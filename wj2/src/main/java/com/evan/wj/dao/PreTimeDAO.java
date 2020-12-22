@@ -32,11 +32,19 @@ public interface PreTimeDAO extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.P_OnePreTime_content(pt.limit_group,pt.limit_time,pt.start_time) from PreTime pt where pt.project_id = ?1 and pt.id = ?2")
     List<P_OnePreTime_content> get_OnePreTime_content(int project_id, int preTime_id);
 
-//
-//    @Transactional
-//    @Modifying
-//    @Query(value = "update ", nativeQuery = true)
-//    void Insert_pre_time22(int project_id, int limit_group, int limit_time, String text, String start_time);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update gro g set pre_day = ?1 where g.id = ?2", nativeQuery = true)
+    void update_gro_preday(int pre_day, int gro_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "update gro g set index_in_pre_day = ?1 where g.id = ?2", nativeQuery = true)
+    void update_gro_index(int index, int gro_id);
+
+    @Query("select g.id from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where p.stu_id= ?1 and g.project = ?2")
+    List<Integer> get_MyGroup_id(String token, int project_id);
 
 
 

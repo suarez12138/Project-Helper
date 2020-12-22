@@ -3,6 +3,7 @@ package com.evan.wj.receive;
 import java.util.List;
 
 public class PretimeReceive {
+
     int project_id;
     int time_limit;
     int group_limit;

@@ -19,21 +19,23 @@ public class User {
 
 
     String roles;
-    String person;
+    int person;
 
-    public String getRole() {
+
+
+    public String getRoles() {
         return roles;
     }
 
-    public void setRole(String roles) {
+    public void setRoles(String roles) {
         this.roles = roles;
     }
 
-    public String getPerson() {
+    public int getPerson() {
         return person;
     }
 
-    public void setPerson(String person) {
+    public void setPerson(int person) {
         this.person = person;
     }
 

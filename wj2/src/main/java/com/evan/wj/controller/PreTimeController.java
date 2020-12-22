@@ -22,7 +22,7 @@ public class PreTimeController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/nnnnnnnnnnnnnnnn1")
+    @GetMapping(value = "/vue-element-admin/student/pre/get_time_suite")
     @ResponseBody
     public TempleteResult<P_AllPreTime> getAllPretime(@RequestParam("project_id") int project_id){
         List<P_AllPreTime> sub1 = preTimeDAO.get_allPreTime(project_id);
@@ -33,7 +33,7 @@ public class PreTimeController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/nnnnnnnnnnnnnnnn2")
+    @GetMapping(value = "/vue-element-admin/student/pre/get_time_title")
     @ResponseBody
     public TempleteResult<P_OnePreTime_title> get_OnePretime_title(@RequestParam("project_id") int project_id,@RequestParam("preTime_id") int preTime_id){
         List<P_OnePreTime_title> sub1 = preTimeDAO.get_OnePreTime_title(project_id,preTime_id);
@@ -42,7 +42,7 @@ public class PreTimeController {
     }
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/nnnnnnnnnnnnnnnn3")
+    @GetMapping(value = "/vue-element-admin/student/pre/get_time_detail")
     @ResponseBody
     public TempleteResult<Pretime_student_select> get_OnePretime_content(@RequestParam("project_id") int project_id, @RequestParam("preTime_id") int preTime_id){
         List<P_OnePreTime_content> sub1 = preTimeDAO.get_OnePreTime_content(project_id,preTime_id);
@@ -110,7 +110,18 @@ public class PreTimeController {
 
 
     @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/teacher/nnnnnnnnnnnnnnnnnnnnnnnnnnnnn4")
+    @PostMapping(value = "/vue-element-admin/student/pre/update_preTime")
+    @ResponseBody
+    public Message_return getAllPretime(@RequestParam("token") String token,@RequestParam("project_id") int project_id,@RequestParam("preTime_id") int preTime_id, @RequestParam("time_id") int time_id){
+        int gro_id = preTimeDAO.get_MyGroup_id(token,project_id).get(0);
+        preTimeDAO.update_gro_index(time_id,gro_id);
+        preTimeDAO.update_gro_index(preTime_id,gro_id);
+        return new Message_return(20000,"Success!");
+    }
+
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/teacher/pre/post_pre")
     @ResponseBody
     public Message_return insert_Pretime(@RequestBody PretimeReceive rec){
         int project_id = rec.getProject_id();
@@ -123,10 +134,6 @@ public class PreTimeController {
         }
         return new Message_return(20000,"Success!");
     }
-
-
-
-
 
 
 }
