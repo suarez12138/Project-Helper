@@ -9,20 +9,21 @@ export function fetchAllProject() {
 }
 
 
-export function fetchGroupsList(project_id) {
+export function fetchGroupsList(token, project_id) {
   return request({
     url: '/vue-element-admin/student/group/group_list',
     method: 'get',
     // params: {project_id}
-    params: {project_id}
+    params: {token, project_id}
   })
 }
 
-export function fetchGroupsListState(project_id) {
+
+export function fetchGroupsListState(token, project_id) {
   return request({
     url: '/vue-element-admin/student/group/group_list_state',
     method: 'get',
-    params: {project_id}
+    params: {token, project_id}
   })
 }
 

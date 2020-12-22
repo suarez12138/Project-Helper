@@ -5,10 +5,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -18,19 +15,21 @@ import java.io.IOException;
 import java.util.List;
 
 
-@Controller
+@RestController
 public class UploadController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
-
+    @CrossOrigin
     @PostMapping("/vue-element-admin/student/project/upload_file")
     @ResponseBody
-    public Message_return upload(@RequestParam("file") MultipartFile file) {
+    public Message_return upload(MultipartFile file) {
+
+        System.out.print("aaabbbccc");
         if (file.isEmpty()) {
             return new Message_return(20000,"Failed! Please select the file!");
         }
         String fileName = file.getOriginalFilename();
-        String filePath = "/Users/itinypocket/workspace/temp/";
+        String filePath = "S:\\For_git\\Project-Helper\\store\\";
         File dest = new File(filePath + fileName);
         try {
             file.transferTo(dest);

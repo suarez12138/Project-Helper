@@ -104,14 +104,14 @@
         />
         <el-table-column
           align="center"
-          prop="information"
+          prop="group_info"
           label="小组信息"
           sortable
         />
 
         <el-table-column
           align="center"
-          prop="population"
+          prop="people_number"
           label="小组人数"
           sortable
           width="110"
@@ -120,14 +120,14 @@
           align="center"
           prop="valid"
           label="是否有效"
-          :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
+          :filters="[{ text: '是', value: 'T' }, { text: '否', value: 'F' }]"
           :filter-method="filtervalid"
           sortable
           width="130"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.valid === '否' ? 'primary' : 'success'"
+              :type="scope.row.valid === 'F' ? 'primary' : 'success'"
               disable-transitions
             >{{ scope.row.valid }}
             </el-tag>
@@ -276,10 +276,12 @@
 // import {fetchList} from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
 import { getToken } from '@/utils/auth'
-import { fetchGroupsList } from '@/api/student/group'
-import { fetchAllStudent } from '@/api/teacher/group'
+import { fetchGroupsListState } from '@/api/teacher/group'
+import { fetchGroupsList } from '@/api/teacher/group'
+// import { fetchGroupsListState } from '@/api/student/group'
+// import { fetchGroupsList } from '@/api/student/group'
 import { dropGroup } from '@/api/teacher/group'
-import { fetchTheGroup } from '@/api/teacher/group'
+import { fetchTheGroup } from '@/api/student/group'
 import { autoform_Group } from '@/api/teacher/group'
 
 const groupOptions = ['只看有效组', '只看无效组']
@@ -302,8 +304,9 @@ export default {
       list2: [],
       bookType: 'xlsx',
       textarea: '',
-      tableData33:
-      null,
+      groupList: [],
+      groupStates: [],
+      tableData33:[],
       // [{
       //   name: '组1',
       //   pre_time: '周五上午',
@@ -372,20 +375,53 @@ export default {
 
   created() {
     this.getAllGroups()
+
   },
   methods: {
     getStudents() {
-      fetchAllStudent(getToken, localStorage.getItem('current_project_id')).then(response => {
+      fetchStudent().then(response => {
         this.tableData_of_OneGroup = response.data
       })
     },
     getAllGroups() {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
-      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
-        this.tableData33 = response.allGroups
+      fetchGroupsList(getToken(), localStorage.getItem('current_project_id')).then(response => {
+        this.groupList = response.data
         this.listLoading = false
       })
+      fetchGroupsListState(getToken(), localStorage.getItem('current_project_id')).then(response => {
+        this.groupStates = response.data
+        this.set_table33()
+      })
+    },
+    set_table33() {
+      // alert(this.groupList[0].pre_time)
+      var length = this.groupList.length
+      alert(length)
+      for (var i = 0; i < length; i++) {
+        this.tableData33.push({
+          name: this.groupList[i].name,
+          pre_time: this.groupList[i].pre_time,
+          status: this.groupList[i].status,
+          valid: this.groupStates[i].is_valid,
+          can_join: this.groupStates[i].can_join,
+          people_number: this.groupStates[i].people_number,
+          max_people: this.groupStates[i].max_people,
+          min_people: this.groupStates[i].min_people,
+          group_info: this.groupStates[i].group_info
+        })
+        // alert(this.tableData33)
+        // alert(this.groupList[0].name)
+        // alert(this.tableData33[0].pre_time)
+        // alert(this.tableData33[i].status)
+        // alert(this.tableData33[i].is_valid)
+        // alert(this.tableData33[i].can_join)
+        // alert(this.tableData33[i].people_number)
+        // alert(this.tableData33[i].max_people)
+        // alert(this.tableData33[i].min_people)
+        // alert(this.tableData33[i].group_info)
+      }
     },
     getGroup_by_name(name) {
       this.sel_name = name
@@ -400,8 +436,11 @@ export default {
       })
     },
     add_member(row) {
-      this.selectRow = row
-      this.dialogVisible = true
+      
+
+
+
+
     },
     add_member2() {
       this.dialogVisible = false
