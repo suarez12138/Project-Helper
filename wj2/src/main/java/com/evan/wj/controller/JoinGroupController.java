@@ -13,8 +13,6 @@ import java.util.List;
 
 @Controller
 public class JoinGroupController {
-
-
     @Autowired
     JoinGroupDAO joinGroupDAO;
 
