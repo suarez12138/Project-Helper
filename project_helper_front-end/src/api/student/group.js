@@ -70,3 +70,12 @@ export function dropMyGroup(token, gro_id) {
   })
 }
 
+
+export function joinGroup(token, gro_id) {
+  return request({
+    url: '/vue-element-admin/student/group/join_group',
+    method: 'post',
+    params: {token, gro_id}
+  })
+}
+

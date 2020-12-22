@@ -150,17 +150,17 @@ export default {
       // console.log(this.scorelist)
     },
     handleUpdate() {
-      alert(this.scorelist[1].stu_id)
+      // alert(this.scorelist[1].stu_id)
       // this.modified_person_ids = this.scorelist.person_id
       // this.modified_group_ids = this.scorelist.group_id
       // this.modified_scores = this.scorelist.score
       // this.modified_comments = this.scorelist.comments
 
       post_scoreList({
-        person_id: this.modified_person_ids,
-        group_id: this.modified_group_ids,
-        score: this.modified_scores,
-        comment: this.modified_comments
+        person_ids: this.modified_person_ids,
+        group_ids: this.modified_group_ids,
+        grades: this.modified_scores,
+        comments: this.modified_comments
       }).then(response => {
 
       })

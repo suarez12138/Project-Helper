@@ -38,6 +38,17 @@ public class OnlineGradingController {
         List<String> grades =  rec.getGrades();
         List<String> comments = rec.getComments();
 
+//        System.out.println(group_ids.size());
+//        System.out.println(person_ids.size());
+//        System.out.println(grades.size());
+//        System.out.println(comments.size());
+//
+//        System.out.println(group_ids.get(0));
+//        System.out.println(person_ids.get(0));
+//        System.out.println(grades.get(0));
+//        System.out.println(comments.get(0));
+//        System.out.println(Double.parseDouble(grades.get(0)));
+
         for(int i=0;i<person_ids.size();i++){
             onlineGradingDAO.update_grade(Double.parseDouble(grades.get(i)),person_ids.get(i),group_ids.get(i));
             onlineGradingDAO.update_comment(comments.get(i),person_ids.get(i),group_ids.get(i));

@@ -157,6 +157,7 @@ import { fetchGroupsListState } from '@/api/student/group'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
 import { fetchTheGroup } from '@/api/student/group'
+import { joinGroup } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 
 export default {
@@ -250,6 +251,7 @@ export default {
       // alert(length)
       for (var i = 0; i < length; i++) {
         this.tableData33.push({
+          id: this.groupList[i].id,
           name: this.groupList[i].name,
           pre_time: this.groupList[i].pre_time,
           status: this.groupList[i].status,
@@ -326,7 +328,13 @@ export default {
     },
     handleClick(row) {
       if (row.status === '不可加入') {
-        this.open()
+        alert("此组不可加入")
+      }
+      else {
+        alert(row.id)
+        joinGroup(getToken(), row.id).then(response => {
+          alert(response.message)
+        })
       }
     },
     handleChange(value) {
