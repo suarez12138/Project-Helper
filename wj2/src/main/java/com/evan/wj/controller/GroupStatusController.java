@@ -20,21 +20,18 @@ public class GroupStatusController {
 
     @Autowired
     GroupStatusDao groupStatusDao;
-
     @Autowired
     UpPersonInfoDAO upPersonInfoDAO;
-
     @Autowired
     PersonInfoDAO personInfoDAO;
-
 
 
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/teacher/group/group_list_state")
     @ResponseBody
-    public TempleteResult<GroupStatus> Group_status(@RequestParam("project_id") int project_id){
+    public TempleteResult<GroupStatus> Group_status(@RequestParam("project_id") int project_id){ // okkk
 
-        List<GroupStatus> sub1 = groupStatusDao.getStatus(project_id);
+        List<GroupStatus> sub1 = groupStatusDao.getStatus_teacher(project_id);
         int min = 0;
         int max = 0;
         long num = 0;
@@ -55,8 +52,6 @@ public class GroupStatusController {
 
 
 
-
-
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/group/group_list_state")
     @ResponseBody
@@ -65,7 +60,8 @@ public class GroupStatusController {
         String cross = personInfoDAO.get_CrossClass(project_id).get(0);
         List<GroupStatus> sub1 = null;
         if(cross.equals("true")){
-            sub1 = groupStatusDao.getStatus(project_id);
+            // 这个 pro 下 所有的 group
+            sub1 = groupStatusDao.getStatus_teacher(project_id);
         }else{
             sub1 = groupStatusDao.getStatus_stu(project_id,token);
         }

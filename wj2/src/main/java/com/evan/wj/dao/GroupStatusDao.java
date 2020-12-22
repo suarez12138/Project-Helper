@@ -12,8 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface GroupStatusDao extends JpaRepository<User,Integer> {
-        @Query("select new com.evan.wj.bean.GroupStatus( gro.group_status,count(gro.id),pro.min_people, pro.max_people, gro.text) from Gro gro join PersonGroup pg on pg.gro = gro.id join Project pro on pro.id = gro.project where pro.id = ?1 group by gro.id order by gro.id")
-        List<GroupStatus> getStatus(int project_id);
+        @Query("select new com.evan.wj.bean.GroupStatus( gro.group_status,count(gro.id),pro.min_people, pro.max_people, gro.text) from Gro gro join PersonGroup pg on pg.gro = gro.id join Project pro on pro.id = gro.project where pro.id = ?1 group by gro.id")
+        List<GroupStatus> getStatus_teacher(int project_id);
 
         @Query("select new com.evan.wj.bean.GroupStatus( gro.group_status,count(gro.id),pro.min_people, pro.max_people, gro.text) from Gro gro join PersonGroup pg on pg.gro = gro.id join Project pro on pro.id = gro.project join Class c on c.course = pro.course where pro.id = ?1 and c.id in(select c2.id from PersonClass pc2 join People p2 on p2.id = pc2.person join Class c2 on c2.id = pc2.class1 where p2.stu_id = ?2)group by gro.id order by gro.id")
         List<GroupStatus> getStatus_stu(int project_id,String token);

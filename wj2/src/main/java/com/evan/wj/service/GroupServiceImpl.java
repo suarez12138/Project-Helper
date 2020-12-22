@@ -34,7 +34,6 @@ public class GroupServiceImpl implements GroupService{
         // MyGroup_idTag {int person_id, String tag}
         for (MyGroup_idTag tg: tags ){
             int person = tg.getId();
-
             // MyGroup {int id, String name, String gender, List<String》 tag}
             for (MyGroup p: myGroups){
                 if(person == p.getId()){
