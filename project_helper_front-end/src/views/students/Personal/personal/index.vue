@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <div class="border_great">
+    <div v-if="this.beforeddl" ref="show" class="border_great">
       <div class="personal_title"> Personal information</div>
       <el-button type="text" style="float: left;margin-left: 50px;" size="large" @click="handleClick()"><i
         class="el-icon-circle-plus"
@@ -165,6 +165,7 @@
         </div>
       </el-dialog>
     </div>
+    <div v-if="!this.beforeddl" class="guanbi">组队功能已关闭</div>
   </div>
 </template>
 
@@ -216,7 +217,8 @@ export default {
       options: [{
         value: 'Week 1',
         label: 'Week 1'
-      }]
+      }],
+      beforeddl: true
     }
   },
   computed: {
@@ -242,6 +244,8 @@ export default {
     get_AllStudent_table() {
       get_AllStudents(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
+        //
+        this.$refs.show.style.display = this.beforeddl
       })
     },
     get_AllTags_table() {
@@ -401,6 +405,12 @@ export default {
   //margin-top: 30px;
   //margin-bottom: 30px;
 
+}
+.guanbi{
+  color: $primary;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/

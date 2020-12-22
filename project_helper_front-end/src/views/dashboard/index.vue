@@ -85,14 +85,11 @@
           <el-form-item label="用户名" prop="name" required>
             <el-input v-model="create_Form.name" style="width: 30%" />
           </el-form-item>
-          <el-form-item label="真名" prop="name" required>
-            <el-input v-model="create_Form.truename" style="width: 30%" />
-          </el-form-item>
-          <el-form-item label="初始密码" prop="name" required>
+          <el-form-item label="初始密码" prop="password" required>
             <el-input v-model="create_Form.password" style="width: 30%" />
           </el-form-item>
 
-          <el-form-item label="权限" prop="privilege" required>
+          <el-form-item label="权限" prop="role" required>
             <el-select v-model="create_Form.role" placeholder="请选择相应权限">
               <el-option label="teacher" value="teacher" />
               <el-option label="student" value="student" />

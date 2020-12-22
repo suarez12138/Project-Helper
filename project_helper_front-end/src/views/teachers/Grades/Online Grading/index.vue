@@ -175,7 +175,7 @@ export default {
       get_scoreList(localStorage.getItem('current_project_id')).then(response => {
         this.scorelist = response.data
         this.scorelist_for_post = response.data
-        // console.log(this.scorelist)
+        console.log(this.scorelist)
         this.listLoading = false
         for (let i = 0; i < this.scorelist.length; i++) {
           this.$set(this.scorelist[i], 'change', false)
