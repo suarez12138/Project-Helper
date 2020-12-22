@@ -42,8 +42,8 @@
             autosize
             style="float: left;width: 40%;border-radius: 20px;"
           />
-          <!--          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
-        <!-- </el-form-item> --> 
+          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
+        <!-- </el-form-item> -->
         <el-form-item prop="content" style="margin-bottom: 30px;">
           <!--          <Tinymce ref="editor" v-model="postForm.content" :height="400" />-->
           <markdown-editor ref="markdownEditor" v-model="postForm.content" :language="language" height="300px" />
@@ -214,12 +214,12 @@ export default {
       console.log(this.html)
       // console.log(this.postForm.content)
       post_announcement_teacher({
-        project_id: localStorage.getItem("current_project_id"),
+        project_id: localStorage.getItem('current_project_id'),
         token: getToken(),
         ann_name: this.postForm.title,
         text: this.html
       }).then(response => {
-        alert("success")
+        alert('success')
       })
 
       this.submitForm()
