@@ -2,15 +2,25 @@ package com.evan.wj.bean;
 
 public class AboutMeDetail {
     int person_id;
+    String name;
     String dorm;
     String gender;
     String self_introduction;
 
-    public AboutMeDetail(int person_id, String dorm, String gender, String self_introduction) {
+    public AboutMeDetail(int person_id, String name, String dorm, String gender, String self_introduction) {
         this.person_id = person_id;
+        this.name = name;
         this.dorm = dorm;
         this.gender = gender;
         this.self_introduction = self_introduction;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getPerson_id() {

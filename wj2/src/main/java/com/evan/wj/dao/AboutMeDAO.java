@@ -35,7 +35,7 @@ public interface AboutMeDAO extends JpaRepository<User,Integer> {
 
 
 
-    @Query("select new com.evan.wj.bean.AboutMeDetail(p.id,p.domitory,p.gender,p.self_introduction) from People p where p.stu_id = ?1")
+    @Query("select new com.evan.wj.bean.AboutMeDetail(p.id,p.name,p.domitory,p.gender,p.self_introduction) from People p where p.stu_id = ?1")
     List<AboutMeDetail> getAboutMeDetail(String token);
 
 //    String person_id, String dorm, String gender, String self_introduction
