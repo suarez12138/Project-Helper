@@ -386,7 +386,7 @@ export default {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
-        this.groupList = response.AllGroups
+        this.groupList = response.allGroups
         this.listLoading = false
       })
       fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
@@ -441,7 +441,7 @@ export default {
       this.dialogVisible = false
     },
     add_member_begin() {
-      this.dialogVisible = false
+      this.dialogVisible = true
     },
     drop_a_group(row, index) {
       this.tableData33.splice(index, 1)
