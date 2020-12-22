@@ -26,7 +26,7 @@ public class JoinGroupController {
         int person_id = joinGroupDAO.getPersonID_ByToken(token).get(0);
         int project_id = joinGroupDAO.getProID_ByGroID(gro_id).get(0);
         String gro_status = joinGroupDAO.getWantperosnStatus(person_id,project_id).get(0);
-        if(gro_status == "未组队"){
+        if(gro_status.equals("未组队")){
             joinGroupDAO.insert_PersonGro(gro_id,person_id);
             joinGroupDAO.update_wantPerson_ToYiZuDui(person_id,project_id);
             return new Message_return(20000,"Success!");
