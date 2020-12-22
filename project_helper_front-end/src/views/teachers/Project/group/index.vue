@@ -47,7 +47,7 @@
           prop="name"
           label="组名"
           sortable
-          width="115"
+          width="130"
         >
           <template slot-scope="scope">
             <el-popover trigger="click" placement="right" class="pout">
@@ -306,7 +306,7 @@ export default {
       textarea: '',
       groupList: [],
       groupStates: [],
-      tableData33:[],
+      tableData33: [],
       // [{
       //   name: '组1',
       //   pre_time: '周五上午',
@@ -375,14 +375,13 @@ export default {
 
   created() {
     this.getAllGroups()
-
   },
   methods: {
-    getStudents() {
-      fetchStudent().then(response => {
-        this.tableData_of_OneGroup = response.data
-      })
-    },
+    // getStudents() {
+    //   fetchStudent().then(response => {
+    //     this.tableData_of_OneGroup = response.data
+    //   })
+    // },
     getAllGroups() {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
@@ -436,10 +435,6 @@ export default {
       })
     },
     add_member(row) {
-      
-
-
-
 
     },
     add_member2() {
@@ -449,12 +444,11 @@ export default {
       this.tableData33.splice(index, 1)
       dropGroup(row.id).then(response => {
         // alert(response.message)
-         this.$message({
-        message: response.message,
-        type: 'success'
+        this.$message({
+          message: response.message,
+          type: 'success'
+        })
       })
-      })
-     
     },
     hideTooltip: function() {
       // 在模型改变时，视图也会自动更新
@@ -570,6 +564,7 @@ export default {
 .title {
   color: $primary;
   font-size: 40px;
+  font-weight: bold;
   transition: 0.2s ease-in-out;
   text-align: center;
   padding-top: 20px;

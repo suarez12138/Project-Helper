@@ -1,7 +1,7 @@
 <template>
   <div class="components-container">
 
-    <div id="border3_2">
+    <div id="border3_2_my">
       <div @click="hideTooltip">
         <div v-if="show_tooltip" class=" title_3" @click.stop>
           <el-input v-model="text_content" class="juzhong" type="text" />
@@ -235,7 +235,7 @@ export default {
   padding-bottom: 50px;
 }
 
-#border3_2 {
+#border3_2_my {
   height: 100%;
   width: 60%;
   border: 2px solid $primary;
@@ -246,7 +246,7 @@ export default {
   box-shadow: 10px 10px 20px $primary;
 }
 
- #border3_2:hover {
+ #border3_2_my:hover {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
   box-shadow: 12px 20px 20px $primary;
