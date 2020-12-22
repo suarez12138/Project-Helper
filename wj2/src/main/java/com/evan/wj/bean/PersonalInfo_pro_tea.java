@@ -28,6 +28,19 @@ public class PersonalInfo_pro_tea {
         this.status = status;
     }
 
+    public PersonalInfo_pro_tea(int id, String stu_id, String dorm ,String name, String gender, String lab, String hope, String status) {
+        this.id = id;
+        this.gro_id = 0;
+        this.dorm = dorm;
+        this.name = name;
+        this.stu_id = stu_id;
+        this.gender = gender;
+        this.lab = lab;
+        this.skill = new ArrayList<String>();
+        this.hope = hope;
+        this.status = status;
+    }
+
     public int getGro_id() {
         return gro_id;
     }

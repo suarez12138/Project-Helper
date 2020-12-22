@@ -22,6 +22,11 @@ public interface PersonInfoDAO extends JpaRepository<User,Integer> {
     @Query("select new com.evan.wj.bean.PersonalInfo_pro_tea(p.id,g.id ,p.stu_id,p.domitory, p.name,p.gender,c.class_name,wp.text,wp.gro_status)from People p join PersonClass pc on p.id = pc.person join Class c on c.id = pc.class1 join Project pro on pro.course = c.course join WantPerson wp on wp.person = p.id join PersonGroup pg on pg.person = p.id join Gro g on g.id = pg.gro where pro.id = ?1 and wp.project = ?1 and g.project =?1")
     List<PersonalInfo_pro_tea> getperson_teacher(int project_id);
 
+
+    @Query("select new com.evan.wj.bean.PersonalInfo_pro_tea(p.id,p.stu_id,p.domitory, p.name,p.gender,c.class_name,wp.text,wp.gro_status)from People p join PersonClass pc on p.id = pc.person join Class c on c.id = pc.class1 join Project pro on pro.course = c.course join WantPerson wp on wp.person = p.id where pro.id = ?1 and wp.project = ?1 and wp.gro_status ='未组队'")
+    List<PersonalInfo_pro_tea> getperson_teacher2_weizudui(int project_id);
+
+
     @Query("select new com.evan.wj.bean.PersonalInfo_pro(p.id, p.stu_id,p.domitory, p.name,p.gender,c.class_name,wp.text,wp.gro_status)from People p join PersonClass pc on p.id = pc.person join Class c on c.id = pc.class1 join Project pro on pro.course = c.course join WantPerson wp on wp.person = p.id where pro.id = ?1 and wp.project = ?1")
     List<PersonalInfo_pro> getperson(int project_id);
 
