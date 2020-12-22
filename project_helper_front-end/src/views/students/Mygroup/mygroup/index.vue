@@ -1,7 +1,6 @@
 <template>
   <div class="components-container">
-
-    <div id="border3_2_my">
+    <div v-if="this.beforeddl && this.inGroup" id="border3_2_my" ref="show">
       <div @click="hideTooltip">
         <div v-if="show_tooltip" class=" title_3" @click.stop>
           <el-input v-model="text_content" class="juzhong" type="text" />
@@ -98,6 +97,8 @@
 
       </el-form>
     </div>
+    <div v-if="!this.beforeddl" class="guanbi">组队功能已关闭</div>
+    <div v-if="this.beforeddl && !this.inGroup" class="guanbi">您不在任何小组中</div>
   </div>
 </template>
 
@@ -129,7 +130,9 @@ export default {
       listLoading: false,
       myGroupForm: null,
       myGroupState: null,
-      options: null
+      options: null,
+      beforeddl: true,
+      inGroup: true
     }
   },
   created() {
@@ -169,6 +172,10 @@ export default {
           alert('miao')
         }
       })
+      this.$refs.show.style.display = this.beforeddl
+      if (this.beforeddl) {
+        this.$refs.show.style.display = this.inGroup
+      }
     },
     getMyGropuState() {
       fetchMyGroup_state(getToken(), localStorage.getItem('current_project_id')).then(response => {
@@ -273,7 +280,12 @@ export default {
   text-align: center;
   padding-top: 20px;
   padding-bottom: 40px;
-
+}
+.guanbi{
+  color: $primary;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .flo {

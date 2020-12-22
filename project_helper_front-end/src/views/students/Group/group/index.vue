@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <div id="border3_1">
+    <div v-if="this.beforeddl" id="border3_1" ref="show">
       <div class="title_3">Grouping Information</div>
       <div class="search-Box" style="padding-top: 20px;padding-left: 40px;">
         <svg-icon icon-class="search" class="search_icon5" />
@@ -146,6 +146,7 @@
         </el-table-column>
       </el-table>
     </div>
+    <div v-if="!this.beforeddl" class="guanbi">组队功能已关闭</div>
 
   </div>
 </template>
@@ -209,7 +210,8 @@ export default {
         information: ''
       },
       listLoading: false,
-      search: ''
+      search: '',
+      beforeddl: true
     }
   },
   computed: {
@@ -239,6 +241,7 @@ export default {
         // alert(response.allGroups[0].pre_time)
         // alert("miao")
         this.listLoading = false
+        this.$refs.show.style.display = this.beforeddl
       })
       fetchGroupsListState(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.groupStates = response.data
@@ -388,6 +391,12 @@ export default {
 
 .el-tag, .el-button, .el-input__inner, .el-textarea__inner {
   border-radius: 20px !important;
+}
+.guanbi{
+  color: $primary;
+  text-align: center;
+  font-weight: bold;
+  font-size: 40px;
 }
 
 .el-popover {
