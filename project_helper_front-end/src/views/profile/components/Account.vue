@@ -45,6 +45,7 @@
 <script>
 import { getToken } from '@/utils/auth'
 import { update_profile } from '@/api/student/profile'
+import { get_profile } from '@/api/student/profile'
 
 export default {
   props: {
@@ -63,7 +64,24 @@ export default {
       }
     }
   },
+  created() {
+    this.getUser()
+  },
   methods: {
+    getUser() {
+      get_profile(getToken()).then(response => {
+        this.user = {
+          id: getToken(),
+          role: this.roles.join(' | '),
+          name: response.data.name,
+          email: getToken()+"@mail.sustech.edu.cn",
+          avatar: this.avatar,
+          gender: response.data.gender,
+          location: response.data.dorm,
+          introduction: response.data.self_introduction
+        }
+      })
+    },
     submit() {
       update_profile({
         token: getToken(),
