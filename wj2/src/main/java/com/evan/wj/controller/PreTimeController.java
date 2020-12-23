@@ -20,7 +20,6 @@ public class PreTimeController {
     @Autowired
     PreTimeDAO preTimeDAO;
 
-
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/student/pre/get_time_suite")
     @ResponseBody
@@ -140,10 +139,8 @@ public class PreTimeController {
         return new Message_return(20000,"Success!");
     }
 
-
-
     @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/teacher/pre/get_pre_list")
+    @GetMapping(value = "/vue-element-admin/teacher/pre/get_pre_list")
     @ResponseBody
 
     public TempleteResult<P_giveBackTeacher> getAllGroup(@RequestParam("project_id") int project_id){
