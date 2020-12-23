@@ -42,7 +42,7 @@ public class CreateGroupController {
         List<Integer> team_members = rec.getPerson_id();
         int pro_id = rec.getProject_id() ;
         int the_max = createGroupDAO.getMax(pro_id).get(0);
-        if(team_members.size() + 1 >= the_max){
+        if(team_members.size() + 1 > the_max){
             return new Message_return(20000,"Failed! You invite " + team_members.size() + " people, but the max volumn is " + the_max);
         }
 
