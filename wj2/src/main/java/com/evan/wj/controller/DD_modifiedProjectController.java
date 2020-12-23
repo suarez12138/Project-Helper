@@ -19,14 +19,20 @@ public class DD_modifiedProjectController {
     DD_modifiedProjectDAO dd_modifiedProjectDAO;
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/personal/tempasfafsaf")
+    @GetMapping(value = "/vue-element-admin/teacher/project/get_proj_info")
     @ResponseBody
-    public TempleteResult<DD_Project_GiveBack> getAllGroup(@RequestParam("project_id") int project_id){
+    public TempleteResult<DD_Project_GiveBack> give_projectBack(@RequestParam("project_id") int project_id){
         List<DD_Project_GiveBack> sub1 = dd_modifiedProjectDAO.getGiveBack_main(project_id);
         List<String> tags = dd_modifiedProjectDAO.getGiveBack_tag(project_id);
         List<String> preWeeks = dd_modifiedProjectDAO.getGiveBack_preWeek(project_id);
 
+        for(String t:tags){
+            sub1.get(0).getAll_tags().add(t);
+        }
 
+        for(String w:preWeeks){
+            sub1.get(0).getProject_pre_week().add(w);
+        }
         TempleteResult<DD_Project_GiveBack> allProjectResult_t = new TempleteResult<DD_Project_GiveBack>(20000,sub1);
 
         return allProjectResult_t;
