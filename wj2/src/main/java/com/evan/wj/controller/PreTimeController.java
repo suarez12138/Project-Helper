@@ -95,10 +95,10 @@ public class PreTimeController {
             time_range = time_left + time_right;
             List<P_groIDName> one_group = preTimeDAO.get_groupByindex(preTime_id,i+1,project_id);
             if(one_group.size() >0){
-                index = one_group.get(0).getGro_id();
+//                index = one_group.get(0).getGro_id();
                 group_name = one_group.get(0).getGro_name();
             }else {
-                index = one_group.get(0).getGro_id();
+//                index = one_group.get(0).getGro_id();
                 group_name = "";
             }
             sub2.add(new Pretime_student_select(time_range,i+1,group_name));
@@ -142,10 +142,8 @@ public class PreTimeController {
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/teacher/pre/get_pre_list")
     @ResponseBody
-
-    public TempleteResult<P_giveBackTeacher> getAllGroup(@RequestParam("project_id") int project_id){
+    public TempleteResult<P_giveBackTeacher> give_back_tea(@RequestParam("project_id") int project_id){
         List<P_giveBackTeacher> sub1 = preTimeDAO.get_Selectback(project_id);
-
 
         TempleteResult<P_giveBackTeacher> allProjectResult_t = new TempleteResult<P_giveBackTeacher>(20000,sub1);
 
