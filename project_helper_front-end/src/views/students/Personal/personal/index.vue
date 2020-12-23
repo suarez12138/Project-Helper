@@ -246,7 +246,7 @@ export default {
     getBeforeDDL() {
       beforeDDL(localStorage.getItem('current_project_id')).then(response => {
         console.log(response.data)
-        this.beforeddl = response.data
+        this.beforeddl = response.data[0] == 'true'
       })
     },
     get_AllStudent_table() {

@@ -179,7 +179,7 @@
 <script>
 // import splitPane from 'vue-splitpane'
 // import DndList from '@/components/DndList'
-import { fetchGroupsListState } from '@/api/student/group'
+import { beforeDDL, fetchGroupsListState } from '@/api/student/group'
 import { fetchGroupsList } from '@/api/student/group'
 import { fetchMyGroup } from '@/api/student/group'
 import { fetchTheGroup } from '@/api/student/group'
@@ -257,9 +257,16 @@ export default {
   },
   created() {
     // this.getMyGroup()
+    this.getBeforeDDL()
     this.getAllGroups()
   },
   methods: {
+    getBeforeDDL() {
+      beforeDDL(localStorage.getItem('current_project_id')).then(response => {
+        console.log(response.data)
+        this.beforeddl = response.data[0] == 'true'
+      })
+    },
     getAllGroups() {
       this.listLoading = true
       fetchGroupsList(getToken(), localStorage.getItem('current_project_id')).then(response => {
