@@ -32,3 +32,13 @@ export function get_allCourse(token) {
       params: {token}
   })
 }
+
+
+
+export function get_projectInfo(project_id) {
+  return request({
+      url: '/vue-element-admin/teacher/project/get_proj_info',
+      method: 'get',
+      params: {project_id}
+  })
+}

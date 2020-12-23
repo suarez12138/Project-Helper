@@ -158,19 +158,21 @@ export default {
       get_preTimeChunk(localStorage.getItem('current_project_id')).then(response => {
         // alert(response.data.length)
         this.timeNumber = response.data.length
-        for(var i = 0; i < this.timeNumber; i++){
+        for (var i = 0; i < this.timeNumber; i++) {
           this.preTime_id_list.push(response.data[i].preTime_id)
           this.preTime_list.push(response.data[i].start_time)
+          get_preTimeTitle(localStorage.getItem('current_project_id'), this.preTime_id_list[i]).then(response => {
+            this.preTime_title_list.push(response.data.pretime_text)
+          })
         }
       })
-      
+
       // get_preTimeDetail(localStorage.getItem('current_project_id'),1).then(response => {
-        
+
       // })
       // update_preTime(getToken(), localStorage.getItem('current_project_id'), 1, 1).then(response => {
-        
-      // })
 
+      // })
     },
     checkPermission,
     view(index) {
