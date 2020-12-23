@@ -115,7 +115,7 @@ public class PreTimeController {
     public Message_return getAllPretime(@RequestParam("token") String token,@RequestParam("project_id") int project_id,@RequestParam("preTime_id") int preTime_id, @RequestParam("time_id") int time_id){
         int gro_id = preTimeDAO.get_MyGroup_id(token,project_id).get(0);
         preTimeDAO.update_gro_index(time_id,gro_id);
-        preTimeDAO.update_gro_index(preTime_id,gro_id);
+        preTimeDAO.update_gro_preday(preTime_id,gro_id);
         return new Message_return(20000,"Success!");
     }
 
@@ -125,6 +125,7 @@ public class PreTimeController {
     @ResponseBody
     public Message_return insert_Pretime(@RequestBody PretimeReceive rec){
         int project_id = rec.getProject_id();
+        preTimeDAO.Delete_pretime(project_id);
         int t_limit = rec.getTime_limit();
         int g_limit = rec.getGroup_limit();
         List<String> s_times = rec.getStart_time();
@@ -139,5 +140,19 @@ public class PreTimeController {
         return new Message_return(20000,"Success!");
     }
 
+
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/teacher/pre/get_pre_list")
+    @ResponseBody
+
+    public TempleteResult<P_giveBackTeacher> getAllGroup(@RequestParam("project_id") int project_id){
+        List<P_giveBackTeacher> sub1 = preTimeDAO.get_Selectback(project_id);
+
+
+        TempleteResult<P_giveBackTeacher> allProjectResult_t = new TempleteResult<P_giveBackTeacher>(20000,sub1);
+
+        return allProjectResult_t;
+    }
 
 }

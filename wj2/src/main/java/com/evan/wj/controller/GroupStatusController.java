@@ -40,9 +40,9 @@ public class GroupStatusController {
             max = g.getMax_people();
             num = g.getPeople_number();
             if(max >= num && min <=num){
-                g.setIs_valid("T");
+                g.setIs_valid("是");
             }else {
-                g.setIs_valid("F");
+                g.setIs_valid("否");
             }
         }
         TempleteResult<GroupStatus> allProjectResult_t = new TempleteResult<GroupStatus>(20000,sub1);
@@ -75,9 +75,9 @@ public class GroupStatusController {
             max = g.getMax_people();
             num = g.getPeople_number();
             if(max >= num && min <=num){
-                g.setIs_valid("T");
+                g.setIs_valid("是");
             }else {
-                g.setIs_valid("F");
+                g.setIs_valid("否");
             }
         }
         TempleteResult<GroupStatus> allProjectResult_t = new TempleteResult<GroupStatus>(20000,sub1);

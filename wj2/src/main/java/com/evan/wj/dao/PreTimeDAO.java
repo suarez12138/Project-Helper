@@ -17,6 +17,15 @@ public interface PreTimeDAO extends JpaRepository<User,Integer> {
     @Query(value = "insert into pre_time (project_id, limit_group, limit_time, text, start_time) values (?1,?2,?3,?4,?5)", nativeQuery = true)
     void Insert_pre_time(int project_id, int limit_group, int limit_time, String text, String start_time);
 
+    @Transactional
+    @Modifying
+    @Query(value = "delete from pre_time pt where pt.project_id = ?1", nativeQuery = true)
+    void Delete_pretime(int project_id);
+
+
+    @Query("select new com.evan.wj.bean.P_giveBackTeacher(pt.id,pt.limit_group,pt.limit_time,pt.project_id,pt.start_time,pt.text) from PreTime pt where pt.project_id = ?1")
+    List<P_giveBackTeacher> get_Selectback(int project_id);
+
 
 //    // student
     @Query("select new com.evan.wj.bean.P_AllPreTime(pt.id,pt.start_time) from PreTime pt where pt.project_id= ?1")
@@ -42,6 +51,10 @@ public interface PreTimeDAO extends JpaRepository<User,Integer> {
     @Modifying
     @Query(value = "update gro g set index_in_pre_day = ?1 where g.id = ?2", nativeQuery = true)
     void update_gro_index(int index, int gro_id);
+
+
+
+
 
     @Query("select g.id from Gro g join PersonGroup pg on g.id = pg.gro join People p on p.id = pg.person where p.stu_id= ?1 and g.project = ?2")
     List<Integer> get_MyGroup_id(String token, int project_id);
