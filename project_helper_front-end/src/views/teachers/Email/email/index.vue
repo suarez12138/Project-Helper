@@ -33,7 +33,7 @@
           <!--          <span v-show="contentShortLength" class="word-counter">{{ contentShortLength }}words</span>-->
         </el-form-item>
         <el-form-item prop="content" style="margin-bottom: 30px;">
-          <Tinymce ref="editor" v-model="postForm.content" :height="400" />
+          <markdown-editor ref="markdownEditor" v-model="postForm.content" :language="language" height="300px" />
         </el-form-item>
       </div>
       <div class="transmit_upload">
@@ -62,13 +62,13 @@
 </template>
 
 <script>
-import Tinymce from '@/components/Tinymce'
 // import Upload from '@/components/Upload/SingleImage3'
 // import MDinput from '@/components/MDinput'
 // import Sticky from '@/components/Sticky' // 粘性header组件
 import { validURL } from '@/utils/validate'
 import { fetchArticle } from '@/api/article'
 import { searchUser } from '@/api/remote-search'
+import MarkdownEditor from '@/components/MarkdownEditor/index'
 // import Warning from './Warning'
 // import { CommentDropdown, PlatformDropdown, SourceUrlDropdown } from './Dropdown'
 
@@ -88,7 +88,7 @@ const defaultForm = {
 
 export default {
   name: 'ArticleDetail',
-  components: { Tinymce },
+  components: { MarkdownEditor },
   props: {
     isEdit: {
       type: Boolean,

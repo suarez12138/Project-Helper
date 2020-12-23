@@ -10,7 +10,7 @@
     >
 
       <div class="title-container">
-        <h3 class="title">Login Form</h3>
+        <h3 class="title">Project Helper</h3>
       </div>
 
       <el-form-item prop="username">
@@ -371,7 +371,7 @@ $cursor: #fff;
   .el-form-item {
     border: 1px solid rgba(255, 255, 255, 0.1);
     background: rgba(0, 0, 0, 0.1);
-    border-radius: 30px!important;
+    border-radius: 30px !important;
     color: #454545;
   }
 }
@@ -428,10 +428,11 @@ $light_gray: #eee;
     position: relative;
 
     .title {
-      font-size: 26px;
+      font-size: 50px;
       color: $light_gray;
       margin: 0px auto 40px auto;
       text-align: center;
+      text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
       font-weight: bold;
     }
   }
