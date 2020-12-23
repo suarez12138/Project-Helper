@@ -135,7 +135,7 @@
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.valid === 'F' ? 'primary' : 'success'"
+              :type="scope.row.valid === 'F' ? 'danger' : 'success'"
               disable-transitions
             >{{ scope.row.valid }}
             </el-tag>
@@ -361,9 +361,14 @@ export default {
       if (row.status === '不可加入') {
         alert('此组不可加入')
       } else {
-        alert(row.id)
+        // alert(row.id)
         joinGroup(getToken(), row.id).then(response => {
-          alert(response.message)
+          // alert(response.message)
+          this.$message({
+            message: '加入成功',
+            type: 'success'
+          })
+          this.$router.push({ path: '/studentMyGroup/studentMyGroup' })
         })
       }
     },

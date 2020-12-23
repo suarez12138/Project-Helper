@@ -281,9 +281,13 @@ export default {
           all_tags: this.create_ruleForm.skills,
           choosable_proj: this.create_ruleForm.grouping
         }).then(response => {
-          alert('miaoa')
+          // alert('miaoa')
+          this.$message({
+            message: '创建成功！',
+            type: 'success'
+          })
         })
-        alert(response)
+        this.$router.push({ path: '/dashboard' })
       })
     },
 

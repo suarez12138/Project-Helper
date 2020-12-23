@@ -171,7 +171,7 @@ export default {
         information: ''
       },
       tableData22:
-            [], 
+            [],
       //       [{
       //   name: '张小虎',
       //   SID: '11812100',
@@ -213,14 +213,13 @@ export default {
   },
   methods: {
     miao(stu_id, group_id, status) {
-      alert(group_id)
-      if(status == '未组队'){
+      // alert(group_id)
+      if (status == '未组队') {
         this.$message({
-            message: '退出失败，该同学未进组',
-            type: 'success'//////////////////////////////////////////////////////
-          })
-      }
-      else{
+          message: '移出失败，该同学未进组',
+          type: 'success'// ////////////////////////////////////////////////////
+        })
+      } else {
         dropMyGroup(stu_id, group_id).then(response => {
           console.log(response.message)
           if (response.message == 'Success!') {
@@ -244,16 +243,14 @@ export default {
       get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data
         this.get_AllUngroupedStudent_table()
-
       })
     },
     get_AllUngroupedStudent_table() {
       get_AllUngroupedStudents(localStorage.getItem('current_project_id')).then(response => {
         var length = response.data.length
-        for(var i = 0; i < length; i++){
+        for (var i = 0; i < length; i++) {
           this.tableData22.push(response.data[i])
         }
-
       })
     },
     remove_from_group(row) {

@@ -35,7 +35,7 @@
           <div class="progress-item" style="margin-bottom: 15px;">
             <span style="font-weight: bolder">{{ item.pro_name }}</span>
             <el-progress :percentage="item.score" />
-            Comments:{{ item.comment }}
+            Comment:{{ item.comment }}
           </div>
         </div>
       </div>
