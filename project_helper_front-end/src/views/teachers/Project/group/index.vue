@@ -50,7 +50,7 @@
           width="130"
         >
           <template slot-scope="scope">
-            <el-popover trigger="click" placement="right" class="pout">
+            <el-popover trigger="click" placement="right" width="400px">
               <!--                  <div id="border3_3">-->
               <div class="title">{{ sel_name }}</div>
               <el-table
@@ -59,6 +59,13 @@
                 :data="tableData2"
                 style="width: 100%"
               >
+                <el-table-column
+                  align="center"
+                  prop="stu_id"
+                  label="SID"
+                  sortable
+                  width="100"
+                />
                 <el-table-column
                   align="center"
                   prop="name"
@@ -77,15 +84,34 @@
                 />
                 <el-table-column
                   align="center"
+                  prop="lab"
+                  label="Lab"
+                  sortable
+                  width="100"
+                />
+                <el-table-column
+                  align="center"
+                  prop="dorm"
+                  label="宿舍"
+                  sortable
+                  width="120"
+                />
+                <el-table-column
+                  align="center"
                   prop="tags"
                   width="200"
                   label="技能"
-                  sortable
-                  :formatter="formatter"
-                />
+                >
+                  <template slot-scope="scope">
+                    <!--eslint-disable-next-line-->
+                    <el-tag v-for="item in scope.row.tags" effect="dark">{{ item }}</el-tag>
+                  </template>
+                </el-table-column>
               </el-table>
-              <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px; margin-left: 30px;">小组信息：</div>
-              <div class="juzhong" style="margin-left: 30px;">不搞基</div>
+              <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px; margin-left: 30px;">
+                小组信息：
+              </div>
+              <div class="juzhong" style="margin-left: 30px;">{{ this_group_information }}</div>
               <!--                  </div>-->
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
@@ -158,7 +184,13 @@
           width="170px"
         >
           <template slot-scope="scope">
-            <el-button type="success" size="small" @click="add_member(scope.row), getGroup_by_name(scope.row.name), add_member_begin()">选人加入</el-button>
+            <el-button
+              type="success"
+              size="small"
+              @click="add_member(scope.row), getGroup_by_name(scope.row.name,scope.row.information), add_member_begin()"
+            >
+              选人加入
+            </el-button>
             <el-button type="danger" size="small" @click="drop_a_group(scope.row,scope.$index)">解散</el-button>
           </template>
         </el-table-column>
@@ -173,12 +205,12 @@
 
           <div class="search-Box" style=" margin-right: 30px;width: 30%; float: right">
             <!--            <svg-icon icon-class="search" class="search_icon"  />-->
-            <el-input v-model="search" prefix-icon="search_icon" placeholder="请输入关键字" style="float:right;" />
+            <el-input v-model="search2" prefix-icon="search_icon" placeholder="请输入关键字" style="float:right;" />
           </div>
 
           <el-table
             ref="filterTable"
-            :data="tableData_of_OneGroup"
+            :data="tableData_inside"
             style="width: 100%"
           >
             <el-table-column
@@ -275,11 +307,9 @@
 <script>
 // import {fetchList} from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
-import { getToken } from '@/utils/auth'
+// import { getToken } from '@/utils/auth'
 import { fetchGroupsListState } from '@/api/teacher/group'
 import { fetchGroupsList } from '@/api/teacher/group'
-// import { fetchGroupsListState } from '@/api/student/group'
-// import { fetchGroupsList } from '@/api/student/group'
 import { dropGroup } from '@/api/teacher/group'
 import { fetchTheGroup } from '@/api/student/group'
 import { autoform_Group } from '@/api/teacher/group'
@@ -321,24 +351,25 @@ export default {
       //   gender: '男',
       //   skill: 'SPRING BOOT'
       // }]
-      null,
+        null,
       tableData_of_OneGroup:
-      null,
+        null,
       all_student:
-      null,
+        null,
       ruleForm: {
         population: '',
         information: ''
       },
       tableData_inside2:
-      null,
-      search: ''
+        null,
+      search: '',
+      search2: '',
+      this_group_information: ''
     }
   },
   computed: {
     tableData3: function() {
       var search = this.search
-      // if (!this.checkedgroups.length) {
       if (search) {
         return this.tableData33.filter(function(dataNews) {
           return Object.keys(dataNews).some(function(key) {
@@ -347,21 +378,12 @@ export default {
         })
       }
       return this.tableData33
-      // } else if (this.checkedgroups[0] === '只看有效组') {
-      //   if (search) {
-      //     return this.tableData33.filter(function(dataNews) {
-      //       return Object.keys(dataNews).some(function(key) {
-      //         return String(dataNews[key]).toLowerCase().indexOf(search) > -1
-      //       })
-      //     })
-      //   }
-      //   return this.tableData33
-      // } else {
-      //
-      // }
     },
     tableData_inside: function() {
-      var search = this.search
+      var search = this.search2
+      if (this.tableData_inside2 == null) {
+        return null
+      }
       if (search) {
         return this.tableData_inside2.filter(function(dataNews) {
           return Object.keys(dataNews).some(function(key) {
@@ -422,11 +444,13 @@ export default {
         // alert(this.tableData33[i].group_info)
       }
     },
-    getGroup_by_name(name) {
+    getGroup_by_name(name, infor) {
       this.sel_name = name
+      this.this_group_information = infor
       fetchTheGroup(name).then(response => {
         this.tableData2 = response.myGroups
         this.listLoading = false
+        // console.log(this.tableData2)
       })
     },
     auto_grouping() {
@@ -458,10 +482,11 @@ export default {
       this.show_tooltip = false
     },
     handleDownload() {
+      console.log(this.tableData33)
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
         const tHeader = ['组名', '学号', '姓名', 'Lab班级'] // 这个需要多表查询
-        const filterVal = ['name']// 这里需要补全变量名
+        const filterVal = ['name', '']// 这里需要补全变量名
         const scorelist = this.tableData33
         const data = this.formatJson(filterVal, scorelist)
         excel.export_json_to_excel({
@@ -534,7 +559,7 @@ export default {
   border-radius: 20px !important;
 }
 
-.el-popover,.el-dialog {
+.el-popover, .el-dialog {
   border: 1px dashed $primary;
   border-radius: 20px;
   box-shadow: 0 0 10px $primary;
@@ -573,12 +598,19 @@ export default {
   padding-top: 20px;
   padding-bottom: 40px;
 }
+
+.el-tag + .el-tag {
+  margin-left: 10px;
+  margin-bottom: 5px;
+}
+
 .search_icon {
   float: right;
   margin-right: 10px;
   margin-top: 10px;
   color: $primary;
 }
+
 .search_icon2 {
   color: $primary;
 }
@@ -602,5 +634,9 @@ export default {
 
 .el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
   background: $primary;
+}
+
+.pout {
+  width: 100%;
 }
 </style>
