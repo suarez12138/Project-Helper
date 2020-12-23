@@ -172,6 +172,7 @@
 <script>
 import { get_AllStudents } from '@/api/student/personal'
 import { update_MyInformation } from '@/api/student/personal'
+import { beforeDDL } from '@/api/student/group'
 import { get_AllTags } from '@/api/student/personal'
 import { get_availableWeek } from '@/api/student/creatGroup'
 import { create_group } from '@/api/student/creatGroup'
@@ -236,11 +237,18 @@ export default {
     }
   },
   created() {
+    this.getBeforeDDL()
     this.get_AllStudent_table()
     this.get_AllTags_table()
     this.get_preWeek()
   },
   methods: {
+    getBeforeDDL() {
+      beforeDDL(localStorage.getItem('current_project_id')).then(response => {
+        console.log(response.data)
+        this.beforeddl = response.data[0] == 'true'
+      })
+    },
     get_AllStudent_table() {
       get_AllStudents(getToken(), localStorage.getItem('current_project_id')).then(response => {
         this.tableData22 = response.data

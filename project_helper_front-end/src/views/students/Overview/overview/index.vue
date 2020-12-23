@@ -51,7 +51,7 @@
             <div class="juzhong2">Email</div>
           </div>
         </a>
-        <a href="/#/submission/submission">
+        <a href="/#/submission/submission1">
           <div id="t_border2_4">
             <div class="juzhong2">Submission information</div>
           </div>
@@ -89,7 +89,7 @@
 import splitPane from 'vue-splitpane'
 import checkPermission from '@/utils/permission'
 import { getToken } from '@/utils/auth'
-import { get_announcement_teacher } from '@/api/teacher/announcement/'
+// import { get_announcement_teacher } from '@/api/teacher/announcement/'
 import { fetchMyAnnouncementList_student } from '@/api/student/dashboard'
 
 export default {

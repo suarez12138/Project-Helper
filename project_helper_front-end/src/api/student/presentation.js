@@ -39,7 +39,7 @@ export function get_preTimeDetail(project_id, preTime_id) {
   export function update_preTime(token, project_id, preTime_id, time_id) {
     return request({
       url: '/vue-element-admin/student/pre/update_preTime',
-      method: 'get',
+      method: 'post',
       params:{token, project_id, preTime_id, time_id}
     })
   }

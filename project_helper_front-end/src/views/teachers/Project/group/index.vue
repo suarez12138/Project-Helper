@@ -146,14 +146,14 @@
           align="center"
           prop="valid"
           label="是否有效"
-          :filters="[{ text: '是', value: 'T' }, { text: '否', value: 'F' }]"
+          :filters="[{ text: '是', value: '是' }, { text: '否', value: '否' }]"
           :filter-method="filtervalid"
           sortable
           width="130"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.valid === 'F' ? 'primary' : 'success'"
+              :type="scope.row.valid === '否' ? 'primary' : 'success'"
               disable-transitions
             >{{ scope.row.valid }}
             </el-tag>
@@ -164,14 +164,14 @@
           prop="status"
           label="状态"
           sortable
-          :filters="[{ text: '完成组队', value: '完成组队' }, { text: '未完成组队', value: '未完成组队' }]"
+          :filters="[{ text: '不可加入', value: '不可加入' }, { text: '可加入', value: '可加入' }]"
           :filter-method="filterstatus"
           filter-placement="bottom-end"
           width="100"
         >
           <template slot-scope="scope">
             <el-tag
-              :type="scope.row.status === '未完成组队' ? 'primary' : 'success'"
+              :type="scope.row.status === '不可加入' ? 'primary' : 'success'"
               disable-transitions
             >{{ scope.row.status }}
             </el-tag>
@@ -187,7 +187,7 @@
             <el-button
               type="success"
               size="small"
-              @click="add_member(scope.row), getGroup_by_name(scope.row.name,scope.row.information), add_member_begin()"
+              @click="add_member(scope.row), getGroup_by_name(scope.row.name,scope.row.information)"
             >
               选人加入
             </el-button>
@@ -196,9 +196,9 @@
         </el-table-column>
       </el-table>
       <el-dialog
-        title="请选择"
         :visible.sync="dialogVisible"
         width="70%"
+        style="height: 100%;overflow-y: auto;"
         append-to-body
       >
         <div>
@@ -307,14 +307,16 @@
 <script>
 // import {fetchList} from '@/api/article'
 import BookTypeOption from './components/BookTypeOption'
+import { get_AllStudents, get_AllUngroupedStudents } from '@/api/teacher/personal'
 // import { getToken } from '@/utils/auth'
 import { fetchGroupsListState } from '@/api/teacher/group'
 import { fetchGroupsList } from '@/api/teacher/group'
 import { dropGroup } from '@/api/teacher/group'
 import { fetchTheGroup } from '@/api/student/group'
 import { autoform_Group } from '@/api/teacher/group'
+import { joinedGroup } from '@/api/teacher/group'
 
-const groupOptions = ['只看有效组', '只看无效组']
+// const groupOptions = ['只看有效组', '只看无效组']
 export default {
   // name: 'DndListDemo',
   components: { BookTypeOption },
@@ -325,7 +327,7 @@ export default {
       selectRow: '',
       dialogVisible: false,
       checkedgroups: [],
-      groups: groupOptions,
+      // groups: groupOptions,
       downloadLoading: false,
       show_tooltip: false,
       value2: true,
@@ -352,6 +354,8 @@ export default {
       //   skill: 'SPRING BOOT'
       // }]
         null,
+      joined_table:
+        [],
       tableData_of_OneGroup:
         null,
       all_student:
@@ -397,6 +401,8 @@ export default {
 
   created() {
     this.getAllGroups()
+    this.get_AllStudent_table()
+    this.join()
   },
   methods: {
     // getStudents() {
@@ -453,20 +459,46 @@ export default {
         // console.log(this.tableData2)
       })
     },
+    join() {
+      joinedGroup(localStorage.getItem('current_project_id')).then(response => {
+        console.log(response.data)
+        console.log(response)
+        this.joined_table = response.data
+        // this.get_AllUngroupedStudent_table()
+      })
+    },
     auto_grouping() {
       autoform_Group(localStorage.getItem('current_project_id')).then(response => {
 
       })
     },
     add_member(row) {
-
-    },
-    add_member_close() {
-      this.dialogVisible = false
-    },
-    add_member_begin() {
       this.dialogVisible = true
     },
+    get_AllStudent_table() {
+      get_AllStudents(localStorage.getItem('current_project_id')).then(response => {
+        this.tableData_inside2 = response.data
+        // console.log(this.tableData_inside2)
+        this.get_AllUngroupedStudent_table()
+      })
+    },
+    get_AllUngroupedStudent_table() {
+      get_AllUngroupedStudents(localStorage.getItem('current_project_id')).then(response => {
+        var length = response.data.length
+        for (var i = 0; i < length; i++) {
+          this.tableData_inside2.push(response.data[i])
+        }
+        // console.log(this.tableData_inside2)
+      })
+    },
+    add_member_close() {
+      this.$message({
+        message: '加入成功',
+        type: 'success'
+      })
+      this.dialogVisible = false
+    },
+
     drop_a_group(row, index) {
       this.tableData33.splice(index, 1)
       dropGroup(row.id).then(response => {
@@ -482,12 +514,29 @@ export default {
       this.show_tooltip = false
     },
     handleDownload() {
-      console.log(this.tableData33)
-      this.downloadLoading = true
+      console.log(this.joined_table)
+      console.log('222')
+      // this.downloadLoading = true
+      // for (var i = 0; i < this.tableData_inside2.length; i++) {
+      //   var SID = this.tableData_inside2[i].stu_id
+      //   var name = this.tableData_inside2[i].name
+      //   var lab = this.tableData_inside2[i].lab
+      //   var dorm = this.tableData_inside2[i].dorm
+
+      // if (this.tableData_inside2[i].status == '已组队') {
+      //   for (var j = 0; j < this.tableData_inside2.length; j++) {
+      //
+      //   }
+      // }
+      //   var list = {SID: SID, name: name, lab: lab, dorm: dorm}
+      //   // console.log(list)
+      //   this.joined_table.push(list)
+      // }
+      // console.log(this.joined_table)
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['组名', '学号', '姓名', 'Lab班级'] // 这个需要多表查询
-        const filterVal = ['name', '']// 这里需要补全变量名
-        const scorelist = this.tableData33
+        const tHeader = ['学号', '姓名', 'Lab班级', '宿舍区域', '组名', '小组信息', '小组人数', '状态'] // 这个需要多表查询
+        const filterVal = ['stu_id', 'person_name', 'lab_name', 'dorm', 'group_name', 'gro_text', 'group_number', 'group_status']// 这里需要补全变量名
+        const scorelist = this.joined_table
         const data = this.formatJson(filterVal, scorelist)
         excel.export_json_to_excel({
           header: tHeader,
@@ -525,10 +574,10 @@ export default {
     },
     handleCurrentChange(val) {
       this.currentRow = val
-      console.log(this.currentRow)
+      // console.log(this.currentRow)
     },
     handleChange(value) {
-      console.log(value)
+      // console.log(value)
     },
     formatter(row, column) {
       return row.tags

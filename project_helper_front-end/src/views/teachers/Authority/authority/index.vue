@@ -19,7 +19,7 @@
         <!--        </el-form-item>-->
 
         <el-form-item label="项目名称" prop="name">
-          <el-input v-model="create_ruleForm.name" style="padding-right: 200px;" />
+          <el-input v-model="create_ruleForm.name" disabled style="padding-right: 200px;" />
         </el-form-item>
 
         <el-form-item label="小组人数" prop="population" required>
@@ -109,9 +109,9 @@
           </el-col>
         </el-form-item>
 
-        <el-form-item label="自由组队" prop="grouping">
+        <el-form-item label="强制加入" prop="grouping">
           <el-switch
-            v-model="create_ruleForm.grouping"
+            v-model="create_ruleForm.force"
             style="display: block; margin-top: 7px;"
             active-color="#13ce66"
             inactive-color="#ff4949"
@@ -120,16 +120,16 @@
           />
         </el-form-item>
 
-        <el-form-item label="答辩时间填写" prop="pre">
-          <el-switch
-            v-model="create_ruleForm.pre"
-            style="display: block; margin-top: 7px;"
-            active-color="#13ce66"
-            inactive-color="#ff4949"
-            active-text="开启"
-            inactive-text="禁用"
-          />
-        </el-form-item>
+        <!--        <el-form-item label="答辩时间填写" prop="pre">-->
+        <!--          <el-switch-->
+        <!--            v-model="create_ruleForm.pre"-->
+        <!--            style="display: block; margin-top: 7px;"-->
+        <!--            active-color="#13ce66"-->
+        <!--            inactive-color="#ff4949"-->
+        <!--            active-text="开启"-->
+        <!--            inactive-text="禁用"-->
+        <!--          />-->
+        <!--        </el-form-item>-->
 
         <el-form-item>
           <el-button type="primary" plain @click="submitForm('ruleForm')">确认更新</el-button>
@@ -178,14 +178,13 @@ export default {
       inputValue: '',
       create_ruleForm: {
         // course: '',
-        name: '',
+        name: localStorage.getItem('current_project').substring(1, (localStorage.getItem('current_project').length - 1)),
         population: [2, 4],
         time: [],
         groupingEndTime: '',
         groupingEndTime2: '',
         across_lab: true,
-        grouping: true,
-        pre: false
+        force: true
       },
       rules: {
         course: [
@@ -260,7 +259,10 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          alert('submit!')
+          this.$message({
+            message: '修改成功！',
+            type: 'success'
+          })
         } else {
           console.log('error submit!!')
           return false

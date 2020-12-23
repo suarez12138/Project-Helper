@@ -23,7 +23,14 @@
             <!--          </el-select>-->
             <!--        </el-form-item>-->
             <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
-              <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" />
+              <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" >
+                <el-option
+                v-for="item in options"
+                :key="item.checkPoint_id"
+                :label="item.week"
+                :value="item.checkPoint_id"
+              />
+            </el-select>
             </el-form-item>
             <el-form-item label="小组信息" :label-width="formLabelWidth">
               <el-input
@@ -158,6 +165,11 @@ import { get_AllUngroupedStudents } from '@/api/teacher/personal'
 // import { getToken } from '@/utils/auth'
 import { fetchTheGroup } from '@/api/teacher/group'
 import { dropMyGroup } from '@/api/student/group'
+import { update_MyInformation } from '@/api/student/personal'
+import { get_availableWeek } from '@/api/student/creatGroup'
+import { create_group } from '@/api/student/creatGroup'
+import { getToken } from '@/utils/auth'
+import { get_AllTags } from '@/api/student/personal'
 
 export default {
   name: 'DragSelectDemo',
@@ -170,8 +182,7 @@ export default {
         population: '',
         information: ''
       },
-      tableData22:
-            [],
+      tableData22: [],
       //       [{
       //   name: '张小虎',
       //   SID: '11812100',
@@ -191,6 +202,10 @@ export default {
       dialogFormVisible1: false,
       dialogFormVisible: false,
       formLabelWidth: '120px',
+      options: [{
+        value: 'Week 1',
+        label: 'Week 1'
+      }],
       search: ''
     }
   },
@@ -210,6 +225,7 @@ export default {
   created() {
     this.get_AllStudent_table()
     this.get_AllTags_table()
+    this.get_preWeek()
   },
   methods: {
     miao(stu_id, group_id, status) {
@@ -224,14 +240,21 @@ export default {
           console.log(response.message)
           if (response.message == 'Success!') {
             this.$message({
-              message: '退出成功',
+              message: '移出成功',
               type: 'success'
             })
+            location.reload(true)
           } else {
             this.$message.error(response.message)
           }
         })
       }
+    },
+    get_AllTags_table() {
+      get_AllTags(localStorage.getItem('current_project_id')).then(response => {
+        this.skill_form = response.data
+      })
+      // alert(this.skill_form)
     },
     getGroup_by_name(name) {
       fetchTheGroup(name).then(response => {
@@ -252,6 +275,12 @@ export default {
           this.tableData22.push(response.data[i])
         }
       })
+    },
+    get_preWeek() {
+      get_availableWeek(localStorage.getItem('current_project_id')).then(response => {
+        this.options = response.data
+      })
+      // alert(this.options[0].week)
     },
     remove_from_group(row) {
       // console.log(row)
@@ -312,7 +341,29 @@ export default {
       console.log(this.multipleSelection)
     },
     submitForm(ruleForm, ruleForm2) {
-      this.dialogFormVisible = false
+      create_group({
+        project_id: localStorage.getItem('current_project_id'),
+        group_name: this.createGroupForm.name,
+        check_point_id: this.createGroupForm.pre_week,
+        text: this.createGroupForm.information,
+        person_id: this.grouping_members,
+        self_id: getToken()
+      }).then(response => {
+        this.dialogFormVisible = false
+        // console.log(this.multipleSelection)
+        if (response.message != 'Success!') {
+          this.$message.error(response.message)
+        } else {
+          // for (var i=0;i<this.multipleSelection.length;i++){
+          //   this.multipleSelection[i].status='已组队'
+          // }
+          this.$message({
+            message: '组队成功！',
+            type: 'success'
+          })
+          location.reload(true)
+        }
+      })
     }
   }
 }

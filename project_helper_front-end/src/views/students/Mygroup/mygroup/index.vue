@@ -204,7 +204,7 @@ import { fetchMyGroup } from '@/api/student/group'
 import { fetchMyGroup_state } from '@/api/student/group'
 // import { fetchTheGroup } from '@/api/student/group'
 import { updateMyGroup_state } from '@/api/student/group'
-import { dropMyGroup } from '@/api/student/group'
+import { dropMyGroup, beforeDDL } from '@/api/student/group'
 import { get_availableWeek } from '@/api/student/creatGroup'
 import { getToken } from '@/utils/auth'
 
@@ -232,11 +232,19 @@ export default {
     }
   },
   created() {
+    this.getBeforeDDL()
     this.getMyGroup()
     this.getMyGropuState()
     this.get_availableWeekList()
   },
   methods: {
+    getBeforeDDL() {
+      beforeDDL(localStorage.getItem('current_project_id')).then(response => {
+        console.log(response.data)
+        this.beforeddl = response.data[0] == 'true'
+        // this.$refs.show.style.display = this.beforeddl
+      })
+    },
     miao() {
       dropMyGroup(getToken(), this.myGroupForm.gro_id).then(response => {
         console.log(response.message)
@@ -386,7 +394,8 @@ export default {
   padding-top: 20px;
   padding-bottom: 40px;
 }
-.guanbi{
+
+.guanbi {
   color: $primary;
   text-align: center;
   font-weight: bold;
