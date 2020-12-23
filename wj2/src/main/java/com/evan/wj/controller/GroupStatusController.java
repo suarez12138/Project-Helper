@@ -136,7 +136,7 @@ public class GroupStatusController {
             groupStatusDao.delete_PersonGroup(person_id,gro_id);
         }
         groupStatusDao.update_wantPerson_toWeiZuDui(person_id,project_id);
-        return new Message_return(20000,"You have quit the Group!");
+        return new Message_return(20000,"Success!");
     }
 
 
