@@ -219,7 +219,8 @@ export default {
         ann_name: this.postForm.title,
         text: this.html
       }).then(response => {
-        alert('success')
+        // alert('success')
+        this.$router.push({ path: '/announcements/announcements' })
       })
 
       this.submitForm()
@@ -238,11 +239,9 @@ export default {
       this.$refs.postForm.validate(valid => {
         if (valid) {
           this.loading = true
-          this.$notify({
-            title: '成功',
-            message: '发布文章成功',
-            type: 'success',
-            duration: 2000
+          this.$message({
+            message: '发布成功',
+            type: 'success'
           })
           this.postForm.status = 'published'
           this.loading = false

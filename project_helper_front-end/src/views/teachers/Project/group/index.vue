@@ -116,7 +116,7 @@
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.group_info)">{{ scope.row.name }}</el-tag>
               </div>
             </el-popover>
           </template>
@@ -179,9 +179,8 @@
         </el-table-column>
         <el-table-column
           align="center"
-          fixed="right"
           label="操作"
-          width="170px"
+          width="200px"
         >
           <template slot-scope="scope">
             <el-button
@@ -255,7 +254,6 @@
               prop="hope"
               label="期待队友类型"
               sortable
-              width="130"
             />
             <el-table-column
               align="center"
@@ -278,7 +276,6 @@
 
             <el-table-column
               align="center"
-              fixed="right"
               label="操作"
               width="120"
             >
@@ -415,6 +412,7 @@ export default {
       // alert(localStorage.getItem('current_project_id'))
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
         this.groupList = response.allGroups
+        console.log(this.groupList)
         this.listLoading = false
       })
       fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
@@ -428,6 +426,7 @@ export default {
       // alert(length)
       for (var i = 0; i < length; i++) {
         this.tableData33.push({
+          id: this.groupList[i].id,
           name: this.groupList[i].name,
           pre_time: this.groupList[i].pre_time,
           status: this.groupList[i].status,
@@ -461,8 +460,8 @@ export default {
     },
     join() {
       joinedGroup(localStorage.getItem('current_project_id')).then(response => {
-        console.log(response.data)
-        console.log(response)
+        // console.log(response.data)
+        // console.log(response)
         this.joined_table = response.data
         // this.get_AllUngroupedStudent_table()
       })
@@ -501,6 +500,7 @@ export default {
 
     drop_a_group(row, index) {
       this.tableData33.splice(index, 1)
+      // console.log(row)
       dropGroup(row.id).then(response => {
         // alert(response.message)
         this.$message({
@@ -514,8 +514,8 @@ export default {
       this.show_tooltip = false
     },
     handleDownload() {
-      console.log(this.joined_table)
-      console.log('222')
+      // console.log(this.joined_table)
+      // console.log('222')
       // this.downloadLoading = true
       // for (var i = 0; i < this.tableData_inside2.length; i++) {
       //   var SID = this.tableData_inside2[i].stu_id

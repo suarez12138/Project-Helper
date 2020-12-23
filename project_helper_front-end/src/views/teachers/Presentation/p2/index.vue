@@ -35,12 +35,12 @@
       </el-tabs>
     </div>
     <div v-else-if="checkPermission(['student'])" class="t_border3_1">
-      <div class="personal_title" > Presentation Registration</div>
+      <div class="personal_title"> Presentation Registration</div>
       <el-tabs style="height: 200px;" @tab-click="handleClick">
         <!-- <div ref="tt"> -->
         <!--eslint-disable-next-line-->
         <el-tab-pane v-for="index in timeNumber"  :label="'时间段'+index" >
-          <div class="mid">{{ list[0].remark}}</div>
+          <div class="mid">{{ list[0].remark }}</div>
           <div class="mid">{{ list[0].date }}</div>
           <el-table
             v-loading="listLoading"
@@ -96,10 +96,10 @@ import { getToken } from '@/utils/auth'
 export default {
   data() {
     return {
-      listLoading:false,
+      listLoading: false,
       timeNumber: 4, // 这里传入时必须转换为数字
       maxGroup: 20,
-      list: 
+      list:
       [
         { remark: 'Lab1上课时间', date: '2020-12-27', form: [{ time: '16:20-16:30', groupname: '' }, { time: '16:30-16:40', groupname: '' }] },
         { remark: 'Lab2上课时间', date: '2020-12-28', form: [{ time: '15:20-15:30', groupname: '' }, { time: '15:30-15:40', groupname: '' }] },
@@ -109,8 +109,8 @@ export default {
       preTime_id_list: [],
       preTime_list: [],
       preTime_title_list: [],
-      preTime:"",
-      preTime_title:"",
+      preTime: '',
+      preTime_title: '',
       form: [],
       search: '',
       current_time_id: 0
@@ -120,7 +120,7 @@ export default {
     this.getTime()
   },
   methods: {
-    handleClick(tab, event){
+    handleClick(tab, event) {
       this.current_time_id = this.preTime_id_list[tab.index]
       console.log(this.preTime_id_list[tab.index])
       get_preTimeTitle(localStorage.getItem('current_project_id'), this.preTime_id_list[tab.index]).then(response => {
@@ -131,7 +131,7 @@ export default {
       get_preTimeDetail(localStorage.getItem('current_project_id'), this.preTime_id_list[tab.index]).then(response => {
         this.groupname = response.data[0].group_name
         this.form = []
-        for(var i = 0; i < response.data.length; i++){
+        for (var i = 0; i < response.data.length; i++) {
           this.form.push({
             time: response.data[i].time_range,
             groupname: response.data[i].group_name,
@@ -139,38 +139,41 @@ export default {
           })
         }
         console.log(this.list)
-        console.log(this.preTime+'www')
-        console.log(this.preTime_title+'www')
+        console.log(this.preTime + 'www')
+        console.log(this.preTime_title + 'www')
         this.list = []
-        this.list = [{remark: this.preTime_title, date: this.preTime, form: this.form}]
+        this.list = [{ remark: this.preTime_title, date: this.preTime, form: this.form }]
         // console.log(this.list)
       // this.$refs.tt.style.display='true'
       })
-      
     },
 
     miao(time) {
-      update_preTime(getToken(), localStorage.getItem('current_project_id'), this.current_time_id, time ).then(response=> {
-        alert("miao")
+      update_preTime(getToken(), localStorage.getItem('current_project_id'), this.current_time_id, time).then(response => {
+        alert('miao')
       })
     },
     getTime() {
       get_preTimeChunk(localStorage.getItem('current_project_id')).then(response => {
         // alert(response.data.length)
         this.timeNumber = response.data.length
-        for(var i = 0; i < this.timeNumber; i++){
+        for (var i = 0; i < this.timeNumber; i++) {
           this.preTime_id_list.push(response.data[i].preTime_id)
           this.preTime_list.push(response.data[i].start_time)
+          get_preTimeTitle(localStorage.getItem('current_project_id'), this.preTime_id_list[i]).then(response => {
+            this.preTime_title_list.push(response.data.pretime_text)
+          })
         }
       })
-      
+
       // get_preTimeDetail(localStorage.getItem('current_project_id'),1).then(response => {
-        
+
       // })
       // update_preTime(getToken(), localStorage.getItem('current_project_id'), 1, 1).then(response => {
-        
+
       // })
 
+      // })
     },
     checkPermission,
     view(index) {
@@ -234,6 +237,7 @@ export default {
   margin-top: 50px;
   padding-left: 20px;
   padding-right: 20px;
+  overflow-y: auto;
 }
 
 .t_border3_1:hover {
@@ -264,4 +268,26 @@ export default {
   text-align: center;
   padding-top: 20px;
 }
+
+.t_border3_1::-webkit-scrollbar { /*滚动条整体*/
+  width: 10px;
+}
+
+.t_border3_1::-webkit-scrollbar-track { /*滚动条轨道*/
+  background: #ffffff;
+  border-radius: 20px;
+  //margin-top: 30px;
+  margin-bottom: 30px;
+
+}
+
+.t_border3_1::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
+  background: $primary;
+  border-radius: 10px;
+}
+
+//.t_border3_1::-webkit-scrollbar-corner { /*滚动条边角*/
+//  background: $primary;
+//}
+
 </style>
