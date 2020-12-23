@@ -33,6 +33,7 @@ public class YQ_GroupInfoController {
             for(YQ_groupID_cnt c1:Gro_cnt){
                 if(m1.getGro_id() == c1.getGro_id()){
                     m1.setGroup_number(c1.getCnt());
+                    break;
                 }
             }
         }
