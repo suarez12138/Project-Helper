@@ -101,6 +101,5 @@ public class CreateGroupController {
         return adapter.create_group(rec);
     }
 
-    
 
 }

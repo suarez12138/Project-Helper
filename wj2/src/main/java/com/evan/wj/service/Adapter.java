@@ -7,11 +7,12 @@ import com.evan.wj.result.TempleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
+@Service
 public class Adapter implements Create_group_v2{
 
     private Create_group_v1 adaptee;
-    public Adapter(Create_group_v1 adaptee) {
+
+    public Adapter(Create_group_v1 adaptee2) {
         this.adaptee = adaptee;
     }
 
