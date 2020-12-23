@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +125,10 @@ public class PreTimeController {
     @ResponseBody
     public Message_return insert_Pretime(@RequestBody PretimeReceive rec){
         int project_id = rec.getProject_id();
+        List<Integer> preTime_IDS = preTimeDAO.get_pretime_id(project_id);
+        for(Integer pret_id:preTime_IDS){
+            preTimeDAO.set_predayInGro_zero(pret_id);
+        }
         preTimeDAO.Delete_pretime(project_id);
         int t_limit = rec.getTime_limit();
         int g_limit = rec.getGroup_limit();

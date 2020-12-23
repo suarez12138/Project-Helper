@@ -23,7 +23,7 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into want_person (gro_status, person, project, text) values ('未组队',?1,?2,'');", nativeQuery = true)
+    @Query(value = "insert into want_person (gro_status, person, project, text) values ('未组队',?1,?2,'')", nativeQuery = true)
     void insert_wantPerson(int person_id, int project_id);
 
     @Transactional

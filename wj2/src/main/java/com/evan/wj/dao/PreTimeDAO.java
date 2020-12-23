@@ -22,6 +22,16 @@ public interface PreTimeDAO extends JpaRepository<User,Integer> {
     @Query(value = "delete from pre_time pt where pt.project_id = ?1", nativeQuery = true)
     void Delete_pretime(int project_id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "update gro g set g.index_in_pre_day = 0, g.pre_day = 0 where g.pre_day = ?1", nativeQuery = true)
+    void set_predayInGro_zero(int pretime_id);
+
+
+
+
+    @Query("select pt.id from PreTime pt where pt.project_id = ?1")
+    List<Integer> get_pretime_id(int project_id);
 
     @Query("select new com.evan.wj.bean.P_giveBackTeacher(pt.id,pt.limit_group,pt.limit_time,pt.project_id,pt.start_time,pt.text) from PreTime pt where pt.project_id = ?1")
     List<P_giveBackTeacher> get_Selectback(int project_id);

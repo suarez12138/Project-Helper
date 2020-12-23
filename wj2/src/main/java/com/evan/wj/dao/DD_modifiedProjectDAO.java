@@ -36,6 +36,48 @@ public interface DD_modifiedProjectDAO extends JpaRepository<User,Integer> {
     List<DD_Int_String> get_preWeek_withID(int project_id);
 
 
+    @Transactional
+    @Modifying
+    @Query(value = "delete from people_tag pt where pt.tag = ?1", nativeQuery = true)
+    void delete_personTag(int tag_id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from tag t where t.id = ?1", nativeQuery = true)
+    void delete_Tag(int tag_id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from gro g where g.check_point_id = ?1", nativeQuery = true)
+    void delete_gro(int checkPoint_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from check_point cp where cp.id = ?1", nativeQuery = true)
+    void delete_checkPoint(int checkPoint_id);
+
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into tag (project, tag) values (?1,?2)", nativeQuery = true)
+    void insert_tag(int project_id, String tag);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "insert into check_point (pre_week, project, text) values (?1,?2,'')", nativeQuery = true)
+    void insert_check_point(String pre_week, int project_id);
+
+
+
+//    insert into check_point (pre_week, project, text) values (?1,?2,'');
+//    insert into tag (project, tag) values (?1,?2);
+
+
+
 
 
 
