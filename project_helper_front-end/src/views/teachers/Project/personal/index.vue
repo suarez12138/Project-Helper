@@ -23,14 +23,14 @@
             <!--          </el-select>-->
             <!--        </el-form-item>-->
             <el-form-item label="预期答辩时间" :label-width="formLabelWidth">
-              <el-select v-model="createGroupForm.population" placeholder="预期答辩时间" >
+              <el-select v-model="createGroupForm.population" placeholder="预期答辩时间">
                 <el-option
-                v-for="item in options"
-                :key="item.checkPoint_id"
-                :label="item.week"
-                :value="item.checkPoint_id"
-              />
-            </el-select>
+                  v-for="item in options"
+                  :key="item.checkPoint_id"
+                  :label="item.week"
+                  :value="item.checkPoint_id"
+                />
+              </el-select>
             </el-form-item>
             <el-form-item label="小组信息" :label-width="formLabelWidth">
               <el-input
@@ -118,7 +118,6 @@
             prop="hope"
             label="期待队友类型"
             sortable
-            width="130"
           />
           <el-table-column
             align="center"
@@ -140,7 +139,6 @@
           </el-table-column>
           <el-table-column
             align="center"
-            fixed="right"
             label="操作"
             width="120"
           >
@@ -165,7 +163,7 @@ import { get_AllUngroupedStudents } from '@/api/teacher/personal'
 // import { getToken } from '@/utils/auth'
 import { fetchTheGroup } from '@/api/teacher/group'
 import { dropMyGroup } from '@/api/student/group'
-import { update_MyInformation } from '@/api/student/personal'
+// import { update_MyInformation } from '@/api/student/personal'
 import { get_availableWeek } from '@/api/student/creatGroup'
 import { create_group } from '@/api/student/creatGroup'
 import { getToken } from '@/utils/auth'

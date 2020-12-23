@@ -96,7 +96,7 @@
               <div class="juzhong">{{ this_group_information }}</div>
 
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.information)">{{
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.group_info)">{{
                   scope.row.name
                 }}
                 </el-tag>
@@ -161,7 +161,6 @@
         </el-table-column>
         <el-table-column
           align="center"
-          fixed="right"
           label="操作"
           width="100"
         >
@@ -323,6 +322,8 @@ export default {
     getGroup_by_name(name, infor) {
       this.sel_name = name
       this.this_group_information = infor
+      console.log(infor)
+      console.log(this.this_group_information)
       fetchTheGroup(name).then(response => {
         this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false

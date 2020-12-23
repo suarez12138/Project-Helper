@@ -116,7 +116,7 @@
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.group_info)">{{ scope.row.name }}</el-tag>
               </div>
             </el-popover>
           </template>
@@ -179,9 +179,8 @@
         </el-table-column>
         <el-table-column
           align="center"
-          fixed="right"
           label="操作"
-          width="170px"
+          width="200px"
         >
           <template slot-scope="scope">
             <el-button
@@ -255,7 +254,6 @@
               prop="hope"
               label="期待队友类型"
               sortable
-              width="130"
             />
             <el-table-column
               align="center"
@@ -278,7 +276,6 @@
 
             <el-table-column
               align="center"
-              fixed="right"
               label="操作"
               width="120"
             >
