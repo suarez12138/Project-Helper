@@ -41,7 +41,7 @@ public class DdlController {
         int hour2 = Integer.parseInt(now_time.substring(11,13));
         int minute2 = Integer.parseInt(now_time.substring(14,16));
 
-        String judge = "true"; // 过了dll
+        String judge = "false"; // 过了dll
 
         if(year1 > year2 ||
                 (year1 == year2 && month1 > month2) ||
@@ -49,7 +49,7 @@ public class DdlController {
                 (year1 == year2 && month1 == month2 && day1 == day2 && hour1 > hour2) ||
                 (year1 == year2 && month1 == month2 && day1 == day2 && hour1 == hour2 && minute1 > minute2)
         ){
-            judge = "false";
+            judge = "true";
         }
 
 
