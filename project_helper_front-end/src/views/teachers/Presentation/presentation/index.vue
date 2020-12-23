@@ -40,28 +40,7 @@
               @change="cal_end_time(item.time,item.index)"
             />
             <div style="float: left;margin-left: 20px;"> 预计最晚结束时间：{{ item.endTime }}</div>
-            <!--            <el-date-picker-->
-            <!--              v-model="item.date"-->
-            <!--              type="date"-->
-            <!--              placeholder="选择日期"-->
-            <!--              style=" margin-right: 30px;float: left;"-->
-            <!--            />-->
-            <!--            <el-col class="line" :span="2"> -&#45;&#45;</el-col>-->
-            <!--            <el-col :span="11">-->
-            <!--            <el-time-picker-->
-            <!--              v-model="item.s_time"-->
-            <!--              placeholder="开始时间"-->
-            <!--              style="float: left;"-->
-            <!--            />-->
-            <!--            </el-col>-->
-            <!--          </el-form-item>-->
-            <!--          <el-form-item :label="li" prop="remark">-->
-            <!--          <el-date-picker-->
-            <!--            v-model="pre_setting.groupingEndTime"-->
-            <!--            type="date"-->
-            <!--            placeholder="可以具体描述此时间段"-->
-            <!--            style="width: 90%;"-->
-            <!--          />-->
+
             <el-input
               v-model="item.remark"
               style="padding-right: 200px;padding-top: 5px;"
@@ -71,7 +50,7 @@
         </el-form>
 
         <el-form-item>
-          <el-button type="primary" plain @click="submitForm('ruleForm')">确认</el-button>
+          <el-button type="primary" plain @click="postpreTimeTable()">确认</el-button>
           <el-button type="primary" @click="resetForm('ruleForm')">重置</el-button>
         </el-form-item>
       </el-form>
@@ -81,6 +60,14 @@
 </template>
 
 <script>
+import get_preTimeChunk from '@/utils/permission' // 权限判断函数
+import { fetchGroupsList } from '@/api/teacher/group'
+import { post_preTime } from '@/api/teacher/presentation'
+import { get_preList } from '@/api/teacher/presentation'
+import { get_preTime } from '@/api/teacher/presentation'
+
+
+
 
 export default {
   data() {
@@ -97,7 +84,6 @@ export default {
     }
     return {
       list: [],
-      num: 15,
       groupNumber: '55',
       props: { multiple: true },
       pre_setting: {
@@ -120,7 +106,50 @@ export default {
     }
   },
   computed: {},
+  created() {
+    this.get_peopleNumber()
+    this.get_pre_list()
+  },
   methods: {
+    get_pre_list() {
+      get_preList(localStorage.getItem('current_project_id')).then(response => {
+        this.pre_setting.number = response.data.length
+        this.pre_setting.upperbound = response.data[0].limit_group
+        this.pre_setting.duration = response.data[0].limit_time
+        for(var i = 0; i<response.data.length; i++){
+          list.push({
+            time: response.data[i].start_time,
+            text: response.data[i].text
+          })
+        }
+
+      })
+    },
+    get_peopleNumber() {
+      fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
+        // alert(response.allGroups.length)
+        this.groupNumber = response.allGroups.length
+      })
+    },
+    postpreTimeTable() {
+      // alert(this.list[0].remark)
+      var start_timeList = []
+      var the_text = []
+      for(var i = 0; i < this.pre_setting.number; i++){
+        start_timeList.push(this.list[i].time)
+        the_text.push(this.list[i].remark)
+      }
+      post_preTime({
+        project_id: localStorage.getItem('current_project_id'),
+        time_limit: this.pre_setting.duration,
+        group_limit:this.pre_setting.upperbound,
+        start_time: start_timeList,
+        the_text: the_text
+        
+      }).then(response => {
+
+      })
+    },
     cal_end_time(time, index) {
       console.log(time)
       var minute = this.pre_setting.upperbound * this.pre_setting.duration
