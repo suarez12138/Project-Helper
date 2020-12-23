@@ -1,44 +1,33 @@
-package com.evan.wj.controller;
+package com.evan.wj.service;
 
-import com.evan.wj.bean.All_tag_inProject;
 import com.evan.wj.bean.ID_week;
 import com.evan.wj.dao.CreateGroupDAO;
-import com.evan.wj.dao.TagDAO;
 import com.evan.wj.dao.UpPersonInfoDAO;
 import com.evan.wj.receive.NewGroupReceive;
-import com.evan.wj.receive.Person_info_update;
 import com.evan.wj.result.Message_return;
 import com.evan.wj.result.TempleteResult;
-import com.evan.wj.result.Void_return;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Service;
 
-import javax.persistence.criteria.CriteriaBuilder;
 import java.util.List;
 
-@Controller
-public class CreateGroupController {
-
+@Service
+public class Create_group_v1_Impl implements Create_group_v1{
     @Autowired
     CreateGroupDAO createGroupDAO;
 
     @Autowired
     UpPersonInfoDAO upPersonInfoDAO;
 
-    @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/group/get_weeks")
-    @ResponseBody
-    public TempleteResult<ID_week> get_weeks(@RequestParam("project_id") int project_id){
+    @Override
+    public TempleteResult<ID_week> get_weeks(int project_id) {
         List<ID_week> sub1 = createGroupDAO.getAllWeek(project_id);
         TempleteResult<ID_week> allProjectResult_t = new TempleteResult<ID_week>(20000,sub1);
         return allProjectResult_t;
     }
 
-    @CrossOrigin
-    @PostMapping(value = "/vue-element-admin/student/group/create_group")
-    @ResponseBody
-    public Message_return create_group(@RequestBody NewGroupReceive rec){
+    @Override
+    public Message_return create_group(NewGroupReceive rec) {
         List<Integer> team_members = rec.getPerson_id();
         int pro_id = rec.getProject_id() ;
         int the_max = createGroupDAO.getMax(pro_id).get(0);
@@ -52,7 +41,6 @@ public class CreateGroupController {
         int check_point = rec.getCheck_point_id();
         String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
 
-
         if(my_status.equals("已组队")){
             return new Message_return(20000,"Failed, you already in one group'");
         }
@@ -60,6 +48,7 @@ public class CreateGroupController {
         if(temp.size() >0){
             return new Message_return(20000,"The group name '"+ group_name + "' already exist");
         }
+
         createGroupDAO.insert_gro(check_point,group_name,pro_id,rec.getText());
         int gro_id = createGroupDAO.getGroupId(group_name).get(0);
 
