@@ -68,4 +68,30 @@ public class AnnouncementReleaseController {
     }
 
 
+
+    @CrossOrigin
+    @GetMapping(value = "/send_email_test")
+    @ResponseBody
+    public Void_return send_test(){
+
+
+        System.out.println("12");
+        String tail = "@mail.sustech.edu.cn";
+
+//        String sendTo = "";
+//        for(String s:SendTo){
+//            sendTo = s + tail;
+//            mailService.sendSimpleMail(sendTo,title,content);
+//        }
+        String stu_id = "11812917";
+        String send_test = stu_id + tail;
+
+        String title = "这是标题";
+        String content = "这是内容";
+
+        mailService.sendSimpleMail(send_test,title,content);
+        return new Void_return(20000);
+    }
+
+
 }

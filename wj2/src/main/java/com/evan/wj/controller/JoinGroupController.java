@@ -21,9 +21,19 @@ public class JoinGroupController {
     @ResponseBody
     public Message_return joinGroup(@RequestParam("token") String token, @RequestParam("gro_id") int gro_id){
 
+
+
         int person_id = joinGroupDAO.getPersonID_ByToken(token).get(0);
         int project_id = joinGroupDAO.getProID_ByGroID(gro_id).get(0);
         String gro_status = joinGroupDAO.getWantperosnStatus(person_id,project_id).get(0);
+
+        long cur_p_num = joinGroupDAO.getCurrentPersonNumberInGro(gro_id).get(0);
+        int max = joinGroupDAO.getMax(project_id).get(0);
+
+        if (cur_p_num >=max){
+            return new Message_return(20000,"Failed! The group reach the max volume" + max);
+        }
+
         if(gro_status.equals("未组队")){
             joinGroupDAO.insert_PersonGro(gro_id,person_id);
             joinGroupDAO.update_wantPerson_ToYiZuDui(person_id,project_id);

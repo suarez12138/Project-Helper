@@ -35,18 +35,24 @@ public class CreateGroupController {
         return allProjectResult_t;
     }
 
-
     @CrossOrigin
     @PostMapping(value = "/vue-element-admin/student/group/create_group")
     @ResponseBody
     public Message_return create_group(@RequestBody NewGroupReceive rec){
-        int pro_id = rec.getProject_id();
+        List<Integer> team_members = rec.getPerson_id();
+        int pro_id = rec.getProject_id() ;
+        int the_max = createGroupDAO.getMax(pro_id).get(0);
+        if(team_members.size() + 1 >= the_max){
+            return new Message_return(20000,"Failed! You invite " + team_members.size() + " people, but the max volumn is " + the_max);
+        }
+
         String my_stu_id = rec.getSelf_id();
         int my_id = upPersonInfoDAO.getID(my_stu_id).get(0).getId();
         String group_name = rec.getGroup_name();
         int check_point = rec.getCheck_point_id();
-
         String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
+
+
         if(my_status.equals("已组队")){
             return new Message_return(20000,"Failed, you already in one group'");
         }
@@ -59,7 +65,7 @@ public class CreateGroupController {
 
         createGroupDAO.insert_PersonGro(gro_id,my_id);
         createGroupDAO.update_wantPerson_ToYiZuDui(my_id,pro_id);
-        List<Integer> team_members = rec.getPerson_id();
+
         for(int p_id: team_members){
             if (p_id!=my_id){
                 createGroupDAO.insert_PersonGro(gro_id,p_id);

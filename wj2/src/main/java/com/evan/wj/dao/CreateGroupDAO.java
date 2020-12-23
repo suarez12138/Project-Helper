@@ -49,6 +49,8 @@ public interface CreateGroupDAO extends JpaRepository<User,Integer> {
         List<Integer> getGroupId(String GroupName);
 
 
+        @Query("select p.max_people from Project p where p.id = ?1")
+        List<Integer> getMax(int project_id);
 
 
 

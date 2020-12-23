@@ -31,4 +31,17 @@ public interface JoinGroupDAO extends JpaRepository<User,Integer> {
     List<String> getWantperosnStatus(int person_id,int project_id);
 
 
+
+    // this time
+    @Query("select count(pg.id) from PersonGroup pg where pg.gro = ?1")
+    List<Long> getCurrentPersonNumberInGro(int gro_id);
+
+    @Query("select p.max_people from Project p where p.id = ?1")
+    List<Integer> getMax(int project_id);
+
+
+
+
+
+
 }
