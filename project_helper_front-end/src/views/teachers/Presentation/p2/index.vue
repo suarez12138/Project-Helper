@@ -38,7 +38,7 @@
       <div class="personal_title"> Presentation Registration</div>
       <el-tabs style="height: 200px;">
         <!--eslint-disable-next-line-->
-        <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index">
+        <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index" >
           <div class="mid">{{ list[index-1].date }}</div>
           <div class="mid">{{ list[index-1].remark }}</div>
           <el-table
@@ -87,9 +87,9 @@
 import checkPermission from '@/utils/permission' // 权限判断函数
 import { get_preTimeChunk } from '@/api/student/presentation'
 import { get_preTimeTitle } from '@/api/student/presentation'
-import { get_preTimeDetail } from '@/api/student/presentation'
-import { update_preTime } from '@/api/student/presentation'
-import { getToken } from '@/utils/auth'
+// import { get_preTimeDetail } from '@/api/student/presentation'
+// import { update_preTime } from '@/api/student/presentation'
+// import { getToken } from '@/utils/auth'
 
 export default {
   data() {
@@ -120,22 +120,21 @@ export default {
       get_preTimeChunk(localStorage.getItem('current_project_id')).then(response => {
         // alert(response.data.length)
         this.timeNumber = response.data.length
-        for(var i = 0; i < this.timeNumber; i++){
+        for (var i = 0; i < this.timeNumber; i++) {
           this.preTime_id_list.push(response.data[i].preTime_id)
           this.preTime_list.push(response.data[i].start_time)
-          get_preTimeTitle(localStorage.getItem('current_project_id'),this.preTime_id_list[i]).then(response => {
+          get_preTimeTitle(localStorage.getItem('current_project_id'), this.preTime_id_list[i]).then(response => {
             this.preTime_title_list.push(response.data.pretime_text)
           })
         }
       })
-      
+
       // get_preTimeDetail(localStorage.getItem('current_project_id'),1).then(response => {
-        
+
       // })
       // update_preTime(getToken(), localStorage.getItem('current_project_id'), 1, 1).then(response => {
-        
-      // })
 
+      // })
     },
     checkPermission,
     view(index) {

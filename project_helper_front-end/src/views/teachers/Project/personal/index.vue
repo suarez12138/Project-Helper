@@ -224,9 +224,10 @@ export default {
           console.log(response.message)
           if (response.message == 'Success!') {
             this.$message({
-              message: '退出成功',
+              message: '移出成功',
               type: 'success'
             })
+            location.reload(true)
           } else {
             this.$message.error(response.message)
           }
