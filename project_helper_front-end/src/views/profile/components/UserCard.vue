@@ -19,7 +19,9 @@
 
     <div class="user-bio">
       <div class="user-education user-bio-section">
-        <div class="user-bio-section-header"><svg-icon icon-class="education" /><span>Education</span></div>
+        <div class="user-bio-section-header">
+          <svg-icon icon-class="education" />
+          <span>Education</span></div>
         <div class="user-bio-section-body">
           <div class="text-muted">
             Computer Science student from SUSTech.
@@ -28,14 +30,16 @@
       </div>
 
       <div class="user-skills user-bio-section">
-        <div class="user-bio-section-header"><svg-icon icon-class="skill" /><span>Scores</span></div>
+        <div class="user-bio-section-header">
+          <svg-icon icon-class="skill" />
+          <span>Scores</span></div>
         <!-- eslint-disable-next-line -->
         <div v-for="item in scorelist" class="user-bio-section-body">
 
           <div class="progress-item" style="margin-bottom: 15px;">
-            <span style="font-weight: bolder">{{ item.pro_name }}</span>
+            <span style="font-weight: bolder">{{ item.project_name }}</span>
             <el-progress :percentage="item.score" />
-            Comment:{{ item.comment }}
+            Comment:{{ item.the_comment }}
           </div>
         </div>
       </div>
@@ -45,6 +49,8 @@
 
 <script>
 import PanThumb from '@/components/PanThumb'
+import { getToken } from '@/utils/auth'
+import { get_score } from '@/api/student/profile'
 
 export default {
   components: { PanThumb },
@@ -63,11 +69,23 @@ export default {
   },
   data() {
     return {
-      scorelist: [
-        { pro_name: 'Project Helper', score: '90', comment: 'Good job!' },
-        { pro_name: 'IMP', score: '70', comment: 'Just so so!' },
-        { pro_name: 'Reliable Data Transfer', score: '85', comment: 'Good job!' }
-      ]
+      scorelist: null
+      //   [
+      //   {pro_name: 'Project Helper', score: '90', comment: 'Good job!'},
+      //   {pro_name: 'IMP', score: '70', comment: 'Just so so!'},
+      //   {pro_name: 'Reliable Data Transfer', score: '85', comment: 'Good job!'}
+      // ]
+    }
+  },
+  created() {
+    this.getScore()
+  },
+  methods: {
+    getScore() {
+      get_score(getToken()).then(response => {
+        this.scorelist = response.data
+        console.log(this.scorelist)
+      })
     }
   }
 }
