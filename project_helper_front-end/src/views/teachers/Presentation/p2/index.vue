@@ -35,16 +35,17 @@
       </el-tabs>
     </div>
     <div v-else-if="checkPermission(['student'])" class="t_border3_1">
-      <div class="personal_title"> Presentation Registration</div>
-      <el-tabs style="height: 200px;">
+      <div class="personal_title" > Presentation Registration</div>
+      <el-tabs style="height: 200px;" @tab-click="handleClick">
+        <!-- <div ref="tt"> -->
         <!--eslint-disable-next-line-->
-        <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index">
-          <div class="mid">{{ list[index-1].date }}</div>
-          <div class="mid">{{ list[index-1].remark }}</div>
+        <el-tab-pane v-for="index in timeNumber"  :label="'时间段'+index" >
+          <div class="mid">{{ list[0].remark}}</div>
+          <div class="mid">{{ list[0].date }}</div>
           <el-table
             v-loading="listLoading"
             width="650"
-            :data="list[index-1].form"
+            :data="list[0].form"
             element-loading-text="Loading..."
             border
             fit
@@ -70,13 +71,14 @@
                   type="success"
                   size="mini"
                   round
-                  @click="miao(scope.row.time)"
+                  @click="miao(scope.row.time_id)"
                 >选中
                 </el-button>
               </template>
             </el-table-column>
           </el-table>
         </el-tab-pane>
+        <!-- </div> -->
       </el-tabs>
     </div>
   </div>
@@ -94,9 +96,11 @@ import { getToken } from '@/utils/auth'
 export default {
   data() {
     return {
+      listLoading:false,
       timeNumber: 4, // 这里传入时必须转换为数字
       maxGroup: 20,
-      list: [
+      list: 
+      [
         { remark: 'Lab1上课时间', date: '2020-12-27', form: [{ time: '16:20-16:30', groupname: '' }, { time: '16:30-16:40', groupname: '' }] },
         { remark: 'Lab2上课时间', date: '2020-12-28', form: [{ time: '15:20-15:30', groupname: '' }, { time: '15:30-15:40', groupname: '' }] },
         { remark: 'Lab3上课时间', date: '2020-12-29', form: [{ time: '16:20-16:30', groupname: '' }, { time: '16:30-16:40', groupname: '' }] },
@@ -105,16 +109,50 @@ export default {
       preTime_id_list: [],
       preTime_list: [],
       preTime_title_list: [],
-
-      search: ''
+      preTime:"",
+      preTime_title:"",
+      form: [],
+      search: '',
+      current_time_id: 0
     }
   },
   created() {
     this.getTime()
   },
   methods: {
-    miao(time) {
+    handleClick(tab, event){
+      this.current_time_id = this.preTime_id_list[tab.index]
+      console.log(this.preTime_id_list[tab.index])
+      get_preTimeTitle(localStorage.getItem('current_project_id'), this.preTime_id_list[tab.index]).then(response => {
+        this.preTime = response.data[0].start_time
+        this.preTime_title = response.data[0].pretime_text
+        console.log(this.preTime)
+      })
+      get_preTimeDetail(localStorage.getItem('current_project_id'), this.preTime_id_list[tab.index]).then(response => {
+        this.groupname = response.data[0].group_name
+        this.form = []
+        for(var i = 0; i < response.data.length; i++){
+          this.form.push({
+            time: response.data[i].time_range,
+            groupname: response.data[i].group_name,
+            time_id: response.data[i].time_id
+          })
+        }
+        console.log(this.list)
+        console.log(this.preTime+'www')
+        console.log(this.preTime_title+'www')
+        this.list = []
+        this.list = [{remark: this.preTime_title, date: this.preTime, form: this.form}]
+        // console.log(this.list)
+      // this.$refs.tt.style.display='true'
+      })
+      
+    },
 
+    miao(time) {
+      update_preTime(getToken(), localStorage.getItem('current_project_id'), this.current_time_id, time ).then(response=> {
+        alert("miao")
+      })
     },
     getTime() {
       get_preTimeChunk(localStorage.getItem('current_project_id')).then(response => {
@@ -123,9 +161,6 @@ export default {
         for(var i = 0; i < this.timeNumber; i++){
           this.preTime_id_list.push(response.data[i].preTime_id)
           this.preTime_list.push(response.data[i].start_time)
-          get_preTimeTitle(localStorage.getItem('current_project_id'),this.preTime_id_list[i]).then(response => {
-            this.preTime_title_list.push(response.data.pretime_text)
-          })
         }
       })
       
