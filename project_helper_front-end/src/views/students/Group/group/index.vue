@@ -34,7 +34,7 @@
           width="130"
         >
           <template slot-scope="scope">
-            <el-popover trigger="click" placement="right" class="pout">
+            <el-popover trigger="click" placement="right" width="600px">
               <!--                  <div id="border3_3">-->
               <div class="title_3">{{ sel_name }}</div>
               <el-table
@@ -46,35 +46,60 @@
               >
                 <el-table-column
                   align="center"
+                  prop="stu_id"
+                  label="SID"
+                  sortable
+                  width="100"
+                />
+                <el-table-column
+                  align="center"
                   prop="name"
                   label="姓名"
                   sortable
-                  width="180"
+                  width="120"
                 />
                 <el-table-column
                   align="center"
                   prop="gender"
                   label="性别"
                   sortable
-                  width="180"
+                  width="120"
                   :filters="[{ text: '女', value: '女' },{ text: '男', value: '男' }, { text: '其他', value: '其他' }]"
                   :filter-method="filterHandler"
                 />
                 <el-table-column
                   align="center"
+                  prop="lab"
+                  label="Lab"
+                  sortable
+                  width="100"
+                />
+                <el-table-column
+                  align="center"
+                  prop="dorm"
+                  label="宿舍"
+                  sortable
+                  width="120"
+                />
+                <el-table-column
+                  align="center"
                   prop="tags"
                   label="技能"
-                  sortable
-                  :formatter="formatter"
-                />
+                >
+                  <template slot-scope="scope">
+                    <!--eslint-disable-next-line-->
+                    <el-tag v-for="item in scope.row.tags" effect="dark">{{ item }}</el-tag>
+                  </template>
+                </el-table-column>
               </el-table>
               <div class="juzhong" style="font-size: 20px;margin-top: 30px;margin-bottom: 15px;">小组信息：</div>
-              <div class="juzhong">不搞基</div>
-              <!--                  </div>-->
-              <!--                  <p>张三 SPRINGBOOT</p>-->
-              <!--                  <p>李四 VUE</p>-->
+              <div class="juzhong">{{ this_group_information }}</div>
+
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium" @click="getGroup_by_name(scope.row.name)">{{ scope.row.name }}</el-tag>
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.information)">{{
+                  scope.row.name
+                }}
+                </el-tag>
               </div>
             </el-popover>
           </template>
@@ -211,7 +236,8 @@ export default {
       },
       listLoading: false,
       search: '',
-      beforeddl: true
+      beforeddl: true,
+      this_group_information: ''
     }
   },
   computed: {
@@ -287,11 +313,13 @@ export default {
         this.listLoading = false
       })
     },
-    getGroup_by_name(name) {
+    getGroup_by_name(name, infor) {
       this.sel_name = name
+      this.this_group_information = infor
       fetchTheGroup(name).then(response => {
         this.tableData_of_OneGroup = response.myGroups
         this.listLoading = false
+        // console.log(this.tableData_of_OneGroup)
       })
     },
     hideTooltip: function() {
@@ -392,7 +420,8 @@ export default {
 .el-tag, .el-button, .el-input__inner, .el-textarea__inner {
   border-radius: 20px !important;
 }
-.guanbi{
+
+.guanbi {
   color: $primary;
   text-align: center;
   font-weight: bold;
@@ -429,6 +458,10 @@ export default {
   transform: translate(-2px, -8px);
   transition: all 0.3s ease-in-out;
   box-shadow: 12px 20px 20px $primary;
+}
+
+.pout {
+  width: 80%;
 }
 
 //#border3_1::-webkit-scrollbar { /*滚动条整体*/
@@ -479,7 +512,7 @@ export default {
 .juzhong {
   margin-left: 100px;
   margin-right: 100px;
-  width: 75% !important;
+  width: 81% !important;
 }
 
 .search_icon5 {
@@ -489,30 +522,36 @@ export default {
 }
 
 .table1::-webkit-scrollbar {
-  width: 0!important;
+  width: 0 !important;
 }
+
 #border3_1::-webkit-scrollbar {
-  width: 0!important;
+  width: 0 !important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar { /*滚动条整体*/
-  width: 10px!important;
+  width: 10px !important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-track { /*滚动条轨道*/
   background: #ffffff;
-  border-radius: 20px!important;
+  border-radius: 20px !important;
   //margin-top: 30px;
   margin-bottom: 30px;
 
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-thumb { /*滚动条里面的滑块*/
-  background: $primary!important;
-  border-radius: 10px!important;
+  background: $primary !important;
+  border-radius: 10px !important;
 }
 
 .el-table__body-wrapper::-webkit-scrollbar-corner { /*滚动条边角*/
   background: $primary;
+}
+
+.el-tag + .el-tag {
+  margin-left: 10px;
+  margin-bottom: 5px;
 }
 </style>

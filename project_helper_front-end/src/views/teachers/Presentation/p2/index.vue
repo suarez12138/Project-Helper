@@ -1,6 +1,6 @@
 <template>
   <div class="components-container">
-    <div class="t_border3_1">
+    <div v-if="checkPermission(['teacher'])" class="t_border3_1">
       <div class="personal_title"> Presentation Registration</div>
       <el-tabs style="height: 200px;">
         <!--eslint-disable-next-line-->
@@ -34,10 +34,58 @@
         </el-tab-pane>
       </el-tabs>
     </div>
+    <div v-else-if="checkPermission(['student'])" class="t_border3_1">
+      <div class="personal_title"> Presentation Registration</div>
+      <el-tabs style="height: 200px;">
+        <!--eslint-disable-next-line-->
+        <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index">
+          <div class="mid">{{ list[index-1].date }}</div>
+          <div class="mid">{{ list[index-1].remark }}</div>
+          <el-table
+            v-loading="listLoading"
+            width="650"
+            :data="list[index-1].form"
+            element-loading-text="Loading..."
+            border
+            fit
+            highlight-current-row
+            style="margin-top: 50px;"
+          >
+            <el-table-column align="center" label="Time">
+              <template slot-scope="scope">
+                {{ scope.row.time }}
+              </template>
+            </el-table-column>
+
+            <el-table-column align="center" prop="groupname" sortable label="Group name">
+              <template slot-scope="scope">
+                <!--          {{ scope.row.score }}-->
+                <!--          <el-input>{{ scope.row.score }}</el-input>-->
+                {{ scope.row.groupname }}
+              </template>
+            </el-table-column>
+            <el-table-column align="center" prop="confirm" label="Operation" width="150">
+              <template slot-scope="scope">
+                <el-button
+                  type="success"
+                  size="mini"
+                  round
+                  @click="miao(scope.row.time)"
+                >选中
+                </el-button>
+              </template>
+            </el-table-column>
+          </el-table>
+        </el-tab-pane>
+      </el-tabs>
+    </div>
   </div>
 </template>
 
 <script>
+// import permission from '@/directive/permission/index.js' // 权限判断指令
+import checkPermission from '@/utils/permission' // 权限判断函数
+
 export default {
   data() {
     return {
@@ -54,6 +102,10 @@ export default {
     }
   },
   methods: {
+    miao(time) {
+
+    },
+    checkPermission,
     view(index) {
       console.log(index)
     }
