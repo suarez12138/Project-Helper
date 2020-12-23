@@ -1,15 +1,18 @@
 package com.evan.wj.dao;
 
+import com.evan.wj.bean.DD_Int_String;
 import com.evan.wj.bean.DD_Project_GiveBack;
 import com.evan.wj.pojo.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 public interface DD_modifiedProjectDAO extends JpaRepository<User,Integer> {
 
-//    int max, int min, String project_name, String project_ddl, String across_lab, String force_join
+/// give back
 
     @Query("select new com.evan.wj.bean.DD_Project_GiveBack(p.max_people,p.min_people,p.name,p.grouping_ddl,p.bool_cross_class,p.bool_force_join) from Project p where p.id = ?1")
     List<DD_Project_GiveBack> getGiveBack_main(int project_id);
@@ -19,5 +22,23 @@ public interface DD_modifiedProjectDAO extends JpaRepository<User,Integer> {
 
     @Query("select cp.pre_week from CheckPoint cp where cp.project = ?1")
     List<String> getGiveBack_preWeek(int project_id);
+//////
+
+    @Transactional
+    @Modifying
+    @Query(value = "update project p set bool_cross_class = ?1, bool_force_join = ?2, grouping_ddl =?3,max_people =?4, min_people = ?5, name = ?6 where p.id = ?7", nativeQuery = true)
+    void update_project_main (String cross_class, String force_join,String project_ddl, int max,int min,String name,int project_id);
+
+    @Query("select new com.evan.wj.bean.DD_Int_String(t.id,t.tag) from Tag t where t.project = ?1")
+    List<DD_Int_String> get_tags_withID(int project_id);
+
+    @Query("select new com.evan.wj.bean.DD_Int_String(cp.id,cp.pre_week) from CheckPoint cp where cp.project = ?1")
+    List<DD_Int_String> get_preWeek_withID(int project_id);
+
+
+
+
+
+
 
 }

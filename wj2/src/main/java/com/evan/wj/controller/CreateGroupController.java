@@ -47,7 +47,6 @@ public class CreateGroupController {
         int check_point = rec.getCheck_point_id();
         String my_status = createGroupDAO.getStatus(my_id,pro_id).get(0);
 
-
         if(my_status.equals("已组队")){
             return new Message_return(20000,"Failed, you already in one group'");
         }

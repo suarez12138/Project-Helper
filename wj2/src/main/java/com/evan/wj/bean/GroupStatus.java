@@ -1,6 +1,7 @@
 package com.evan.wj.bean;
 
 public class GroupStatus {
+    int gro_id;
     String is_valid; // 已到人数
     String can_join; // 可否加入
     long people_number;
@@ -8,13 +9,22 @@ public class GroupStatus {
     int max_people;
     String group_info;
 
-    public GroupStatus( String can_join, long people_number, int min_people, int max_people, String group_info) {
+    public GroupStatus( int gro_id,String can_join, long people_number, int min_people, int max_people, String group_info) {
+        this.gro_id = gro_id;
         this.is_valid = "";
         this.can_join = can_join;
         this.people_number = people_number;
         this.min_people = min_people;
         this.max_people = max_people;
         this.group_info = group_info;
+    }
+
+    public int getGro_id() {
+        return gro_id;
+    }
+
+    public void setGro_id(int gro_id) {
+        this.gro_id = gro_id;
     }
 
     public String getIs_valid() {
