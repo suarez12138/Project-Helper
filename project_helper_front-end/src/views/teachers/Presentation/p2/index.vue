@@ -85,6 +85,11 @@
 <script>
 // import permission from '@/directive/permission/index.js' // 权限判断指令
 import checkPermission from '@/utils/permission' // 权限判断函数
+import { get_preTimeChunk } from '@/api/student/presentation'
+import { get_preTimeTitle } from '@/api/student/presentation'
+import { get_preTimeDetail } from '@/api/student/presentation'
+import { update_preTime } from '@/api/student/presentation'
+import { getToken } from '@/utils/auth'
 
 export default {
   data() {
@@ -97,12 +102,39 @@ export default {
         { remark: 'Lab3上课时间', date: '2020-12-29', form: [{ time: '16:20-16:30', groupname: '' }, { time: '16:30-16:40', groupname: '' }] },
         { remark: 'Lab4上课时间', date: '2020-12-29', form: [{ time: '16:20-16:30', groupname: '' }, { time: '16:30-16:40', groupname: '' }] }
       ],
+      preTime_id_list: [],
+      preTime_list: [],
+      preTime_title_list: [],
 
       search: ''
     }
   },
+  created() {
+    this.getTime()
+  },
   methods: {
     miao(time) {
+
+    },
+    getTime() {
+      get_preTimeChunk(localStorage.getItem('current_project_id')).then(response => {
+        // alert(response.data.length)
+        this.timeNumber = response.data.length
+        for(var i = 0; i < this.timeNumber; i++){
+          this.preTime_id_list.push(response.data[i].preTime_id)
+          this.preTime_list.push(response.data[i].start_time)
+          get_preTimeTitle(localStorage.getItem('current_project_id'),this.preTime_id_list[i]).then(response => {
+            this.preTime_title_list.push(response.data.pretime_text)
+          })
+        }
+      })
+      
+      // get_preTimeDetail(localStorage.getItem('current_project_id'),1).then(response => {
+        
+      // })
+      // update_preTime(getToken(), localStorage.getItem('current_project_id'), 1, 1).then(response => {
+        
+      // })
 
     },
     checkPermission,
