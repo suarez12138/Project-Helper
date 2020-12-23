@@ -92,7 +92,7 @@ public class PreTimeController {
                 h_s = "0" + h_s;
             }
             time_right = h_s + ":" + m_s;
-            time_range = time_left + time_right;
+            time_range = time_left + "-"+ time_right;
             List<P_groIDName> one_group = preTimeDAO.get_groupByindex(preTime_id,i+1,project_id);
             if(one_group.size() >0){
 //                index = one_group.get(0).getGro_id();

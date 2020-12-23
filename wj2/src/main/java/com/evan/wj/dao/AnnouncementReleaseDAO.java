@@ -17,8 +17,6 @@ public interface AnnouncementReleaseDAO extends JpaRepository<User,Integer> {
         @Query("select p.stu_id from People p where p.id in(select wp.person from WantPerson wp where wp.project = ?1)")
         List<String> getStuidInProject(int project_id);
 
-
-
         @Transactional
         @Modifying
         @Query(value = " insert into submission (ano_name, operate_time, person, project, submission_type, text) VALUES (?1,?2,?3,?4,1,?5);", nativeQuery = true)
