@@ -191,7 +191,7 @@
             >
               选人加入
             </el-button>
-            <el-button type="danger" size="small" @click="drop_a_group(scope.row,scope.$index)">解散</el-button>
+            <el-button type="danger" size="small" @click="drop_a_group(scope.row,scope.$index)">解 散</el-button>
           </template>
         </el-table-column>
       </el-table>
