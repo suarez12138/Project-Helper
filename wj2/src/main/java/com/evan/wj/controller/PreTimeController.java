@@ -129,8 +129,12 @@ public class PreTimeController {
         int g_limit = rec.getGroup_limit();
         List<String> s_times = rec.getStart_time();
         List<String> texts = rec.getThe_text();
+        String year = "";
+        String hm = "";
         for (int i=0;i<s_times.size();i++) {
-            preTimeDAO.Insert_pre_time(project_id,g_limit,t_limit,texts.get(i),s_times.get(i));
+            year = s_times.get(i).substring(0,10);
+            hm = s_times.get(i).substring(11,16);
+            preTimeDAO.Insert_pre_time(project_id,g_limit,t_limit,texts.get(i),year + " " + hm);
         }
         return new Message_return(20000,"Success!");
     }
