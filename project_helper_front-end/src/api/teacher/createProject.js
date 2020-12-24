@@ -42,3 +42,21 @@ export function get_projectInfo(project_id) {
       params: {project_id}
   })
 }
+
+
+export function update_projectInfo(data) {
+  return request({
+      url: '/vue-element-admin/teacher/project/update_project',
+      method: 'post',
+      data
+  })
+}
+
+
+export function drop_project(project_id) {
+  return request({
+      url: '/vue-element-admin/teacher/project/delete_project',
+      method: 'post',
+      params: {project_id}
+  })
+}

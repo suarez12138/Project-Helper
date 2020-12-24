@@ -1,11 +1,6 @@
 <template>
   <div class="components-container">
     <div v-if="checkPermission(['student'])" class="t_border3_1">
-      <h1>{{ msg }}</h1>
-    <form>
-      <input type="file" @change="getFile($event)">
-      <button class="button button-primary button-pill button-small" @click="submit($event)">提交</button>
-    </form>
       <div class="title">{{ title }}</div>
       <div class="ddl">DDL: {{ ddl }}</div>
       <div class="content2">{{ content }}</div>
@@ -16,7 +11,7 @@
       </a>
       <el-upload
         class="upload-demo"
-        action="/vue-element-admin/student/project/upload_file"
+        action="http://localhost:8443/upload/singlefile"
         :on-preview="handlePreview"
         :on-remove="handleRemove"
         :before-remove="beforeRemove"
