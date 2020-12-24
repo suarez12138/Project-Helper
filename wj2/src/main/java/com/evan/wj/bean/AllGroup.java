@@ -1,24 +1,24 @@
 package com.evan.wj.bean;
 
 public class AllGroup {
-    int id;
+    int gro_id;
     String name;
     String pre_time;
     String status;
 
-    public AllGroup(int id, String name, String pre_time, String status) {
-        this.id = id;
+    public AllGroup(int gro_id, String name, String pre_time, String status) {
+        this.gro_id = gro_id;
         this.name = name;
         this.pre_time = pre_time;
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public int getGro_id() {
+        return gro_id;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setGro_id(int gro_id) {
+        this.gro_id = gro_id;
     }
 
     public String getName() {
@@ -44,5 +44,4 @@ public class AllGroup {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }
