@@ -6,7 +6,9 @@
           <div class="home_title">Projects</div>
 
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" @click="saveProj_ID_NAME(project.project_name, project.project_id)" href="/#/overview/overview">
+          <a v-for="project in projects" href="/#/overview/overview"
+             @click="saveProj_ID_NAME(project.project_name, project.project_id)"
+          >
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
@@ -24,7 +26,9 @@
         <div class="border2">
           <div class="home_title">Announcements</div>
           <!--eslint-disable-next-line-->
-          <div v-for="announcement in announcements" @click="saveAnnounce_ID(announcement.ann_id)" class="announcetitle">
+          <div v-for="announcement in announcements" class="announcetitle"
+               @click="saveAnnounce_ID(announcement.ann_id)"
+          >
             <a href="/#/announcements/Content">
               Title: {{ announcement.ann_name }} <br> Project: {{ announcement.project_name }}<br>By:{{
                 announcement.teacher_name
@@ -45,7 +49,9 @@
         <div class="border1">
           <div class="home_title">Projects</div>
           <!--eslint-disable-next-line-->
-          <a v-for="project in projects" @click="saveProj_ID_NAME(project.project_name, project.project_id)" href="/#/overview/overview">
+          <a v-for="project in projects" href="/#/overview/overview"
+             @click="saveProj_ID_NAME(project.project_name, project.project_id)"
+          >
             <div class="projectmenu">
               <div class="coursename">{{ project.course }}</div>
               <br>
@@ -211,6 +217,8 @@ import { fetchAllProject } from '@/api/student/group'
 import { getToken } from '@/utils/auth'
 import UploadExcelComponent from '@/components/UploadExcel/index'
 import store from '@/store'
+// import { post_scoreList } from '@/api/teacher/onlineGrading'
+import { changeUser, createUser } from '@/api/admin'
 
 const STORAGE_KEY = 'current_project_id'
 export default {
@@ -358,27 +366,60 @@ export default {
       this.$refs[formName].resetFields()
     },
     submitForm1(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
+      // this.$refs[formName].validate((valid) => {
+      // if (valid) {
+      // alert('valid!')
+      // console.log(this.create_Form)
+      createUser(
+        this.create_Form.name,
+        this.create_Form.password,
+        this.create_Form.role
+      ).then(response => {
+        // alert('submit!')
+        if (response.message == 'Success!') {
+          this.$message({
+            message: '创建成功',
+            type: 'success'
+          })
+          // location.reload(true)
+          // console.log('daole')
+          // this.$router.push({ path: '/studentMyGroup/studentMyGroup' })
         } else {
-          console.log('error submit!!')
-          return false
+          this.$message.error(response.message)
         }
       })
+      // } else {
+      //   console.log('error submit!!')
+      //   return false
+      // }
+      // })
     },
     resetForm2(formName) {
       this.$refs[formName].resetFields()
     },
     submitForm2(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          alert('submit!')
+      console.log(this.create_Form)
+      changeUser(
+        this.create_Form.name,
+        this.create_Form.role
+      ).then(response => {
+        if (response.message == 'Success!') {
+          this.$message({
+            message: '创建成功',
+            type: 'success'
+          })
         } else {
-          console.log('error submit!!')
-          return false
+          this.$message.error(response.message)
         }
       })
+      // this.$refs[formName].validate((valid) => {
+      //   if (valid) {
+      //     alert('submit!')
+      //   } else {
+      //     console.log('error submit!!')
+      //     return false
+      //   }
+      // })
     },
     submitForm3() {
       if (this.multipleSelection == null) {
@@ -449,7 +490,7 @@ export default {
   overflow-y: auto;
 }
 
-.border2,.border3{
+.border2, .border3 {
   width: 95%;
   float: right;
 }
@@ -600,8 +641,8 @@ div {
   width: 10px;
 }
 
-.border3::-webkit-scrollbar{
-  width: 0px!important;
+.border3::-webkit-scrollbar {
+  width: 0px !important;
 }
 
 .border1::-webkit-scrollbar-track, .border2::-webkit-scrollbar-track { /*滚动条轨道*/
