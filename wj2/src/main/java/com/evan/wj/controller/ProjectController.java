@@ -4,10 +4,7 @@ import com.evan.wj.bean.AllProject;
 import com.evan.wj.dao.GroupDAO;
 import com.evan.wj.dao.ProjectDAO;
 import com.evan.wj.dao.UpPersonInfoDAO;
-import com.evan.wj.result.AllGroupResult;
-import com.evan.wj.result.AllProjectResult;
-import com.evan.wj.result.TempleteResult;
-import com.evan.wj.result.Void_return;
+import com.evan.wj.result.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -69,6 +66,26 @@ public class ProjectController {
         return new Void_return(20000);
 
     }
+
+
+
+    @CrossOrigin
+    @PostMapping(value = "/vue-element-admin/teacher/project/delete_project")
+    @ResponseBody
+    public Message_return Insert_wantPerson(@RequestParam("project_id") int project_id){
+        projectDAO.delete_project(project_id);
+        projectDAO.delete_person_group_tea(project_id);
+        projectDAO.delete_want_person(project_id);
+        projectDAO.delete_Project_gro(project_id);
+        //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
+        return new Message_return(20000,"Success!");
+
+    }
+
+
+
+
+
 
 
 }
