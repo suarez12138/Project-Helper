@@ -5,8 +5,8 @@
       <el-tabs style="height: 200px;">
         <!--eslint-disable-next-line-->
         <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index">
-          <div class="mid">{{ list[index-1].date }}</div>
-          <div class="mid">{{ list[index-1].remark }}</div>
+          <div class="mid">{{ list[0].date }}</div>
+          <div class="mid">{{ list[0].remark }}</div>
           <el-table
             v-loading="listLoading"
             width="650"

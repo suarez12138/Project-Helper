@@ -16,12 +16,14 @@ import java.util.List;
 
 
 @RestController
+@RequestMapping("/upload")
+@CrossOrigin
 public class UploadController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
-    @CrossOrigin
-    @PostMapping("/vue-element-admin/student/project/upload_file")
-    @ResponseBody
+
+    @PostMapping("/singlefile")
+
     public Message_return upload(MultipartFile file) {
 
         System.out.print("aaabbbccc");
