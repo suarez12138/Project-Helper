@@ -32,6 +32,9 @@ public class UploadController {
         }
         String fileName = file.getOriginalFilename();
         String filePath = "S:\\For_git\\Project-Helper\\store\\";
+        String save_path = filePath + fileName;
+
+
 
         File dest = new File(filePath + fileName);
         try {

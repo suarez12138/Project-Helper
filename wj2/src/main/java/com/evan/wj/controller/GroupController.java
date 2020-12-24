@@ -29,13 +29,27 @@ public class GroupController {
     @Autowired
     PersonInfoDAO personInfoDAO;
 
+//    @CrossOrigin
+//    @GetMapping(value = "/vue-element-admin/teacher/group/group_list")
+//    @ResponseBody
+//    public AllGroupResult getAllGroup(@RequestParam("project_id") int project_id){
+//        AllGroupResult allGroupResult = new AllGroupResult(20000, groupDAO.getAllGroup(project_id));
+//        return allGroupResult;
+//    }
+//
+
+
     @CrossOrigin
     @GetMapping(value = "/vue-element-admin/teacher/group/group_list")
     @ResponseBody
-    public AllGroupResult getAllGroup(@RequestParam("project_id") int project_id){
-        AllGroupResult allGroupResult = new AllGroupResult(20000, groupDAO.getAllGroup(project_id));
-        return allGroupResult;
+    public TempleteResult<AllGroup> getAllGroup(@RequestParam("project_id") int project_id){
+        List<AllGroup> sub1 = groupDAO.getAllGroup(project_id);
+        TempleteResult<AllGroup> allProjectResult_t = new TempleteResult<AllGroup>(20000,sub1);
+        return allProjectResult_t;
     }
+
+
+
 
 
     @CrossOrigin

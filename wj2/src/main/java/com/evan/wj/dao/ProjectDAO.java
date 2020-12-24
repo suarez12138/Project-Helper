@@ -56,6 +56,16 @@ public interface ProjectDAO  extends JpaRepository<User,Integer> {
     @Query(value = "delete from gro g where g.project = ?1", nativeQuery = true)
     void delete_Project_gro(int project_id);
 
+    @Transactional
+    @Modifying
+    @Query(value = "delete from Tag t where t.project = ?1", nativeQuery = true)
+    void delete_Project_tag(int project_id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from pre_time pt where pt.project_id = ?1", nativeQuery = true)
+    void delete_Project_pretime(int project_id);
 
 
 

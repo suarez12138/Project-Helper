@@ -68,7 +68,6 @@ public class ProjectController {
     }
 
 
-
     @CrossOrigin
     @PostMapping(value = "/vue-element-admin/teacher/project/delete_project")
     @ResponseBody
@@ -77,6 +76,8 @@ public class ProjectController {
         projectDAO.delete_person_group_tea(project_id);
         projectDAO.delete_want_person(project_id);
         projectDAO.delete_Project_gro(project_id);
+        projectDAO.delete_Project_pretime(project_id);
+        projectDAO.delete_Project_tag(project_id);
         //AllProjectResult allProjectResult = new AllProjectResult(20000, projectDAO.getAllProject(token));
         return new Message_return(20000,"Success!");
 
