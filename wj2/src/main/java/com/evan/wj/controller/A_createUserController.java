@@ -8,10 +8,7 @@ import com.evan.wj.result.Message_return;
 import com.evan.wj.result.TempleteResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -24,7 +21,7 @@ public class A_createUserController {
     JoinGroupDAO joinGroupDAO;
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/admin/createUser")
+    @PostMapping(value = "/vue-element-admin/admin/createUser")
     @ResponseBody
     public Message_return a_create_user(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("role") String role){
         List<Integer> IDS = joinGroupDAO.getPersonID_ByToken(username);
@@ -45,7 +42,7 @@ public class A_createUserController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/admin/changeUser")
+    @PostMapping(value = "/vue-element-admin/admin/changeUser")
     @ResponseBody
     public Message_return update_role(@RequestParam("username") String username,@RequestParam("role") String role){
         List<Integer> IDS = joinGroupDAO.getPersonID_ByToken(username);

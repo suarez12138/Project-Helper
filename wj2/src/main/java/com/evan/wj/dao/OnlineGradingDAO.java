@@ -15,6 +15,14 @@ public interface OnlineGradingDAO extends JpaRepository<User,Integer> {
     List<OnlineGrade> getAllPerson(int project_id);
 
 
+    @Query("select g.id from Gro g where g.group_name = ?1")
+    List<Integer> getGrouID(String group_name);
+
+    @Query("select p.id from People p where p.stu_id = ?1")
+    List<Integer> getPerID(String stu_id);
+
+
+
 
     @Transactional
     @Modifying

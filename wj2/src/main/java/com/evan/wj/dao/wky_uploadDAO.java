@@ -18,9 +18,9 @@ public interface wky_uploadDAO  extends JpaRepository<User,Integer> {
     @Query(value = "insert into files (file_name, file_path) VALUES (?1,?2)", nativeQuery = true)
     void insert_file(String file_name, String file_path);
 
-//
-//    @Query("select new com.evan.wj.bean.wky_String_String() from ")
-//    List<wky_String_String> getAllAnnouncement(String token);
+
+    @Query("select new com.evan.wj.bean.wky_String_String(f.file_name,f.file_path) from Files f")
+    List<wky_String_String> getAllFile();
 
 
 }

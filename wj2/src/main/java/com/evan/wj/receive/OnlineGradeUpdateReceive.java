@@ -5,7 +5,6 @@ import java.util.List;
 public class OnlineGradeUpdateReceive {
     List<Integer> person_ids;
     List<Integer> group_ids;
-
     List<String> grades;
     List<String> comments;
 
