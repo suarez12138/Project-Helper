@@ -1,9 +1,11 @@
 package com.evan.wj.controller;
 
+import com.evan.wj.dao.wky_uploadDAO;
 import com.evan.wj.result.Message_return;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +21,8 @@ import java.util.List;
 @RequestMapping("/upload")
 @CrossOrigin
 public class UploadController {
+    @Autowired
+    wky_uploadDAO upDAO;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UploadController.class);
 
@@ -34,6 +38,8 @@ public class UploadController {
         String filePath = "S:\\For_git\\Project-Helper\\store\\";
         String save_path = filePath + fileName;
 
+        upDAO.insert_file(fileName,filePath);
+        
 
 
         File dest = new File(filePath + fileName);
