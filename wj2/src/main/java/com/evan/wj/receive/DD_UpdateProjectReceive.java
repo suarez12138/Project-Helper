@@ -7,18 +7,20 @@ public class DD_UpdateProjectReceive {
     int min;
     int project_id;
     String project_name;
-    String project_ddl;
+    String pro_grouping_endDay;
+    String pro_grouping_endHms;
     String across_lab;
     String force_join;
     List<String> all_tags;
     List<String> project_pre_week;
 
-    public DD_UpdateProjectReceive(int max, int min, int project_id, String project_name, String project_ddl, String across_lab, String force_join, List<String> all_tags, List<String> project_pre_week) {
+    public DD_UpdateProjectReceive(int max, int min, int project_id, String project_name, String pro_grouping_endDay, String pro_grouping_endHms, String across_lab, String force_join, List<String> all_tags, List<String> project_pre_week) {
         this.max = max;
         this.min = min;
         this.project_id = project_id;
         this.project_name = project_name;
-        this.project_ddl = project_ddl;
+        this.pro_grouping_endDay = pro_grouping_endDay;
+        this.pro_grouping_endHms = pro_grouping_endHms;
         this.across_lab = across_lab;
         this.force_join = force_join;
         this.all_tags = all_tags;
@@ -57,12 +59,20 @@ public class DD_UpdateProjectReceive {
         this.project_name = project_name;
     }
 
-    public String getProject_ddl() {
-        return project_ddl;
+    public String getPro_grouping_endDay() {
+        return pro_grouping_endDay;
     }
 
-    public void setProject_ddl(String project_ddl) {
-        this.project_ddl = project_ddl;
+    public void setPro_grouping_endDay(String pro_grouping_endDay) {
+        this.pro_grouping_endDay = pro_grouping_endDay;
+    }
+
+    public String getPro_grouping_endHms() {
+        return pro_grouping_endHms;
+    }
+
+    public void setPro_grouping_endHms(String pro_grouping_endHms) {
+        this.pro_grouping_endHms = pro_grouping_endHms;
     }
 
     public String getAcross_lab() {

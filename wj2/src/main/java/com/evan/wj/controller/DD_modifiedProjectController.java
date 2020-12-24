@@ -99,7 +99,9 @@ public class DD_modifiedProjectController {
     public Message_return update_project(@RequestBody DD_UpdateProjectReceive rec){
 
         int project_id = rec.getProject_id();
-        dd_modifiedProjectDAO.update_project_main(rec.getAcross_lab(),rec.getForce_join(),rec.getProject_ddl(),rec.getMax(),rec.getMin(),rec.getProject_name(),rec.getProject_id());
+
+        String group_ddl = rec.getPro_grouping_endDay().substring(0,10) + " " + rec.getPro_grouping_endHms().substring(11,16);
+        dd_modifiedProjectDAO.update_project_main(rec.getAcross_lab(),rec.getForce_join(),group_ddl,rec.getMax(),rec.getMin(),rec.getProject_name(),rec.getProject_id());
 
         List<DD_Int_String> origin_tags = dd_modifiedProjectDAO.get_tags_withID(project_id);
         List<DD_Int_String> origin_preWeeks = dd_modifiedProjectDAO.get_preWeek_withID(project_id);

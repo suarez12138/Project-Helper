@@ -12,6 +12,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CreateProjectDAO extends JpaRepository<User,Integer> {
+//    @Query("select new com.evan.wj.bean.AllCourse(cor.id,cor.course_name) from PersonClass pc join People p on p.id = pc.person join Class c on c.id = pc.class1 join Course cor on cor.id = c.course where p.stu_id = ?1")
+//    List<AllCourse> getAllCourse(String token);
+
+
     @Query("select new com.evan.wj.bean.AllCourse(cor.id,cor.course_name) from PersonClass pc join People p on p.id = pc.person join Class c on c.id = pc.class1 join Course cor on cor.id = c.course where p.stu_id = ?1")
     List<AllCourse> getAllCourse(String token);
 

@@ -29,8 +29,35 @@ public interface ProjectDAO  extends JpaRepository<User,Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "insert into want_person (gro_status, person, project, text) values ('未组队',?1,?2,'');", nativeQuery = true)
+    @Query(value = "insert into want_person (gro_status, person, project, text) values ('未组队',?1,?2,'')", nativeQuery = true)
     void InsertWantPerson(int person_id, int project_id);
+
+
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from project p where p.id = ?1", nativeQuery = true)
+    void delete_project(int project_id);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from want_person wp where wp.project = ?1", nativeQuery = true)
+    void delete_want_person(int project_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from person_group pg where pg.gro in (select g2.id from gro g2 where g2.project = ?1)", nativeQuery = true)
+    void delete_person_group_tea(int project_id);
+
+    @Transactional
+    @Modifying
+    @Query(value = "delete from gro g where g.project = ?1", nativeQuery = true)
+    void delete_Project_gro(int project_id);
+
+
+
 
 
 
