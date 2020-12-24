@@ -67,8 +67,7 @@ public class ProjectController {
 
     }
 
-
-
+    
     @CrossOrigin
     @PostMapping(value = "/vue-element-admin/teacher/project/delete_project")
     @ResponseBody
