@@ -51,3 +51,12 @@ export function update_projectInfo(data) {
       data
   })
 }
+
+
+export function drop_project(project_id) {
+  return request({
+      url: '/vue-element-admin/teacher/project/delete_project',
+      method: 'post',
+      params: {project_id}
+  })
+}

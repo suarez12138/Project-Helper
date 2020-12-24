@@ -1,70 +1,46 @@
 <template>
-	<div class="hello">
-		<el-upload
-			class="avatar-uploader"
-			action="http://localhost:8088/test/upload"
-			:show-file-list="false"
-			:on-success="handleAvatarSuccess"
-			:before-upload="beforeAvatarUpload"
-		>
-			<img v-if="imageUrl" :src="imageUrl" class="avatar" />
-			<i v-else class="el-icon-plus avatar-uploader-icon"></i>
-		</el-upload>
-	</div>
+  <div class="hello">
+    <h1>{{ msg }}</h1>
+    <form>
+      <input type="file" @change="getFile($event)">
+      <button class="button button-primary button-pill button-small" @click="submit($event)">提交</button>
+    </form>
+  </div>
 </template>
 
 <script>
-export default {
-	name: 'HelloWorld',
-	data() {
-		return {
-			imageUrl: ''
-		};
-	}
-	,
-	 methods: {
-      handleAvatarSuccess(res, file) {
-        this.imageUrl = URL.createObjectURL(file.raw);
-      },
-//       beforeAvatarUpload(file) {
-//         const isJPG = file.type === 'image/jpeg';
-//         const isLt2M = file.size / 1024 / 1024 < 2;
-// 
-//         if (!isJPG) {
-//           this.$message.error('上传头像图片只能是 JPG 格式!');
-//         }
-//         if (!isLt2M) {
-//           this.$message.error('上传头像图片大小不能超过 2MB!');
-//         }
-//         return isJPG && isLt2M;
-//       }
-    }
-};
-</script>
+  import axios from 'axios';
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style scoped>
- .avatar-uploader .el-upload {
-    border: 1px dashed #d9d9d9;
-    border-radius: 6px;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
+  export default {
+    name: 'HelloWorld',
+    data() {
+      return {
+        msg: 'Welcome to Your Vue.js App',
+        file: ''
+      }
+    },
+    methods: {
+      getFile: function (event) {
+        this.file = event.target.files[0];
+        console.log(this.file);
+      },
+      submit: function (event) {
+        //阻止元素发生默认的行为
+        event.preventDefault();
+        let formData = new FormData();
+        formData.append("file", this.file);
+        axios.post('http://localhost:8443/upload/singlefile', formData)
+          .then(function (response) {
+            alert(response.data);
+            console.log(response);
+            window.location.reload();
+          })
+          .catch(function (error) {
+            alert("上传失败");
+            console.log(error);
+            window.location.reload();
+          });
+      }
+    }
   }
-  .avatar-uploader .el-upload:hover {
-    border-color: #409EFF;
-  }
-  .avatar-uploader-icon {
-    font-size: 28px;
-    color: #8c939d;
-    width: 178px;
-    height: 178px;
-    line-height: 178px;
-    text-align: center;
-  }
-  .avatar {
-    width: 178px;
-    height: 178px;
-    display: block;
-  }
-</style>
+</script>

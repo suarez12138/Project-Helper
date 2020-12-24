@@ -142,7 +142,7 @@
             title="确定删除本Project吗？"
             placement="top"
             style="float: right;margin-right: 150px;"
-            @confirm="deleteProject"
+            @onConfirm="deleteProject()"
           >
             <el-button slot="reference" plain type="danger">删除此Project</el-button>
           </el-popconfirm>
@@ -157,6 +157,7 @@
 
 import { get_projectInfo } from '@/api/teacher/createProject'
 import { update_projectInfo } from '@/api/teacher/createProject'
+import { drop_project } from '@/api/teacher/createProject'
 
 
 export default {
@@ -293,7 +294,7 @@ export default {
             all_tags:   this.create_ruleForm.dynamicTags,
             project_pre_week: this.create_ruleForm.time
           }).then(response => {
-
+            
           })
           this.$message({
             message: '修改成功！',
@@ -309,8 +310,8 @@ export default {
       this.$refs[formName].resetFields()
     },
     deleteProject() {
-      console.log('ceshi')
-      // 先处理后端
+      drop_project(localStorage.getItem('current_project_id')).then(response => {
+      })
       this.$message({
         message: '删除成功！',
         type: 'success'
