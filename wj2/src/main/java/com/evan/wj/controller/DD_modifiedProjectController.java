@@ -94,7 +94,7 @@ public class DD_modifiedProjectController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/teacher/project/update_project")
+    @PostMapping(value = "/vue-element-admin/teacher/project/update_project")
     @ResponseBody
     public Message_return update_project(@RequestBody DD_UpdateProjectReceive rec){
 

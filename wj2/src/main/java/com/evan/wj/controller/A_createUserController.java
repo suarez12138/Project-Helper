@@ -24,7 +24,7 @@ public class A_createUserController {
     JoinGroupDAO joinGroupDAO;
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/nnnnnnnnnnnnnnnnnnnn6")
+    @GetMapping(value = "/vue-element-admin/admin/createUser")
     @ResponseBody
     public Message_return a_create_user(@RequestParam("username") String username,@RequestParam("password") String password,@RequestParam("role") String role){
         List<Integer> IDS = joinGroupDAO.getPersonID_ByToken(username);
@@ -45,7 +45,7 @@ public class A_createUserController {
 
 
     @CrossOrigin
-    @GetMapping(value = "/vue-element-admin/student/nnnnnnnnnnnnnnnnnnnn7")
+    @GetMapping(value = "/vue-element-admin/admin/changeUser")
     @ResponseBody
     public Message_return update_role(@RequestParam("username") String username,@RequestParam("role") String role){
         List<Integer> IDS = joinGroupDAO.getPersonID_ByToken(username);
