@@ -34,7 +34,7 @@ export default {
     },
     handleSuccess({ results, header }) {
       this.tableData = results
-      this.tableHeader = ['Index', 'SID', 'Name', 'Group Name', 'Score', 'Comments']
+      this.tableHeader = ['Index', 'SID', 'Name', 'GroupName', 'Score', 'Comments']
     },
     handleUpdate() {
 

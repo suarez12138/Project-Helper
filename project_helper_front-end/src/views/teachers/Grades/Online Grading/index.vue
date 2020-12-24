@@ -185,7 +185,7 @@ export default {
     handleDownload() {
       this.downloadLoading = true
       import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['Index', 'SID', 'Name', 'Group Name', 'Score', 'Comments']
+        const tHeader = ['Index', 'SID', 'Name', 'GroupName', 'Score', 'Comments']
         const filterVal = ['index', 'stu_id', 'person_name', 'group_name', 'score', 'com_text']
         const scorelist = this.scorelist
         const data = this.formatJson(filterVal, scorelist)
