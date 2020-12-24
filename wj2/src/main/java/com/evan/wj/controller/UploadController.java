@@ -38,8 +38,8 @@ public class UploadController {
         String filePath = "S:\\For_git\\Project-Helper\\store\\";
         String save_path = filePath + fileName;
 
-        upDAO.insert_file(fileName,filePath);
-        
+        upDAO.insert_file(fileName,save_path);
+
 
 
         File dest = new File(filePath + fileName);
