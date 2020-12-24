@@ -2,7 +2,7 @@
   <div class="components-container">
     <div v-if="checkPermission(['teacher'])" class="t_border3_1">
       <div class="personal_title"> Presentation Registration</div>
-      <el-tabs style="height: 200px;">
+      <el-tabs style="height: 200px;"  @tab-click="handleClick">
         <!--eslint-disable-next-line-->
         <el-tab-pane v-for="index in timeNumber" :label="'时间段'+index">
           <div class="mid">{{ list[0].date }}</div>
@@ -10,7 +10,7 @@
           <el-table
             v-loading="listLoading"
             width="650"
-            :data="list[index-1].form"
+            :data="list[0].form"
             element-loading-text="Loading..."
             border
             fit

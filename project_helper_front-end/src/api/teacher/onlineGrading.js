@@ -27,5 +27,12 @@ export function post_scoreList(data) {
   }
 
 
+  export function post_scoreList2(data) {
+    return request({
+      url: '/vue-element-admin/teacher/grade/update_score_list2',
+      method: 'post',
+      data
+    })
+  }
 
 
