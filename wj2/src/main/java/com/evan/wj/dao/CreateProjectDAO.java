@@ -16,7 +16,7 @@ public interface CreateProjectDAO extends JpaRepository<User,Integer> {
 //    List<AllCourse> getAllCourse(String token);
 
 
-    @Query("select new com.evan.wj.bean.AllCourse(cor.id,cor.course_name) from PersonClass pc join People p on p.id = pc.person join Class c on c.id = pc.class1 join Course cor on cor.id = c.course where p.stu_id = ?1")
+    @Query("select new com.evan.wj.bean.AllCourse(cor.id, cor.course_name ) from Project pro join People p on p.id = pro.teacher_id join Course cor on cor.id = pro.course where p.stu_id = ?1")
     List<AllCourse> getAllCourse(String token);
 
     @Transactional
