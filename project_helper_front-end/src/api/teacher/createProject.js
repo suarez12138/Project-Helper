@@ -42,3 +42,12 @@ export function get_projectInfo(project_id) {
       params: {project_id}
   })
 }
+
+
+export function update_projectInfo(data) {
+  return request({
+      url: '/vue-element-admin/teacher/project/update_project',
+      method: 'post',
+      data
+  })
+}

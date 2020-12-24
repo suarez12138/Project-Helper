@@ -155,6 +155,10 @@
 
 <script>
 
+import { get_projectInfo } from '@/api/teacher/createProject'
+import { update_projectInfo } from '@/api/teacher/createProject'
+
+
 export default {
   name: 'DndListDemo',
   data() {
@@ -184,7 +188,8 @@ export default {
         groupingEndTime: '',
         groupingEndTime2: '',
         across_lab: true,
-        force: true
+        force: true,
+        skills: []
       },
       rules: {
         course: [
@@ -255,10 +260,41 @@ export default {
     }
   },
   computed: {},
+  created() {
+    this.get_project()
+  },
   methods: {
+    get_project() {
+      get_projectInfo(localStorage.getItem('current_project_id')).then(response => {
+        this.create_ruleForm.population = [response.data[0].min, response.data[0].max]
+        this.create_ruleForm.across_lab = response.data[0].across_lab
+        this.create_ruleForm.force = response.data[0].force_join
+        this.dynamicTags = response.data[0].all_tags
+        this.create_ruleForm.time = response.data[0].project_pre_week
+        this.create_ruleForm.groupingEndTime = response.data[0].project_ddl.substring(0,9)
+        this.create_ruleForm.groupingEndTime2 = response.data[0].project_ddl
+
+      })
+    },
+
+
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          update_projectInfo({
+            max: this.create_ruleForm.population[1],
+            min: this.create_ruleForm.population[0],
+            project_id: localStorage.getItem('current_project_id'),
+            project_name: localStorage.getItem('current_project').substring(1, (localStorage.getItem('current_project').length - 1)),
+            pro_grouping_endDay: this.create_ruleForm.groupingEndTime,
+            pro_grouping_endHms: this.create_ruleForm.groupingEndTime2,
+            across_lab: this.create_ruleForm.across_lab,
+            force_join: this.create_ruleForm.force,
+            all_tags:   this.create_ruleForm.dynamicTags,
+            project_pre_week: this.create_ruleForm.time
+          }).then(response => {
+
+          })
           this.$message({
             message: '修改成功！',
             type: 'success'

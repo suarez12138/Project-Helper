@@ -30,6 +30,12 @@ const submissionRouter = {
       name: 'submission3',
       meta: { title: 'Create', icon: 'clipboard', roles: ['teacher'] }
     }
+    // , {
+    //   path: 'submission5',
+    //   component: () => import('@/views/teachers/Submission/s5/index'), // Parent router-view
+    //   name: 'submission5',
+    //   meta: { title: 'Create', icon: 'clipboard', roles: ['teacher'] }
+    // }
   ]
 }
 
