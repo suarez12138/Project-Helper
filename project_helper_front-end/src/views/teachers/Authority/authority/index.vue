@@ -207,55 +207,55 @@ export default {
         ]
       },
       options: [{
-        value: 1,
+        value: 'Week 1',
         label: 'Week 1'
       }, {
-        value: 2,
+        value: 'Week 2',
         label: 'Week 2'
       }, {
-        value: 3,
+        value: 'Week 3',
         label: 'Week 3'
       }, {
-        value: 4,
+        value: 'Week 4',
         label: 'Week 4'
       }, {
-        value: 5,
+        value: 'Week 5',
         label: 'Week 5'
       }, {
-        value: 6,
+        value: 'Week 6',
         label: 'Week 6'
       }, {
-        value: 7,
+        value: 'Week 7',
         label: 'Week 7'
       }, {
-        value: 8,
+        value: 'Week 8',
         label: 'Week 8'
       }, {
-        value: 9,
+        value: 'Week 9',
         label: 'Week 9'
       }, {
-        value: 10,
+        value: 'Week 10',
         label: 'Week 10'
       }, {
-        value: 11,
+        value: 'Week 11',
         label: 'Week 11'
       }, {
-        value: 12,
+        value: 'Week 12',
         label: 'Week 12'
       }, {
-        value: 13,
+        value: 'Week 13',
         label: 'Week 13'
       }, {
-        value: 14,
+        value: 'Week 14',
         label: 'Week 14'
       }, {
-        value: 15,
+        value: 'Week 15',
         label: 'Week 15'
       }, {
-        value: 16,
+        value: 'Week 16',
         label: 'Week 16'
       }, {
-        value: 17,
+        value: 'Week 17',
         label: 'Week 17'
       }]
     }
@@ -291,7 +291,7 @@ export default {
             pro_grouping_endHms: this.create_ruleForm.groupingEndTime2,
             across_lab: this.create_ruleForm.across_lab,
             force_join: this.create_ruleForm.force,
-            all_tags:   this.create_ruleForm.dynamicTags,
+            all_tags:   this.create_ruleForm.skills,
             project_pre_week: this.create_ruleForm.time
           }).then(response => {
             
