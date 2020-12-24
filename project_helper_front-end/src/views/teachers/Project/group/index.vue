@@ -116,7 +116,10 @@
               <!--                  <p>张三 SPRINGBOOT</p>-->
               <!--                  <p>李四 VUE</p>-->
               <div slot="reference" class="name-wrapper">
-                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.group_info)">{{ scope.row.name }}</el-tag>
+                <el-tag size="medium" @click="getGroup_by_name(scope.row.name,scope.row.group_info)">{{
+                  scope.row.name
+                }}
+                </el-tag>
               </div>
             </el-popover>
           </template>
@@ -309,7 +312,7 @@ import { get_AllStudents, get_AllUngroupedStudents } from '@/api/teacher/persona
 import { fetchGroupsListState } from '@/api/teacher/group'
 import { fetchGroupsList } from '@/api/teacher/group'
 import { dropGroup } from '@/api/teacher/group'
-import { fetchTheGroup } from '@/api/student/group'
+import { fetchTheGroup, joinGroup } from '@/api/student/group'
 import { autoform_Group } from '@/api/teacher/group'
 import { joinedGroup } from '@/api/teacher/group'
 
@@ -365,7 +368,8 @@ export default {
         null,
       search: '',
       search2: '',
-      this_group_information: ''
+      this_group_information: '',
+      current_group: ''
     }
   },
   computed: {
@@ -397,6 +401,7 @@ export default {
   },
 
   created() {
+    this.getGroupState()
     this.getAllGroups()
     this.get_AllStudent_table()
     this.join()
@@ -411,13 +416,20 @@ export default {
       this.listLoading = true
       // alert(localStorage.getItem('current_project_id'))
       fetchGroupsList(localStorage.getItem('current_project_id')).then(response => {
-        this.groupList = response.allGroups
-        console.log(this.groupList)
+        // console.log('response')
+        // console.log(response.data)
+        this.groupList = response.data
+        // console.log('List')
+        // console.log(this.groupList)
         this.listLoading = false
+        this.set_table33()
       })
+    },
+    getGroupState() {
       fetchGroupsListState(localStorage.getItem('current_project_id')).then(response => {
         this.groupStates = response.data
-        this.set_table33()
+        // console.log('state')
+        // console.log(this.groupStates)
       })
     },
     set_table33() {
@@ -425,18 +437,24 @@ export default {
       var length = this.groupList.length
       // alert(length)
       for (var i = 0; i < length; i++) {
-        this.tableData33.push({
-          id: this.groupList[i].id,
-          name: this.groupList[i].name,
-          pre_time: this.groupList[i].pre_time,
-          status: this.groupList[i].status,
-          valid: this.groupStates[i].is_valid,
-          can_join: this.groupStates[i].can_join,
-          people_number: this.groupStates[i].people_number,
-          max_people: this.groupStates[i].max_people,
-          min_people: this.groupStates[i].min_people,
-          group_info: this.groupStates[i].group_info
-        })
+        for (var j = 0; j < length; j++) {
+          if (this.groupList[i].gro_id == this.groupStates[j].gro_id) {
+            this.tableData33.push({
+              id: this.groupList[i].gro_id,
+              name: this.groupList[i].name,
+              pre_time: this.groupList[i].pre_time,
+              status: this.groupList[i].status,
+              valid: this.groupStates[j].is_valid,
+              can_join: this.groupStates[j].can_join,
+              people_number: this.groupStates[j].people_number,
+              max_people: this.groupStates[j].max_people,
+              min_people: this.groupStates[j].min_people,
+              group_info: this.groupStates[j].group_info
+
+            })
+            break
+          }
+        }
         // alert(this.tableData33)
         // alert(this.groupList[0].name)
         // alert(this.tableData33[0].pre_time)
@@ -448,6 +466,8 @@ export default {
         // alert(this.tableData33[i].min_people)
         // alert(this.tableData33[i].group_info)
       }
+      // console.log(this.groupList)
+      // console.log(this.groupStates)
     },
     getGroup_by_name(name, infor) {
       this.sel_name = name
@@ -472,6 +492,8 @@ export default {
       })
     },
     add_member(row) {
+      // console.log(row)
+      this.current_group = row.id
       this.dialogVisible = true
     },
     get_AllStudent_table() {
@@ -490,12 +512,18 @@ export default {
         // console.log(this.tableData_inside2)
       })
     },
-    add_member_close() {
-      this.$message({
-        message: '加入成功',
-        type: 'success'
+    add_member_close(row) {
+      // console.log(row)
+      // console.log(row.stu_id,this.current_group)
+      joinGroup(row.stu_id, this.current_group).then(response => {
+        this.$message({
+          message: '加入成功',
+          type: 'success'
+        })
+        // this.$router.push({path: '/group/groupInformation'})
       })
       this.dialogVisible = false
+      location.reload(true)
     },
 
     drop_a_group(row, index) {

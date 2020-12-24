@@ -47,6 +47,7 @@ export function fetchTheGroup(group_name) {
     params: { group_name }
   })
 }
+
 export function beforeDDL(project_id) {
   return request({
     url: '/vue-element-admin/student/group/beforeDDL',
