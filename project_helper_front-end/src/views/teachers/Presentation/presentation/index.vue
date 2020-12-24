@@ -84,7 +84,7 @@ export default {
     }
     return {
       list: [],
-      groupNumber: '55',
+      groupNumber: '39',
       props: { multiple: true },
       pre_setting: {
         number: '',
